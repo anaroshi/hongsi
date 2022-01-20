@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 1. com.hongsi.quantity.mapper.QuantityMapper 인터페이스 선언 -->
+<!-- 2. root-context.xml <mybatis-spring:scan ~~ /> 태그로 기본 패키지 지정 -->
+<!-- 3. com.hongsi.quantity.mapper.QuantityMapper.xml 실행 작성 - src/main/resources -->
+<!-- <![CDATA[ 이 사이에 있는 것은 mybatis가 처리하지 않고 그대로 넘긴다. DB에서 처리되도록 ]]> -->
+
+<!-- QuantityVO(cno=34, code=SNS_100_001, name=SNS_100, amount=100, ingredient=Whole Wheat, igt_code=in_028, qty=4) -->
+<mapper namespace="com.hongsi.quantity.mapper.QuantityMapper">
+	<select id="list" resultType="com.hongsi.quantity.vo.QuantityVO">
+	SELECT 
+		CNO,
+		CODE,
+		NAME,
+		AMOUNT,
+		INGREDIENT,
+		IGT_CODE,
+		QTY
+	FROM QUANTITY
+	ORDER BY CNO DESC
+	</select>
+</mapper>

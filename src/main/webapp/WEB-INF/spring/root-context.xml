@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<!-- 객체 생성을 하는 bean 태그 -->
+	<!-- HicariCP 설정을 위한 객체 선언 -->
+	<!-- 오라클 서버 정보, 아이디, 비번 -->	
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<!-- 오라클 서버 정보, 아이디, 비번 -->
+		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
+		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@localhost:9090:xe" />
+		<property name="username" value="hong" />
+		<property name="password" value="hongsi" />
+	</bean>
+
+	<!-- hikariCP의 데이터 소스 객체 선언 -->
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+		<!-- HikariCP 설정객을 사용하도록 선언 : 생성자에서 블러 오도록 해야 한다. -->
+		<constructor-arg ref="hikariConfig"/>
+	</bean>
+
+	<!-- mybatis에서 hikariCP -->
+	<!-- ORM : Mybatis에 대한 설정 - DAO 프로그램의 자동화 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- DAO(persitence) 자동으로 만들어 주기 위한 위치 -->
+	<mybatis-spring:scan base-package="com.hongsi" />
+	
+	<context:component-scan base-package="com.hongsi" />		
+</beans>
