@@ -129,7 +129,11 @@ article {
 				</div>
 				<div class="collapse navbar-collapse" id="myNavbar">
 					<ul class="nav navbar-nav">
-						<li><a href="${path }/quantity/list.do">Quantity</a></li>
+						<li><a href="${path }/quantity/list.do">재료함량</a></li>
+						<li><a href="${path }/purchbook/buy.do">재료구매</a></li>
+						<li><a href="${path }/ingrestock/list.do">재료재고</a></li>
+						<li><a href="${path }/purchshop/list.do">판매</a></li>
+						<li><a href="${path }/itemstock/list.do">상품재고</a></li>
 						<li><a href="${path }/notice/list.do">공지사항</a></li>
 						<li><a href="${path }/image/list.do">이미지</a></li>
 						<li><a href="${path }/board/list.do">게시판</a></li>

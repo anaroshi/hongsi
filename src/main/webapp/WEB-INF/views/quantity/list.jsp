@@ -9,10 +9,43 @@
 <title>Quantity</title>
 </head>
 <body>
-<h1>List</h1>
-<c:forEach items="${resultList}" var="vo">
-${vo}<br>
-<!-- QuantityVO(cno=34, code=SNS_100_001, name=SNS_100, amount=100, ingredient=Whole Wheat, igt_code=in_028, qty=4) -->
-</c:forEach>
-</body>
+<div class="container">
+  <h2>재료 함량</h2>
+  <p>ITEM별 100G에 함유되는 재료량</p>
+<div class="row">  
+<c:forEach items="${itemList}" var="itemVO">
+<div class="col-md-3">
+<div class="thumbnail">
+<p>${itemVO.name}</p>
+
+<c:forEach items="${itemTypeList}" var="itemTypeVO">
+<c:if test="${itemVO.code eq itemTypeVO.itemcode}">     
+  <table class="table table-bordered">
+    <thead>
+      <tr align="right">
+        <th colspan="2" class="text-right">${itemTypeVO.amount}g</th>
+      </tr>
+      <tr>
+        <th>Ingredient</th>
+        <th>Quantity (g)</th>
+      </tr>
+    </thead>
+    <tbody>
+	<c:forEach items="${qtyList}" var="vo">
+	<c:if test="${itemTypeVO.code eq vo.code}">
+		<tr>
+	        <td>${vo.ingredient}</td>
+	        <td class="text-right">${vo.qty}</td>
+		</tr>
+	</c:if>
+	</c:forEach> <!-- qtyList End --> 
+    </tbody>
+  </table>
+</c:if>       
+</c:forEach> <!-- itemTypeList End --> 
+</div>
+</div>
+</c:forEach> <!-- itemList End --> 
+</div> 
+</div>
 </html>
