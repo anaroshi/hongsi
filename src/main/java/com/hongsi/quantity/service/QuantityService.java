@@ -8,4 +8,8 @@ public interface QuantityService {
 	
 	public List<QuantityVO> list();
 
+	public List<QuantityVO> selectItemQty(String code);
+
+	public List<QuantityVO> selectTotalByItem(String code);
+
 }

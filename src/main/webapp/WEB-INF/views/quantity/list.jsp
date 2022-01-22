@@ -15,7 +15,6 @@
 <div class="row">  
 <c:forEach items="${itemList}" var="itemVO">
 <div class="col-md-3">
-<div class="thumbnail">
 <p>${itemVO.name}</p>
 
 <c:forEach items="${itemTypeList}" var="itemTypeVO">
@@ -43,7 +42,6 @@
   </table>
 </c:if>       
 </c:forEach> <!-- itemTypeList End --> 
-</div>
 </div>
 </c:forEach> <!-- itemList End --> 
 </div> 

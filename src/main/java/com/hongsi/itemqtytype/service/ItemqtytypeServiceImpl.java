@@ -15,7 +15,7 @@ import lombok.extern.log4j.Log4j;
 @Qualifier("itemServiceImpl")
 @AllArgsConstructor
 @Log4j
-public class itemqtytypeServiceImpl implements ItemqtytypeService {
+public class ItemqtytypeServiceImpl implements ItemqtytypeService {
 
 	private ItemqtytypeMapper mapper;
 	

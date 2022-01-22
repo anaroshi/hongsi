@@ -12,6 +12,8 @@ public class QuantityVO {
 	private String 	ingredient;
 	private String 	igt_code;
 	private long 	qty;
+	private String 	item;
+	private long 	total;
 	
 
 }

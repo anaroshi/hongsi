@@ -8,4 +8,8 @@ public interface QuantityMapper {
 
 	List<QuantityVO> list();
 
+	List<QuantityVO> selectItemQty(String code);
+
+	List<QuantityVO> selectTotalByItem(String code_100);
+
 }

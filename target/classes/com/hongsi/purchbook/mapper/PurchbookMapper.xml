@@ -17,10 +17,60 @@
 		QTY,		
 		MINQTY,		
 		UNIT,		
-		INDATE
+		INDATE,
 		COMM,
 		RDATE		
 	FROM PURCHASE_BOOK
 	ORDER BY CNO ASC
-	</select>		
+	</select>
+	
+	<insert id="buyProcess">
+	INSERT INTO PURCHASE_BOOK (
+		CNO,
+		BUYDATE,
+		ITEM,
+		GUBUN,
+		CONTENT,
+		QTY,		
+		UNIT,		
+		PRICE,	
+		PURSHOP,		
+		INDATE,
+		COMM,
+		BUYER,
+		SUMQTY	
+	) VALUES (
+		PURCHASE_BOOK_PK.NEXTVAL,
+		TO_DATE(#{buyDate},'YYYYMMDD'),
+		#{item},
+		#{gubun},
+		#{content},
+		#{qty},
+		#{unit},
+		#{price},
+		#{purShop},
+		TO_DATE(#{inDate},'YYYYMMDD'),
+		#{comm},
+		#{buyer},
+		#{content} * #{qty}
+	)
+	</insert>
+	
+	<select id="selectIgdTotalList" resultType="com.hongsi.purchbook.vo.PurchbookVO">
+	SELECT 	A.ITEM ITEM,
+			B.KNAME KNAME,
+			A.INTOTAL INTOTAL,
+			A.OUTTOTAL OUTTOTAL,
+			A.DISTOTAL DISTOTAL,
+			(A.INTOTAL - A.OUTTOTAL - A.DISTOTAL) TOTAL
+	FROM 
+	(	SELECT 	ITEM,
+				SUM(CASE WHEN GUBUN = '구매' THEN SUMQTY ELSE 0 END) INTOTAL,
+				SUM(CASE WHEN GUBUN = '반품' THEN SUMQTY ELSE 0 END) OUTTOTAL,
+				SUM(CASE WHEN GUBUN = '폐기' THEN SUMQTY ELSE 0 END) DISTOTAL
+		FROM PURCHASE_BOOK
+		GROUP BY ITEM
+	) A
+	INNER JOIN INGREDIENT B ON A.ITEM = B.CODE		
+	</select>	
 </mapper>

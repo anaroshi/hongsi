@@ -25,4 +25,20 @@ public class PurchbookSerivceImpl implements PurchbookSerivce {
 		return mapper.list();
 	}
 
+	@Override
+	public Integer buyProcess(PurchbookVO vo) {
+		vo.setBuyDate(vo.getBuyDate().replace("/", ""));
+		vo.setBuyDate(vo.getBuyDate().replace(".", ""));
+		vo.setBuyDate(vo.getBuyDate().replace("-", ""));
+		vo.setInDate(vo.getInDate().replace("/", ""));
+		vo.setInDate(vo.getInDate().replace(".", ""));
+		vo.setInDate(vo.getInDate().replace("-", ""));
+		return mapper.buyProcess(vo);
+	}
+
+	@Override
+	public List<PurchbookVO> selectIgdTotalList() {		
+		return mapper.selectIgdTotalList();
+	}
+
 }

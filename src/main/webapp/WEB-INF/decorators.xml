@@ -11,10 +11,10 @@
 		<pattern>/purchbook/*</pattern>
 		<pattern>/ingrestock/*</pattern>
 		<pattern>/purchshop/*</pattern>
+		<pattern>/product/*</pattern>
 		<pattern>/itemstock/*</pattern>
 		<pattern>/board/*</pattern>
 		<pattern>/notice/*</pattern>
-		<pattern>/image/*</pattern>
 		<pattern>/qna/*</pattern>
 		<pattern>/message/*</pattern>
 		<pattern>/member/*</pattern>
