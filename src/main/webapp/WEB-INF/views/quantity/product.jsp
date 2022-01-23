@@ -27,23 +27,23 @@ $(function() {
         			let ingreStr = "";
         		 
         			for ( x in result) {
-        			//	console.log(result[x]);
-        			let a = result[x].ingredient;
-        			let b = result[x].qty;
-        			let c = result[x].total;
-        			let d = c-b;
-        			
-        			ingreStr += `<tr>
-        					<td>`+ a +`</td>
-        					<td class='text-right' id="stockQty`+x+`">`+ c +`</td>
-        					<td class='text-right' id="basicQty`+x+`">`+ b +`</td>
-        					<td class='text-right' id="multiQty`+x+`">`+ b +`</td>`;
-        					
-       				if (d<= 0) {
-       					ingreStr +=  `<td class='text-right bg-danger' id="finalQty`+x+`">`+ d +`</td></tr>`;
-           			} else {
-           				ingreStr +=  `<td class='text-right' id="finalQty`+x+`">`+ d +`</td></tr>`;
-           			}
+	        			//	console.log(result[x]);
+	        			let a = result[x].ingredient;
+	        			let b = result[x].qty;
+	        			let c = result[x].total;
+	        			let d = c-b;
+	        			
+	        			ingreStr += `<tr>
+	        					<td>`+ a +`</td>
+	        					<td class='text-right' id="stockQty`+x+`">`+ c +`</td>
+	        					<td class='text-right' id="basicQty`+x+`">`+ b +`</td>
+	        					<td class='text-right' id="multiQty`+x+`">`+ b +`</td>`;
+	        					
+	       				if (d<= 0) {
+	       					ingreStr +=  `<td class='text-right bg-danger' id="finalQty`+x+`">`+ d +`</td></tr>`;
+	           			} else {
+	           				ingreStr +=  `<td class='text-right' id="finalQty`+x+`">`+ d +`</td></tr>`;
+	           			}
         			}      			
         			 
         			let tableBodyIngre = `				

@@ -8,7 +8,7 @@ public interface QuantityMapper {
 
 	List<QuantityVO> list();
 
-	List<QuantityVO> selectItemQty(String code);
+	List<QuantityVO> selectItemQty(String name);
 
 	List<QuantityVO> selectTotalByItem(String code_100);
 

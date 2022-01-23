@@ -31,8 +31,8 @@
 		IGT_CODE,
 		QTY
 	FROM 	QUANTITY
-	WHERE	CODE = #{code} 
-	ORDER BY CNO DESC
+	WHERE	NAME = #{NAME} 
+	ORDER BY CNO ASC
 	
 	</select>
 
