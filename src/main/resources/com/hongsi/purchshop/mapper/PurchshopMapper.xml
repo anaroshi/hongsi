@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 1. com.hongsi.purchshop.mapper.PurchshopMapper 인터페이스 선언 -->
+<!-- 2. root-context.xml <mybatis-spring:scan ~~ /> 태그로 기본 패키지 지정 -->
+<!-- 3. com.hongsi.purchshop.mapper.PurchshopMapper.xml 실행 작성 - src/main/resources -->
+<!-- <![CDATA[ 이 사이에 있는 것은 mybatis가 처리하지 않고 그대로 넘긴다. DB에서 처리되도록 ]]> -->
+
+<mapper namespace="com.hongsi.purchshop.mapper.PurchshopMapper">
+
+	<insert id="insertPurchshopOrder">
+	INSERT INTO PURCHSHOP (
+		CNO,
+		ORDERDATE,
+		ORI_200,
+		ORI_500,
+		ORI_1000,
+		ERL_200,		
+		ERL_500,		
+		ERL_1000,	
+		SNS_200,		
+		SNS_500,
+		SNS_1000,
+		GUBUN,
+		SALEPATH,
+		ORDERER,
+		COMM,
+		MANAGER	
+	) VALUES (
+		PURCHSHOP_PK.NEXTVAL,
+		#{orderDate},
+		#{ori_200},
+		#{ori_500},
+		#{ori_1000},
+		#{erl_200},
+		#{erl_500},
+		#{erl_1000},
+		#{sns_200},
+		#{sns_500},
+		#{sns_1000},
+		#{gubun},
+		#{salePath},
+		#{orderer},
+		#{comm},
+		#{manager}
+	)
+	</insert>	
+	<!-- TO_DATE(#{orderDate},'YYYYMMDD'), -->
+	
+	<select id="selectItemTotSum" resultType="com.hongsi.purchshop.vo.PurchshopVO">
+	SELECT 
+		(SUM(ORI_200)*200)+(SUM(ORI_500)*500)+(SUM(ORI_1000)*1000) ORI_SUM,
+		(SUM(ERL_200)*200)+(SUM(ERL_500)*500)+(SUM(ERL_1000)*1000) ERL_SUM,
+		(SUM(SNS_200)*200)+(SUM(SNS_500)*500)+(SUM(SNS_1000)*1000) SNS_SUM
+	FROM PURCHSHOP
+	</select>
+	
+	<select id="selectItemSum" resultType="com.hongsi.purchshop.vo.PurchshopVO">
+	SELECT 
+		SUM(ORI_200)  	ORI_200_SUM,
+		SUM(ORI_500)  	ORI_500_SUM,
+		SUM(ORI_1000)  	ORI_1000_SUM,
+		SUM(ERL_200)	ERL_200_SUM,
+		SUM(ERL_500)  	ERL_500_SUM,
+		SUM(ERL_1000)  	ERL_1000_SUM,
+		SUM(SNS_200)  	SNS_200_SUM,
+		SUM(SNS_500)  	SNS_500_SUM,
+		SUM(SNS_1000)  	SNS_1000_SUM
+	FROM PURCHSHOP
+	</select>
+</mapper>
