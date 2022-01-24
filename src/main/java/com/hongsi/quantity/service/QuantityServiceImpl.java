@@ -36,6 +36,12 @@ public class QuantityServiceImpl implements QuantityService {
 				String code_100 = code+"_100_001";
 		return mapper.selectTotalByItem(code_100);
 	}
+
+	@Override
+	public List<QuantityVO> selectAllIngreStock() {
+		// 전체 재료, original 재료량, earlgrey 재료량, sweet&salty 재료량, 전체 재고 쿼리
+		return mapper.selectAllIngreStock();
+	}
 	
 	
 

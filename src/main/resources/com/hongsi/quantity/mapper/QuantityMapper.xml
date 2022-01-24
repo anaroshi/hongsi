@@ -61,32 +61,150 @@
 	ORDER BY QUANTITY.CNO DESC	
 	</select>
 
- <!-- 	
-	<select id="">
-
+	<select id="selectAllIngreStock" resultType="com.hongsi.quantity.vo.QuantityVO">
+	SELECT 	II.KNAME KNAME, II.ENAME ENAME, II.CODE CODE, NVL(II.ORI_QTY, 0) ORI_QTY, NVL(II.ERL_QTY, 0) ERL_QTY, 
+			NVL(II.SNS_QTY, 0) SNS_QTY, NVL(II.ST.TOTAL, 0) TOTAL
+	FROM (
+		SELECT I.KNAME, I.ENAME, I.CODE, I.ORI_QTY, I.ERL_QTY, I.SNS_QTY
+		FROM (
+			SELECT ORI_ERL.CODE, ORI_ERL.KNAME, ORI_ERL.ENAME, ORI_ERL.ORI_QTY, ORI_ERL.ERL_QTY, D.SNS_QTY
+			FROM
+			(
+				SELECT ORI.CODE CODE, ORI.KNAME KNAME, ORI.ENAME ENAME, ORI.ORI_QTY ORI_QTY, C.ERL_QTY ERL_QTY 
+				FROM
+				(
+					SELECT A.CODE, A.KNAME, A.ENAME, B.ORI_QTY
+					FROM
+					(	<!-- 재료 목록 구하기 -->
+						SELECT  CODE, KNAME, ENAME FROM INGREDIENT 
+					) A
+					LEFT OUTER JOIN 
+					(	<!-- ORIGINAL 100g 재료 구하기 -->
+						SELECT  IGT_CODE, INGREDIENT, QTY ORI_QTY
+						FROM QUANTITY
+						WHERE NAME ='ORI_100'
+					) B
+					ON A.CODE = B.IGT_CODE					
+				) ORI
+				LEFT OUTER JOIN 
+				(	<!-- EARLGREY 100g 재료 구하기 -->
+					SELECT  IGT_CODE, INGREDIENT, QTY ERL_QTY
+					FROM QUANTITY
+					WHERE NAME ='ERL_100'
+				) C
+				ON ORI.CODE = C.IGT_CODE
+			) ORI_ERL
+			LEFT OUTER JOIN 
+			(	<!-- SWEET & SALTY 100g 재료 구하기 -->
+				SELECT  IGT_CODE, INGREDIENT, QTY SNS_QTY
+				FROM QUANTITY
+				WHERE NAME ='SNS_100'
+			) D
+			ON ORI_ERL.CODE = D.IGT_CODE 
+		) I 
+	) II
+	LEFT OUTER JOIN 
+	(   <!-- 전 재료의 재고량 STOCK AS S / ST -->
+		SELECT S.ITEM ITEM, (S.INTOTAL - S.OUTTOTAL - S.DISTOTAL) TOTAL
+		FROM 
+		(	SELECT 	ITEM,
+					SUM(CASE WHEN GUBUN = '구매' THEN SUMQTY ELSE 0 END) INTOTAL,
+					SUM(CASE WHEN GUBUN = '반품' THEN SUMQTY ELSE 0 END) OUTTOTAL,
+					SUM(CASE WHEN GUBUN = '폐기' THEN SUMQTY ELSE 0 END) DISTOTAL
+			FROM PURCHASE_BOOK		
+			GROUP BY ITEM
+		) S		
+	) ST
+	ON II.CODE = ST.ITEM
+	ORDER BY II.KNAME
+	</select>
 	
-	SELECT 
-		QUANTITY.CNO,
-		QUANTITY.CODE,
-		QUANTITY.NAME,
-		QUANTITY.AMOUNT,
-		QUANTITY.INGREDIENT,
-		QUANTITY.IGT_CODE,
-		QUANTITY.QTY,
-		AL.ITEM,
-		AL.TOTAL
-	FROM 	QUANTITY,	  
-	( SELECT A.ITEM ITEM, (A.INTOTAL - A.OUTTOTAL - A.DISTOTAL) TOTAL
+ </mapper>
+ 
+
+<!--
+ ******************************* ORIGINAL, EARLGREY, SWEET & SALTY 100G 함류량 ********************************************
+SELECT ori_erl.code, ori_erl.kname, ori_erl.ename, ori_erl.ori_igt_code, ori_erl.ori_qty, ori_erl.erl_igt_code, ori_erl.erl_qty, d.igt_code, d.sns_qty
+from
+(SELECT ori.code code, ori.kname kname, ori.ename ename, ori.igt_code ori_igt_code, ori.ori_qty ori_qty, c.igt_code erl_igt_code, c.erl_qty erl_qty 
+from
+(SELECT a.code, a.kname, a.ename, b.igt_code, b.ori_qty
+from
+(select  code, kname, ename
+from INGREDIENT 
+) a
+left OUTER JOIN 
+(select  igt_code, ingredient, qty ori_qty
+from quantity
+where NAME ='ORI_100') b
+ON a.code = b.igt_code
+ORDER BY a.code ) ori
+left OUTER JOIN 
+(select  igt_code, ingredient, qty erl_qty
+from quantity
+where NAME ='ERL_100') c
+ON ori.code = c.igt_code) ori_erl
+left OUTER JOIN 
+(select  igt_code, ingredient, qty sns_qty
+from quantity
+where NAME ='SNS_100') d
+ON ori_erl.code = d.igt_code
+
+******************************* ORIGINAL, EARLGREY, SWEET & SALTY 100G 함류량 + 전제 재고 *******************************
+
+SELECT II.KNAME KNAME, II.ENAME ENAME, II.CODE CODE, NVL(II.ORI_QTY, 0) ORI_QTY, NVL(II.ERL_QTY, 0) ERL_QTY, NVL(II.SNS_QTY, 0) SNS_QTY, NVL(II.ST.TOTAL, 0) TOTAL
+FROM (
+	SELECT I.KNAME, I.ENAME, I.CODE, I.ORI_QTY, I.ERL_QTY, I.SNS_QTY
+	FROM (
+		SELECT ORI_ERL.CODE, ORI_ERL.KNAME, ORI_ERL.ENAME, ORI_ERL.ORI_QTY, ORI_ERL.ERL_QTY, D.SNS_QTY
+		FROM
+		(
+			SELECT ORI.CODE CODE, ORI.KNAME KNAME, ORI.ENAME ENAME, ORI.ORI_QTY ORI_QTY, C.ERL_QTY ERL_QTY 
+			FROM
+			(
+				SELECT A.CODE, A.KNAME, A.ENAME, B.ORI_QTY
+				FROM
+				(	// 재료 목록 구하기
+					SELECT  CODE, KNAME, ENAME FROM INGREDIENT 
+				) A
+				LEFT OUTER JOIN 
+				(	// ORIGINAL 100g 재료 구하기
+					SELECT  IGT_CODE, INGREDIENT, QTY ORI_QTY
+					FROM QUANTITY
+					WHERE NAME ='ORI_100'
+				) B
+				ON A.CODE = B.IGT_CODE
+				ORDER BY A.CODE 
+			) ORI
+			LEFT OUTER JOIN 
+			(	// EARLGREY 100g 재료 구하기
+				SELECT  IGT_CODE, INGREDIENT, QTY ERL_QTY
+				FROM QUANTITY
+				WHERE NAME ='ERL_100'
+			) C
+			ON ORI.CODE = C.IGT_CODE
+		) ORI_ERL
+		LEFT OUTER JOIN 
+		(	// SWEET & SALTY 100g 재료 구하기
+			SELECT  IGT_CODE, INGREDIENT, QTY SNS_QTY
+			FROM QUANTITY
+			WHERE NAME ='SNS_100'
+		) D
+		ON ORI_ERL.CODE = D.IGT_CODE 
+	) I 
+) II
+LEFT OUTER JOIN 
+(  // 전 재료의 재고량 STOCK AS S / ST
+	SELECT S.ITEM ITEM, (S.INTOTAL - S.OUTTOTAL - S.DISTOTAL) TOTAL
 	FROM 
 	(	SELECT 	ITEM,
 				SUM(CASE WHEN GUBUN = '구매' THEN SUMQTY ELSE 0 END) INTOTAL,
 				SUM(CASE WHEN GUBUN = '반품' THEN SUMQTY ELSE 0 END) OUTTOTAL,
 				SUM(CASE WHEN GUBUN = '폐기' THEN SUMQTY ELSE 0 END) DISTOTAL
-		FROM PURCHASE_BOOK
+		FROM PURCHASE_BOOK		
 		GROUP BY ITEM
-	) A ) AL 
-	WHERE	QUANTITY.CODE = 'ERL_100_001' AND QUANTITY.IGT_CODE = AL.ITEM
-	ORDER BY QUANTITY.CNO DESC;
-	
-	</select> -->
-</mapper>
+	) S 
+	ORDER BY S.ITEM 
+) ST
+ON II.CODE = ST.ITEM	
+ -->

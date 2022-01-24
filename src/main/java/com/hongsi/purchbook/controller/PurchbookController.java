@@ -31,12 +31,6 @@ public class PurchbookController {
 	@Qualifier("ingredientServiceImpl")
 	private IngredientService ingredientService;
 	
-	@GetMapping("list.do")
-	public String list() {
-		log.info(".............................purchbookController..");
-		return MODULE + "/list";
-	}
-	
 	@GetMapping("buy.do")
 	public String buy(Model model) {
 		log.info(".............................purchbookController..buy");

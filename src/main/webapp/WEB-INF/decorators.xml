@@ -14,8 +14,7 @@
 		<pattern>/product/*</pattern>
 		<pattern>/itemstock/*</pattern>
 		<pattern>/board/*</pattern>
-		<pattern>/notice/*</pattern>
-		<pattern>/qna/*</pattern>
+		<pattern>/notice/*</pattern>		
 		<pattern>/message/*</pattern>
 		<pattern>/member/*</pattern>
 		<pattern>/main/*</pattern>

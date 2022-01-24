@@ -15,5 +15,11 @@ public class QuantityVO {
 	private String 	item;
 	private long 	total;
 	
-
+	private String 	kname;
+	private String 	ename;
+	private long 	ori_qty;
+	private long 	erl_qty;
+	private long 	sns_qty;
+	
 }
+

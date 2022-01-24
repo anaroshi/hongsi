@@ -12,4 +12,6 @@ public interface QuantityMapper {
 
 	List<QuantityVO> selectTotalByItem(String code_100);
 
+	List<QuantityVO> selectAllIngreStock();
+
 }
