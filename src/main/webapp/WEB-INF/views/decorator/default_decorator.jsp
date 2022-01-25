@@ -134,6 +134,8 @@ article {
 						<li><a href="${path }/purchbook/stockList.do">재료재고</a></li>
 						<li><a href="${path }/quantity/product.do">제품생산</a></li>
 						<li><a href="${path }/purchshop/order.do">주문</a></li>
+						<li><a href="${path }/purchshop/orderList.do">주문과상세</a></li>
+						<li><a href="${path }/purchshop/orderAllList.do">주문List</a></li>
 						<li><a href="${path }/itemstock/list.do">상품재고</a></li>
 						<li><a href="${path }/notice/list.do">공지사항</a></li>
 						<li><a href="${path }/board/list.do">게시판</a></li>

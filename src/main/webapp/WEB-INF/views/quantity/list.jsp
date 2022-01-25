@@ -10,7 +10,7 @@
 </head>
 <body>
 <div class="container">
-  <h2>재료 함량</h2>
+  <h4>재료 함량</h4>
   <p>ITEM별 100G에 함유되는 재료량</p>
 <div class="row">  
 <c:forEach items="${itemList}" var="itemVO">

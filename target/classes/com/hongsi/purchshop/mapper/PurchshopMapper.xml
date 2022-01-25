@@ -8,6 +8,12 @@
 
 <mapper namespace="com.hongsi.purchshop.mapper.PurchshopMapper">
 
+	<sql id="sun_saturday">
+		AND TO_DATE(ORDERDATE,'YYYY-MM-DD') 
+		BETWEEN TO_DATE(TRUNC(SYSDATE, 'IW')-1,'YYYY-MM-DD') 
+		AND TO_DATE(TRUNC(SYSDATE, 'IW')+5,'YYYY-MM-DD')
+	</sql>
+	
 	<insert id="insertPurchshopOrder">
 	INSERT INTO PURCHSHOP (
 		CNO,
@@ -53,6 +59,8 @@
 		(SUM(ERL_200)*200)+(SUM(ERL_500)*500)+(SUM(ERL_1000)*1000) ERL_SUM,
 		(SUM(SNS_200)*200)+(SUM(SNS_500)*500)+(SUM(SNS_1000)*1000) SNS_SUM
 	FROM PURCHSHOP
+	WHERE 1=1
+	<include refid="sun_saturday" />
 	</select>
 	
 	<select id="selectItemSum" resultType="com.hongsi.purchshop.vo.PurchshopVO">
@@ -67,5 +75,148 @@
 		SUM(SNS_500)  	SNS_500_SUM,
 		SUM(SNS_1000)  	SNS_1000_SUM
 	FROM PURCHSHOP
+	WHERE 1=1
+	<include refid="sun_saturday" />
 	</select>
+	
+	<select id="selectOrderList" resultType="com.hongsi.purchshop.vo.PurchshopVO">
+	SELECT 	A.CNO, A.ORDERDATE, 
+			A.ORI_200_ORDER || A.ORI_500_ORDER || A.ORI_1000_ORDER ORI_200_ORDER,
+			A.ERL_200_ORDER || A.ERL_500_ORDER || A.ERL_1000_ORDER ERL_200_ORDER,
+			A.SNS_200_ORDER || A.SNS_500_ORDER || A.SNS_1000_ORDER SNS_200_ORDER,
+			A.ORDERER
+	FROM (	
+		SELECT 
+			CNO,
+			ORDERDATE, 		
+			CASE WHEN ORI_200 > 0 
+				THEN 'ORI_200 : '|| TO_CHAR(ORI_200,'999,999,999')||' 개, '
+				ELSE ''
+			END AS ORI_200_ORDER,
+			CASE WHEN ORI_500 > 0 
+				THEN 'ORI_500 : '|| TO_CHAR(ORI_500,'999,999,999')||' 개, '
+				ELSE ''
+			END AS ORI_500_ORDER,
+			CASE WHEN ORI_1000 > 0 
+				THEN 'ORI_1000 : '|| TO_CHAR(ORI_1000,'999,999,999')||' 개, '
+				ELSE ''
+			END AS ORI_1000_ORDER,		
+			CASE WHEN ERL_200 > 0 
+				THEN 'ERL_200 : '|| TO_CHAR(ERL_200,'999,999,999')||' 개, '
+				ELSE ''
+			END AS ERL_200_ORDER,
+			CASE WHEN ERL_500 > 0 
+				THEN 'ERL_500 : '|| TO_CHAR(ERL_500,'999,999,999')||' 개, '
+				ELSE ''
+			END AS ERL_500_ORDER,
+			CASE WHEN ERL_1000 > 0 
+				THEN 'ERL_1000 : '|| TO_CHAR(ERL_1000,'999,999,999')||' 개, '
+				ELSE ''
+			END AS ERL_1000_ORDER,
+			CASE WHEN SNS_200 > 0 
+				THEN 'SNS_200 : '|| TO_CHAR(SNS_200,'999,999,999')||' 개, '
+				ELSE ''
+			END AS SNS_200_ORDER,
+			CASE WHEN SNS_500 > 0 
+				THEN 'SNS_500 : '|| TO_CHAR(SNS_500,'999,999,999')||' 개, '
+				ELSE ''
+			END AS SNS_500_ORDER,
+			CASE WHEN SNS_1000 > 0 
+				THEN 'SNS_1000 : '|| TO_CHAR(SNS_1000,'999,999,999')||' 개'
+				ELSE ''
+			END AS SNS_1000_ORDER,
+			ORDERER
+		FROM PURCHSHOP
+		WHERE 1=1	
+		ORDER BY ORDERDATE
+	) A
+	</select>
+	
+	<select id="selectOrderListSuntSat" resultType="com.hongsi.purchshop.vo.PurchshopVO">
+	SELECT 	A.CNO, A.ORDERDATE, 
+			A.ORI_200_ORDER || A.ORI_500_ORDER || A.ORI_1000_ORDER ORI_200_ORDER,
+			A.ERL_200_ORDER || A.ERL_500_ORDER || A.ERL_1000_ORDER ERL_200_ORDER,
+			A.SNS_200_ORDER || A.SNS_500_ORDER || A.SNS_1000_ORDER SNS_200_ORDER,
+			A.ORDERER
+	FROM (	
+		SELECT 
+			CNO,
+			ORDERDATE, 		
+			CASE WHEN ORI_200 > 0 
+				THEN 'ORI_200 : '|| TO_CHAR(ORI_200,'999,999,999')||' 개, '
+				ELSE ''
+			END AS ORI_200_ORDER,
+			CASE WHEN ORI_500 > 0 
+				THEN 'ORI_500 : '|| TO_CHAR(ORI_500,'999,999,999')||' 개, '
+				ELSE ''
+			END AS ORI_500_ORDER,
+			CASE WHEN ORI_1000 > 0 
+				THEN 'ORI_1000 : '|| TO_CHAR(ORI_1000,'999,999,999')||' 개, '
+				ELSE ''
+			END AS ORI_1000_ORDER,		
+			CASE WHEN ERL_200 > 0 
+				THEN 'ERL_200 : '|| TO_CHAR(ERL_200,'999,999,999')||' 개, '
+				ELSE ''
+			END AS ERL_200_ORDER,
+			CASE WHEN ERL_500 > 0 
+				THEN 'ERL_500 : '|| TO_CHAR(ERL_500,'999,999,999')||' 개, '
+				ELSE ''
+			END AS ERL_500_ORDER,
+			CASE WHEN ERL_1000 > 0 
+				THEN 'ERL_1000 : '|| TO_CHAR(ERL_1000,'999,999,999')||' 개, '
+				ELSE ''
+			END AS ERL_1000_ORDER,
+			CASE WHEN SNS_200 > 0 
+				THEN 'SNS_200 : '|| TO_CHAR(SNS_200,'999,999,999')||' 개, '
+				ELSE ''
+			END AS SNS_200_ORDER,
+			CASE WHEN SNS_500 > 0 
+				THEN 'SNS_500 : '|| TO_CHAR(SNS_500,'999,999,999')||' 개, '
+				ELSE ''
+			END AS SNS_500_ORDER,
+			CASE WHEN SNS_1000 > 0 
+				THEN 'SNS_1000 : '|| TO_CHAR(SNS_1000,'999,999,999')||' 개'
+				ELSE ''
+			END AS SNS_1000_ORDER,
+			ORDERER
+		FROM PURCHSHOP
+		WHERE 1=1
+		<include refid="sun_saturday" />		
+		ORDER BY ORDERDATE
+	) A
+	</select>
+	
+	<select id="getWeekDay" resultType="com.hongsi.purchshop.vo.PurchshopVO">
+	SELECT 
+		TO_CHAR(A.SUNDAY,'YYYY-MM-DD (DY)','NLS_DATE_LANGUAGE=KOREAN') startDate, 
+		TO_CHAR(A.SATURDAY,'YYYY-MM-DD (DY)','NLS_DATE_LANGUAGE=KOREAN') endDate, 
+		TO_CHAR(A.TODAY,'YYYY-MM-DD (DY)','NLS_DATE_LANGUAGE=KOREAN') toDate 
+	FROM 
+	(
+		SELECT TRUNC(SYSDATE, 'IW')-1 AS SUNDAY, 
+			TRUNC(SYSDATE, 'IW')+5 AS SATURDAY,
+			TRUNC(SYSDATE) AS TODAY
+		FROM DUAL
+	) A		
+	</select>
+	
+<!-- 	<select id="selectOrderList" resultType="com.hongsi.purchshop.vo.PurchshopVO"> -->
+<!-- 		SELECT  -->
+<!-- 			CNO, -->
+<!-- 			ORDERDATE, -->
+<!-- 			ORI_200, -->
+<!-- 			ORI_500, -->
+<!-- 			ORI_1000, 		 -->
+<!-- 			ERL_200, -->
+<!-- 			ERL_500, -->
+<!-- 			ERL_1000, 		 -->
+<!-- 			SNS_200, -->
+<!-- 			SNS_500, -->
+<!-- 			SNS_1000, -->
+<!-- 			ORDERER -->
+<!-- 		FROM PURCHSHOP -->
+<!-- 		WHERE 1=1	 -->
+<!-- 		ORDER BY ORDERDATE -->
+<!-- 	</select>	 -->
+	
 </mapper>

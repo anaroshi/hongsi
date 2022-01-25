@@ -7,6 +7,6 @@
 <title>PurchBook</title>
 </head>
 <body>
-<h2>PurchBook</h2>
+<h4>PurchBook</h4>
 </body>
 </html>

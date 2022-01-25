@@ -1,5 +1,6 @@
 package com.hongsi.purchshop.vo;
 
+import java.security.KeyStore.PrivateKeyEntry;
 import java.sql.Date;
 
 import lombok.Data;
@@ -30,13 +31,27 @@ public class PurchshopVO {
 	private long 	ori_1000_sum;	// ori_1000 주단위 주문갯수
 	private long 	erl_200_sum;	// erl_200 주단위 주문갯수
 	private long 	erl_500_sum;	// erl_500 주단위 주문갯수
-	private long 	erl_1000_sum;	// erl_1000 주문갯수
+	private long 	erl_1000_sum;	// erl_1000 주단위 주문갯수
 	private long 	sns_200_sum;	// sns_200 주단위 주문갯수
 	private long 	sns_500_sum;	// sns_500 주단위 주문갯수
 	private long 	sns_1000_sum;	// sns_1000 주단위 주문갯수
- 	private long 	ori_sum;
+ 	private long 	ori_sum;		
 	private long 	erl_sum;
 	private long 	sns_sum;
+	
+	private String 	ori_200_order;	// ori_200 주문갯수
+	private String 	ori_500_order;	// ori_500 주문갯수
+	private String 	ori_1000_order;	// ori_1000 주문갯수
+	private String 	erl_200_order;	// erl_200 주문갯수
+	private String 	erl_500_order;	// erl_500 주문갯수
+	private String 	erl_1000_order;	// erl_1000 주문갯수
+	private String 	sns_200_order;	// sns_200 주문갯수
+	private String 	sns_500_order;	// sns_500 주문갯수
+	private String 	sns_1000_order;	// sns_1000 주문갯수
+	
+	private String  startDate;		// 기준되는 한주의 시작 일요일 구하기
+	private String  endDate;		// 기준되는 한주의 시작 토요일 구하기
+	private String  toDate;			// 기준되는 한주의 시작 토요일 구하기
 	
 }
 

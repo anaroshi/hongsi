@@ -1,5 +1,7 @@
 package com.hongsi.purchshop.service;
 
+import java.util.List;
+
 import com.hongsi.purchshop.vo.PurchshopVO;
 
 public interface PurchshopService {
@@ -10,4 +12,9 @@ public interface PurchshopService {
 	
 	public PurchshopVO selectItemSum();
 
+	public List<PurchshopVO> selectOrderListSuntSat();
+	
+	public List<PurchshopVO> selectOrderList();
+	
+	public PurchshopVO getWeekDay();
 }

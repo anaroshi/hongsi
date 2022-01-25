@@ -10,7 +10,7 @@
 </head>
 <body>
 	<div class="container">
-		<h2>재료 재고</h2>
+		<h4>재료 재고</h4>
 		<div class="panel-group">
 			<div class="panel panel-danger">
 				<div class="panel-heading">재고 확인해 주세요.</div>

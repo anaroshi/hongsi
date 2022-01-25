@@ -10,7 +10,13 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 <link href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" rel="stylesheet">
-  
+
+<style type="text/css">
+.btn:hover {
+	background-color: #CCCCCC;
+	color: white;
+}
+</style>  
 <script>
   $( function() {
 	
@@ -31,7 +37,7 @@
 		closeText: '닫기', 
 		dateFormat: "yy-mm-dd", 
 		showAnim: "slide", 
-		showMonthAfterYear: true, dayNamesMin: ['월', '화', '수', '목', '금', '토', '일'], 
+		showMonthAfterYear: true, dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
 		monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] 
       
     });
@@ -48,7 +54,7 @@
 		closeText: '닫기', 
 		dateFormat: "yy-mm-dd", 
 		showAnim: "slide", 
-		showMonthAfterYear: true, dayNamesMin: ['월', '화', '수', '목', '금', '토', '일'], 
+		showMonthAfterYear: true, dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
 		monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] 
       
     });
@@ -119,7 +125,7 @@
 <div class="container">
 <form class="form-horizontal" method="post">
 <div class="row">
-  <h2>구매 입력</h2>  
+  <h4>구매 입력</h4>  
 	<div class="col-sm-6">
 	   <div class="form-group">
 	      <label for="buyDate" class="col-sm-3 control-label">구매일자</label>
@@ -225,7 +231,7 @@
     <div class="form-group">
     <div class="col-sm-6"></div>
     <div class="col-sm-6">
-    	<button type="submit" class="btn btn-primary btn-block">저장</button>
+    	<button type="submit" class="btn btn-block">저장</button>
     </div>	
     </div>
   </div>

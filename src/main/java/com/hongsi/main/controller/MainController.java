@@ -34,6 +34,7 @@ public class MainController {
 		model.addAttribute("resultList", quantityService.selectAllIngreStock());
 		model.addAttribute("itemTotSum", purchshopService.selectItemTotSum());		
 		model.addAttribute("itemSum", purchshopService.selectItemSum());
+		model.addAttribute("weekDay", purchshopService.getWeekDay());
 		return MODULE+"/main";
 	}
 }

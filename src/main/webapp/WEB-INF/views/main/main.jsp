@@ -45,6 +45,15 @@ th {
 #footer {
 	text-align: right;
 }
+.dataRow:hover {
+	background: #ccc;
+	cursor: pointer;
+}
+
+#weekDay {
+	display: flex;
+	justify-content: space-around;
+}
 </style>
 
 <script type="text/javascript">
@@ -54,12 +63,12 @@ $(function() {
 	function setOriQty() {
 		let item = "";
 		// 주문 받은 양
-		let order_ori = ($(".ori_sum").val())/100;
-		let order_erl = ($(".erl_sum").val())/100;
-		let order_sns = ($(".sns_sum").val())/100;
+		let order_ori = ${itemTotSum.ori_sum}/100;
+		let order_erl = ${itemTotSum.erl_sum}/100;
+		let order_sns = ${itemTotSum.sns_sum}/100;
 		
-		alert(order_ori+"/"+order_erl+"/"+order_sns);
-		console.log(order_ori+"/"+order_erl+"/"+order_sns);
+		// alert(order_ori+"/"+order_erl+"/"+order_sns);
+		// console.log(order_ori+"/"+order_erl+"/"+order_sns);
 
 		// 생산에 필요한 양 구하기
 		$("tr").each(function(index) {
@@ -109,7 +118,7 @@ $(function() {
 			</thead>
 			<tbody>
 				<c:forEach items="${resultList}" var="vo" varStatus="status">
-					<tr>
+					<tr class="dataRow">
 						<td class="text-center">${vo.kname}</td>
 						<td hidden>${vo.ename}</td>
 						<td hidden class="text-center" id="code">${vo.code}</td>
@@ -132,8 +141,9 @@ $(function() {
 	
 <!-- 주 생산량 start -->
 	<div class="col-md-3">
-		<ul class="list-group">
-		<li class="list-group-item text-center heading" id="">Week 생산량</li>
+		<ul class="list-group">		
+		<li class="list-group-item text-center heading" id="weekDay"><span>Week 생산량</span><span>${weekDay.toDate}</span></li>
+		<li class="list-group-item list-group-item-warning text-center" id="">${weekDay.startDate} ~ ${weekDay.endDate}</li>
 		<li class="list-group-item" id="">	
 			<div class="media"  style="width:100%">
 			  <div class="media-left media-middle" style="width:40%">
@@ -202,7 +212,6 @@ $(function() {
 			  </div>
 			</div>
 			<li class="list-group-item sns_sum" id="footer"><fmt:formatNumber value="${itemTotSum.sns_sum}" groupingUsed="true"/> g</li>
-		</li>
 		</ul>
 	</div>
 <!-- 주 생산량 end -->

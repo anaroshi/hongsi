@@ -7,6 +7,6 @@
 <title>ingrestock</title>
 </head>
 <body>
-<h2>ingrestock</h2>
+<h4>ingrestock</h4>
 </body>
 </html>

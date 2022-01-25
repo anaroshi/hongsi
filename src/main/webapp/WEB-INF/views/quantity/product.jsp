@@ -94,7 +94,7 @@ $(function() {
 	<div class="container">
 		<form class="form-horizontal" method="post">
 			<div class="row">			
-				<h2>제품 생산</h2>
+				<h4>제품 생산</h4>
 				<div class="col-sm-8">
 					<div class="form-group">
 						<label for="item" class="col-sm-3 control-label">제품</label>
