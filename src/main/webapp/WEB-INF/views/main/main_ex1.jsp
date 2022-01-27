@@ -56,53 +56,53 @@ td {
 
 <script type="text/javascript">
 $(function() {
-//	setOriQty();
+	setOriQty();
 	
-// 	function setOriQty() {
-// 		let item = "";
-// 		// 주문 받은 양
-// 		let order_ori = ${itemTotSum.ori_sum}/100;
-// 		let order_erl = ${itemTotSum.erl_sum}/100;
-// 		let order_sns = ${itemTotSum.sns_sum}/100;
+	function setOriQty() {
+		let item = "";
+		// 주문 받은 양
+		let order_ori = ${itemTotSum.ori_sum}/100;
+		let order_erl = ${itemTotSum.erl_sum}/100;
+		let order_sns = ${itemTotSum.sns_sum}/100;
 		
-// 		// alert(order_ori+"/"+order_erl+"/"+order_sns);
-// 		// console.log(order_ori+"/"+order_erl+"/"+order_sns);
+		// alert(order_ori+"/"+order_erl+"/"+order_sns);
+		// console.log(order_ori+"/"+order_erl+"/"+order_sns);
 
-// 		// 생산에 필요한 양 구하기
-// 		$("tr").each(function(index) {
+		// 생산에 필요한 양 구하기
+		$("tr").each(function(index) {
 
-// 			oriNeedQty = $("#ori_"+index).text() * order_ori;
-// 			erlNeedQty = $("#erl_"+index).text() * order_erl;
-// 			snsNeedQty = $("#sns_"+index).text() * order_sns;
+			oriNeedQty = $("#ori_"+index).text() * order_ori;
+			erlNeedQty = $("#erl_"+index).text() * order_erl;
+			snsNeedQty = $("#sns_"+index).text() * order_sns;
 			
-// 			// 필요량
-// 			let needSum = oriNeedQty+erlNeedQty+snsNeedQty;			
-// 			$("#need_"+index).text(needSum);
+			// 필요량
+			let needSum = oriNeedQty+erlNeedQty+snsNeedQty;			
+			$("#need_"+index).text(needSum);
 			
-// 			// 최종재고
-// 			let finalTotal = $("#tot_"+index).text()-needSum;
-// 			$("#ftt_"+index).text(finalTotal);
-// // 			if(finalTotal <0 ) {
-// // 				$("#ftt_"+index).addClass('danger');
-// // 			} else {
-// // 				$("#ftt_"+index).removeClass('danger');	
-// // 			}
-			
-// 			// 주문필요 (500g * 80개 2주분 생산재료 + 최종 재고)
-// 			let need2weekTotal = $("#need2week_"+index).text()-($("#tot_"+index).text()-needSum);
-// 			if ($("#need2week_"+index).text() != 0 && need2weekTotal>=0) {
-// 				$("#totNeed2week_"+index).text(need2weekTotal);
-// 				$("#totNeed2week_"+index).addClass('danger');
+			// 최종재고
+			let finalTotal = $("#tot_"+index).text()-needSum;
+			$("#ftt_"+index).text(finalTotal);
+// 			if(finalTotal <0 ) {
+// 				$("#ftt_"+index).addClass('danger');
 // 			} else {
-// 				$("#totNeed2week_"+index).text("0");
-// 				$("#totNeed2week_"+index).removeClass('danger');
+// 				$("#ftt_"+index).removeClass('danger');	
 // 			}
 			
-// 			if ($("#tot_"+index).text() == 0 && need2weekTotal == 0) {
-// 				$("#tot_"+index).closest("tr").remove();
-// 			}
-// 		});
-// 	}
+			// 주문필요 (500g * 80개 2주분 생산재료 + 최종 재고)
+			let need2weekTotal = $("#need2week_"+index).text()-($("#tot_"+index).text()-needSum);
+			if ($("#need2week_"+index).text() != 0 && need2weekTotal>=0) {
+				$("#totNeed2week_"+index).text(need2weekTotal);
+				$("#totNeed2week_"+index).addClass('danger');
+			} else {
+				$("#totNeed2week_"+index).text("0");
+				$("#totNeed2week_"+index).removeClass('danger');
+			}
+			
+			if ($("#tot_"+index).text() == 0 && need2weekTotal == 0) {
+				$("#tot_"+index).closest("tr").remove();
+			}
+		});
+	}
 	
 });
 </script>
@@ -206,7 +206,8 @@ $(function() {
 		<table class="table table-bordered">
 			<thead>
 				<tr>
-					<th>재료 (g)</th>					
+					<th>재료 (g)</th>
+					<th style="display:none">재료</th>
 					<th style="display:none">code</th>
 					<th>ORI</th>
 					<th>ERL</th>
@@ -220,20 +221,24 @@ $(function() {
 			</thead>
 			<tbody>
 				<c:forEach items="${resultList}" var="vo" varStatus="status">
-				<c:if test="${vo.total != '0' or vo.finalNeed != '0'}">
 					<tr class="dataRow">
-						<td class="text-center">${vo.kname}</td>						
+						<td class="text-center">${vo.kname}</td>
+						<td style="display:none">${vo.ename}</td>
 						<td style="display:none" id="code">${vo.code}</td>
-						<td id="ori_${status.count}"><fmt:formatNumber value="${vo.ori_qty_2week}" /></td>
-						<td id="erl_${status.count}"><fmt:formatNumber value="${vo.erl_qty_2week}" /></td>
-						<td id="sns_${status.count}"><fmt:formatNumber value="${vo.sns_qty_2week}" /></td>
-						<td id="tot_${status.count}"><fmt:formatNumber value="${vo.total}" /></td>
-						<td class="text-right warning" id="need_${status.count}"><fmt:formatNumber value="${vo.needSum}" /></td>						
-						<td id="ftt_${status.count}"><fmt:formatNumber value="${vo.finalTotal}" /></td>
-						<td style="display:none" class="text-right warning" id="need2week_${status.count}"><fmt:formatNumber value="${vo.need2week}" /></td>
-						<td class="text-right warning" id="totNeed2week_${status.count}"><fmt:formatNumber value="${vo.finalNeed}" /></td>
+						<td id="ori_${status.count}">${vo.ori_qty}</td>
+						<td id="erl_${status.count}">${vo.erl_qty}</td>
+						<td id="sns_${status.count}">${vo.sns_qty}</td>
+						<td id="tot_${status.count}">${vo.total}</td>
+						<td class="text-right warning" id="need_${status.count}"> </td>
+						<c:if test="${vo.total < 0}">
+						<td class="text-right danger" id="ftt_${status.count}">${vo.total}</td>
+						</c:if>
+						<c:if test="${vo.total >= 0}">
+						<td id="ftt_${status.count}">${vo.total}</td>
+						</c:if>
+						<td style="display:none" class="text-right warning" id="need2week_${status.count}">${vo.need2week}</td>
+						<td class="text-right warning" id="totNeed2week_${status.count}"></td>
 					</tr>
-					</c:if>
 				</c:forEach>
 			</tbody>
 		</table>

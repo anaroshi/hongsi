@@ -31,10 +31,11 @@ public class MainController {
 	@GetMapping("main.do")
 	public String selectAllIngreStock(Model model) {
 		log.info(".............................selectAllIngreStock..");		
-		model.addAttribute("resultList", quantityService.selectAllIngreStock());
+		model.addAttribute("resultList", quantityService.selectTotalNeedFinal());
 		model.addAttribute("itemTotSum", purchshopService.selectItemTotSum());		
 		model.addAttribute("itemSum", purchshopService.selectItemSum());
 		model.addAttribute("weekDay", purchshopService.getWeekDay());
 		return MODULE+"/main";
 	}
+
 }

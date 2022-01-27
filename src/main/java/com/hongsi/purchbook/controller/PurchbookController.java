@@ -62,4 +62,11 @@ public class PurchbookController {
 		return MODULE + "/stockList";
 	}
 	
+	@GetMapping("buyAllList.do")
+	public String buyAllList(Model model) {
+		log.info(".............................buyList..buy");
+		model.addAttribute("resultList", purchbookSerivce.list());
+		return MODULE + "/buyAllList";
+	}
+	
 }

@@ -8,9 +8,11 @@
 
 <mapper namespace="com.hongsi.purchbook.mapper.PurchbookMapper">
 	<select id="list" resultType="com.hongsi.purchbook.vo.PurchbookVO">
-	SELECT 	P.BUYDATE, P.GUBUN,
-		I.KNAME ITEM, 
-		P.CNO, 
+	SELECT 	
+		P.CNO,
+		P.BUYDATE, 
+		P.GUBUN,
+		I.KNAME ITEM,		
 		P.CONTENT,		
 		P.QTY,		
 		P.PRICE,
@@ -38,7 +40,7 @@
 		SELECT KNAME, CODE FROM INGREDIENT
 	) I
 	WHERE P.ITEM = I.CODE
-	ORDER BY P.BUYDATE DESC 
+	ORDER BY P.BUYDATE ASC 
 	</select>
 	
 	<select id="selectNonInDate" resultType="com.hongsi.purchbook.vo.PurchbookVO">		

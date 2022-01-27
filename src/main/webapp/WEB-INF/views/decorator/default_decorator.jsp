@@ -131,12 +131,13 @@ article {
 				<div class="collapse navbar-collapse" id="myNavbar">
 					<ul class="nav navbar-nav">
 						<li><a href="${path }/purchbook/buy.do">재료구매</a></li>
+						<li><a href="${path }/purchbook/buyAllList.do">재료구매List</a></li>
 						<li><a href="${path }/purchshop/orderList.do">생산판매</a></li>
+						<li><a href="${path }/purchshop/orderAllList.do">주문List</a></li>
 						<li><a href="${path }/quantity/list.do">재료함량</a></li>
 						<li><a href="${path }/purchbook/stockList.do">재료재고</a></li>
 						<li><a href="${path }/quantity/product.do">제품생산</a></li>
 						<li><a href="${path }/purchshop/order.do">주문</a></li>
-						<li><a href="${path }/purchshop/orderAllList.do">주문List</a></li>
 						<li><a href="${path }/itemstock/list.do">상품재고</a></li>
 						<li><a href="${path }/notice/list.do">공지사항</a></li>
 						<li><a href="${path }/board/list.do">게시판</a></li>

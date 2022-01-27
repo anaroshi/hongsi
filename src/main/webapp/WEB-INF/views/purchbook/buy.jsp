@@ -17,9 +17,6 @@
 	background-color: #CCCCCC;
 	color: white;
 }
-th, td {
-	text-align: center;
-}
 
  .select {
 	font-size: 12px;
@@ -159,7 +156,7 @@ th, td {
 						<c:if test="${vo.finalNeed ne '0'}">
 					<tr class="dataRow">
 						<td class="text-center">${vo.kname}</td>
-						<td class="text-right warning" id="need_${status.count}"><fmt:formatNumber>${vo.finalNeed}</fmt:formatNumber></td>
+						<td class="text-right warning" id="need_${status.count}"><fmt:formatNumber value="${vo.finalNeed}" /></td>
 					</tr>
 						</c:if>
 				</c:forEach>
