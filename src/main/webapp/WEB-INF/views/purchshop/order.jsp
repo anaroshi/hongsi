@@ -210,7 +210,7 @@ input[type=number]::-webkit-outer-spin-button {
   </div>
   <div class="col-md-4">
     <div class="panel panel-default" style="border: none;">
-	  <div class="panel-heading">SWEET & SALTY</div>
+	  <div class="panel-heading">SWEET &amp; SALTY</div>
 	  <div class="panel-body">
 	  	<div class="form-group">
 	  	<div class="col-xs-4">

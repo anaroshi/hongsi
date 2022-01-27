@@ -126,13 +126,13 @@ button {
 		let erl_sum 	= (erl_200+erl_500+erl_1000);
 		//$("#indivisuleSum").append(erl_200+"/"+erl_500+"/"+erl_1000+"  -----  ");
 		
-		// sweet&salty 주문 수량
+		// sweet&amp;salty 주문 수량
 		let sns_200 	= ($("#sns_200").val())*200;
 		let sns_500 	= ($("#sns_500").val())*500;
 		let sns_1000 	= ($("#sns_1000").val())*1000;
 		let sns_sum 	= (sns_200+sns_500+sns_1000);
 		//$("#indivisuleSum").append(sns_200+"/"+sns_500+"/"+sns_1000);
-		//$("#indivisuleSum").append("original : "+ori_sum+" / earlgrey : "+erl_sum+" / sweet&salty"+sns_sum);
+		//$("#indivisuleSum").append("original : "+ori_sum+" / earlgrey : "+erl_sum+" / sweet&amp;salty"+sns_sum);
 		$("#oriMark").text(ori_sum);
 		$("#erlMark").text(erl_sum);
 		$("#snsMark").text(sns_sum);
@@ -196,7 +196,7 @@ button {
   </div>
   <div class="col-md-3">
     <div class="panel panel-default" style="border: none;">
-	  <div class="panel-heading">SWEET & SALTY</div>
+	  <div class="panel-heading">SWEET &amp; SALTY</div>
 	  <div class="panel-body">
 	  	<div class="form-group form-group-sm">
 	  	<div class="col-xs-4">
@@ -249,8 +249,8 @@ button {
 				<tr><th colspan="9" style="text-align: right;">(g)</th></tr>
 				<tr>
 					<th>재료</th>
-					<th hidden>재료</th>
-					<th hidden>code</th>
+					<th style="display:none">재료</th>
+					<th style="display:none">code</th>
 					<th>ORI</th>
 					<th>ERL</th>
 					<th>SnS</th>
@@ -263,8 +263,8 @@ button {
 				<c:forEach items="${resultList}" var="vo" varStatus="status">
 					<tr>
 						<td class="text-center">${vo.kname}</td>
-						<td hidden>${vo.ename}</td>
-						<td hidden class="text-center" id="code">${vo.code}</td>
+						<td style="display:none">${vo.ename}</td>
+						<td style="display:none" class="text-center" id="code">${vo.code}</td>
 						<td class="text-right" id="ori_${status.count}">${vo.ori_qty}</td>
 						<td class="text-right" id="erl_${status.count}">${vo.erl_qty}</td>
 						<td class="text-right" id="sns_${status.count}">${vo.sns_qty}</td>
@@ -332,7 +332,7 @@ button {
 		<li class="list-group-item" id="">	
 			<div class="media"  style="width:100%">
 			  <div class="media-left media-middle" style="width:40%">
-			    <p>Sweet&Salty</p>
+			    <p>Sweet&amp;Salty</p>
 			  </div>
 			  <div class="media-body" align="right" style="width:30%">
 			    <p>200g</p>
@@ -404,7 +404,7 @@ button {
 		<li class="list-group-item" id="">	
 			<div class="media"  style="width:100%">
 			  <div class="media-left media-middle" style="width:40%">
-			    <p>Sweet&Salty</p>
+			    <p>Sweet&amp;Salty</p>
 			  </div>
 			  <div class="media-body" align="right" style="width:30%">
 			    <p>200g</p>
@@ -432,13 +432,13 @@ button {
 		  <li class="list-group-item text-center heading" id="">주문 생산량</li>
 		  <li class="list-group-item" id="">original <span class="badge" id="oriMark"></span></li>
 		  <li class="list-group-item" id="">earlgrey <span class="badge" id="erlMark"></span></li>
-		  <li class="list-group-item" id="">sweet&salty <span class="badge" id="snsMark"></span></li>
+		  <li class="list-group-item" id="">sweet&amp;salty <span class="badge" id="snsMark"></span></li>
 		</ul>
 		<ul class="list-group">
 		  <li class="list-group-item text-center heading" id="">주문 주문량</li>
 		  <li class="list-group-item" id="">original <span class="badge" id="oriMarkOrder"></span></li>
 		  <li class="list-group-item" id="">earlgrey <span class="badge" id="erlMarkOrder"></span></li>
-		  <li class="list-group-item" id="">sweet&salty <span class="badge" id="snsMarkOrder"></span></li>
+		  <li class="list-group-item" id="">sweet&amp;salty <span class="badge" id="snsMarkOrder"></span></li>
 		</ul>					
 	</div>
 	</div>

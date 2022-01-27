@@ -49,11 +49,6 @@ th {
 	background: #ccc;
 	cursor: pointer;
 }
-
-#weekDay {
-	display: flex;
-	justify-content: space-around;
-}
 </style>
 
 <script type="text/javascript">
@@ -99,32 +94,123 @@ $(function() {
 </head>
 <body>
 <div class="container">
-	<!-- 재고량 보이기 -->
-	<div class="row">
+	
+	<!-- 주 생산량 start -->
+<div class="col-md-6">
+<table class="table table-condensed">
+   <thead>
+    <tr>
+    	<td colspan="5" align="right">${weekDay.toDate}</td>
+    </tr>
+ 	<tr>
+    	<td colspan="3" align="center">Week 생산량</td>
+    	<td colspan="2" align="right">${weekDay.startDate} ~ ${weekDay.endDate}</td>
+    </tr>
+	<tr>
+        <th colspan="2">제품명</th>
+        <th width="20%">주문량</th>
+        <th width="20%">재고량</th>
+        <th width="20%">금주필요</th>
+      </tr>
+    </thead>
+    <tbody>
+ 	<tr>
+        <td rowspan="3">Original</td>
+        <td width="30%">250g</td>
+        <td>${itemSum.ori_200_sum}개</td>
+        <td>${itemSum.ori_200_sum}개</td>
+        <td>${itemSum.ori_200_sum}개</td>
+    </tr>
+	<tr>
+        <td>500g</td>
+        <td>${itemSum.ori_500_sum}개</td>
+        <td>${itemSum.ori_500_sum}개</td>
+        <td>${itemSum.ori_500_sum}개</td>
+    </tr>
+	<tr>        
+        <td>1,000g</td>
+        <td>${itemSum.ori_1000_sum}개</td>
+        <td>${itemSum.ori_1000_sum}개</td>
+        <td>${itemSum.ori_1000_sum}개</td>
+    </tr>
+	<tr>
+    	<td colspan="5" align="right">${itemTotSum.ori_sum}</td>
+    </tr>
+	<tr>
+        <td rowspan="3">Earlgrey</td>
+        <td>250g</td>
+        <td>${itemSum.erl_200_sum}개</td>
+        <td>${itemSum.erl_200_sum}개</td>
+        <td>${itemSum.erl_200_sum}개</td>
+    </tr>
+	<tr>
+        <td>500g</td>
+        <td>${itemSum.erl_500_sum}개</td>
+        <td>${itemSum.erl_500_sum}개</td>
+        <td>${itemSum.erl_500_sum}개</td>
+    </tr>
+	<tr>        
+        <td>1,000g</td>
+        <td>${itemSum.erl_1000_sum}개</td>
+        <td>${itemSum.erl_1000_sum}개</td>
+        <td>${itemSum.erl_1000_sum}개</td>
+    </tr>
+    <tr>
+    	<td colspan="5" align="right">${itemTotSum.erl_sum}</td>
+    </tr>
+    <tr>
+        <td rowspan="3">Sweet&amp;Salty</td>
+        <td>250g</td>
+        <td>${itemSum.sns_200_sum}개</td>
+        <td>${itemSum.sns_200_sum}개</td>
+        <td>${itemSum.sns_200_sum}개</td>
+    </tr>
+	<tr>
+        <td>500g</td>
+        <td>${itemSum.sns_500_sum}개</td>
+        <td>${itemSum.sns_500_sum}개</td>
+        <td>${itemSum.sns_500_sum}개</td>
+    </tr>
+	<tr>        
+        <td>1,000g</td>
+        <td>${itemSum.sns_1000_sum}개</td>
+        <td>${itemSum.sns_1000_sum}개</td>
+        <td>${itemSum.sns_1000_sum}개</td>
+    </tr>
+    <tr>
+    	<td colspan="5" align="right">${itemTotSum.sns_sum}</td>
+    </tr>
+    </tbody>
+  	</table>
+ 	</div>
+<!-- 주 생산량 end -->
+
+<!-- 재고량 보이기 -->
 	<div class="col-md-6">
 		<table class="table table-bordered">
 			<thead>
 				<tr>
 					<th>재료 (g)</th>
-					<th hidden>재료</th>
-					<th hidden>code</th>
-					<th>ORI</th>
-					<th>ERL</th>
-					<th>SnS</th>
-					<th>재고</th>
-					<th>필요량</th>
+					<th style="display:none">재료</th>
+					<th style="display:none">code</th>
+					<th style="display:none">ORI</th>
+					<th style="display:none">ERL</th>
+					<th style="display:none">SnS</th>
+					<th>현재재고</th>
+					<th>금주필요</th>
 					<th>최종재고</th>
+					<th>주문필요</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${resultList}" var="vo" varStatus="status">
 					<tr class="dataRow">
 						<td class="text-center">${vo.kname}</td>
-						<td hidden>${vo.ename}</td>
-						<td hidden class="text-center" id="code">${vo.code}</td>
-						<td class="text-right" id="ori_${status.count}">${vo.ori_qty}</td>
-						<td class="text-right" id="erl_${status.count}">${vo.erl_qty}</td>
-						<td class="text-right" id="sns_${status.count}">${vo.sns_qty}</td>
+						<td style="display:none">${vo.ename}</td>
+						<td style="display:none" class="text-center" id="code">${vo.code}</td>
+						<td style="display:none" class="text-right" id="ori_${status.count}">${vo.ori_qty}</td>
+						<td style="display:none" class="text-right" id="erl_${status.count}">${vo.erl_qty}</td>
+						<td style="display:none" class="text-right" id="sns_${status.count}">${vo.sns_qty}</td>
 						<td class="text-right" id="tot_${status.count}">${vo.total}</td>
 						<td class="text-right warning" id="need_${status.count}"> </td>
 						<c:if test="${vo.total < 0}">
@@ -133,89 +219,13 @@ $(function() {
 						<c:if test="${vo.total >= 0}">
 						<td class="text-right" id="ftt_${status.count}">${vo.total}</td>
 						</c:if>
+						<td class="text-right warning" id="need_${status.count}"> </td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 	</div>	
-	
-<!-- 주 생산량 start -->
-	<div class="col-md-3">
-		<ul class="list-group">		
-		<li class="list-group-item text-center heading" id="weekDay"><span>Week 생산량</span><span>${weekDay.toDate}</span></li>
-		<li class="list-group-item list-group-item-warning text-center" id="">${weekDay.startDate} ~ ${weekDay.endDate}</li>
-		<li class="list-group-item" id="">	
-			<div class="media"  style="width:100%">
-			  <div class="media-left media-middle" style="width:40%">
-			    <p>Original</p>
-			  </div>
-			  <div class="media-body" align="right" style="width:30%">
-			    <p>200g</p>
-			    <p>500g</p>
-			    <p>1,000g</p>
-			  </div>
-			  <div class="media-body" align="right" style="width:30%" id="oriWeekProduct">
-			    <p><fmt:formatNumber value="${itemSum.ori_200_sum}" groupingUsed="true"/></p>
-			    <p><fmt:formatNumber value="${itemSum.ori_500_sum}" groupingUsed="true"/></p>
-			    <p><fmt:formatNumber value="${itemSum.ori_1000_sum}" groupingUsed="true"/></p>
-			  </div>
-			  <div class="media-body" align="right" style="width:10%">
-			    <p>개</p>
-			    <p>개</p>
-			    <p>개</p>
-			  </div>
-			</div>			
-		</li>
-		<li class="list-group-item ori_sum" id="footer"><fmt:formatNumber value="${itemTotSum.ori_sum}" groupingUsed="true"/> g</li>
-		<li class="list-group-item" id="">	
-			<div class="media"  style="width:100%">
-			  <div class="media-left media-middle" style="width:40%">
-			    <p>Earlgrey</p>
-			  </div>
-			  <div class="media-body" align="right" style="width:30%">
-			    <p>200g</p>
-			    <p>500g</p>
-			    <p>1,000g</p>
-			  </div>
-			  <div class="media-body" align="right" style="width:30%" id="erlWeekProduct">
-			    <p><fmt:formatNumber value="${itemSum.erl_200_sum}" groupingUsed="true"/></p>
-			    <p><fmt:formatNumber value="${itemSum.erl_500_sum}" groupingUsed="true"/></p>
-			    <p><fmt:formatNumber value="${itemSum.erl_1000_sum}" groupingUsed="true"/></p>
-			  </div>
-			  <div class="media-body" align="right" style="width:10%">
-			    <p>개</p>
-			    <p>개</p>
-			    <p>개</p>
-			  </div>
-			</div>
-		</li>
-		<li class="list-group-item erl_sum" id="footer"><fmt:formatNumber value="${itemTotSum.erl_sum}" groupingUsed="true"/> g</li>
-		<li class="list-group-item" id="">
-			<div class="media"  style="width:100%">
-			  <div class="media-left media-middle" style="width:40%">
-			    <p>Sweet&Salty</p>
-			  </div>
-			  <div class="media-body" align="right" style="width:30%">
-			    <p>200g</p>
-			    <p>500g</p>
-			    <p>1,000g</p>
-			  </div>
-			  <div class="media-body" align="right" style="width:30%" id="snsWeekProduct">
-			    <p><fmt:formatNumber value="${itemSum.sns_200_sum}" groupingUsed="true"/></p>
-			    <p><fmt:formatNumber value="${itemSum.sns_500_sum}" groupingUsed="true"/></p>
-			    <p><fmt:formatNumber value="${itemSum.sns_1000_sum}" groupingUsed="true"/></p>
-			  </div>
-			  <div class="media-body" align="right" style="width:10%">
-			    <p>개</p>
-			    <p>개</p>
-			    <p>개</p>
-			  </div>
-			</div>
-			<li class="list-group-item sns_sum" id="footer"><fmt:formatNumber value="${itemTotSum.sns_sum}" groupingUsed="true"/> g</li>
-		</ul>
-	</div>
-<!-- 주 생산량 end -->
 </div>
-</div>
+
 </body>
 </html>

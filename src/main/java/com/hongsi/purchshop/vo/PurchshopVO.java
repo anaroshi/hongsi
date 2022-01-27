@@ -1,6 +1,5 @@
 package com.hongsi.purchshop.vo;
 
-import java.security.KeyStore.PrivateKeyEntry;
 import java.sql.Date;
 
 import lombok.Data;

@@ -227,7 +227,7 @@ div.panel-body {
 <!--   </div> -->
 <!--   <div class="col-md-4"> -->
     <div class="panel panel-default" style="border: none;">
-	  <div class="panel-heading">SWEET & SALTY</div>
+	  <div class="panel-heading">SWEET &amp; SALTY</div>
 	  <div class="panel-body">
 	  	<div class="form-group">
 	  	<div class="col-xs-4">
@@ -259,7 +259,9 @@ div.panel-body {
 	      <div class="col-sm-8">
 			<select id="gubun" name="gubun" class="form-control select">
 	            <option value="판매">판매</option>
-	            <option value=""></option>
+	            <option value="교환">교환</option>
+	            <option value="교환">반품</option>
+	            <option value="손실">손실</option>
 			</select>
 	      </div>
 	    </div>

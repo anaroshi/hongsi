@@ -125,16 +125,38 @@
 <div class="container">
 <form class="form-horizontal" method="post">
 <div class="row">
-  <h4>구매 입력</h4>  
-	<div class="col-sm-6">
+  <h4>주문 입력</h4>  
+
+<!-- 재고량 보이기 -->
+	<div class="col-md-2">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>재료 (g)</th>
+					<th>주문필요</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${resultList}" var="vo" varStatus="status">
+					<tr class="dataRow">
+						<td class="text-center">${vo.kname}</td>
+						<td class="text-right warning" id="need_${status.count}"> </td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+	</div>	
+
+	<!-- 1블럭 Start -->
+	<div class="col-sm-3">
 	   <div class="form-group">
-	      <label for="buyDate" class="col-sm-3 control-label">구매일자</label>
+	      <label for="buyDate" class="col-sm-3 control-label">주문일</label>
 	      <div class="col-sm-8">
 	        <input class="form-control" id="buyDate" name="buyDate" type="text" required="required">
 	      </div>
 	    </div>
 	    <div class="form-group">
-	      <label for="item" class="col-sm-3 control-label">구매품</label>
+	      <label for="item" class="col-sm-3 control-label">주문품</label>
 	      <div class="col-sm-8">
 	      <select id="item" name="item" class="form-control" required="required">
 	      	<option value="*"></option>
@@ -149,8 +171,9 @@
 	      <div class="col-sm-8">
 			<select id="gubun" name="gubun" class="form-control" required="required">
 	            <option value="구매">구매</option>
-	            <option value="반품">반품</option>
-	            <option value="폐기">폐기</option>
+	            <option value="판매">판매</option>
+	            <option value="교환">교환</option>
+	            <option value="손실">손실</option>
 			</select>
 	      </div>
 	    </div>	    
@@ -167,20 +190,6 @@
 	      <div class="col-sm-8">
 	        <input class="form-control" id="qty" name="qty" type="text" placeholder="qty" required="required">
 	      </div>
-	    </div>	          
-	     <div class="form-group">
-	      <label for="unit" class="col-sm-3 control-label">단위</label>
-	      <div class="col-sm-8">
-			<label class="radio-inline">
-		      <input type="radio" name="unit" value="g">g
-		    </label>
-		    <label class="radio-inline">
-		      <input type="radio" name="unit" value="pack">pack
-		    </label>
-		    <label class="radio-inline">
-		      <input type="radio" name="unit" value="box">box
-		    </label>
-	      </div>
 	    </div>
 	    
 	    <div class="form-group">
@@ -193,7 +202,7 @@
 	    </div>
 	</div> <!-- 1블럭 End -->
 	
-	<div class="col-sm-6">
+	<div class="col-sm-3">
     <div class="form-group">
       <label for="purShop" class="col-sm-3 control-label">거래처</label>
       <div class="col-sm-8">
@@ -225,8 +234,7 @@
 		</select>
       </div>
     </div>
-	</div> <!-- 2블럭 End -->
-		</div>
+
 	<div class="row">
     <div class="form-group">
     <div class="col-sm-6"></div>
@@ -234,6 +242,8 @@
     	<button type="submit" class="btn btn-block">저장</button>
     </div>	
     </div>
+    </div>
+	</div> <!-- 2블럭 End -->
   </div>
     </form>
 </div>

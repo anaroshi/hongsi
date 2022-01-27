@@ -7,12 +7,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.hongsi.ingredient.service.IngredientService;
 import com.hongsi.purchbook.service.PurchbookSerivce;
 import com.hongsi.purchbook.vo.PurchbookVO;
+import com.hongsi.quantity.service.QuantityService;
 
 import lombok.extern.log4j.Log4j;
 
@@ -31,10 +31,15 @@ public class PurchbookController {
 	@Qualifier("ingredientServiceImpl")
 	private IngredientService ingredientService;
 	
+	@Autowired
+	@Qualifier("quantityServiceImpl")
+	private QuantityService quantityService;
+	
 	@GetMapping("buy.do")
 	public String buy(Model model) {
 		log.info(".............................purchbookController..buy");
 		model.addAttribute("ingreList", ingredientService.list());
+		model.addAttribute("resultList", quantityService.selectAllIngreStock());
 		return MODULE + "/buy";
 	}
 	
