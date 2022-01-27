@@ -23,9 +23,6 @@ input[type=number]::-webkit-outer-spin-button {
 .panel-body {
 	padding: 5px 5px;
 }
-.col-xs-3 {
-	padding: 0px 3px important;
-}
 .form-group {
 	margin-bottom: 0px;
 }
@@ -42,12 +39,18 @@ button {
 th {
 	text-align: center;
 }
+td {
+	text-align: right;
+}
 #footer {
 	text-align: right;
 }
 .dataRow:hover {
 	background: #ccc;
 	cursor: pointer;
+}
+#itemTotSum {
+	background-color: #F5F5F5;
 }
 </style>
 
@@ -79,12 +82,25 @@ $(function() {
 			// 최종재고
 			let finalTotal = $("#tot_"+index).text()-needSum;
 			$("#ftt_"+index).text(finalTotal);
-			if(finalTotal <0 ) {
-				$("#ftt_"+index).addClass('danger');
+// 			if(finalTotal <0 ) {
+// 				$("#ftt_"+index).addClass('danger');
+// 			} else {
+// 				$("#ftt_"+index).removeClass('danger');	
+// 			}
+			
+			// 주문필요 (500g * 80개 2주분 생산재료 + 최종 재고)
+			let need2weekTotal = $("#need2week_"+index).text()-($("#tot_"+index).text()-needSum);
+			if ($("#need2week_"+index).text() != 0 && need2weekTotal>=0) {
+				$("#totNeed2week_"+index).text(need2weekTotal);
+				$("#totNeed2week_"+index).addClass('danger');
 			} else {
-				$("#ftt_"+index).removeClass('danger');	
+				$("#totNeed2week_"+index).text("0");
+				$("#totNeed2week_"+index).removeClass('danger');
 			}
 			
+			if ($("#tot_"+index).text() == 0 && need2weekTotal == 0) {
+				$("#tot_"+index).closest("tr").remove();
+			}
 		});
 	}
 	
@@ -100,14 +116,14 @@ $(function() {
 <table class="table table-condensed">
    <thead>
     <tr>
-    	<td colspan="5" align="right">${weekDay.toDate}</td>
+    	<td colspan="5">${weekDay.toDate}</td>
     </tr>
  	<tr>
-    	<td colspan="3" align="center">Week 생산량</td>
-    	<td colspan="2" align="right">${weekDay.startDate} ~ ${weekDay.endDate}</td>
+    	<td colspan="3" class="text-center">Week 생산량</td>
+    	<td colspan="2">${weekDay.startDate} ~ ${weekDay.endDate}</td>
     </tr>
 	<tr>
-        <th colspan="2">제품명</th>
+        <th colspan="2" class="text-center">제품명</th>
         <th width="20%">주문량</th>
         <th width="20%">재고량</th>
         <th width="20%">금주필요</th>
@@ -115,8 +131,8 @@ $(function() {
     </thead>
     <tbody>
  	<tr>
-        <td rowspan="3">Original</td>
-        <td width="30%">250g</td>
+        <td rowspan="3" class="text-center">Original</td>
+        <td width="20%">250g</td>
         <td>${itemSum.ori_200_sum}개</td>
         <td>${itemSum.ori_200_sum}개</td>
         <td>${itemSum.ori_200_sum}개</td>
@@ -134,10 +150,10 @@ $(function() {
         <td>${itemSum.ori_1000_sum}개</td>
     </tr>
 	<tr>
-    	<td colspan="5" align="right">${itemTotSum.ori_sum}</td>
+    	<td id="itemTotSum" colspan="5">${itemTotSum.ori_sum}</td>
     </tr>
 	<tr>
-        <td rowspan="3">Earlgrey</td>
+        <td rowspan="3" class="text-center">Earlgrey</td>
         <td>250g</td>
         <td>${itemSum.erl_200_sum}개</td>
         <td>${itemSum.erl_200_sum}개</td>
@@ -156,10 +172,10 @@ $(function() {
         <td>${itemSum.erl_1000_sum}개</td>
     </tr>
     <tr>
-    	<td colspan="5" align="right">${itemTotSum.erl_sum}</td>
+    	<td id="itemTotSum" colspan="5">${itemTotSum.erl_sum}</td>
     </tr>
     <tr>
-        <td rowspan="3">Sweet&amp;Salty</td>
+        <td rowspan="3" class="text-center">Sweet &amp; Salty</td>
         <td>250g</td>
         <td>${itemSum.sns_200_sum}개</td>
         <td>${itemSum.sns_200_sum}개</td>
@@ -178,7 +194,7 @@ $(function() {
         <td>${itemSum.sns_1000_sum}개</td>
     </tr>
     <tr>
-    	<td colspan="5" align="right">${itemTotSum.sns_sum}</td>
+    	<td id="itemTotSum" colspan="5">${itemTotSum.sns_sum}</td>
     </tr>
     </tbody>
   	</table>
@@ -199,6 +215,7 @@ $(function() {
 					<th>현재재고</th>
 					<th>금주필요</th>
 					<th>최종재고</th>
+					<th style="display:none">주문필요</th>
 					<th>주문필요</th>
 				</tr>
 			</thead>
@@ -207,19 +224,20 @@ $(function() {
 					<tr class="dataRow">
 						<td class="text-center">${vo.kname}</td>
 						<td style="display:none">${vo.ename}</td>
-						<td style="display:none" class="text-center" id="code">${vo.code}</td>
-						<td style="display:none" class="text-right" id="ori_${status.count}">${vo.ori_qty}</td>
-						<td style="display:none" class="text-right" id="erl_${status.count}">${vo.erl_qty}</td>
-						<td style="display:none" class="text-right" id="sns_${status.count}">${vo.sns_qty}</td>
-						<td class="text-right" id="tot_${status.count}">${vo.total}</td>
+						<td style="display:none" id="code">${vo.code}</td>
+						<td style="display:none" id="ori_${status.count}">${vo.ori_qty}</td>
+						<td style="display:none" id="erl_${status.count}">${vo.erl_qty}</td>
+						<td style="display:none" id="sns_${status.count}">${vo.sns_qty}</td>
+						<td id="tot_${status.count}">${vo.total}</td>
 						<td class="text-right warning" id="need_${status.count}"> </td>
 						<c:if test="${vo.total < 0}">
 						<td class="text-right danger" id="ftt_${status.count}">${vo.total}</td>
 						</c:if>
 						<c:if test="${vo.total >= 0}">
-						<td class="text-right" id="ftt_${status.count}">${vo.total}</td>
+						<td id="ftt_${status.count}">${vo.total}</td>
 						</c:if>
-						<td class="text-right warning" id="need_${status.count}"> </td>
+						<td style="display:none" class="text-right warning" id="need2week_${status.count}">${vo.need2week}</td>
+						<td class="text-right warning" id="totNeed2week_${status.count}"></td>
 					</tr>
 				</c:forEach>
 			</tbody>

@@ -26,6 +26,11 @@ public class PurchbookSerivceImpl implements PurchbookSerivce {
 	}
 
 	@Override
+	public List<PurchbookVO> selectNonInDate() {
+		return mapper.selectNonInDate();
+	}
+
+	@Override
 	public Integer buyProcess(PurchbookVO vo) {
 		vo.setBuyDate(vo.getBuyDate().replace("/", ""));
 		vo.setBuyDate(vo.getBuyDate().replace(".", ""));
@@ -40,5 +45,6 @@ public class PurchbookSerivceImpl implements PurchbookSerivce {
 	public List<PurchbookVO> selectIgdTotalList() {		
 		return mapper.selectIgdTotalList();
 	}
+
 
 }

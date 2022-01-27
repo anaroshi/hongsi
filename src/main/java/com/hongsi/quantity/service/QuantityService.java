@@ -13,7 +13,7 @@ public interface QuantityService {
 	public List<QuantityVO> selectTotalByItem(String code);
 
 	public List<QuantityVO> selectAllIngreStock();
-	
-	
+
+	public List<QuantityVO> selectTotalNeedFinal();	
 
 }

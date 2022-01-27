@@ -42,6 +42,12 @@ public class QuantityServiceImpl implements QuantityService {
 		// 전체 재료, original 재료량, earlgrey 재료량, sweet&salty 재료량, 전체 재고 쿼리
 		return mapper.selectAllIngreStock();
 	}
+
+	@Override
+	public List<QuantityVO> selectTotalNeedFinal() {
+		// 전체 재료, 전체 재고, 한주 주문된 필요재료량, 최종재고, 최종 주문해야할 2주분 확보량 쿼리
+		return mapper.selectTotalNeedFinal();
+	}
 	
 	
 

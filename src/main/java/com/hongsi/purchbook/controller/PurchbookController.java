@@ -39,7 +39,8 @@ public class PurchbookController {
 	public String buy(Model model) {
 		log.info(".............................purchbookController..buy");
 		model.addAttribute("ingreList", ingredientService.list());
-		model.addAttribute("resultList", quantityService.selectAllIngreStock());
+		model.addAttribute("resultList", quantityService.selectTotalNeedFinal());
+		model.addAttribute("buyList", purchbookSerivce.selectNonInDate());
 		return MODULE + "/buy";
 	}
 	

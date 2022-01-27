@@ -8,20 +8,68 @@
 
 <mapper namespace="com.hongsi.purchbook.mapper.PurchbookMapper">
 	<select id="list" resultType="com.hongsi.purchbook.vo.PurchbookVO">
+	SELECT 	P.BUYDATE, P.GUBUN,
+		I.KNAME ITEM, 
+		P.CNO, 
+		P.CONTENT,		
+		P.QTY,		
+		P.PRICE,
+		P.PURSHOP,			
+		P.INDATE,
+		P.COMM
+	FROM 
+	(
 	SELECT 
-		CNO,
-		BUYDATE,
-		ITEM,		
-		PURCODE,		
-		PURNAME,		
-		QTY,		
-		MINQTY,		
-		UNIT,		
-		INDATE,
-		COMM,
-		RDATE		
-	FROM PURCHASE_BOOK
-	ORDER BY CNO ASC
+			CNO,
+			TO_CHAR(BUYDATE, 'yyyy-MM-dd') BUYDATE,
+			ITEM,
+			GUBUN,
+			CONTENT,		
+			QTY,		
+			PRICE,
+			PURSHOP,			
+			TO_CHAR(INDATE, 'yyyy-MM-dd')  INDATE,
+			COMM,		
+			RDATE,
+			SUMQTY		
+		FROM PURCHASE_BOOK
+	) P,
+	(
+		SELECT KNAME, CODE FROM INGREDIENT
+	) I
+	WHERE P.ITEM = I.CODE
+	ORDER BY P.BUYDATE DESC 
+	</select>
+	
+	<select id="selectNonInDate" resultType="com.hongsi.purchbook.vo.PurchbookVO">		
+	SELECT 	
+		P.CNO,		
+		P.BUYDATE, 
+		I.KNAME ITEM, 
+		P.GUBUN,
+		P.CONTENT,		
+		P.QTY,		
+		P.PRICE,
+		P.PURSHOP
+	FROM 
+	(
+	SELECT 
+			CNO,
+			TO_CHAR(BUYDATE, 'yyyy-MM-dd') BUYDATE,
+			ITEM,
+			GUBUN,
+			CONTENT,		
+			QTY,		
+			PRICE,
+			PURSHOP	
+		FROM PURCHASE_BOOK
+		WHERE INDATE IS NULL
+	) P,
+	(
+		SELECT KNAME, CODE FROM INGREDIENT
+	) I
+	WHERE P.ITEM = I.CODE
+	ORDER BY P.BUYDATE DESC
 	</select>
 	
 	<insert id="buyProcess">
@@ -31,8 +79,7 @@
 		ITEM,
 		GUBUN,
 		CONTENT,
-		QTY,		
-		UNIT,		
+		QTY,				
 		PRICE,	
 		PURSHOP,		
 		INDATE,
@@ -45,8 +92,7 @@
 		#{item},
 		#{gubun},
 		#{content},
-		#{qty},
-		#{unit},
+		#{qty},		
 		#{price},
 		#{purShop},
 		TO_DATE(#{inDate},'YYYYMMDD'),

@@ -7,6 +7,8 @@ import com.hongsi.purchbook.vo.PurchbookVO;
 public interface PurchbookSerivce {
 	
 	public List<PurchbookVO> list();
+
+	public List<PurchbookVO> selectNonInDate();
 	
 	public Integer buyProcess(PurchbookVO vo);
 	

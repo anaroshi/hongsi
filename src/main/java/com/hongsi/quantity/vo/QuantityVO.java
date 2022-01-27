@@ -21,5 +21,14 @@ public class QuantityVO {
 	private long 	erl_qty;
 	private long 	sns_qty;
 	
+	private long 	ori_qty_2week;
+	private long 	erl_qty_2week;
+	private long 	sns_qty_2week;
+	private long 	needSum;
+	private long 	need2week;
+	
+	private long 	finalTotal;
+	private long 	finalNeed;
+	
 }
 

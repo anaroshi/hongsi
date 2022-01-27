@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,14 +17,25 @@
 	background-color: #CCCCCC;
 	color: white;
 }
+th, td {
+	text-align: center;
+}
+
+ .select {
+	font-size: 12px;
+}
+.dataRow:hover {
+			background: #ccc;
+			cursor: pointer; 
+		}
 </style>  
 <script>
   $( function() {
 	
 	  // 입력 메세지 처리		
-  	<c:if test="${!empty msg}">
-		alert("${msg}");
-	</c:if>
+//   	<c:if test="${!empty msg}">
+// 		alert("${msg}");
+// 	</c:if>
 	  
     $( "#buyDate" ).datepicker({
 		changeMonth: true,
@@ -117,6 +129,12 @@
     		$("#content").append(opt);
     	}    
     });
+    
+	$(".dataRow").click(function(){
+		let cno = $(this).find(".cno").text();		
+		$("#cno").val(cno);
+		$("#myModal").modal("show");
+	});
 
   });
   </script>
@@ -127,7 +145,7 @@
 <div class="row">
   <h4>주문 입력</h4>  
 
-<!-- 재고량 보이기 -->
+<!-- 재고량 보이기 Start -->
 	<div class="col-md-2">
 		<table class="table table-bordered">
 			<thead>
@@ -138,17 +156,21 @@
 			</thead>
 			<tbody>
 				<c:forEach items="${resultList}" var="vo" varStatus="status">
+						<c:if test="${vo.finalNeed ne '0'}">
 					<tr class="dataRow">
 						<td class="text-center">${vo.kname}</td>
-						<td class="text-right warning" id="need_${status.count}"> </td>
+						<td class="text-right warning" id="need_${status.count}"><fmt:formatNumber>${vo.finalNeed}</fmt:formatNumber></td>
 					</tr>
+						</c:if>
 				</c:forEach>
 			</tbody>
 		</table>
-	</div>	
-
+	</div>
+	<!-- 재고량 보이기 End -->
+	
+	<!-- 재료주문 Start -->
 	<!-- 1블럭 Start -->
-	<div class="col-sm-3">
+	<div class="col-sm-2">
 	   <div class="form-group">
 	      <label for="buyDate" class="col-sm-3 control-label">주문일</label>
 	      <div class="col-sm-8">
@@ -158,7 +180,7 @@
 	    <div class="form-group">
 	      <label for="item" class="col-sm-3 control-label">주문품</label>
 	      <div class="col-sm-8">
-	      <select id="item" name="item" class="form-control" required="required">
+	      <select id="item" name="item" class="form-control select" required="required">
 	      	<option value="*"></option>
 	      <c:forEach items="${ingreList}" var="vo">
 	      	<option value="${vo.code}">${vo.kname}</option>
@@ -169,7 +191,7 @@
 	    <div class="form-group">
 	      <label for="gubun" class="col-sm-3 control-label">구분</label>
 	      <div class="col-sm-8">
-			<select id="gubun" name="gubun" class="form-control" required="required">
+			<select id="gubun" name="gubun" class="form-control select" required="required">
 	            <option value="구매">구매</option>
 	            <option value="판매">판매</option>
 	            <option value="교환">교환</option>
@@ -180,7 +202,7 @@
 	    <div class="form-group">
 	      <label for="content" class="col-sm-3 control-label">용량</label>
 	      <div class="col-sm-8">
-		      <select id="content" name="content" class="form-control" required="required">
+		      <select id="content" name="content" class="form-control select" required="required">
 				<option value="">수량 1개당 용량</option>	            
 			  </select>
 	      </div>
@@ -206,7 +228,7 @@
     <div class="form-group">
       <label for="purShop" class="col-sm-3 control-label">거래처</label>
       <div class="col-sm-8">
-		<select id="purShop" name="purShop" class="form-control" required="required">
+		<select id="purShop" name="purShop" class="form-control select" required="required">
 			<option value="*"> </option>
             <option value="넛츠베리">넛츠베리</option>
             <option value="쿠팡">쿠팡</option>
@@ -228,7 +250,7 @@
      <div class="form-group">
       <label for="buyer" class="col-sm-3 control-label">구매자</label>
       <div class="col-sm-8">
-      	<select id="buyer" name="buyer" class="form-control">
+      	<select id="buyer" name="buyer" class="form-control select">
             <option value="홍동호">홍동호</option>
             <option value="대행인">대행인</option>
 		</select>
@@ -243,9 +265,78 @@
     </div>	
     </div>
     </div>
-	</div> <!-- 2블럭 End -->
+	</div> 
+	<!-- 2블럭 End -->
+	<!-- 재료주문 End -->
+	
+	<!-- 주문 List Start -->
+<div class="col-md-5">
+<table class="table table-condensed">
+   <thead>    
+ 	<tr>
+    	<td colspan="7" class="text-center"><h5>주문 LIST</h5></td>    	
+    </tr>
+	<tr>
+        <th width="17%">주문일</th>
+        <th width="10%">구분</th>
+        <th width="22%">주문품</th>
+        <th width="9%">용량</th>
+        <th width="9%">수량</th>
+        <th width="16%">거래처</th>
+      </tr>
+    </thead>
+    <tbody>
+<c:forEach items="${buyList}" var="vo" varStatus="status">
+ 	<tr class="dataRow">
+ 		<td class="cno" style="display:none">${vo.cno}</td>
+        <td>${vo.buyDate}</td>
+        <td>${vo.gubun}</td>
+        <td>${vo.item}</td>
+        <td class="text-right">${vo.content}</td>
+        <td class="text-right">${vo.qty}</td>
+        <td>${vo.purShop}</td>
+    </tr>
+</c:forEach>
+    </tbody>
+</table>
+<!-- 주문 List End  -->
+
   </div>
+</div>
     </form>
 </div>
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">주문내역</h4>
+      </div>
+      <div class="modal-body">
+      	<form method="post" id="replyWriteForm">
+      		<input id="cno" />
+        	<div class="form-group">
+			  <label for="content">내용</label>
+			  <textarea class="form-control" rows="5" id="content"></textarea>
+			</div>
+        	<div class="form-group">
+		      	<label for="inDate" class="col-sm-3 control-label">입고일</label>
+		      	<div class="col-sm-8">
+		        <input class="form-control" id="inDate" name="inDate" type="text" required="required">
+		      	</div>
+			</div>
+        </form> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" id="replyUpdateProcessBtn">수정</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+      </div>
+    </div>
+	<!-- 댓글 처리 끝 -->
+  </div>
+</div>	
 </body>
 </html>

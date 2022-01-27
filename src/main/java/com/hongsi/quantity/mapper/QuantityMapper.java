@@ -14,4 +14,6 @@ public interface QuantityMapper {
 
 	List<QuantityVO> selectAllIngreStock();
 
+	List<QuantityVO> selectTotalNeedFinal();
+
 }

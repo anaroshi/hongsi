@@ -8,10 +8,10 @@ public interface PurchbookMapper {
 
 	List<PurchbookVO> list();
 
+	List<PurchbookVO> selectNonInDate();
+	
 	Integer buyProcess(PurchbookVO vo);
 
 	List<PurchbookVO> selectIgdTotalList();
-	
-
 
 }
