@@ -56,54 +56,7 @@ td {
 
 <script type="text/javascript">
 $(function() {
-//	setOriQty();
-	
-// 	function setOriQty() {
-// 		let item = "";
-// 		// 주문 받은 양
-// 		let order_ori = ${itemTotSum.ori_sum}/100;
-// 		let order_erl = ${itemTotSum.erl_sum}/100;
-// 		let order_sns = ${itemTotSum.sns_sum}/100;
-		
-// 		// alert(order_ori+"/"+order_erl+"/"+order_sns);
-// 		// console.log(order_ori+"/"+order_erl+"/"+order_sns);
 
-// 		// 생산에 필요한 양 구하기
-// 		$("tr").each(function(index) {
-
-// 			oriNeedQty = $("#ori_"+index).text() * order_ori;
-// 			erlNeedQty = $("#erl_"+index).text() * order_erl;
-// 			snsNeedQty = $("#sns_"+index).text() * order_sns;
-			
-// 			// 필요량
-// 			let needSum = oriNeedQty+erlNeedQty+snsNeedQty;			
-// 			$("#need_"+index).text(needSum);
-			
-// 			// 최종재고
-// 			let finalTotal = $("#tot_"+index).text()-needSum;
-// 			$("#ftt_"+index).text(finalTotal);
-// // 			if(finalTotal <0 ) {
-// // 				$("#ftt_"+index).addClass('danger');
-// // 			} else {
-// // 				$("#ftt_"+index).removeClass('danger');	
-// // 			}
-			
-// 			// 주문필요 (500g * 80개 2주분 생산재료 + 최종 재고)
-// 			let need2weekTotal = $("#need2week_"+index).text()-($("#tot_"+index).text()-needSum);
-// 			if ($("#need2week_"+index).text() != 0 && need2weekTotal>=0) {
-// 				$("#totNeed2week_"+index).text(need2weekTotal);
-// 				$("#totNeed2week_"+index).addClass('danger');
-// 			} else {
-// 				$("#totNeed2week_"+index).text("0");
-// 				$("#totNeed2week_"+index).removeClass('danger');
-// 			}
-			
-// 			if ($("#tot_"+index).text() == 0 && need2weekTotal == 0) {
-// 				$("#tot_"+index).closest("tr").remove();
-// 			}
-// 		});
-// 	}
-	
 });
 </script>
 
@@ -134,67 +87,67 @@ $(function() {
         <td rowspan="3" class="text-center">Original</td>
         <td width="20%">250g</td>
         <td>${itemSum.ori_200_sum}개</td>
-        <td>${itemSum.ori_200_sum}개</td>
-        <td>${itemSum.ori_200_sum}개</td>
+        <td>${stockSum.ori_200_sum}개</td>
+        <td>${stockSum.ori_200_sum - itemSum.ori_200_sum}개</td>
     </tr>
 	<tr>
         <td>500g</td>
         <td>${itemSum.ori_500_sum}개</td>
-        <td>${itemSum.ori_500_sum}개</td>
-        <td>${itemSum.ori_500_sum}개</td>
+        <td>${stockSum.ori_500_sum}개</td>
+        <td>${stockSum.ori_500_sum - itemSum.ori_500_sum}개</td>
     </tr>
 	<tr>        
         <td>1,000g</td>
         <td>${itemSum.ori_1000_sum}개</td>
-        <td>${itemSum.ori_1000_sum}개</td>
-        <td>${itemSum.ori_1000_sum}개</td>
+        <td>${stockSum.ori_1000_sum}개</td>
+        <td>${stockSum.ori_1000_sum - itemSum.ori_1000_sum}개</td>
     </tr>
 	<tr>
-    	<td id="itemTotSum" colspan="5">${itemTotSum.ori_sum}</td>
+    	<td id="itemTotSum" colspan="5"><fmt:formatNumber value="${itemTotSum.ori_sum}"/> g</td>
     </tr>
 	<tr>
         <td rowspan="3" class="text-center">Earlgrey</td>
         <td>250g</td>
         <td>${itemSum.erl_200_sum}개</td>
-        <td>${itemSum.erl_200_sum}개</td>
-        <td>${itemSum.erl_200_sum}개</td>
+        <td>${stockSum.erl_200_sum}개</td>
+        <td>${stockSum.erl_200_sum - itemSum.erl_200_sum}개</td>
     </tr>
 	<tr>
         <td>500g</td>
         <td>${itemSum.erl_500_sum}개</td>
-        <td>${itemSum.erl_500_sum}개</td>
-        <td>${itemSum.erl_500_sum}개</td>
+        <td>${stockSum.erl_500_sum}개</td>
+        <td>${stockSum.erl_500_sum - itemSum.erl_500_sum}개</td>
     </tr>
 	<tr>        
         <td>1,000g</td>
         <td>${itemSum.erl_1000_sum}개</td>
-        <td>${itemSum.erl_1000_sum}개</td>
-        <td>${itemSum.erl_1000_sum}개</td>
+        <td>${stockSum.erl_1000_sum}개</td>
+        <td>${stockSum.erl_1000_sum - itemSum.erl_1000_sum}개</td>
     </tr>
     <tr>
-    	<td id="itemTotSum" colspan="5">${itemTotSum.erl_sum}</td>
+    	<td id="itemTotSum" colspan="5"><fmt:formatNumber value="${itemTotSum.erl_sum}"/> g</td>
     </tr>
     <tr>
         <td rowspan="3" class="text-center">Sweet &amp; Salty</td>
         <td>250g</td>
         <td>${itemSum.sns_200_sum}개</td>
-        <td>${itemSum.sns_200_sum}개</td>
-        <td>${itemSum.sns_200_sum}개</td>
+        <td>${stockSum.sns_200_sum}개</td>
+        <td>${stockSum.sns_200_sum - itemSum.sns_200_sum}개</td>
     </tr>
 	<tr>
         <td>500g</td>
         <td>${itemSum.sns_500_sum}개</td>
-        <td>${itemSum.sns_500_sum}개</td>
-        <td>${itemSum.sns_500_sum}개</td>
+        <td>${stockSum.sns_500_sum}개</td>
+        <td>${stockSum.sns_500_sum - itemSum.sns_500_sum}개</td>
     </tr>
 	<tr>        
         <td>1,000g</td>
         <td>${itemSum.sns_1000_sum}개</td>
-        <td>${itemSum.sns_1000_sum}개</td>
-        <td>${itemSum.sns_1000_sum}개</td>
+        <td>${stockSum.sns_1000_sum}개</td>
+        <td>${stockSum.sns_1000_sum - itemSum.sns_1000_sum}개</td>
     </tr>
     <tr>
-    	<td id="itemTotSum" colspan="5">${itemTotSum.sns_sum}</td>
+    	<td id="itemTotSum" colspan="5"><fmt:formatNumber value="${itemTotSum.sns_sum}"/> g</td>
     </tr>
     </tbody>
   	</table>

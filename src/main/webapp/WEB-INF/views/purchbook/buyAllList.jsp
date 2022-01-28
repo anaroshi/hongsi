@@ -72,7 +72,7 @@ div.panel-body {
     </thead>
     <tbody>
 <c:forEach items="${resultList}" var="vo" varStatus="status">
- 	<tr class="dataRow">
+ 	<tr class="dataRow"> 		
  		<td class="cno" style="display:none">${vo.cno}</td>
         <td>${vo.buyDate}</td>
         <td>${vo.gubun}</td>

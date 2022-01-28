@@ -57,5 +57,27 @@ public class PurchshopController {
 		model.addAttribute("orderList", purchshopService.selectOrderList());
 		return MODULE + "/orderAllList";
 	}
+	
+	// 생산 정보 입력 화면
+	@GetMapping("product.do")
+	public String product(PurchshopVO vo,Model model) {
+		log.info(".............................product..vo:"+vo);
+		model.addAttribute("productList", purchshopService.selectProductList());
+		// 제품 재고 수량
+		model.addAttribute("stockSum", purchshopService.selectProductStock());
+		return MODULE + "/product";
+	}
+
+	// 생산 정보 저장
+	@PostMapping("product.do")
+	public String insertProduct(PurchshopVO vo, RedirectAttributes rttr) {
+		log.info("insertProduct vo :" + vo);
+		int result = purchshopService.insertProduct(vo);
+		if (result == 1) {
+			rttr.addFlashAttribute("msg", "생산입력완료");
+		}
+		return "redirect:/purchshop/product.do";
+	}
+
 
 }

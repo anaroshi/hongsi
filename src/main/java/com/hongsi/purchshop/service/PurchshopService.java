@@ -17,4 +17,10 @@ public interface PurchshopService {
 	public List<PurchshopVO> selectOrderList();
 	
 	public PurchshopVO getWeekDay();
+	
+	public int insertProduct(PurchshopVO vo);
+	
+	public List<PurchshopVO> selectProductList();
+	
+	public PurchshopVO selectProductStock();
 }

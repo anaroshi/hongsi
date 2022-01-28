@@ -35,19 +35,21 @@
 			RDATE,
 			SUMQTY		
 		FROM PURCHASE_BOOK
+		WHERE	STATUS = 'purch'
 	) P,
 	(
 		SELECT KNAME, CODE FROM INGREDIENT
 	) I
 	WHERE P.ITEM = I.CODE
-	ORDER BY P.BUYDATE ASC 
+	ORDER BY P.BUYDATE DESC 
 	</select>
 	
 	<select id="selectNonInDate" resultType="com.hongsi.purchbook.vo.PurchbookVO">		
 	SELECT 	
 		P.CNO,		
 		P.BUYDATE, 
-		I.KNAME ITEM, 
+		P.ITEM, 
+		I.KNAME, 
 		P.GUBUN,
 		P.CONTENT,		
 		P.QTY,		
@@ -65,7 +67,8 @@
 			PRICE,
 			PURSHOP	
 		FROM PURCHASE_BOOK
-		WHERE INDATE IS NULL
+		WHERE 	INDATE IS NULL
+		AND		STATUS = 'purch'
 	) P,
 	(
 		SELECT KNAME, CODE FROM INGREDIENT
@@ -87,7 +90,9 @@
 		INDATE,
 		COMM,
 		BUYER,
-		SUMQTY	
+		SUMQTY,
+		STATUS,
+		GUBUNCODE	
 	) VALUES (
 		PURCHASE_BOOK_PK.NEXTVAL,
 		TO_DATE(#{buyDate},'YYYYMMDD'),
@@ -100,7 +105,9 @@
 		TO_DATE(#{inDate},'YYYYMMDD'),
 		#{comm},
 		#{buyer},
-		#{content} * #{qty}
+		#{content} * #{qty},
+		'purch',
+		#{gubunCode}
 	)
 	</insert>
 	
@@ -119,6 +126,74 @@
 		FROM PURCHASE_BOOK
 		GROUP BY ITEM
 	) A
-	INNER JOIN INGREDIENT B ON A.ITEM = B.CODE		
-	</select>	
+	INNER JOIN INGREDIENT B ON A.ITEM = B.CODE
+	ORDER BY B.KNAME
+	</select>
+	
+	<update id="updateInDate">
+	UPDATE PURCHASE_BOOK 
+	SET INDATE = TO_DATE(#{inDate},'YYYY-MM-DD')
+	WHERE CNO = #{cno}	
+	</update>
+	
+	<insert id="insertStorage">
+		INSERT INTO PURCHASE_BOOK (
+		CNO,
+		BUYDATE,
+		ITEM,
+		GUBUN,
+		CONTENT,
+		QTY,
+		PURSHOP,
+		INDATE,
+		COMM,
+		BUYER,
+		SUMQTY,
+		STATUS,
+		GUBUNCODE	
+	) VALUES (
+		PURCHASE_BOOK_PK.NEXTVAL,
+		TO_DATE(#{buyDate},'YYYY-MM-DD'),
+		#{item},
+		#{gubun},
+		#{content},
+		#{qty},
+		'hongsi',
+		TO_DATE(#{buyDate},'YYYY-MM-DD'),
+		#{comm},
+		#{buyer},
+		#{content} * #{qty},
+		'storage',
+		#{gubunCode}
+	)	
+	</insert>
+	
+	<select id="selectStorageInOut" resultType="com.hongsi.purchbook.vo.PurchbookVO">		
+	SELECT 	
+		P.CNO,		
+		P.BUYDATE, 
+		P.ITEM, 
+		I.KNAME, 
+		P.GUBUN,
+		P.CONTENT,		
+		P.QTY
+	FROM 
+	(
+	SELECT 
+			CNO,
+			TO_CHAR(BUYDATE, 'yyyy-MM-dd') BUYDATE,
+			ITEM,
+			GUBUN,
+			CONTENT,		
+			QTY
+		FROM PURCHASE_BOOK
+		WHERE STATUS = 'storage'		
+	) P,
+	(
+		SELECT KNAME, CODE FROM INGREDIENT
+	) I
+	WHERE P.ITEM = I.CODE
+	ORDER BY P.BUYDATE DESC
+	</select>
+	
 </mapper>

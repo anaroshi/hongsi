@@ -1,6 +1,6 @@
 <!-- sitemesh 사용을 위한 설정 파일 -->
-<!-- 작성자 : 이영환 -->
-<!-- 작성일 : 2020-06-30 -->
+<!-- 작성자 : sundor -->
+<!-- 작성일 : 2021-01-10 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="decorator"
@@ -132,15 +132,14 @@ article {
 					<ul class="nav navbar-nav">
 						<li><a href="${path }/purchbook/buy.do">재료구매</a></li>
 						<li><a href="${path }/purchbook/buyAllList.do">재료구매List</a></li>
+						<li><a href="${path }/purchbook/storage.do">재료입출고</a></li>
+						<li><a href="${path }/purchshop/product.do">생산</a></li>
 						<li><a href="${path }/purchshop/orderList.do">생산판매</a></li>
 						<li><a href="${path }/purchshop/orderAllList.do">주문List</a></li>
 						<li><a href="${path }/quantity/list.do">재료함량</a></li>
 						<li><a href="${path }/purchbook/stockList.do">재료재고</a></li>
 						<li><a href="${path }/quantity/product.do">제품생산</a></li>
-						<li><a href="${path }/purchshop/order.do">주문</a></li>
-						<li><a href="${path }/itemstock/list.do">상품재고</a></li>
-						<li><a href="${path }/notice/list.do">공지사항</a></li>
-						<li><a href="${path }/board/list.do">게시판</a></li>
+						<li><a href="${path }/itemstock/list.do">상품재고</a></li>											
 						<!-- &amp; - &, &lt; -> <, &gt; -> >, &nbsp; blank -->						
 						<c:if test="${!empty login }">
 							<!-- 로그인되어 있는 경우의 메뉴 -->
@@ -155,10 +154,7 @@ article {
 					<!-- 메인 메뉴 부분의 로그인 사용자 정보 -->
 				    <ul class="nav navbar-nav navbar-right">
 				      <c:if test="${empty login }">
-				      <!-- 로그인이 안되어 있는 경우의 메뉴 -->
-				      <li><a href="${path }/member/write.do">
-				      	<span class="glyphicon glyphicon-user"></span> 회원가입</a>
-				      </li>
+				      <!-- 로그인이 안되어 있는 경우의 메뉴 -->				      
 				      <li><a href="${path }/member/login.do"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 				      </c:if>
 				      <c:if test="${!empty login }">
@@ -170,8 +166,7 @@ article {
 				      	</a>				      	
 				      </li>
 				      
-				      <li id="welcome">${login.name }[${login.gradeName }]</li>
-				      <li><a href="${path }/member/view.do">내 정보 보기</a></li>
+				      <li id="welcome">${login.name }[${login.gradeName }]</li>				      
 				      <li><a href="${path }/member/logout.do"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
 				      </c:if>
 				    </ul>

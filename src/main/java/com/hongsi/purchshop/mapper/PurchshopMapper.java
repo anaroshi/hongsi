@@ -18,4 +18,10 @@ public interface PurchshopMapper {
 
 	PurchshopVO getWeekDay();
 
+	int insertProduct(PurchshopVO vo);
+
+	List<PurchshopVO> selectProductList();
+
+	PurchshopVO selectProductStock();
+
 }

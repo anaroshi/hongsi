@@ -52,6 +52,9 @@ public class PurchshopVO {
 	private String  endDate;		// 기준되는 한주의 시작 토요일 구하기
 	private String  toDate;			// 기준되는 한주의 시작 토요일 구하기
 	
+	private String  gubunCode;		// 제품 재고에 더할 값인지 뺄 값인지 구하기 위함 (더할 값: in/ 뺄 값: out )
+	private String  status;			// 제품 판매(shop)에서 입력되는지. 생산 입출고(product)에서 입력되는지 구분을 위한 값 (shop/product)
+	private Date 	dDate;			// 입출고일자 
 }
 
 

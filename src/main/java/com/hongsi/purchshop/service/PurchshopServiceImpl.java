@@ -26,6 +26,10 @@ public class PurchshopServiceImpl implements PurchshopService {
 //		vo.setOrderDate(vo.getOrderDate().replace("/", ""));
 //		vo.setOrderDate(vo.getOrderDate().replace(".", ""));
 //		vo.setOrderDate(vo.getOrderDate().replace("-", ""));
+		if(vo.getGubun().equals("판매")) vo.setGubunCode("out");
+		else if(vo.getGubun().equals("교환")) vo.setGubunCode("out");
+		else if(vo.getGubun().equals("반품")) vo.setGubunCode("in");
+		else if(vo.getGubun().equals("손실")) vo.setGubunCode("out");
 		return mapper.insertPurchshopOrder(vo);
 	}
 
@@ -56,6 +60,30 @@ public class PurchshopServiceImpl implements PurchshopService {
 		// 생산의 기준이 되는 이번주의 시작 일요일과 마지막인 토요일 구하기
 		return mapper.getWeekDay();
 	}
-	
+
+	@Override
+	public int insertProduct(PurchshopVO vo) {
+		log.info("Gubun:"+vo.getGubun());
+		log.info("OrderDate:"+vo.getOrderDate());
+		if(vo.getGubun().equals("생산")) vo.setGubunCode("in");
+		else if(vo.getGubun().equals("교환")) vo.setGubunCode("out");
+		else if(vo.getGubun().equals("반품")) vo.setGubunCode("in");
+		else if(vo.getGubun().equals("손실")) vo.setGubunCode("out");
+		vo.setDDate(vo.getOrderDate());
+		log.info("---impl: vo"+vo);
+		return mapper.insertProduct(vo);
+	}
+
+	@Override
+	public List<PurchshopVO> selectProductList() {
+		return mapper.selectProductList();
+	}
+
+	// 완제품 재고 현황
+	@Override
+	public PurchshopVO selectProductStock() {		
+		return  mapper.selectProductStock();
+	}
+
 
 }

@@ -25,4 +25,7 @@ public class PurchbookVO {
 	private long 	disTotal;	// 폐기 수량
 	private long 	total;		// 입고 수량
 	
+	private String  gubunCode;	// 재료 재고에 더할 값인지 뺄 값인지 구하기 위함 (더할 값: in/ 뺄 값: out )
+	private String  status;		// 재료 구매(purch)에서 입력되는지. 재료 입출고(storage)에서 입력되는지 구분을 위한 값 (purch/storage)
+	
 }

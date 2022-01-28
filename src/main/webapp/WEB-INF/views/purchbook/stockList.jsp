@@ -11,21 +11,6 @@
 <body>
 	<div class="container">
 		<h4>재료 재고</h4>
-		<div class="panel-group">
-			<div class="panel panel-danger">
-				<div class="panel-heading">재고 확인해 주세요.</div>
-				<div class="panel-body">
-					<ul class="list-group">
-						<c:forEach items="${ingreTotalList}" var="vo">
-							<c:if test="${vo.total < 500}">
-								<li class="list-group-item" style="border: none" >${vo.kname} - 재고 ${vo.total} g입니다.</li>
-							</c:if>
-						</c:forEach>
-						<!-- ingreTotalList End -->
-					</ul>
-				</div>
-			</div>
-		</div>
 		<div class="row">
 			<div class="col-md-6">
 				<!-- private String  kname;		// 구매품 이름
@@ -60,6 +45,21 @@
 			</div>
 
 			<div class="col-md-6">
+			<div class="panel-group">
+			<div class="panel panel-danger">
+				<div class="panel-heading">재고 확인해 주세요.</div>
+				<div class="panel-body">
+					<ul class="list-group">
+						<c:forEach items="${ingreTotalList}" var="vo">
+							<c:if test="${vo.total < 500}">
+								<li class="list-group-item" style="border: none" >${vo.kname} - 재고 ${vo.total} g입니다.</li>
+							</c:if>
+						</c:forEach>
+						<!-- ingreTotalList End -->
+					</ul>
+				</div>
+			</div>
+		</div>
 			</div>
 		</div>
 	</div>

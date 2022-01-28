@@ -46,7 +46,7 @@ public class PurchbookController {
 	
 	@PostMapping("buy.do")
 	public String buyProcess(PurchbookVO vo, RedirectAttributes rttr) {
-		log.info(".............................buyProcess.vo:"+vo);
+		log.info(".............................buyProcess.vo:"+vo);		
 		Integer result = purchbookSerivce.buyProcess(vo);
 		if (result == 1) {
 			log.info(".............................저장성공");
@@ -68,5 +68,33 @@ public class PurchbookController {
 		model.addAttribute("resultList", purchbookSerivce.list());
 		return MODULE + "/buyAllList";
 	}
+
+	@PostMapping("inDateSave.do")
+	public String updateInDate(PurchbookVO vo, RedirectAttributes rttr) {
+		log.info(".............................insertInDate..:"+vo);
+		
+	  int result = purchbookSerivce.updateInDate(vo); if (result==1) {
+		  rttr.addFlashAttribute("msg", "입고일 저장완료"); 
+	  }		 
+	  return "redirect:buy.do";
+	}
 	
+	// 재료 입출고 화면
+	@GetMapping("storage.do")
+	public String storage(Model model) {
+		log.info(".............................buyList..buy");
+		model.addAttribute("ingreList", ingredientService.list());
+		model.addAttribute("resultList", purchbookSerivce.selectStorageInOut());
+		return MODULE + "/storage";
+	}
+	
+	// 재료 입출고 화면에서 받아와 저장
+	@PostMapping("storage.do")
+	public String insertStorage(PurchbookVO vo, RedirectAttributes rttr) {		
+		log.info(".............................insertStorage..:"+vo);
+		int result = purchbookSerivce.insertStorage(vo); if (result==1) {
+			  rttr.addFlashAttribute("msg", "입출고 입력 저장완료"); 
+		}		
+		return "redirect:storage.do";
+	}
 }

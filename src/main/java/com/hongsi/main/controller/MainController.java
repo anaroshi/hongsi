@@ -31,9 +31,15 @@ public class MainController {
 	@GetMapping("main.do")
 	public String selectAllIngreStock(Model model) {
 		log.info(".............................selectAllIngreStock..");		
+		// 재료 (ori 필요 & erl 필요 & sns 필요 & 현재재고 & 금주필요 & 최종재고 & 주문필요)
 		model.addAttribute("resultList", quantityService.selectTotalNeedFinal());
-		model.addAttribute("itemTotSum", purchshopService.selectItemTotSum());		
+		// 이번주에 생산해야할 필요량 g으로 환산
+		model.addAttribute("itemTotSum", purchshopService.selectItemTotSum());
+		// 이번주 주문량
 		model.addAttribute("itemSum", purchshopService.selectItemSum());
+		// 제품 재고 수량
+		model.addAttribute("stockSum", purchshopService.selectProductStock());
+		// 오늘 일자 & 한주간 일자
 		model.addAttribute("weekDay", purchshopService.getWeekDay());
 		return MODULE+"/main";
 	}
