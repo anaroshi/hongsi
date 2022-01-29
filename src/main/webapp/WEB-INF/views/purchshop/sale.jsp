@@ -35,7 +35,8 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 div.panel-body {
-	padding-bottom: 7px;
+	padding-top: 5px;
+	padding-bottom: 0px;
 }
 </style>
   
@@ -50,6 +51,36 @@ div.panel-body {
 	  };
 	  
     $( "#orderDate" ).datepicker({
+		changeMonth: true,
+		changeYear: true,
+		mdeleveryDate: '-50y', 
+		nextText: '다음 달', 
+		prevText: '이전 달', 
+		yearRange: 'c-3:c+3', 
+		showButtonPanel: true, 
+		currentText: '오늘 날짜', 
+		closeText: '닫기', 
+		dateFormat: "yy-mm-dd", 
+		showAnim: "slide", 
+		showMonthAfterYear: true, dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], 
+		monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']
+    });
+    $( "#saleDate" ).datepicker({
+		changeMonth: true,
+		changeYear: true,
+		mdeleveryDate: '-50y', 
+		nextText: '다음 달', 
+		prevText: '이전 달', 
+		yearRange: 'c-3:c+3', 
+		showButtonPanel: true, 
+		currentText: '오늘 날짜', 
+		closeText: '닫기', 
+		dateFormat: "yy-mm-dd", 
+		showAnim: "slide", 
+		showMonthAfterYear: true, dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], 
+		monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']
+    });
+    $( "#deleveryDate" ).datepicker({
 		changeMonth: true,
 		changeYear: true,
 		mdeleveryDate: '-50y', 
@@ -182,6 +213,7 @@ div.panel-body {
 <body>
 <div class="container">
 <form class="form-horizontal" method="post" id="frm">
+	<input id="order_cno" name="order_cno" type="hidden" value="${vo.cno}">
   <h4>판매 입력</h4>
   <div class="col-md-2">
     <div class="panel panel-default" style="border: none;">
@@ -190,15 +222,15 @@ div.panel-body {
 	  	<div class="form-group">
 	  	<div class="col-xs-4">
 		    <label for="ori_250">250g</label>
-		    <input class="form-control order_item" id="ori_250" name="ori_250" type="number" pattern="[0-9]{4}" >
+		    <input class="form-control order_item" id="ori_250" name="ori_250" type="number" pattern="[0-9]{4}" value="${vo.ori_250}">
 		</div>
 	    <div class="col-xs-4">
 		    <label for="ori_500">500g</label>
-		    <input class="form-control order_item" id="ori_500" name="ori_500" type="number" pattern="[0-9]{4}">
+		    <input class="form-control order_item" id="ori_500" name="ori_500" type="number" pattern="[0-9]{4}" value="${vo.ori_500}">
 		</div>
 		<div class="col-xs-4">
 		    <label for="ori_1000">1,000g</label>
-		    <input class="form-control order_item" id="ori_1000" name="ori_1000" type="number" pattern="[0-9]{4}">
+		    <input class="form-control order_item" id="ori_1000" name="ori_1000" type="number" pattern="[0-9]{4}" value="${vo.ori_1000}">
 		</div>
   		</div>
   	  </div>
@@ -211,64 +243,100 @@ div.panel-body {
 	  	<div class="form-group">
 	  	<div class="col-xs-4">
 		    <label for="erl_250">250g</label>
-		    <input class="form-control order_item" id="erl_250" name="erl_250" type="number" pattern="[0-9]{4}">
+		    <input class="form-control order_item" id="erl_250" name="erl_250" type="number" pattern="[0-9]{4}" value="${vo.erl_250}">
 		</div>
 	    <div class="col-xs-4">
 		    <label for="erl_500">500g</label>
-		    <input class="form-control order_item" id="erl_500" name="erl_500" type="number" pattern="[0-9]{4}">
+		    <input class="form-control order_item" id="erl_500" name="erl_500" type="number" pattern="[0-9]{4}" value="${vo.erl_500}">
 		</div>
 		<div class="col-xs-4">
 		    <label for="erl_1000">1,000g</label>
-		    <input class="form-control order_item" id="erl_1000" name="erl_1000" type="number" pattern="[0-9]{4}">
+		    <input class="form-control order_item" id="erl_1000" name="erl_1000" type="number" pattern="[0-9]{4}" value="${vo.erl_1000}">
 		</div>
   		</div>
   	  </div>
 	</div>
-<!--   </div> -->
-<!--   <div class="col-md-4"> -->
+
     <div class="panel panel-default" style="border: none;">
 	  <div class="panel-heading">SWEET &amp; SALTY</div>
 	  <div class="panel-body">
 	  	<div class="form-group">
 	  	<div class="col-xs-4">
 		    <label for="sns_250">250g</label>
-		    <input class="form-control order_item" id="sns_250" name="sns_250" type="number" pattern="[0-9]{4}">
+		    <input class="form-control order_item" id="sns_250" name="sns_250" type="number" pattern="[0-9]{4}" value="${vo.sns_250}">
 		</div>
 	    <div class="col-xs-4">
 		    <label for="sns_500">500g</label>
-		    <input class="form-control order_item" id="sns_500" name="sns_500" type="number" pattern="[0-9]{4}">
+		    <input class="form-control order_item" id="sns_500" name="sns_500" type="number" pattern="[0-9]{4}" value="${vo.sns_500}">
 		</div>
 		<div class="col-xs-4">
 		    <label for="sns_1000">1,000g</label>
-		    <input class="form-control order_item" id="sns_1000" name="sns_1000" type="number" pattern="[0-9]{4}">
+		    <input class="form-control order_item" id="sns_1000" name="sns_1000" type="number" pattern="[0-9]{4}" value="${vo.sns_1000}">
 		</div>
   		</div>
   	  </div>
 	</div>
+	<div class="form-group">
+		<label for="orderDate" class="col-sm-4 control-label">주문일</label>
+	    <div class="col-sm-7">
+        	<input class="form-control" id="orderDate" name="orderDate" type="text" required="required" value="${vo.orderDate}">
+      	</div>
+	</div>
+	<div class="form-group">
+		<label for="orderer" class="col-sm-4 control-label">주문자</label>
+	 	<div class="col-sm-7">
+			<input class="form-control" type="text" id="orderer" name="orderer" value="${vo.orderer}">
+	 	</div>
+	</div>
+	<div class="form-group">
+      <label for="manager" class="col-sm-4 control-label">담당자</label>
+      <div class="col-sm-7">
+		<input class="form-control" type="text" id="" name="manager">
+      </div>
+ 	</div>	
   </div> 
 <!--   <div class="row">  -->
 	<div class="col-sm-3">
 	   <div class="form-group">
-	      <label for="orderDate" class="col-sm-3 control-label">주문일자</label>
+	      <label for="saleDate" class="col-sm-3 control-label">판매일</label>
 	      <div class="col-sm-8">
-	        <input class="form-control" id="orderDate" name="orderDate" type="text" required="required">
+	        <input class="form-control" id="saleDate" name="saleDate" type="text" required="required">
 	      </div>
-	    </div>	    
+	    </div>
+	    	    
 	    <div class="form-group">
 	      <label for="gubun" class="col-sm-3 control-label">구분</label>
 	      <div class="col-sm-8">
 			<select id="gubun" name="gubun" class="form-control select">
-	            <option value="판매">판매</option>
-	            <option value="교환">교환</option>
-	            <option value="교환">반품</option>
-	            <option value="손실">손실</option>
+	            <option value="판매" <c:if test="${vo.gubun=='주문'}">selected</c:if> >판매</option>
+	            <option value="교환" <c:if test="${vo.gubun=='교환'}">selected</c:if> >교환</option>
+	            <option value="교환" <c:if test="${vo.gubun=='반품'}">selected</c:if> >반품</option>
+	            <option value="손실" <c:if test="${vo.gubun=='손실'}">selected</c:if> >손실</option>
+	            <option value="샘플" <c:if test="${vo.gubun=='샘플'}">selected</c:if> >샘플</option>
 			</select>
 	      </div>
-	    </div>
+	    </div>	    
+		<div class="form-group"> 
+			<label for="price" class="col-sm-3 control-label">금액</label>
+		 	<div class="col-sm-8">
+				<input class="form-control" type="text" id="price" name="price">
+		 	</div>
+		</div>
+	    <div class="form-group">
+	      <label for="paymentPath" class="col-sm-3 control-label">지불방법</label>
+	      <div class="col-sm-8">
+			<select id="paymentPath" name="paymentPath" class="form-control select">
+	            <option value="계좌이체">계좌이체</option>
+	            <option value="현금">현금</option>
+	            <option value="신용카드">신용카드</option>
+	            <option value="경비">경비</option>
+			</select>
+	      </div>
+	    </div>	    
 	    <div class="form-group">
 	      <label for="salePath" class="col-sm-3 control-label">주문경로</label>
 	      <div class="col-sm-8">
-			<select id="gubun" name="salePath" class="form-control select">
+			<select id="salePath" name="salePath" class="form-control select">
 	            <option value="개별구매">개별구매</option>
 	            <option value="NAVER쇼핑">NAVER쇼핑</option>
 	            <option value="Homepage">Homepage</option>
@@ -276,27 +344,29 @@ div.panel-body {
 			</select>
 	      </div>
 	    </div>	    
-	    <div class="form-group">
-	      <label for="orderer" class="col-sm-3 control-label">주문자</label>
+	   	<div class="form-group">
+	      <label for="deleveryDate" class="col-sm-3 control-label">수령일</label>
 	      <div class="col-sm-8">
-			<input class="form-control" type="text" id="orderer" name="orderer">
+	        <input class="form-control" id="deleveryDate" name="deleveryDate" type="text" required="required">
 	      </div>
-	    </div>
-<!-- 	</div> 1블럭 End -->
-	
-<!-- 	<div class="col-sm-6">        -->
+	    </div>	    
+	    <div class="form-group">
+	      <label for="deleveryPath" class="col-sm-3 control-label">배송방법</label>
+	      <div class="col-sm-8">
+			<select id="deleveryPath" name="deleveryPath" class="form-control select">
+	            <option value="택배">택배</option>
+	            <option value="고객수령">고객수령</option>
+	            <option value="직접배송">직접배송</option>
+			</select>
+	      </div>
+	    </div>	    
+
      <div class="form-group">
       <label for="comm" class="col-sm-3 control-label">내역</label>
       <div class="col-sm-8">
       	<textarea class="form-control" rows="5" id="comm" name="comm"></textarea>
       </div>
     </div>
-    <div class="form-group">
-      <label for="manager" class="col-sm-3 control-label">담당자</label>
-      <div class="col-sm-8">
-		<input class="form-control" type="text" id="" name="manager">
-      </div>
- 	</div> 
     <div class="form-group">
       <div class="col-sm-1"></div>
       <div class="col-sm-5">
@@ -317,17 +387,37 @@ div.panel-body {
   <table class="table table-striped">
     <thead>
       <tr>
-        <th  style="width: 15%">일자</th>
-        <th style="width: 75%">내역</th>
-        <th style="width: 10%">주문자</th>
+        <th  style="width: 15%">판매일</th>
+        <th  style="width: 10%">구분</th>
+        <th  style="width: 15%">주문경로</th>
+        <th style="width: 5%; font-size: 9px">O250</th>
+        <th style="width: 5%; font-size: 9px">O500</th>
+        <th style="width: 5%; font-size: 9px">O1000</th>
+        <th style="width: 5%; font-size: 9px">E250</th>
+        <th style="width: 5%; font-size: 9px">E500</th>
+        <th style="width: 5%; font-size: 9px">E1000</th>
+        <th style="width: 5%; font-size: 9px">S250</th>
+        <th style="width: 5%; font-size: 9px">S500</th>
+        <th style="width: 5%; font-size: 9px">S1000</th>
+        <th style="width: 15%">배송</th>
       </tr>
     </thead>
     <tbody>
-<c:forEach items="${orderList}" var="vo">
+<c:forEach items="${saleList}" var="vo">
       <tr>
-        <td>${vo.orderDate}</td>
-        <td>${vo.ori_250_order}${vo.erl_250_order}${vo.sns_250_order}</td>
-        <td>${vo.orderer}</td>
+        <td>${vo.saleDate}</td>
+        <td>${vo.gubun}</td>
+        <td>${vo.salePath}</td>
+        <td>${vo.ori_250}</td>
+        <td>${vo.ori_500}</td>
+        <td>${vo.ori_1000}</td>
+        <td>${vo.erl_250}</td>
+        <td>${vo.erl_500}</td>
+        <td>${vo.erl_1000}</td>
+        <td>${vo.sns_250}</td>
+        <td>${vo.sns_500}</td>
+        <td>${vo.sns_1000}</td>
+        <td>${vo.deleveryPath}</td>
       </tr>
 </c:forEach>
     </tbody>

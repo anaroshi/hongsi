@@ -37,6 +37,10 @@ input[type=number]::-webkit-outer-spin-button {
 div.panel-body {
 	padding-bottom: 7px;
 }
+.dataRow:hover {
+	background: #ccc;
+	cursor: pointer;
+}
 </style>
   
 <script>
@@ -173,6 +177,11 @@ div.panel-body {
 		
 		$("#frm").submit();
   	});
+  	
+  	$(".dataRow").click(function(){
+  		let cno = $(this).find(".cno").text();
+  		location = "sale.do?cno="+cno;
+  	});
     
   });
   
@@ -258,7 +267,7 @@ div.panel-body {
 	      <label for="gubun" class="col-sm-3 control-label">구분</label>
 	      <div class="col-sm-8">
 			<select id="gubun" name="gubun" class="form-control select">
-	            <option value="판매">판매</option>
+	            <option value="주문">주문</option>
 	            <option value="교환">교환</option>
 	            <option value="교환">반품</option>
 	            <option value="손실">손실</option>
@@ -318,14 +327,17 @@ div.panel-body {
     <thead>
       <tr>
         <th  style="width: 15%">일자</th>
-        <th style="width: 75%">내역</th>
+        <th  style="width: 10%">구분</th>
+        <th style="width: 65%">내역</th>
         <th style="width: 10%">주문자</th>
       </tr>
     </thead>
     <tbody>
 <c:forEach items="${orderList}" var="vo">
-      <tr>
+      <tr class="dataRow">
+        <td class="cno" style="display:none">${vo.cno}</td>
         <td>${vo.orderDate}</td>
+        <td>${vo.gubun}</td>
         <td>${vo.ori_250_order}${vo.erl_250_order}${vo.sns_250_order}</td>
         <td>${vo.orderer}</td>
       </tr>

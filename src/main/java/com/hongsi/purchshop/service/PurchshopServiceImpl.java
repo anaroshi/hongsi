@@ -26,7 +26,7 @@ public class PurchshopServiceImpl implements PurchshopService {
 //		vo.setOrderDate(vo.getOrderDate().replace("/", ""));
 //		vo.setOrderDate(vo.getOrderDate().replace(".", ""));
 //		vo.setOrderDate(vo.getOrderDate().replace("-", ""));
-		if(vo.getGubun().equals("판매")) vo.setGubunCode("out");
+		if(vo.getGubun().equals("주문")) vo.setGubunCode("out");
 		else if(vo.getGubun().equals("교환")) vo.setGubunCode("out");
 		else if(vo.getGubun().equals("반품")) vo.setGubunCode("in");
 		else if(vo.getGubun().equals("손실")) vo.setGubunCode("out");
@@ -83,6 +83,13 @@ public class PurchshopServiceImpl implements PurchshopService {
 	@Override
 	public PurchshopVO selectProductStock() {		
 		return  mapper.selectProductStock();
+	}
+
+	// 주문 화면에서 주문 리스트에서 주문을 선택
+	// 판매 정보에 넘겨주기 위함.
+	@Override
+	public PurchshopVO selectOrderByCno(int cno) {
+		return mapper.selectOrderByCno(cno);
 	}
 
 

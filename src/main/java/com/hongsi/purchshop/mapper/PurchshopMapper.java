@@ -24,4 +24,6 @@ public interface PurchshopMapper {
 
 	PurchshopVO selectProductStock();
 
+	PurchshopVO selectOrderByCno(int cno);
+
 }

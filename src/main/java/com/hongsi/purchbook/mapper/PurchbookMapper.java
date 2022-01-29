@@ -3,7 +3,7 @@ package com.hongsi.purchbook.mapper;
 import java.util.List;
 
 import com.hongsi.purchbook.vo.PurchbookVO;
-import com.hongsi.purchshop.vo.PurchshopVO;
+import com.hongsi.purchshop.vo.PurchsaleVO;
 
 public interface PurchbookMapper {
 

@@ -52,9 +52,10 @@
 		#{comm},
 		#{manager},
 		#{gubunCode},
-		'shop'
+		'order'
 	)
-	</insert>	
+	</insert>
+
 	<!-- TO_DATE(#{orderDate},'YYYYMMDD'), -->
 	
 	<select id="selectItemTotSum" resultType="com.hongsi.purchshop.vo.PurchshopVO">
@@ -137,7 +138,7 @@
 	</select>
 	
 	<select id="selectOrderListSuntSat" resultType="com.hongsi.purchshop.vo.PurchshopVO">
-	SELECT 	A.CNO, A.ORDERDATE, 
+	SELECT 	A.CNO, A.ORDERDATE, A.gubun,
 			A.ORI_250_ORDER || A.ORI_500_ORDER || A.ORI_1000_ORDER ORI_250_ORDER,
 			A.ERL_250_ORDER || A.ERL_500_ORDER || A.ERL_1000_ORDER ERL_250_ORDER,
 			A.SNS_250_ORDER || A.SNS_500_ORDER || A.SNS_1000_ORDER SNS_250_ORDER,
@@ -145,7 +146,7 @@
 	FROM (	
 		SELECT 
 			CNO,
-			ORDERDATE, 		
+			ORDERDATE, gubun, 		
 			CASE WHEN ORI_250 > 0 
 				THEN 'ORI_250 : '|| TO_CHAR(ORI_250,'999,999,999')||' 개, '
 				ELSE ''
@@ -185,6 +186,7 @@
 			ORDERER
 		FROM PURCHSHOP
 		WHERE 1=1
+		AND 	STATUS ='order'
 		<include refid="sun_saturday" />		
 		ORDER BY ORDERDATE DESC
 	) A
@@ -358,23 +360,24 @@
 	) F
 	</select>
 	
-<!-- 	<select id="selectOrderList" resultType="com.hongsi.purchshop.vo.PurchshopVO"> -->
-<!-- 		SELECT  -->
-<!-- 			CNO, -->
-<!-- 			ORDERDATE, -->
-<!-- 			ORI_250, -->
-<!-- 			ORI_500, -->
-<!-- 			ORI_1000, 		 -->
-<!-- 			ERL_250, -->
-<!-- 			ERL_500, -->
-<!-- 			ERL_1000, 		 -->
-<!-- 			SNS_250, -->
-<!-- 			SNS_500, -->
-<!-- 			SNS_1000, -->
-<!-- 			ORDERER -->
-<!-- 		FROM PURCHSHOP -->
-<!-- 		WHERE 1=1	 -->
-<!-- 		ORDER BY ORDERDATE -->
-<!-- 	</select>	 -->
+	<select id="selectOrderByCno" resultType="com.hongsi.purchshop.vo.PurchshopVO">
+		SELECT 
+			CNO,			
+			ORDERDATE,
+			GUBUN,
+			ORI_250,
+			ORI_500,
+			ORI_1000, 		
+			ERL_250,
+			ERL_500,
+			ERL_1000,
+			SNS_250,
+			SNS_500,
+			SNS_1000,
+			ORDERER			
+		FROM PURCHSHOP
+		WHERE 1=1	
+		AND CNO = #{cno}
+	</select>	
 	
 </mapper>

@@ -23,4 +23,6 @@ public interface PurchshopService {
 	public List<PurchshopVO> selectProductList();
 	
 	public PurchshopVO selectProductStock();
+
+	public PurchshopVO selectOrderByCno(int cno);
 }

@@ -1,5 +1,7 @@
 package com.hongsi.purchshop.controller;
 
+import org.apache.ibatis.io.ResolverUtil.IsA;
+import org.apache.ibatis.javassist.bytecode.analysis.ControlFlow.Node;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -7,9 +9,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.hongsi.purchshop.service.PurchsaleService;
 import com.hongsi.purchshop.service.PurchshopService;
+import com.hongsi.purchshop.vo.PurchsaleVO;
+import com.hongsi.purchshop.vo.PurchshopVO;
 import com.hongsi.purchshop.vo.PurchshopVO;
 
 import lombok.extern.log4j.Log4j;
@@ -24,6 +30,10 @@ public class PurchshopController {
 	@Autowired
 	@Qualifier("purchshopServiceImpl")
 	private PurchshopService purchshopService;
+
+	@Autowired
+	@Qualifier("purchsaleServiceImpl")
+	private PurchsaleService purchsaleService;
 
 	// 주문 입력 화면 (정보 일요일 ~ 토요일 주문 내역)
 	@GetMapping("order.do")
@@ -41,7 +51,7 @@ public class PurchshopController {
 		if (result == 1) {
 			rttr.addFlashAttribute("msg", "생산주문저장완료");
 		}
-		return "redirect:/purchshop/orderList.do";
+		return "redirect:/purchshop/order.do";
 	}
 	
 
@@ -89,20 +99,38 @@ public class PurchshopController {
 	
 	// 판매 정보 입력 화면
 	@GetMapping("sale.do")
-	public String sale(PurchshopVO vo, Model model) {
-		log.info(".............................sale..");
-		model.addAttribute("orderList", purchshopService.selectOrderListSuntSat());
+	public String sale(PurchshopVO vo, Model model, @RequestParam(required = false, defaultValue = "0") int cno) {
+		log.info(".............................sale..cno:"+cno);
+		//model.addAttribute("orderList", purchshopService.selectOrderListSuntSat());
+		// 주문 정보(주문게시판에서 주문 클릭시 주문에 대한 정보를 가져와 판매 정보에 넣어준다.)
+		if (cno > 0) {
+			model.addAttribute("vo", purchshopService.selectOrderByCno(cno));
+		}
+		// 판매 정보 리스트
+		model.addAttribute("saleList", purchsaleService.selectSaleList());
 		return MODULE + "/sale";
 	}
 
 	// 판매 정보 저장
 	@PostMapping("sale.do")
-	public String insertPurchshopSale(PurchshopVO vo, RedirectAttributes rttr) {
-		log.info("insertPurchshopSale vo :" + vo);
-		int result = purchshopService.insertPurchshopSale(vo);
-		if (result == 1) {
-			rttr.addFlashAttribute("msg", "판매 정보저장 완료");
-		}
+	public String insertPurchsale(PurchsaleVO vo, RedirectAttributes rttr) {
+		log.info("insertPurchsale vo :" + vo);
+//		if ((vo.getOrder_cno()).isnotnull)
+//		int order_cno = (int) vo.getOrder_cno();
+//		if(order_cno > 0) {
+//			purchshopService.updatePurchshopOrder(vo.getOrder_cno());
+//		}
+//		int result = purchsaleService.insertPurchsale(vo);		
+//		if (result == 1) { rttr.addFlashAttribute("msg", "판매 정보저장 완료"); }		 
 		return "redirect:/purchshop/sale.do";
+	}
+	
+	// 판매 정보 리스트 화면
+	@GetMapping("saleAllList.do")
+	public String saleAllList(Model model) {
+		log.info(".............................saleAllList");
+		// 판매 정보 리스트
+		model.addAttribute("saleList", purchsaleService.selectSaleList());	
+		return MODULE + "/saleAllList";
 	}
 }

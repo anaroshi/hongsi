@@ -3,7 +3,6 @@ package com.hongsi.purchbook.service;
 import java.util.List;
 
 import com.hongsi.purchbook.vo.PurchbookVO;
-import com.hongsi.purchshop.vo.PurchshopVO;
 
 public interface PurchbookSerivce {
 	
