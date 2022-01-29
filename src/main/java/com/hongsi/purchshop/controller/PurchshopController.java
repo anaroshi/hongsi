@@ -25,9 +25,11 @@ public class PurchshopController {
 	@Qualifier("purchshopServiceImpl")
 	private PurchshopService purchshopService;
 
+	// 주문 입력 화면 (정보 일요일 ~ 토요일 주문 내역)
 	@GetMapping("order.do")
-	public String order() {
-		log.info(".............................PurchshopController..");
+	public String order(PurchshopVO vo, Model model) {
+		log.info(".............................orderList..");
+		model.addAttribute("orderList", purchshopService.selectOrderListSuntSat());
 		return MODULE + "/order";
 	}
 
@@ -42,13 +44,6 @@ public class PurchshopController {
 		return "redirect:/purchshop/orderList.do";
 	}
 	
-	// 일요일 ~ 토요일 주문 내역
-	@GetMapping("orderList.do")
-	public String orderList(PurchshopVO vo, Model model) {
-		log.info(".............................orderList..");
-		model.addAttribute("orderList", purchshopService.selectOrderListSuntSat());
-		return MODULE + "/orderList";
-	}
 
 	// 주문 내역
 	@GetMapping("orderAllList.do")
@@ -62,9 +57,14 @@ public class PurchshopController {
 	@GetMapping("product.do")
 	public String product(PurchshopVO vo,Model model) {
 		log.info(".............................product..vo:"+vo);
+		// 생산 정보 리스트
 		model.addAttribute("productList", purchshopService.selectProductList());
+		// 이번주 주문량
+		model.addAttribute("itemSum", purchshopService.selectItemSum());
 		// 제품 재고 수량
 		model.addAttribute("stockSum", purchshopService.selectProductStock());
+		// 오늘 일자 & 한주간 일자
+		model.addAttribute("weekDay", purchshopService.getWeekDay());
 		return MODULE + "/product";
 	}
 
@@ -85,5 +85,24 @@ public class PurchshopController {
 		log.info(".............................product..vo:"+vo);
 		model.addAttribute("productList", purchshopService.selectProductList());		
 		return MODULE + "/productAllList";
+	}
+	
+	// 판매 정보 입력 화면
+	@GetMapping("sale.do")
+	public String sale(PurchshopVO vo, Model model) {
+		log.info(".............................sale..");
+		model.addAttribute("orderList", purchshopService.selectOrderListSuntSat());
+		return MODULE + "/sale";
+	}
+
+	// 판매 정보 저장
+	@PostMapping("sale.do")
+	public String insertPurchshopSale(PurchshopVO vo, RedirectAttributes rttr) {
+		log.info("insertPurchshopSale vo :" + vo);
+		int result = purchshopService.insertPurchshopSale(vo);
+		if (result == 1) {
+			rttr.addFlashAttribute("msg", "판매 정보저장 완료");
+		}
+		return "redirect:/purchshop/sale.do";
 	}
 }

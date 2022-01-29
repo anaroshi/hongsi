@@ -46,7 +46,7 @@ div.panel-body {
 	  
 	  function startWith() {
 		  // 화면 로드시 커서가 위치하게
-		  $("#ori_200").focus();	  
+		  $("#ori_250").focus();	  
 	  };
 	  
     $( "#orderDate" ).datepicker({
@@ -141,9 +141,9 @@ div.panel-body {
     });
 
   	$("#orderSave").click(function(){
-  		let ori_200 = $("#ori_200").val();
-  		if(ori_200 == null || ori_200 =="" || typeof ori_200 == "undefined" || ori_200 >= 10000) ori_200 = 0; 
-  		$("#ori_200").val(ori_200);
+  		let ori_250 = $("#ori_250").val();
+  		if(ori_250 == null || ori_250 =="" || typeof ori_250 == "undefined" || ori_250 >= 10000) ori_250 = 0; 
+  		$("#ori_250").val(ori_250);
   		let ori_500 = $("#ori_500").val();
 		if(ori_500 == null || ori_500 =="" || typeof ori_500 == "undefined" || ori_500 >= 10000) ori_500 = 0; 
 		$("#ori_500").val(ori_500);
@@ -151,9 +151,9 @@ div.panel-body {
 		if(ori_1000 == null || ori_1000 =="" || typeof ori_1000 == "undefined" || ori_1000 >= 10000) ori_1000 = 0; 
 		$("#ori_1000").val(ori_1000);
 		
-		let erl_200 = $("#erl_200").val();
-		if(erl_200 == null || erl_200 =="" || typeof erl_200 == "undefined" || erl_200 >= 2000) erl_200 = 0; 
-		$("#erl_200").val(erl_200);
+		let erl_250 = $("#erl_250").val();
+		if(erl_250 == null || erl_250 =="" || typeof erl_250 == "undefined" || erl_250 >= 2000) erl_250 = 0; 
+		$("#erl_250").val(erl_250);
 		let erl_500 = $("#erl_500").val();
 		if(erl_500 == null || erl_500 =="" || typeof erl_500 == "undefined" || erl_500 >= 5000) erl_500 = 0; 
 		$("#erl_500").val(erl_500);
@@ -161,9 +161,9 @@ div.panel-body {
 		if(erl_1000 == null || erl_1000 =="" || typeof erl_1000 == "undefined" || erl_1000 >= 10000) erl_1000 = 0; 
 		$("#erl_1000").val(erl_1000);
 		
-		let sns_200 = $("#sns_200").val();
-		if(sns_200 == null || sns_200 =="" || typeof sns_200 == "undefined" || sns_200 >= 2000) sns_200 = 0; 
-		$("#sns_200").val(sns_200);
+		let sns_250 = $("#sns_250").val();
+		if(sns_250 == null || sns_250 =="" || typeof sns_250 == "undefined" || sns_250 >= 2000) sns_250 = 0; 
+		$("#sns_250").val(sns_250);
 		let sns_500 = $("#sns_500").val();
 		if(sns_500 == null || sns_500 =="" || typeof sns_500 == "undefined" || sns_500 >= 5000) sns_500 = 0; 
 		$("#sns_500").val(sns_500);
@@ -181,16 +181,16 @@ div.panel-body {
 
 <body>
 <div class="container">
-<form class="form-horizontal" method="post" id="frm" action="order.do">
-  <h4>주문 입력</h4>
+<form class="form-horizontal" method="post" id="frm">
+  <h4>판매 입력</h4>
   <div class="col-md-2">
     <div class="panel panel-default" style="border: none;">
 	  <div class="panel-heading">ORIGINAL</div>
 	  <div class="panel-body">
 	  	<div class="form-group">
 	  	<div class="col-xs-4">
-		    <label for="ori_200">200g</label>
-		    <input class="form-control order_item" id="ori_200" name="ori_200" type="number" pattern="[0-9]{4}" >
+		    <label for="ori_250">250g</label>
+		    <input class="form-control order_item" id="ori_250" name="ori_250" type="number" pattern="[0-9]{4}" >
 		</div>
 	    <div class="col-xs-4">
 		    <label for="ori_500">500g</label>
@@ -210,8 +210,8 @@ div.panel-body {
 	  <div class="panel-body">
 	  	<div class="form-group">
 	  	<div class="col-xs-4">
-		    <label for="erl_200">200g</label>
-		    <input class="form-control order_item" id="erl_200" name="erl_200" type="number" pattern="[0-9]{4}">
+		    <label for="erl_250">250g</label>
+		    <input class="form-control order_item" id="erl_250" name="erl_250" type="number" pattern="[0-9]{4}">
 		</div>
 	    <div class="col-xs-4">
 		    <label for="erl_500">500g</label>
@@ -231,8 +231,8 @@ div.panel-body {
 	  <div class="panel-body">
 	  	<div class="form-group">
 	  	<div class="col-xs-4">
-		    <label for="sns_200">200g</label>
-		    <input class="form-control order_item" id="sns_200" name="sns_200" type="number" pattern="[0-9]{4}">
+		    <label for="sns_250">250g</label>
+		    <input class="form-control order_item" id="sns_250" name="sns_250" type="number" pattern="[0-9]{4}">
 		</div>
 	    <div class="col-xs-4">
 		    <label for="sns_500">500g</label>
@@ -326,7 +326,7 @@ div.panel-body {
 <c:forEach items="${orderList}" var="vo">
       <tr>
         <td>${vo.orderDate}</td>
-        <td>${vo.ori_200_order}${vo.erl_200_order}${vo.sns_200_order}</td>
+        <td>${vo.ori_250_order}${vo.erl_250_order}${vo.sns_250_order}</td>
         <td>${vo.orderer}</td>
       </tr>
 </c:forEach>

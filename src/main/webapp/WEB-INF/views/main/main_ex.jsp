@@ -113,25 +113,25 @@ button {
 		//alert("계산");
 		$("#indivisuleSum").text("");
 		// original 주문 수량
-		let ori_200 	= ($("#ori_200").val())*200;
+		let ori_250 	= ($("#ori_250").val())*200;
 		let ori_500 	= ($("#ori_500").val())*500;
 		let ori_1000 	= ($("#ori_1000").val())*1000;
-		let ori_sum 	= (ori_200+ori_500+ori_1000);
-		//$("#indivisuleSum").text(ori_200+"/"+ori_500+"/"+ori_1000+" = "+ori_sum+" -----  ");			
+		let ori_sum 	= (ori_250+ori_500+ori_1000);
+		//$("#indivisuleSum").text(ori_250+"/"+ori_500+"/"+ori_1000+" = "+ori_sum+" -----  ");			
 		
 		// earlgrey 주문 수량
-		let erl_200 	= ($("#erl_200").val())*200;
+		let erl_250 	= ($("#erl_250").val())*200;
 		let erl_500 	= ($("#erl_500").val())*500;
 		let erl_1000 	= ($("#erl_1000").val())*1000;
-		let erl_sum 	= (erl_200+erl_500+erl_1000);
-		//$("#indivisuleSum").append(erl_200+"/"+erl_500+"/"+erl_1000+"  -----  ");
+		let erl_sum 	= (erl_250+erl_500+erl_1000);
+		//$("#indivisuleSum").append(erl_250+"/"+erl_500+"/"+erl_1000+"  -----  ");
 		
 		// sweet&amp;salty 주문 수량
-		let sns_200 	= ($("#sns_200").val())*200;
+		let sns_250 	= ($("#sns_250").val())*200;
 		let sns_500 	= ($("#sns_500").val())*500;
 		let sns_1000 	= ($("#sns_1000").val())*1000;
-		let sns_sum 	= (sns_200+sns_500+sns_1000);
-		//$("#indivisuleSum").append(sns_200+"/"+sns_500+"/"+sns_1000);
+		let sns_sum 	= (sns_250+sns_500+sns_1000);
+		//$("#indivisuleSum").append(sns_250+"/"+sns_500+"/"+sns_1000);
 		//$("#indivisuleSum").append("original : "+ori_sum+" / earlgrey : "+erl_sum+" / sweet&amp;salty"+sns_sum);
 		$("#oriMark").text(ori_sum);
 		$("#erlMark").text(erl_sum);
@@ -158,8 +158,8 @@ button {
 	  <div class="panel-body">
 	  	<div class="form-group form-group-sm">
 	  	<div class="col-xs-4">
-		    <label for="ori_200">200g</label>
-		    <input class="form-control" id="ori_200" name="ori_200" type="number" pattern="[0-9]{4}">
+		    <label for="ori_250">200g</label>
+		    <input class="form-control" id="ori_250" name="ori_250" type="number" pattern="[0-9]{4}">
 		</div>
 	    <div class="col-xs-4">
 		    <label for="ori_500">500g</label>
@@ -179,8 +179,8 @@ button {
 	  <div class="panel-body">
 	  	<div class="form-group form-group-sm">
 	  	<div class="col-xs-4">
-		    <label for="erl_200">200g</label>
-		    <input class="form-control" id="erl_200" name="erl_200" type="number" pattern="[0-9]{4}">
+		    <label for="erl_250">200g</label>
+		    <input class="form-control" id="erl_250" name="erl_250" type="number" pattern="[0-9]{4}">
 		</div>
 	    <div class="col-xs-4">
 		    <label for="erl_500">500g</label>
@@ -200,8 +200,8 @@ button {
 	  <div class="panel-body">
 	  	<div class="form-group form-group-sm">
 	  	<div class="col-xs-4">
-		    <label for="sns_200">200g</label>
-		    <input class="form-control" id="sns_200" name="sns_200" type="number" pattern="[0-9]{4}">
+		    <label for="sns_250">200g</label>
+		    <input class="form-control" id="sns_250" name="sns_250" type="number" pattern="[0-9]{4}">
 		</div>
 	    <div class="col-xs-4">
 		    <label for="sns_500">500g</label>

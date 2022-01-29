@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,36 +19,16 @@ input[type=number]::-webkit-outer-spin-button {
     appearance: none;
     margin: 0; 
 }
-
-.order_item {
- 	font-size: 12px;
- 	padding: 6px 4px;
- }
- 
-.btn, .select {
- 	font-size: 12px;
- }
- 
+    	
 .btn:hover {
 	background-color: #CCCCCC;
 	color: white;
-}
-
-div.panel-body {
-	padding: 5px 15px 0px;
 }
 </style>
   
 <script>
   $( function() {
 
-	  startWith();
-	  
-	  function startWith() {
-		  // 화면 로드시 커서가 위치하게
-		  $("#ori_250").focus();	  
-	  };
-	  
     $( "#orderDate" ).datepicker({
 		changeMonth: true,
 		changeYear: true,
@@ -62,8 +41,9 @@ div.panel-body {
 		closeText: '닫기', 
 		dateFormat: "yy-mm-dd", 
 		showAnim: "slide", 
-		showMonthAfterYear: true, dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], 
-		monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']
+		showMonthAfterYear: true, dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+		monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] 
+      
     });
     
     $( "#deleveryDate" ).datepicker({
@@ -79,7 +59,8 @@ div.panel-body {
 		dateFormat: "yy-mm-dd", 
 		showAnim: "slide", 
 		showMonthAfterYear: true, dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-		monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']
+		monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] 
+      
     });
     
     $("#item").change(function() {
@@ -138,7 +119,7 @@ div.panel-body {
     	for ( x in d) {
     		let opt = $("<option value='"+d[x]+"'>"+d[x]+"</option>");
     		$("#content").append(opt);
-    	}    
+    	}
     });
 
   	$("#orderSave").click(function(){
@@ -183,153 +164,76 @@ div.panel-body {
 <body>
 <div class="container">
 <form class="form-horizontal" method="post" id="frm">
-  <h4>생산 입력</h4>
- <!-- 재고량 보이기 Start -->
-	<!-- 주 생산량 start -->
-<div class="col-md-3">
-<table class="table table-condensed">
-   <thead>
-    <tr>
-    	<td colspan="5">${weekDay.toDate}</td>
-    </tr> 	
-	<tr>
-        <th colspan="2" class="text-center">제품명</th>
-        <th width="20%">주문량</th>
-        <th width="20%">재고량</th>
-        <th width="20%">금주필요</th>
-      </tr>
-    </thead>
-    <tbody>
- 	<tr>
-        <td rowspan="3" class="text-center">Original</td>
-        <td width="20%">250g</td>
-        <td>${itemSum.ori_250_sum}개</td>
-        <td>${stockSum.ori_250_sum}개</td>
-        <td>${stockSum.ori_250_sum - itemSum.ori_250_sum}개</td>
-    </tr>
-	<tr>
-        <td>500g</td>
-        <td>${itemSum.ori_500_sum}개</td>
-        <td>${stockSum.ori_500_sum}개</td>
-        <td>${stockSum.ori_500_sum - itemSum.ori_500_sum}개</td>
-    </tr>
-	<tr>        
-        <td>1,000g</td>
-        <td>${itemSum.ori_1000_sum}개</td>
-        <td>${stockSum.ori_1000_sum}개</td>
-        <td>${stockSum.ori_1000_sum - itemSum.ori_1000_sum}개</td>
-    </tr>
-	<tr>
-        <td rowspan="3" class="text-center">Earlgrey</td>
-        <td>250g</td>
-        <td>${itemSum.erl_250_sum}개</td>
-        <td>${stockSum.erl_250_sum}개</td>
-        <td>${stockSum.erl_250_sum - itemSum.erl_250_sum}개</td>
-    </tr>
-	<tr>
-        <td>500g</td>
-        <td>${itemSum.erl_500_sum}개</td>
-        <td>${stockSum.erl_500_sum}개</td>
-        <td>${stockSum.erl_500_sum - itemSum.erl_500_sum}개</td>
-    </tr>
-	<tr>        
-        <td>1,000g</td>
-        <td>${itemSum.erl_1000_sum}개</td>
-        <td>${stockSum.erl_1000_sum}개</td>
-        <td>${stockSum.erl_1000_sum - itemSum.erl_1000_sum}개</td>
-    </tr>
-    <tr>
-        <td rowspan="3" class="text-center">Sweet &amp; Salty</td>
-        <td>250g</td>
-        <td>${itemSum.sns_250_sum}개</td>
-        <td>${stockSum.sns_250_sum}개</td>
-        <td>${stockSum.sns_250_sum - itemSum.sns_250_sum}개</td>
-    </tr>
-	<tr>
-        <td>500g</td>
-        <td>${itemSum.sns_500_sum}개</td>
-        <td>${stockSum.sns_500_sum}개</td>
-        <td>${stockSum.sns_500_sum - itemSum.sns_500_sum}개</td>
-    </tr>
-	<tr>        
-        <td>1,000g</td>
-        <td>${itemSum.sns_1000_sum}개</td>
-        <td>${stockSum.sns_1000_sum}개</td>
-        <td>${stockSum.sns_1000_sum - itemSum.sns_1000_sum}개</td>
-    </tr>
-    </tbody>
-  	</table>
- 	</div>
-	<!-- 주 생산량 end -->
-	<!-- 재고량 보이기 End -->
-	
-  <div class="col-md-2">
+  <h4>주문 입력</h4>
+  <div class="row">
+  <div class="col-md-4">
     <div class="panel panel-default" style="border: none;">
 	  <div class="panel-heading">ORIGINAL</div>
 	  <div class="panel-body">
 	  	<div class="form-group">
 	  	<div class="col-xs-4">
-		    <label for="ori_250">250g</label>
-		    <input class="form-control order_item" id="ori_250" name="ori_250" type="number" pattern="[0-9]{4}" >
+		    <label for="ori_250">200g</label>
+		    <input class="form-control" id="ori_250" name="ori_250" type="number" pattern="[0-9]{4}">
 		</div>
 	    <div class="col-xs-4">
 		    <label for="ori_500">500g</label>
-		    <input class="form-control order_item" id="ori_500" name="ori_500" type="number" pattern="[0-9]{4}">
+		    <input class="form-control" id="ori_500" name="ori_500" type="number" pattern="[0-9]{4}">
 		</div>
 		<div class="col-xs-4">
 		    <label for="ori_1000">1,000g</label>
-		    <input class="form-control order_item" id="ori_1000" name="ori_1000" type="number" pattern="[0-9]{4}">
+		    <input class="form-control" id="ori_1000" name="ori_1000" type="number" pattern="[0-9]{4}">
 		</div>
   		</div>
   	  </div>
 	</div>
-<!--   </div> -->
-<!--   <div class="col-md-4"> -->
+  </div>
+  <div class="col-md-4">
     <div class="panel panel-default" style="border: none;">
 	  <div class="panel-heading">EARLGREY</div>
 	  <div class="panel-body">
 	  	<div class="form-group">
 	  	<div class="col-xs-4">
-		    <label for="erl_250">250g</label>
-		    <input class="form-control order_item" id="erl_250" name="erl_250" type="number" pattern="[0-9]{4}">
+		    <label for="erl_250">200g</label>
+		    <input class="form-control" id="erl_250" name="erl_250" type="number" pattern="[0-9]{4}">
 		</div>
 	    <div class="col-xs-4">
 		    <label for="erl_500">500g</label>
-		    <input class="form-control order_item" id="erl_500" name="erl_500" type="number" pattern="[0-9]{4}">
+		    <input class="form-control" id="erl_500" name="erl_500" type="number" pattern="[0-9]">
 		</div>
 		<div class="col-xs-4">
 		    <label for="erl_1000">1,000g</label>
-		    <input class="form-control order_item" id="erl_1000" name="erl_1000" type="number" pattern="[0-9]{4}">
+		    <input class="form-control" id="erl_1000" name="erl_1000" type="number" pattern="[0-9]">
 		</div>
   		</div>
   	  </div>
 	</div>
-<!--   </div> -->
-<!--   <div class="col-md-4"> -->
+  </div>
+  <div class="col-md-4">
     <div class="panel panel-default" style="border: none;">
 	  <div class="panel-heading">SWEET &amp; SALTY</div>
 	  <div class="panel-body">
 	  	<div class="form-group">
 	  	<div class="col-xs-4">
-		    <label for="sns_250">250g</label>
-		    <input class="form-control order_item" id="sns_250" name="sns_250" type="number" pattern="[0-9]{4}">
+		    <label for="sns_250">200g</label>
+		    <input class="form-control" id="sns_250" name="sns_250" type="number" pattern="[0-9]{4}">
 		</div>
 	    <div class="col-xs-4">
 		    <label for="sns_500">500g</label>
-		    <input class="form-control order_item" id="sns_500" name="sns_500" type="number" pattern="[0-9]{4}">
+		    <input class="form-control" id="sns_500" name="sns_500" type="number" pattern="[0-9]">
 		</div>
 		<div class="col-xs-4">
 		    <label for="sns_1000">1,000g</label>
-		    <input class="form-control order_item" id="sns_1000" name="sns_1000" type="number" pattern="[0-9]{4}">
+		    <input class="form-control" id="sns_1000" name="sns_1000" type="number" pattern="[0-9]">
 		</div>
   		</div>
   	  </div>
 	</div>
+  </div>
   </div> 
-<!--   <div class="row">  -->
-	<div class="col-sm-2">
+  <div class="row"> 
+	<div class="col-sm-6">
 	   <div class="form-group">
-	      <label for="orderDate" class="col-sm-3 control-label">생산일</label>
+	      <label for="orderDate" class="col-sm-3 control-label">주문일자</label>
 	      <div class="col-sm-8">
 	        <input class="form-control" id="orderDate" name="orderDate" type="text" required="required">
 	      </div>
@@ -337,63 +241,57 @@ div.panel-body {
 	    <div class="form-group">
 	      <label for="gubun" class="col-sm-3 control-label">구분</label>
 	      <div class="col-sm-8">
-			<select id="gubun" name="gubun" class="form-control select">
-	            <option value="생산">생산</option>
-	            <option value="교환">교환</option>
-	            <option value="교환">반품</option>
-	            <option value="손실">손실</option>
+			<select id="gubun" name="gubun" class="form-control">
+	            <option value="판매">판매</option>
+	            <option value=""></option>
 			</select>
 	      </div>
 	    </div>
-
+	    <div class="form-group">
+	      <label for="salePath" class="col-sm-3 control-label">주문경로</label>
+	      <div class="col-sm-8">
+			<select id="gubun" name="salePath" class="form-control">
+	            <option value="개별구매">개별구매</option>
+	            <option value="NAVER쇼핑">NAVER쇼핑</option>
+	            <option value="Homepage">Homepage</option>
+			</select>
+	      </div>
+	    </div>	    
+	    <div class="form-group">
+	      <label for="orderer" class="col-sm-3 control-label">주문자</label>
+	      <div class="col-sm-8">
+			<input class="form-control" type="text" id="orderer" name="orderer">
+	      </div>
+	    </div>
+	</div> <!-- 1블럭 End -->
+	
+	<div class="col-sm-6">       
      <div class="form-group">
       <label for="comm" class="col-sm-3 control-label">내역</label>
       <div class="col-sm-8">
       	<textarea class="form-control" rows="5" id="comm" name="comm"></textarea>
       </div>
     </div>
-    <div class="form-group">
+     <div class="form-group">
       <label for="manager" class="col-sm-3 control-label">담당자</label>
       <div class="col-sm-8">
 		<input class="form-control" type="text" id="" name="manager">
       </div>
- 	</div> 
+    </div>
+	</div> <!-- 2블럭 End -->
+		</div>
+	<div class="row">
     <div class="form-group">
-      <div class="col-sm-1"></div>
-      <div class="col-sm-5">
-		<button type="reset" class="btn btn-block">초기화</button>
-      </div>      
-      <div class="col-sm-5">
-      	<button type="button" class="btn btn-block" id="orderSave">저장</button>
-      </div>
-      <div class="col-sm-1"></div>
- 	</div> 
-</div>
-</form>
-<!-- 	</div> 2블럭 End -->
-
-<!-- 	생산 내역 List -->
-<div class="col-md-5">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th  style="width: 20%">생산일</th>
-        <th style="width: 10%">구분</th>
-        <th style="width: 70%">내역</th>
-      </tr>
-    </thead>
-    <tbody>
-<c:forEach items="${productList}" var="vo">
-      <tr>
-        <td>${vo.orderDate}</td>
-        <td>${vo.gubun}</td>
-        <td>${vo.ori_250_order}${vo.erl_250_order}${vo.sns_250_order}</td>
-      </tr>
-</c:forEach>
-    </tbody>
-  </table>
-</div>
-<!-- 	 생산 내역 List End  -->
+    <div class="col-sm-6"></div>
+	<div class="col-sm-3">    	
+    	<button type="reset" class="btn btn-block">초기화</button>
+    </div>	
+    <div class="col-sm-3">
+    	<button type="button" class="btn btn-block" id="orderSave">저장</button>
+	</div>
+    </div>
+  </div>
+    </form>
 </div>
 </body>
 </html>

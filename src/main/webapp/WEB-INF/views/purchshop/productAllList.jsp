@@ -66,7 +66,7 @@ div.panel-body {
       <tr>
         <td>${vo.orderDate}</td>
         <td>${vo.gubun}</td>
-        <td>${vo.ori_200_order}${vo.erl_200_order}${vo.sns_200_order}</td>
+        <td>${vo.ori_250_order}${vo.erl_250_order}${vo.sns_250_order}</td>
         <td>${vo.comm}</td>
       </tr>
 </c:forEach>

@@ -133,7 +133,7 @@ article {
 						<li><a href="${path }/purchbook/buy.do">재료구매</a></li>
 						<li><a href="${path }/purchbook/storage.do">재료입출고</a></li>
 						<li><a href="${path }/purchshop/product.do">생산</a></li>
-						<li><a href="${path }/purchshop/orderList.do">주문</a></li>
+						<li><a href="${path }/purchshop/order.do">주문</a></li>
 						<li><a href="${path }/purchshop/sale.do">판매</a></li>
 						<li><a href="${path }/purchbook/buyAllList.do">재료구매L</a></li>
 						<li><a href="${path }/purchbook/storageAllList.do">재료입출고L</a></li>

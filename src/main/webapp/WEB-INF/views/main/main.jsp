@@ -86,9 +86,9 @@ $(function() {
  	<tr>
         <td rowspan="3" class="text-center">Original</td>
         <td width="20%">250g</td>
-        <td>${itemSum.ori_200_sum}개</td>
-        <td>${stockSum.ori_200_sum}개</td>
-        <td>${stockSum.ori_200_sum - itemSum.ori_200_sum}개</td>
+        <td>${itemSum.ori_250_sum}개</td>
+        <td>${stockSum.ori_250_sum}개</td>
+        <td>${stockSum.ori_250_sum - itemSum.ori_250_sum}개</td>
     </tr>
 	<tr>
         <td>500g</td>
@@ -108,9 +108,9 @@ $(function() {
 	<tr>
         <td rowspan="3" class="text-center">Earlgrey</td>
         <td>250g</td>
-        <td>${itemSum.erl_200_sum}개</td>
-        <td>${stockSum.erl_200_sum}개</td>
-        <td>${stockSum.erl_200_sum - itemSum.erl_200_sum}개</td>
+        <td>${itemSum.erl_250_sum}개</td>
+        <td>${stockSum.erl_250_sum}개</td>
+        <td>${stockSum.erl_250_sum - itemSum.erl_250_sum}개</td>
     </tr>
 	<tr>
         <td>500g</td>
@@ -130,9 +130,9 @@ $(function() {
     <tr>
         <td rowspan="3" class="text-center">Sweet &amp; Salty</td>
         <td>250g</td>
-        <td>${itemSum.sns_200_sum}개</td>
-        <td>${stockSum.sns_200_sum}개</td>
-        <td>${stockSum.sns_200_sum - itemSum.sns_200_sum}개</td>
+        <td>${itemSum.sns_250_sum}개</td>
+        <td>${stockSum.sns_250_sum}개</td>
+        <td>${stockSum.sns_250_sum - itemSum.sns_250_sum}개</td>
     </tr>
 	<tr>
         <td>500g</td>
