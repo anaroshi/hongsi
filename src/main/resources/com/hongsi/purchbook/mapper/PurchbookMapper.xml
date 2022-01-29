@@ -162,7 +162,7 @@
 		TO_DATE(#{buyDate},'YYYY-MM-DD'),
 		#{comm},
 		#{buyer},
-		#{content} * #{qty},
+		#{content},
 		'storage',
 		#{gubunCode}
 	)	

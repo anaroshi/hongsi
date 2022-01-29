@@ -83,7 +83,11 @@ public class PurchbookController {
 	@GetMapping("storage.do")
 	public String storage(Model model) {
 		log.info(".............................buyList..buy");
+		// 재료 리스트 (select)
 		model.addAttribute("ingreList", ingredientService.list());
+		// 재료 재고
+		model.addAttribute("ingreTotalList", purchbookSerivce.selectIgdTotalList());
+		// 재료 입출고 리스트
 		model.addAttribute("resultList", purchbookSerivce.selectStorageInOut());
 		return MODULE + "/storage";
 	}
@@ -97,4 +101,13 @@ public class PurchbookController {
 		}		
 		return "redirect:storage.do";
 	}
+	
+	@GetMapping("storageAllList.do")
+	public String storageAllList(Model model) {
+		log.info(".............................storageAllList..");
+		// 재료 입출고 리스트
+		model.addAttribute("resultList", purchbookSerivce.selectStorageInOut());
+		return MODULE + "/storageAllList";
+	}
+
 }

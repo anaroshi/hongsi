@@ -28,9 +28,8 @@
 div.modal-body {
 	height: 90px;
 }
+</style>
 
-		
-</style>  
 <script>
   $( function() {
 	  
@@ -50,41 +49,7 @@ div.modal-body {
 		monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] 
       
     });
-    
-    $( "#inDate" ).datepicker({
-		changeMonth: true,
-		changeYear: true,
-		minDate: '-50y', 
-		nextText: '다음 달', 
-		prevText: '이전 달', 
-		yearRange: 'c-3:c+3', 
-		showButtonPanel: true, 
-		currentText: '오늘 날짜', 
-		closeText: '닫기', 
-		dateFormat: "yy-mm-dd", 
-		showAnim: "slide", 
-		showMonthAfterYear: true, dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-		monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] 
-      
-    });
-    
-    $( "#inDateSave" ).datepicker({
-		changeMonth: true,
-		changeYear: true,
-		minDate: '-50y', 
-		nextText: '다음 달', 
-		prevText: '이전 달', 
-		yearRange: 'c-3:c+3', 
-		showButtonPanel: true, 
-		currentText: '오늘 날짜', 
-		closeText: '닫기', 
-		dateFormat: "yy-mm-dd", 
-		showAnim: "slide", 
-		showMonthAfterYear: true, dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-		monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] 
-      
-    });
-    
+     
     $("#item").change(function() {
     	let selectedVal = $(this).val();
     	//alert(selectedVal);
@@ -143,22 +108,7 @@ div.modal-body {
     		$("#content").append(opt);
     	}    
     });
-    
-	$(".dataRow").click(function(){
-		let cno 	= $(this).find(".cno").text();		
-		let buyDate = $(this).find(".buyDate").text();		
-		let gubun 	= $(this).find(".gubun").text();		
-		let item 	= $(this).find(".item").text();		
-		let kname 	= $(this).find(".kname").text();		
-		let content = $(this).find(".content").text();		
-		let qty 	= $(this).find(".qty").text();
-		let purShop	= $(this).find(".purShop").text();
 		
-		$(".cno").val(cno);		
-		$(".buyInfo").css("font-size","16px").text(buyDate+"  "+gubun+"  "+kname+"  "+content+"g  "+qty+"개  "+purShop);		
-		$("#myModal").modal("show");
-	});	
-	
 });
   </script>
 </head>
@@ -166,18 +116,38 @@ div.modal-body {
 <div class="container">
 <div class="row">
   <h4>재료 입출고 입력</h4>
-	
+		<!-- 재고량 보이기 Start -->
+	<div class="col-md-2">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>재료</th>
+					<th>재고 (g)</th>
+				</tr>
+			</thead>
+			<tbody>
+ 				<c:forEach items="${ingreTotalList}" var="vo" varStatus="status">
+ 				<c:if test="${vo.total ne '0'}">
+					<tr class="dataRow">
+						<td class="text-center">${vo.kname}</td>
+						<td class="text-right" id="need_${status.count}"><fmt:formatNumber value="${vo.total}" /></td>
+					</tr>
+				</c:if>	
+				</c:forEach>
+			</tbody>
+		</table>
+	</div>
+	<!-- 재고량 보이기 End -->
 	<form class="form-horizontal" method="post">	
 	<!-- 재료 입출고 입력 Start -->
 	<!-- 1블럭 Start -->
-	
 	<div class="col-sm-4">
 		<div class="form-group">
 	      <label for="buyDate" class="col-sm-3 control-label">입출고일</label>
 	      <div class="col-sm-8">
 	        <input class="form-control" id="buyDate" name="buyDate" type="text" required="required">
 	      </div>
-	    </div>
+		</div>
 	    <div class="form-group">
 	      <label for="item" class="col-sm-3 control-label">재료</label>
 	      <div class="col-sm-8">
@@ -188,8 +158,8 @@ div.modal-body {
 		      </c:forEach>
 	      </select>	        
 	      </div>
-	    </div>
-	   <div class="form-group">
+		</div>
+		<div class="form-group" id="gubunForm">
 	      <label for="gubun" class="col-sm-3 control-label">구분</label>
 	      <div class="col-sm-8">
 			<select id="gubun" name="gubun" class="form-control select" required="required">
@@ -199,57 +169,47 @@ div.modal-body {
 	            <option value="손실">손실</option>
 			</select>
 	      </div>
-	    </div>	    
-	   
+		</div>	    
+			   
 	    <div class="form-group">
 			<label for="content" class="col-sm-3 control-label">용량</label>
 			<div class="col-sm-8">
 				<input class="form-control" id="content" name="content" type="text" placeholder="content" required="required">		      
 			</div>
 	    </div>
-	    
-	    <div class="form-group">
-	      <label for="qty" class="col-sm-3 control-label">수량</label>
-	      <div class="col-sm-8">
-	        	<input class="form-control" id="qty" name="qty" type="text" placeholder="qty" required="required">
-	      </div>
-	    </div>
-	</div>
-	<!-- 1블럭 End -->
-	
-	<!-- 2블럭 Start -->
-	<div class="col-sm-3">
-	<div class="form-group">
-      <label for="comm" class="col-sm-3 control-label">내역</label>
-      <div class="col-sm-8">
-      	<textarea class="form-control" rows="5" id="comm" name="comm"></textarea>
-      </div>
-     </div>
-     <div class="form-group">
-      <label for="buyer" class="col-sm-3 control-label">담당자</label>
-      <div class="col-sm-8">
-      	<select id="buyer" name="buyer" class="form-control select">
-            <option value="홍동호">홍동호</option>
-            <option value="대행인">대행인</option>
-		</select>
-      </div>
- 	</div>
 
-	<div class="row">
-    <div class="form-group">
-	    <div class="col-sm-6"></div>
-	    <div class="col-sm-6">
-	    	<button type="submit" class="btn btn-block">저장</button>
-	    </div>	
-    </div>
-    </div>
+		<div class="form-group">
+	      <label for="comm" class="col-sm-3 control-label">내역</label>
+	      <div class="col-sm-8">
+	      	<textarea class="form-control" rows="5" id="comm" name="comm"></textarea>
+	      </div>
+	     </div>
+	     
+	     <div class="form-group">
+	      <label for="buyer" class="col-sm-3 control-label">담당자</label>
+	      <div class="col-sm-8">
+	      	<select id="buyer" name="buyer" class="form-control select">
+	            <option value="홍동호">홍동호</option>
+	            <option value="대행인">대행인</option>
+			</select>
+	      </div>
+ 		</div>
+
+		<div class="row">
+	    <div class="form-group">
+		    <div class="col-sm-6"></div>
+		    <div class="col-sm-6">
+		    	<button type="submit" class="btn btn-block">저장</button>
+		    </div>	
+	    </div>
+	    </div>
     </div>
     
 	<!-- 2블럭 End -->
 	<!-- 재료주문 End -->
 
 	<!-- 재료 입출고  List Start -->
-	<div class="col-md-5">
+	<div class="col-md-6">
 	<table class="table table-condensed">
 	   <thead>    
 	 	<tr>
@@ -261,7 +221,6 @@ div.modal-body {
 	        <th width="22%">재료</th>
 	        <th width="22%" style="display:none">재료</th>
 	        <th width="9%">용량</th>
-	        <th width="9%">수량</th>
 	      </tr>
 	    </thead>
 	    <tbody>
@@ -272,8 +231,7 @@ div.modal-body {
 	        <td class="gubun">${vo.gubun}</td>
 	        <td class="item" style="display:none">${vo.item}</td>
 	        <td class="kname">${vo.kname}</td>
-	        <td class="content text-right">${vo.content}</td>
-	        <td class="qty text-right">${vo.qty}</td>
+	        <td class="content text-right">${vo.content} g</td>
 	    </tr>
 	</c:forEach>
 	    </tbody>
@@ -281,39 +239,6 @@ div.modal-body {
 	</div> 
 	<!-- 재료 입출고 List End  -->
     </form>
-    
-    <!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">입출고 내역</h4>
-      </div>
-      <form method="post" id="inDateSaveForm"  name="inDateSaveForm" action="/purchbook/inDateSave.do">
-      <div class="modal-body">
-      		<input style="display:none" class="cno" 	name="cno"/>
-      		<div class="form-group">
-	      		<div>
-	      			<p class="buyInfo"></p>
-	      		</div>
-      		</div>
-	      	<label for="inDateSave" class="col-sm-3 text-center control-label" style="font-size: 15px">입고일</label>
-	      	<div class="col-sm-4">
-	        <input class="form-control" id="inDateSave" name="inDate" type="text" required="required">
-	      	</div>         
-      </div>
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-default" id="inDateSaveBtn">저장</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-      </div>
-      </form>
-    </div>	
-  </div>
-</div>
-<!-- 모달 끝 -->
-
 	</div>
 </div>
 </body>

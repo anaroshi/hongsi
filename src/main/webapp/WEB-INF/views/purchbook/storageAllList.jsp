@@ -56,38 +56,32 @@ div.panel-body {
 <div class="container">
 <div class="col-md-12">
   <table class="table table-striped">
-   <thead>
-   	<tr>
-		<td colspan="9" class="text-center"><h5>재료 구매 LIST</h5></td>    	
-	</tr>
-	<tr>
-        <th width="10%">주문일</th>
-        <th width="10%">구분</th>
-        <th width="10%">주문품</th>
-        <th width="10%">용량</th>
-        <th width="10%">수량</th>
-        <th width="10%">금액</th>
-        <th width="10%">거래처</th>
-        <th width="10%">입고일</th>
-        <th width="20%">비고</th>
-      </tr>
-    </thead>
-    <tbody>
-<c:forEach items="${resultList}" var="vo" varStatus="status">
- 	<tr class="dataRow"> 		
- 		<td class="cno" style="display:none">${vo.cno}</td>
-        <td>${vo.buyDate}</td>
-        <td>${vo.gubun}</td>
-        <td>${vo.item}</td>
-        <td class="text-right"><fmt:formatNumber value="${vo.content}" /></td>
-        <td class="text-right"><fmt:formatNumber value="${vo.qty}" /></td>
-        <td class="text-right"><fmt:formatNumber type="currency" value="${vo.price}" /></td>
-        <td>${vo.purShop}</td>
-        <td>${vo.inDate}</td>
-        <td>${vo.comm}</td>
-    </tr>
-</c:forEach>
-    </tbody>
+	<thead>    
+	 	<tr>
+	    	<td colspan="7" class="text-center"><h5>재료 입출고 LIST</h5></td>    	
+	    </tr>
+		<tr>
+	        <th width="15%">입출고일</th>
+	        <th width="15%">구분</th>
+	        <th width="30%">재료</th>
+	        <th style="display:none">재료</th>
+	        <th width="15%">용량</th>
+	        <th width="25%">비고</th>
+	      </tr>
+	</thead>
+	<tbody>
+	<c:forEach items="${resultList}" var="vo" varStatus="status">
+	 	<tr class="dataRow">
+	 		<td class="cno" style="display:none">${vo.cno}</td>
+	        <td class="buyDate">${vo.buyDate}</td>
+	        <td class="gubun">${vo.gubun}</td>
+	        <td class="item" style="display:none">${vo.item}</td>
+	        <td class="kname">${vo.kname}</td>
+	        <td class="content text-right">${vo.content} g</td>
+	        <td class="comm">${vo.comm}</td>
+	    </tr>
+	</c:forEach>
+	</tbody>
 </table>
 </div>
 </div>

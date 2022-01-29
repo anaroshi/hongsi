@@ -39,6 +39,11 @@ public class PurchbookSerivceImpl implements PurchbookSerivce {
 		vo.setInDate(vo.getInDate().replace("/", ""));
 		vo.setInDate(vo.getInDate().replace(".", ""));
 		vo.setInDate(vo.getInDate().replace("-", ""));
+		if(vo.getGubun().equals("구매")) vo.setGubunCode("in");
+		else if(vo.getGubun().equals("교환")) vo.setGubunCode("out");
+		else if(vo.getGubun().equals("반품")) vo.setGubunCode("out");
+		else if(vo.getGubun().equals("손실")) vo.setGubunCode("out");
+
 		return mapper.buyProcess(vo);
 	}
 
@@ -54,12 +59,12 @@ public class PurchbookSerivceImpl implements PurchbookSerivce {
 
 	@Override
 	public int insertStorage(PurchbookVO vo) {
-		log.info("impl: vo"+vo);
+		
 		if(vo.getGubun().equals("출고")) vo.setGubunCode("out");
 		else if(vo.getGubun().equals("입고_office")) vo.setGubunCode("in");
 		else if(vo.getGubun().equals("입고_cafe")) vo.setGubunCode("in");
 		else if(vo.getGubun().equals("손실")) vo.setGubunCode("out");
-		
+		log.info("impl: vo"+vo);
 		return mapper.insertStorage(vo);
 	}
 

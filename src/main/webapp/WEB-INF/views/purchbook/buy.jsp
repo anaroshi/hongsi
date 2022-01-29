@@ -171,9 +171,9 @@ div.modal-body {
 <div class="container">
 <form class="form-horizontal" method="post">
 <div class="row">
-  <h4>주문 입력</h4>  
+  <h4>재료구매 입력</h4>  
 
-<!-- 재고량 보이기 Start -->
+	<!-- 주문 필요량 보이기 Start -->
 	<div class="col-md-2">
 		<table class="table">
 			<thead>
@@ -221,8 +221,8 @@ div.modal-body {
 	      <div class="col-sm-8">
 			<select id="gubun" name="gubun" class="form-control select" required="required">
 	            <option value="구매">구매</option>
-	            <option value="판매">판매</option>
 	            <option value="교환">교환</option>
+	            <option value="반품">반품</option>
 	            <option value="손실">손실</option>
 			</select>
 	      </div>
@@ -347,7 +347,7 @@ div.modal-body {
       </div>
       <form method="post" id="inDateSaveForm"  name="inDateSaveForm" action="/purchbook/inDateSave.do">
       <div class="modal-body">
-      		<input style="display:none" class="cno" 	name="cno"/>
+      		<input style="display:none" class="cno" name="cno"/>
       		<div class="form-group">
 	      		<div>
 	      			<p class="buyInfo"></p>

@@ -131,15 +131,18 @@ article {
 				<div class="collapse navbar-collapse" id="myNavbar">
 					<ul class="nav navbar-nav">
 						<li><a href="${path }/purchbook/buy.do">재료구매</a></li>
-						<li><a href="${path }/purchbook/buyAllList.do">재료구매List</a></li>
 						<li><a href="${path }/purchbook/storage.do">재료입출고</a></li>
 						<li><a href="${path }/purchshop/product.do">생산</a></li>
-						<li><a href="${path }/purchshop/orderList.do">생산판매</a></li>
-						<li><a href="${path }/purchshop/orderAllList.do">주문List</a></li>
+						<li><a href="${path }/purchshop/orderList.do">주문</a></li>
+						<li><a href="${path }/purchshop/sale.do">판매</a></li>
+						<li><a href="${path }/purchbook/buyAllList.do">재료구매L</a></li>
+						<li><a href="${path }/purchbook/storageAllList.do">재료입출고L</a></li>
+						<li><a href="${path }/purchshop/productAllList.do">생산L</a></li>
+						<li><a href="${path }/purchshop/orderAllList.do">주문L</a></li>
+						<li><a href="${path }/purchshop/saleAllList.do">판매L</a></li>
 						<li><a href="${path }/quantity/list.do">재료함량</a></li>
 						<li><a href="${path }/purchbook/stockList.do">재료재고</a></li>
-						<li><a href="${path }/quantity/product.do">제품생산</a></li>
-						<li><a href="${path }/itemstock/list.do">상품재고</a></li>											
+						<li><a href="${path }/quantity/product.do">제품생산</a></li>									
 						<!-- &amp; - &, &lt; -> <, &gt; -> >, &nbsp; blank -->						
 						<c:if test="${!empty login }">
 							<!-- 로그인되어 있는 경우의 메뉴 -->

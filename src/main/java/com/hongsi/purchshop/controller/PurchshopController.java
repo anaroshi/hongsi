@@ -79,5 +79,11 @@ public class PurchshopController {
 		return "redirect:/purchshop/product.do";
 	}
 
-
+	// 생산 정보 리스트 화면
+	@GetMapping("productAllList.do")
+	public String productAllList(PurchshopVO vo,Model model) {
+		log.info(".............................product..vo:"+vo);
+		model.addAttribute("productList", purchshopService.selectProductList());		
+		return MODULE + "/productAllList";
+	}
 }
