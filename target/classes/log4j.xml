@@ -59,11 +59,6 @@
 		<appender-ref ref="console"/> 
 	</logger> 
 
-
-
-출처: https://freehoon.tistory.com/113 [훈잇 블로그]
-	
-
 	<!-- Root Logger -->
 	<root>
 		<priority value="warn" />

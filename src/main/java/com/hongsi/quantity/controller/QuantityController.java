@@ -48,7 +48,7 @@ public class QuantityController {
 		return MODULE+"/list";
 	}
 	
-	// 제품생산 화면 - item 목록
+	// 제품생산 화면 - 제품 100g당 재료량과 로스팅 1회당 재료량 구하기
 	@GetMapping("product.do")
 	public String product(Model model) {
 		log.info(".............................product..");

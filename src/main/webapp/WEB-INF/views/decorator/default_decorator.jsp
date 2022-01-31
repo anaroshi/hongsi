@@ -145,11 +145,11 @@ article {
 							<a class="dropdown-toggle" data-toggle="dropdown" href="#">리스트
 							<span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a href="${path }/purchbook/buyAllList.do">재료구매L</a></li>
-								<li><a href="${path }/purchbook/storageAllList.do">재료입출고L</a></li>
-								<li><a href="${path }/purchshop/productAllList.do">생산L</a></li>
-								<li><a href="${path }/purchshop/orderAllList.do">주문L</a></li>
-								<li><a href="${path }/purchshop/saleAllList.do">판매L</a></li>
+								<li><a href="${path }/purchbook/buyAllList.do">재료구매</a></li>
+								<li><a href="${path }/purchbook/storageAllList.do">재료입출고</a></li>
+								<li><a href="${path }/purchshop/productAllList.do">생산</a></li>
+								<li><a href="${path }/purchshop/orderAllList.do">주문</a></li>
+								<li><a href="${path }/purchshop/saleAllList.do">판매</a></li>
 							</ul>
 						</li>
 						<li><a href="${path }/quantity/list.do">재료함량</a></li>

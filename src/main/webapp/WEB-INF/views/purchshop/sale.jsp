@@ -234,6 +234,13 @@ div.panel-body {
 		      return false;
 		}		
 		
+		let deleveryDate = $("#deleveryDate").val();		
+		if( deleveryDate== null || deleveryDate ==""  || deleveryDate.length<10)  {
+			alert('수령일을 입력해주세요!');
+			$("#deleveryDate").select();
+		      return false;
+	    }
+		
 		$("#frm").submit();
   	});
     
@@ -312,13 +319,13 @@ div.panel-body {
 	<div class="form-group">
 		<label for="orderDate" class="col-sm-4 control-label">주문일</label>
 	    <div class="col-sm-7">
-        	<input class="form-control" id="orderDate" name="orderDate" type="text" required="required" value="${vo.orderDate}">
+        	<input class="form-control" id="orderDate" name="orderDate" type="text" value="${vo.orderDate}" readonly="readonly">
       	</div>
 	</div>
 	<div class="form-group">
 		<label for="orderer" class="col-sm-4 control-label">주문자</label>
 	 	<div class="col-sm-7">
-			<input class="form-control" type="text" id="orderer" name="orderer" value="${vo.orderer}">
+			<input class="form-control" type="text" id="orderer" name="orderer" value="${vo.orderer}" readonly="readonly">
 	 	</div>
 	</div>
 	<div class="form-group">

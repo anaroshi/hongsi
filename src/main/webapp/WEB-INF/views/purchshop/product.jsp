@@ -126,7 +126,8 @@ div.panel-body {
     });
 
   	$("#orderSave").click(function(){
-  		let ori_250 = $("#ori_250").val();
+
+ 		let ori_250 = $("#ori_250").val();
   		if(ori_250 == null || ori_250 =="" || typeof ori_250 == "undefined" || ori_250 >= 10000) ori_250 = 0; 
   		$("#ori_250").val(ori_250);
   		let ori_500 = $("#ori_500").val();
@@ -155,7 +156,20 @@ div.panel-body {
 		let sns_1000 = $("#sns_1000").val();
 		if(sns_1000 == null || sns_1000 =="" || typeof sns_1000 == "undefined" || sns_1000 >= 10000) sns_1000 = 0; 
 		$("#sns_1000").val(sns_1000);
+
+		if((ori_250+ori_500+ori_1000+erl_250+erl_500+erl_1000+sns_250+sns_500+sns_1000)==0) {
+		      alert('주문 제품의 수량을 넣어주세요!');
+		      $("#ori_250").select();
+		      return false;
+	    }
 		
+		let productDate = $("#productDate").val();		
+		if( productDate== null || productDate ==""  || productDate.length<10)  {
+			alert('생산일을 입력해주세요!');
+			$("#productDate").select();
+		      return false;
+	    }
+
 		$("#frm").submit();
   	});
     

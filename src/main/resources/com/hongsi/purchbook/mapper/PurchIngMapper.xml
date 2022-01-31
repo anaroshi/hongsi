@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 1. com.hongsi.purchbook.mapper.ItemMapper 인터페이스 선언 -->
+<!-- 2. root-context.xml <mybatis-spring:scan ~~ /> 태그로 기본 패키지 지정 -->
+<!-- 3. com.hongsi.purchbook.mapper.ItemMapper.xml 실행 작성 - src/main/resources -->
+<!-- <![CDATA[ 이 사이에 있는 것은 mybatis가 처리하지 않고 그대로 넘긴다. DB에서 처리되도록 ]]> -->
+
+<mapper namespace="com.hongsi.purchbook.mapper.PurchIngMapper">
+	<select id="list" resultType="com.hongsi.purchbook.vo.PurchIngVO">
+	SELECT 	
+		P.CNO,
+		P.BUYDATE, 
+		P.GUBUN,
+		I.KNAME ITEM,		
+		P.CONTENT,		
+		P.QTY,		
+		P.PRICE,
+		P.PURSHOP,			
+		P.INDATE,
+		P.COMM
+	FROM 
+	(
+	SELECT 
+			CNO,
+			TO_CHAR(BUYDATE, 'yyyy-MM-dd') BUYDATE,
+			ITEM,
+			GUBUN,
+			CONTENT,		
+			QTY,		
+			PRICE,
+			PURSHOP,			
+			TO_CHAR(INDATE, 'yyyy-MM-dd')  INDATE,
+			COMM,		
+			RDATE,
+			SUMQTY		
+		FROM PURCH_ING
+		WHERE	STATUS = 'purch'
+		AND FLAG != 4
+	) P,
+	(
+		SELECT KNAME, CODE FROM INGREDIENT
+	) I
+	WHERE 	P.ITEM = I.CODE	
+	ORDER BY P.BUYDATE DESC 
+	</select>
+	
+	<!-- 	주문번호에 의한 재료 주문정보 가져오기 -->
+	<select id="selectBuyInfoByCno" resultType="com.hongsi.purchbook.vo.PurchIngVO">
+	SELECT 	
+		P.CNO,
+		P.BUYDATE, 
+		P.ITEM,
+		I.KNAME,		
+		P.GUBUN,
+		P.CONTENT,		
+		P.QTY,		
+		P.PRICE,
+		P.PURSHOP,			
+		P.INDATE,
+		P.COMM,
+		P.BUYER,
+		P.SUMQTY,
+		P.RDATE
+	FROM 
+	(
+	SELECT 
+			CNO,
+			TO_CHAR(BUYDATE, 'yyyy-MM-dd') BUYDATE,
+			ITEM,
+			GUBUN,
+			CONTENT,		
+			QTY,		
+			PRICE,
+			PURSHOP,			
+			TO_CHAR(INDATE, 'yyyy-MM-dd')  INDATE,
+			COMM,
+			BUYER,
+			SUMQTY,
+			RDATE		
+		FROM PURCH_ING
+		WHERE	STATUS = 'purch'
+		AND FLAG != 4
+		AND		CNO = #{cno}
+	) P,
+	(
+		SELECT KNAME, CODE FROM INGREDIENT
+	) I
+	WHERE P.ITEM = I.CODE
+	ORDER BY P.BUYDATE DESC 
+	</select>
+
+<!-- 	재료 구매정보삭제 처리		 -->
+	<update id="deleteBuyInfoByCno">
+	UPDATE PURCH_ING
+	SET 	FLAG = 4, UDATE = SYSDATE
+	WHERE 	CNO	= #{cno}
+	</update>
+	
+	<select id="selectNonInDate" resultType="com.hongsi.purchbook.vo.PurchIngVO">		
+	SELECT 	
+		P.CNO,		
+		P.BUYDATE, 
+		P.ITEM, 
+		I.KNAME, 
+		P.GUBUN,
+		P.CONTENT,		
+		P.QTY,		
+		P.PRICE,
+		P.PURSHOP
+	FROM 
+	(
+	SELECT 
+			CNO,
+			TO_CHAR(BUYDATE, 'yyyy-MM-dd') BUYDATE,
+			ITEM,
+			GUBUN,
+			CONTENT,		
+			QTY,		
+			PRICE,
+			PURSHOP	
+		FROM PURCH_ING
+		WHERE 	INDATE IS NULL
+		AND		STATUS = 'purch'
+		AND FLAG != 4
+	) P,
+	(
+		SELECT KNAME, CODE FROM INGREDIENT
+	) I
+	WHERE P.ITEM = I.CODE
+	ORDER BY P.BUYDATE DESC
+	</select>
+	
+	<insert id="buyProcess">
+	INSERT INTO PURCH_ING (
+		CNO,
+		BUYDATE,
+		ITEM,
+		GUBUN,
+		CONTENT,
+		QTY,				
+		PRICE,	
+		PURSHOP,		
+		INDATE,
+		COMM,
+		BUYER,
+		SUMQTY,
+		STATUS,
+		GUBUNCODE,
+		FLAG
+	) VALUES (
+		PURCH_ING_PK.NEXTVAL,
+		#{buyDate},
+		#{item},
+		#{gubun},
+		#{content},
+		#{qty},		
+		#{price},
+		#{purShop},
+		TO_DATE(#{inDate},'YYYYMMDD'),
+		#{comm},
+		#{buyer},
+		#{content} * #{qty},
+		'purch',
+		#{gubunCode},
+		1
+	)
+	</insert>
+	
+	<select id="selectIgdTotalList" resultType="com.hongsi.purchbook.vo.PurchIngVO">
+	SELECT 	A.ITEM ITEM,
+			B.KNAME KNAME,
+			(A.INT_1 + A.INT_2 + A.INT_3 + A.INT_4 + A.INT_5) INTOTAL,
+			(A.OUT_1 + A.OUT_2) OUTTOTAL,
+			(A.DIS_1 + A.DIS_2) DISTOTAL,
+			(A.IN_TOTAL - A.OUT_TOTAL) TOTAL
+	FROM 
+	(	SELECT 	ITEM,
+				SUM(CASE WHEN GUBUN = '신규' THEN SUMQTY ELSE 0 END) INT_1,
+				SUM(CASE WHEN GUBUN = '구매' THEN SUMQTY ELSE 0 END) INT_2,
+				SUM(CASE WHEN GUBUN = '반품' THEN SUMQTY ELSE 0 END) INT_3,				
+				SUM(CASE WHEN GUBUN = '입고_office' THEN SUMQTY ELSE 0 END) INT_4,
+				SUM(CASE WHEN GUBUN = '입고_cafe' THEN SUMQTY ELSE 0 END) INT_5,
+				SUM(CASE WHEN GUBUN = '출고' THEN SUMQTY ELSE 0 END) OUT_1,
+				SUM(CASE WHEN GUBUN = '교환' THEN SUMQTY ELSE 0 END) OUT_2,
+				SUM(CASE WHEN GUBUN = '손실' THEN SUMQTY ELSE 0 END) DIS_1,							
+				SUM(CASE WHEN GUBUN = '폐기' THEN SUMQTY ELSE 0 END) DIS_2,
+				SUM(CASE WHEN GUBUNCODE = 'in' THEN SUMQTY ELSE 0 END) IN_TOTAL,
+				SUM(CASE WHEN GUBUNCODE = 'out' THEN SUMQTY ELSE 0 END) OUT_TOTAL
+		FROM 	PURCH_ING
+		WHERE 	INDATE IS NOT NULL
+		AND 	FLAG != 4
+		GROUP BY ITEM
+	) A
+	INNER JOIN INGREDIENT B ON A.ITEM = B.CODE
+	ORDER BY B.KNAME
+	</select>
+	
+	<update id="updateInDate">
+	UPDATE PURCH_ING 
+	SET INDATE = TO_DATE(#{inDate},'YYYY-MM-DD'), FLAG = 1	
+	WHERE CNO = #{cno}	
+	</update>
+
+	<insert id="insertStorage">
+	INSERT INTO PURCH_ING (
+		CNO,
+		BUYDATE,
+		ITEM,
+		GUBUN,
+		CONTENT,
+		QTY,
+		PURSHOP,
+		INDATE,
+		COMM,
+		BUYER,
+		SUMQTY,
+		STATUS,
+		GUBUNCODE,
+		FLAG	
+	) VALUES (
+		PURCH_ING_PK.NEXTVAL,
+		#{buyDate},
+		#{item},
+		#{gubun},
+		#{content},
+		#{qty},
+		'hongsi',
+		#{buyDate},
+		#{comm},
+		#{buyer},
+		#{content},
+		'storage',
+		#{gubunCode},
+		1
+	)	
+	</insert>
+	
+	<select id="selectStorageInOut" resultType="com.hongsi.purchbook.vo.PurchIngVO">		
+	SELECT 	
+		P.CNO,		
+		P.BUYDATE, 
+		P.ITEM, 
+		I.KNAME, 
+		P.GUBUN,
+		P.CONTENT,		
+		P.QTY
+	FROM 
+	(
+		SELECT 
+			CNO,
+			TO_CHAR(BUYDATE, 'yyyy-MM-dd') BUYDATE,
+			ITEM,
+			GUBUN,
+			CONTENT,		
+			QTY
+		FROM PURCH_ING
+		WHERE STATUS = 'storage'
+		AND FLAG != 4		
+	) P,
+	(
+		SELECT KNAME, CODE FROM INGREDIENT
+	) I
+	WHERE P.ITEM = I.CODE
+	ORDER BY P.BUYDATE DESC
+	</select>
+	
+		<!-- 구매정보 수정 처리 -->
+	<update id="updateBuyInfoByCno">
+	UPDATE 	PURCH_ING
+	SET		BUYDATE = #{buyDate},		
+			ITEM 	= #{item},		
+			GUBUN 	= #{gubun},
+			CONTENT = #{content},
+			QTY 	= #{qty},
+			PRICE	= #{price},
+			PURSHOP = #{purShop},
+			INDATE 	= TO_DATE(#{inDate},'YYYYMMDD'),
+			COMM 	= #{comm},
+			BUYER 	= #{buyer},
+			SUMQTY 	= #{content} * #{qty},
+			STATUS 	= 'purch',
+			GUBUNCODE = #{gubunCode},
+			FLAG 	= 2,
+			UDATE 	= SYSDATE	
+	WHERE 	CNO 	= #{cno}
+	AND		FLAG 	!= 4
+	</update>
+	
+	<!-- 구매 이력 저장 -->
+	<insert id="insertTrace">
+	INSERT INTO PURCH_ING_TRACE (
+		UNQ,
+		CNO,
+		BUYDATE,
+		ITEM,
+		GUBUN,
+		CONTENT,
+		QTY,
+		PRICE,
+		PURSHOP,
+		INDATE,
+		COMM,
+		BUYER,
+		SUMQTY,
+		STATUS,
+		GUBUNCODE,
+		FLAG	
+	) VALUES (
+		PURCH_ING_TRACE_PK.NEXTVAL,
+		#{cno},
+		#{buyDate},
+		#{item},
+		#{gubun},
+		#{content},
+		#{qty},
+		#{price},
+		#{purShop},
+		TO_DATE(#{inDate},'YYYYMMDD'),
+		#{comm},
+		#{buyer},
+		#{content} * #{qty},
+		'purch',
+		#{gubunCode},
+		#{flag}
+	)
+	</insert>
+	
+</mapper>

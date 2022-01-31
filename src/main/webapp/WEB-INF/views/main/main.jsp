@@ -163,8 +163,8 @@ $(function() {
 					<th>현재재고</th>
 					<th>금주필요</th>
 					<th>최종재고</th>
-					<th style="display:none">주문필요</th>
 					<th>주문필요</th>
+					<th>2주분</th>  <!-- style="display:none" -->
 				</tr>
 			</thead>
 			<tbody>
@@ -179,9 +179,9 @@ $(function() {
 						<td id="tot_${status.count}"><fmt:formatNumber value="${vo.total}" /></td>
 						<td class="text-right warning" id="need_${status.count}"><fmt:formatNumber value="${vo.needSum}" /></td>						
 						<td id="ftt_${status.count}"><fmt:formatNumber value="${vo.finalTotal}" /></td>
-						<td style="display:none" class="text-right warning" id="need2week_${status.count}"><fmt:formatNumber value="${vo.need2week}" /></td>
 						<td class="text-right warning" id="totNeed2week_${status.count}"><fmt:formatNumber value="${vo.finalNeed}" /></td>
-					</tr>
+						<td class="text-right" id="need2week_${status.count}"><fmt:formatNumber value="${vo.need2week}" /></td>
+					</tr> <!-- style="display:none"  -->
 					</c:if>
 				</c:forEach>
 			</tbody>

@@ -175,7 +175,7 @@ div.modal-body {
 	    </div>
 
 		<div class="form-group">
-	      <label for="comm" class="col-sm-3 control-label">내역</label>
+	      <label for="comm" class="col-sm-3 control-label">비고</label>
 	      <div class="col-sm-8">
 	      	<textarea class="form-control" rows="5" id="comm" name="comm"></textarea>
 	      </div>
@@ -212,11 +212,11 @@ div.modal-body {
 	    	<td colspan="7" class="text-center"><h5>입출고 LIST</h5></td>    	
 	    </tr>
 		<tr>
-	        <th width="17%">입출고일</th>
-	        <th width="10%">구분</th>
-	        <th width="22%">재료</th>
-	        <th width="22%" style="display:none">재료</th>
-	        <th width="9%">용량</th>
+	        <th width="15%">입출고일</th>
+	        <th width="15%">구분</th>
+	        <th width="30%">재료</th>	        
+	        <th width="10%">용량</th>
+	        <th width="30%">비고</th>
 	      </tr>
 	    </thead>
 	    <tbody>
@@ -224,10 +224,10 @@ div.modal-body {
 	 	<tr class="dataRow">
 	 		<td class="cno" style="display:none">${vo.cno}</td>
 	        <td class="buyDate">${vo.buyDate}</td>
-	        <td class="gubun">${vo.gubun}</td>
-	        <td class="item" style="display:none">${vo.item}</td>
+	        <td class="gubun">${vo.gubun}</td>	        
 	        <td class="kname">${vo.kname}</td>
 	        <td class="content text-right">${vo.content} g</td>
+	        <td class="kname">${vo.comm}</td>
 	    </tr>
 	</c:forEach>
 	    </tbody>

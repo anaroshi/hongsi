@@ -187,7 +187,7 @@ $(function() {
 	<div class="container">
 		<div class="row">			
 			<h4>제품 생산</h4>
-			<div class="col-sm-8">
+			<div class="col-sm-6">
 				<div class="form-group">
 					<label for="roast" class="col-sm-3 control-label">로스팅 1회 단위 (g)</label>
 					<div class="col-sm-7">
@@ -213,9 +213,8 @@ $(function() {
 					</div>
 				</div>
 			</div>
-		</div>			
-		<div class="row">			
-			<div class="col-sm-8">
+			
+			<div class="col-sm-6">
 				<div class="form-group">
 					<label for="item" class="col-sm-3 control-label">제품 100g 단위 (g)</label>
 					<div class="col-sm-7">
