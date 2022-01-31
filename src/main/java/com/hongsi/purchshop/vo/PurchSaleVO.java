@@ -5,12 +5,12 @@ import java.sql.Date;
 import lombok.Data;
 
 @Data
-public class PurchsaleVO {
+public class PurchSaleVO {
 	
 	// 판매 정보
 	private long 	cno;		// cno
 	private long 	order_cno;	// 주문 cno
-	private Date 	saleDate;	// 판매일자 
+	private Date 	saleDate;	// 판매일자/생산일자 
 	private long 	ori_250;	// ori_250 판매갯수
 	private long 	ori_500;	// ori_500 판매갯수
 	private long 	ori_1000;	// ori_1000 판매갯수
@@ -32,6 +32,23 @@ public class PurchsaleVO {
 	private String 	gubunCode;	// 담당자	
 	private String 	status;		// 담당자	
 	
+	private long 	ori_250_sum;	// ori_250 판매 갯수
+	private long 	ori_500_sum;	// ori_500 판매 갯수
+	private long 	ori_1000_sum;	// ori_1000 판매 갯수
+	private long 	erl_250_sum;	// erl_250 판매 갯수
+	private long 	erl_500_sum;	// erl_500 판매 갯수
+	private long 	erl_1000_sum;	// erl_1000 판매 갯수
+	private long 	sns_250_sum;	// sns_250 판매 갯수
+	private long 	sns_500_sum;	// sns_500 판매 갯수
+	private long 	sns_1000_sum;	// sns_1000 판매 갯수
+ 	private long 	ori_sum;		
+	private long 	erl_sum;
+	private long 	sns_sum;
+	
+	private String  startDate;		// 기준되는 한주의 시작 일요일 구하기
+	private String  endDate;		// 기준되는 한주의 시작 토요일 구하기
+	private String  toDate;			// 기준되는 한주의 시작 토요일 구하기
+
 }
 
 

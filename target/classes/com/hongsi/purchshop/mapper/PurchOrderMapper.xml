@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 1. com.hongsi.purchshop.mapper.PurchOrderMapper 인터페이스 선언 -->
+<!-- 2. root-context.xml <mybatis-spring:scan ~~ /> 태그로 기본 패키지 지정 -->
+<!-- 3. com.hongsi.purchshop.mapper.PurchOrderMapper.xml 실행 작성 - src/main/resources -->
+<!-- <![CDATA[ 이 사이에 있는 것은 mybatis가 처리하지 않고 그대로 넘긴다. DB에서 처리되도록 ]]> -->
+
+<mapper namespace="com.hongsi.purchshop.mapper.PurchOrderMapper">
+
+	<sql id="sun_saturday">
+		AND ORDERDATE 
+		BETWEEN TRUNC(SYSDATE, 'IW')-1 
+		AND TRUNC(SYSDATE, 'IW')+5
+	</sql>
+
+	<insert id="insertPurchshopOrder">
+	INSERT INTO PURCHORDER (
+		CNO,
+		ORDERDATE,
+		ORI_250,
+		ORI_500,
+		ORI_1000,
+		ERL_250,		
+		ERL_500,		
+		ERL_1000,	
+		SNS_250,		
+		SNS_500,
+		SNS_1000,
+		GUBUN,
+		SALEPATH,
+		ORDERER,
+		COMM,
+		MANAGER,
+		GUBUNCODE,
+		STATUS	
+	) VALUES (
+		PURCHORDER_PK.NEXTVAL,
+		#{orderDate},
+		#{ori_250},
+		#{ori_500},
+		#{ori_1000},
+		#{erl_250},
+		#{erl_500},
+		#{erl_1000},
+		#{sns_250},
+		#{sns_500},
+		#{sns_1000},
+		#{gubun},
+		#{salePath},
+		#{orderer},
+		#{comm},
+		#{manager},
+		#{gubunCode},
+		'order'
+	)
+	</insert>
+
+	<!-- TO_DATE(#{orderDate},'YYYYMMDD'), -->
+	
+	<select id="selectItemTotSum" resultType="com.hongsi.purchshop.vo.PurchOrderVO">
+	SELECT 
+		(SUM(ORI_250)*200)+(SUM(ORI_500)*500)+(SUM(ORI_1000)*1000) ORI_SUM,
+		(SUM(ERL_250)*200)+(SUM(ERL_500)*500)+(SUM(ERL_1000)*1000) ERL_SUM,
+		(SUM(SNS_250)*200)+(SUM(SNS_500)*500)+(SUM(SNS_1000)*1000) SNS_SUM
+	FROM PURCHORDER
+	WHERE 1=1
+	<include refid="sun_saturday" />
+	</select>
+	
+	<select id="selectOrderSum" resultType="com.hongsi.purchshop.vo.PurchOrderVO">
+	SELECT 
+		SUM(ORI_250)  	ORI_250_SUM,
+		SUM(ORI_500)  	ORI_500_SUM,
+		SUM(ORI_1000)  	ORI_1000_SUM,
+		SUM(ERL_250)	ERL_250_SUM,
+		SUM(ERL_500)  	ERL_500_SUM,
+		SUM(ERL_1000)  	ERL_1000_SUM,
+		SUM(SNS_250)  	SNS_250_SUM,
+		SUM(SNS_500)  	SNS_500_SUM,
+		SUM(SNS_1000)  	SNS_1000_SUM
+	FROM PURCHORDER
+	WHERE 1=1
+	<include refid="sun_saturday" />
+	</select>
+	
+	<select id="selectOrderList" resultType="com.hongsi.purchshop.vo.PurchOrderVO">
+	SELECT 	A.CNO, A.ORDERDATE,  A.GUBUN,
+			A.ORI_250, A.ORI_500, A.ORI_1000, 
+			A.ERL_250, A.ERL_500, A.ERL_1000, 
+			A.SNS_250, A.SNS_500, A.SNS_1000,
+			A.ORI_250_FORMAT || A.ORI_500_FORMAT || A.ORI_1000_FORMAT ORI_250_FORMAT,
+			A.ERL_250_FORMAT || A.ERL_500_FORMAT || A.ERL_1000_FORMAT ERL_250_FORMAT,
+			A.SNS_250_FORMAT || A.SNS_500_FORMAT || A.SNS_1000_FORMAT SNS_250_FORMAT,
+			A.ORDERER, A.COMM
+	FROM (	
+		SELECT 
+			CNO,
+			ORDERDATE, GUBUN,
+			ORI_250, ORI_500, ORI_1000, 
+			ERL_250, ERL_500, ERL_1000, 
+			SNS_250, SNS_500, SNS_1000,					
+			CASE WHEN ORI_250 > 0 
+				THEN 'ORI_250 : '|| TO_CHAR(ORI_250,'999,999,999')||' 개, '
+				ELSE ''
+			END AS ORI_250_FORMAT,
+			CASE WHEN ORI_500 > 0 
+				THEN 'ORI_500 : '|| TO_CHAR(ORI_500,'999,999,999')||' 개, '
+				ELSE ''
+			END AS ORI_500_FORMAT,
+			CASE WHEN ORI_1000 > 0 
+				THEN 'ORI_1000 : '|| TO_CHAR(ORI_1000,'999,999,999')||' 개, '
+				ELSE ''
+			END AS ORI_1000_FORMAT,		
+			CASE WHEN ERL_250 > 0 
+				THEN 'ERL_250 : '|| TO_CHAR(ERL_250,'999,999,999')||' 개, '
+				ELSE ''
+			END AS ERL_250_FORMAT,
+			CASE WHEN ERL_500 > 0 
+				THEN 'ERL_500 : '|| TO_CHAR(ERL_500,'999,999,999')||' 개, '
+				ELSE ''
+			END AS ERL_500_FORMAT,
+			CASE WHEN ERL_1000 > 0 
+				THEN 'ERL_1000 : '|| TO_CHAR(ERL_1000,'999,999,999')||' 개, '
+				ELSE ''
+			END AS ERL_1000_FORMAT,
+			CASE WHEN SNS_250 > 0 
+				THEN 'SNS_250 : '|| TO_CHAR(SNS_250,'999,999,999')||' 개, '
+				ELSE ''
+			END AS SNS_250_FORMAT,
+			CASE WHEN SNS_500 > 0 
+				THEN 'SNS_500 : '|| TO_CHAR(SNS_500,'999,999,999')||' 개, '
+				ELSE ''
+			END AS SNS_500_FORMAT,
+			CASE WHEN SNS_1000 > 0 
+				THEN 'SNS_1000 : '|| TO_CHAR(SNS_1000,'999,999,999')||' 개'
+				ELSE ''
+			END AS SNS_1000_FORMAT,
+			ORDERER,
+			COMM
+		FROM PURCHORDER
+		WHERE 1=1	
+		ORDER BY ORDERDATE
+	) A
+	</select>
+	
+	<select id="selectOrderListWaitSale" resultType="com.hongsi.purchshop.vo.PurchOrderVO">
+	SELECT 	A.CNO, A.ORDERDATE, A.GUBUN, A.SALEPATH,	
+			A.ORI_250_FORMAT || A.ORI_500_FORMAT || A.ORI_1000_FORMAT ORI_250_FORMAT,
+			A.ERL_250_FORMAT || A.ERL_500_FORMAT || A.ERL_1000_FORMAT ERL_250_FORMAT,
+			A.SNS_250_FORMAT || A.SNS_500_FORMAT || A.SNS_1000_FORMAT SNS_250_FORMAT,
+			A.ORDERER
+	FROM (	
+		SELECT 
+			CNO,
+			ORDERDATE, GUBUN, SALEPATH,	
+			CASE WHEN ORI_250 > 0 
+				THEN 'ORI_250 : '|| TO_CHAR(ORI_250,'999,999,999')||' 개, '
+				ELSE ''
+			END AS ORI_250_FORMAT,
+			CASE WHEN ORI_500 > 0 
+				THEN 'ORI_500 : '|| TO_CHAR(ORI_500,'999,999,999')||' 개, '
+				ELSE ''
+			END AS ORI_500_FORMAT,
+			CASE WHEN ORI_1000 > 0 
+				THEN 'ORI_1000 : '|| TO_CHAR(ORI_1000,'999,999,999')||' 개, '
+				ELSE ''
+			END AS ORI_1000_FORMAT,		
+			CASE WHEN ERL_250 > 0 
+				THEN 'ERL_250 : '|| TO_CHAR(ERL_250,'999,999,999')||' 개, '
+				ELSE ''
+			END AS ERL_250_FORMAT,
+			CASE WHEN ERL_500 > 0 
+				THEN 'ERL_500 : '|| TO_CHAR(ERL_500,'999,999,999')||' 개, '
+				ELSE ''
+			END AS ERL_500_FORMAT,
+			CASE WHEN ERL_1000 > 0 
+				THEN 'ERL_1000 : '|| TO_CHAR(ERL_1000,'999,999,999')||' 개, '
+				ELSE ''
+			END AS ERL_1000_FORMAT,
+			CASE WHEN SNS_250 > 0 
+				THEN 'SNS_250 : '|| TO_CHAR(SNS_250,'999,999,999')||' 개, '
+				ELSE ''
+			END AS SNS_250_FORMAT,
+			CASE WHEN SNS_500 > 0 
+				THEN 'SNS_500 : '|| TO_CHAR(SNS_500,'999,999,999')||' 개, '
+				ELSE ''
+			END AS SNS_500_FORMAT,
+			CASE WHEN SNS_1000 > 0 
+				THEN 'SNS_1000 : '|| TO_CHAR(SNS_1000,'999,999,999')||' 개'
+				ELSE ''
+			END AS SNS_1000_FORMAT,
+			ORDERER
+		FROM PURCHORDER
+		WHERE 1=1
+		AND 	STATUS ='order'
+		ORDER BY ORDERDATE DESC
+	) A
+	</select>
+	
+		<select id="selectOrderListSuntSat" resultType="com.hongsi.purchshop.vo.PurchOrderVO">
+	SELECT 	A.CNO, A.ORDERDATE, A.GUBUN, A.SALEPATH,
+			A.ORI_250_FORMAT || A.ORI_500_FORMAT || A.ORI_1000_FORMAT ORI_250_FORMAT,
+			A.ERL_250_FORMAT || A.ERL_500_FORMAT || A.ERL_1000_FORMAT ERL_250_FORMAT,
+			A.SNS_250_FORMAT || A.SNS_500_FORMAT || A.SNS_1000_FORMAT SNS_250_FORMAT,
+			A.ORDERER
+	FROM (	
+		SELECT 
+			CNO,
+			ORDERDATE, GUBUN, SALEPATH, 		
+			CASE WHEN ORI_250 > 0 
+				THEN 'ORI_250 : '|| TO_CHAR(ORI_250,'999,999,999')||' 개, '
+				ELSE ''
+			END AS ORI_250_FORMAT,
+			CASE WHEN ORI_500 > 0 
+				THEN 'ORI_500 : '|| TO_CHAR(ORI_500,'999,999,999')||' 개, '
+				ELSE ''
+			END AS ORI_500_FORMAT,
+			CASE WHEN ORI_1000 > 0 
+				THEN 'ORI_1000 : '|| TO_CHAR(ORI_1000,'999,999,999')||' 개, '
+				ELSE ''
+			END AS ORI_1000_FORMAT,		
+			CASE WHEN ERL_250 > 0 
+				THEN 'ERL_250 : '|| TO_CHAR(ERL_250,'999,999,999')||' 개, '
+				ELSE ''
+			END AS ERL_250_FORMAT,
+			CASE WHEN ERL_500 > 0 
+				THEN 'ERL_500 : '|| TO_CHAR(ERL_500,'999,999,999')||' 개, '
+				ELSE ''
+			END AS ERL_500_FORMAT,
+			CASE WHEN ERL_1000 > 0 
+				THEN 'ERL_1000 : '|| TO_CHAR(ERL_1000,'999,999,999')||' 개, '
+				ELSE ''
+			END AS ERL_1000_FORMAT,
+			CASE WHEN SNS_250 > 0 
+				THEN 'SNS_250 : '|| TO_CHAR(SNS_250,'999,999,999')||' 개, '
+				ELSE ''
+			END AS SNS_250_FORMAT,
+			CASE WHEN SNS_500 > 0 
+				THEN 'SNS_500 : '|| TO_CHAR(SNS_500,'999,999,999')||' 개, '
+				ELSE ''
+			END AS SNS_500_FORMAT,
+			CASE WHEN SNS_1000 > 0 
+				THEN 'SNS_1000 : '|| TO_CHAR(SNS_1000,'999,999,999')||' 개'
+				ELSE ''
+			END AS SNS_1000_FORMAT,
+			ORDERER
+		FROM PURCHORDER
+		WHERE 1=1
+		AND 	STATUS ='order'
+		<include refid="sun_saturday" />		
+		ORDER BY ORDERDATE DESC
+	) A
+	</select>
+	
+	<select id="selectOrderStock" resultType="com.hongsi.purchshop.vo.PurchOrderVO">
+	SELECT 	
+		(B.OUT_ORI_250_TOTAL-A.IN_ORI_250_TOTAL) 	ORI_250_SUM,
+		(B.OUT_ORI_500_TOTAL-A.IN_ORI_500_TOTAL) 	ORI_500_SUM,
+		(B.OUT_ORI_1000_TOTAL-A.IN_ORI_1000_TOTAL) 	ORI_1000_SUM,
+		(D.OUT_ERL_250_TOTAL-C.IN_ERL_250_TOTAL) 	ERL_250_SUM,
+		(D.OUT_ERL_500_TOTAL-C.IN_ERL_500_TOTAL) 	ERL_500_SUM,
+		(D.OUT_ERL_1000_TOTAL-C.IN_ERL_1000_TOTAL) 	ERL_1000_SUM,
+		(F.OUT_SNS_250_TOTAL-E.IN_SNS_250_TOTAL) 	SNS_250_SUM,
+		(F.OUT_SNS_500_TOTAL-E.IN_SNS_500_TOTAL) 	SNS_500_SUM,
+		(F.OUT_SNS_1000_TOTAL-E.IN_SNS_1000_TOTAL) 	SNS_1000_SUM	
+	FROM 
+	(
+		SELECT 	
+			NVL(SUM(ORI_250),0) IN_ORI_250_TOTAL,
+			NVL(SUM(ORI_500),0) IN_ORI_500_TOTAL,
+			NVL(SUM(ORI_1000),0) IN_ORI_1000_TOTAL
+		FROM PURCHORDER
+		WHERE GUBUNCODE = 'in'
+	) A,
+	(
+		SELECT 	
+			NVL(SUM(ORI_250),0) OUT_ORI_250_TOTAL,
+			NVL(SUM(ORI_500),0) OUT_ORI_500_TOTAL,
+			NVL(SUM(ORI_1000),0) OUT_ORI_1000_TOTAL
+		FROM PURCHORDER
+		WHERE GUBUNCODE = 'out'
+	) B,
+	(
+		SELECT 	
+			NVL(SUM(ERL_250),0) IN_ERL_250_TOTAL,
+			NVL(SUM(ERL_500),0) IN_ERL_500_TOTAL,
+			NVL(SUM(ERL_1000),0) IN_ERL_1000_TOTAL
+		FROM PURCHORDER
+		WHERE GUBUNCODE = 'in'
+	) C,
+	(
+		SELECT 	
+			NVL(SUM(ERL_250),0) OUT_ERL_250_TOTAL,
+			NVL(SUM(ERL_500),0) OUT_ERL_500_TOTAL,
+			NVL(SUM(ERL_1000),0) OUT_ERL_1000_TOTAL
+		FROM PURCHORDER
+		WHERE GUBUNCODE = 'out'
+	) D,
+	(
+		SELECT 	
+			NVL(SUM(SNS_250),0) IN_SNS_250_TOTAL,
+			NVL(SUM(SNS_500),0) IN_SNS_500_TOTAL,
+			NVL(SUM(SNS_1000),0) IN_SNS_1000_TOTAL
+		FROM PURCHORDER
+		WHERE GUBUNCODE = 'in'
+	) E,
+	(
+		SELECT 	
+			NVL(SUM(SNS_250),0) OUT_SNS_250_TOTAL,
+			NVL(SUM(SNS_500),0) OUT_SNS_500_TOTAL,
+			NVL(SUM(SNS_1000),0) OUT_SNS_1000_TOTAL
+		FROM PURCHORDER
+		WHERE GUBUNCODE = 'out'
+	) F
+	</select>
+	
+	<select id="selectOrderByCno" resultType="com.hongsi.purchshop.vo.PurchOrderVO">
+		SELECT 
+			CNO,			
+			ORDERDATE,
+			GUBUN,
+			ORI_250,
+			ORI_500,
+			ORI_1000, 		
+			ERL_250,
+			ERL_500,
+			ERL_1000,
+			SNS_250,
+			SNS_500,
+			SNS_1000,
+			ORDERER			
+		FROM PURCHORDER
+		WHERE 1=1	
+		AND CNO = #{order_cno}
+	</select>
+	
+	<update id="updatePurchshopOrder">
+		UPDATE PURCHORDER
+		SET		STATUS	= 'done'
+		WHERE 	CNO 	= #{cno}
+	</update>
+	
+</mapper>

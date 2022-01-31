@@ -8,10 +8,6 @@
 <meta charset="UTF-8">
 <title>PurchBook</title>
 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
-<link href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" rel="stylesheet">
-
 <style type="text/css">
 .btn:hover {
 	background-color: #CCCCCC;

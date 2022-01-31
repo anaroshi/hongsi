@@ -7,10 +7,6 @@
 <meta charset="UTF-8">
 <title>PurchShop</title>
 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
-<link href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" rel="stylesheet">
-
 <style type="text/css">
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 
@@ -36,6 +32,12 @@ input[type=number]::-webkit-outer-spin-button {
 div.panel-body {
 	padding-bottom: 7px;
 }
+
+tfoot {
+	border-color: #F9F9F9;
+	border-top: 2px double;
+	border-bottom: 1px solid;
+}
 </style>
   
 <script>
@@ -52,25 +54,60 @@ div.panel-body {
   <table class="table table-striped">
     <thead>
     	<tr>
-			<td colspan="4" class="text-center"><h5>주문 LIST</h5></td>    	
+			<td colspan="13" class="text-center"><h5>주문 LIST</h5></td>    	
 		</tr>
-		<tr>
-			<th style="width: 15%">일자</th>
-			<th style="width: 60%">내역</th>
-			<th style="width: 10%">주문자</th>
-			<th style="width: 15%">비고</th>
-		</tr>
+       <tr>
+        <th  style="width: 8%">주문일</th>
+        <th  style="width: 5%">구분</th>
+        <th style="width: 8%">O250</th>
+        <th style="width: 8%">O500</th>
+        <th style="width: 8%">O1000</th>
+        <th style="width: 8%">E250</th>
+        <th style="width: 8%">E500</th>
+        <th style="width: 8%">E1000</th>
+        <th style="width: 8%">S250</th>
+        <th style="width: 8%">S500</th>
+        <th style="width: 8%">S1000</th>
+        <th style="width: 8%">주문자</th>
+		<th style="width: 7%">비고</th>
+      </tr>
     </thead>
     <tbody>
 <c:forEach items="${orderList}" var="vo">
-		<tr>
-			<td>${vo.orderDate}</td>
-			<td>${vo.ori_250_order}${vo.erl_250_order}${vo.sns_250_order}</td>
-			<td>${vo.orderer}</td>
-			<td>${vo.comm}</td>
-		</tr>
+      <tr>
+        <td>${vo.orderDate}</td>
+        <td>${vo.gubun}</td>
+        <td class="text-right">${vo.ori_250}</td>
+        <td class="text-right">${vo.ori_500}</td>
+        <td class="text-right">${vo.ori_1000}</td>
+        <td class="text-right">${vo.erl_250}</td>
+        <td class="text-right">${vo.erl_500}</td>
+        <td class="text-right">${vo.erl_1000}</td>
+        <td class="text-right">${vo.sns_250}</td>
+        <td class="text-right">${vo.sns_500}</td>
+        <td class="text-right">${vo.sns_1000}</td>
+        <td>${vo.orderer}</td>
+		<td>${vo.comm}</td>
+      </tr>
 </c:forEach>
-    </tbody>
+    </tbody>     
+    <tfoot>
+      	<tr>
+	        <td></td>
+	        <td></td>
+	        <th class="text-right">${orderStock.ori_250_sum}</th>
+	        <th class="text-right">${orderStock.ori_500_sum}</th>
+	        <th class="text-right">${orderStock.ori_1000_sum}</th>
+	        <th class="text-right">${orderStock.erl_250_sum}</th>
+	        <th class="text-right">${orderStock.erl_500_sum}</th>
+	        <th class="text-right">${orderStock.erl_1000_sum}</th>
+	        <th class="text-right">${orderStock.sns_250_sum}</th>
+	        <th class="text-right">${orderStock.sns_500_sum}</th>
+	        <th class="text-right">${orderStock.sns_1000_sum}</th>
+	        <td></td>
+	        <td></td>
+      	</tr>
+    </tfoot>
   </table>
 </div>
 </div>

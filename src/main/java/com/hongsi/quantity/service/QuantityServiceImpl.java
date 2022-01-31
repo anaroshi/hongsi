@@ -31,10 +31,8 @@ public class QuantityServiceImpl implements QuantityService {
 	}
 
 	@Override
-	public List<QuantityVO> selectTotalByItem(String code) {
-		// 100g 기본 정보 보여주기 위함
-				String code_100 = code+"_100_001";
-		return mapper.selectTotalByItem(code_100);
+	public List<QuantityVO> selectTotalByItem(String code) {		
+		return mapper.selectTotalByItem(code);
 	}
 
 	@Override

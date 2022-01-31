@@ -53,7 +53,7 @@ public class QuantityController {
 	public String product(Model model) {
 		log.info(".............................product..");
 		
-		model.addAttribute("itemList", itemService.list());		
+		model.addAttribute("itemList", itemService.list());			
 		return MODULE+"/product";
 	}
 	

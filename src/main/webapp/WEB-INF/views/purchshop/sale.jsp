@@ -7,10 +7,6 @@
 <meta charset="UTF-8">
 <title>PurchShop</title>
 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
-<link href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" rel="stylesheet">
-
 <style type="text/css">
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 
@@ -37,6 +33,11 @@ input[type=number]::-webkit-outer-spin-button {
 div.panel-body {
 	padding-top: 5px;
 	padding-bottom: 0px;
+}
+
+.dataRow:hover {
+	background-color: #ccc;
+	cursor: pointer;
 }
 </style>
   
@@ -171,8 +172,18 @@ div.panel-body {
     	}    
     });
 
+  	$("#orderReset").click(function() {  		
+  		location = "sale.do";
+  	});
+  	
+  	$(".dataRow").click(function(){
+  		let order_cno = $(this).find(".order_cno").text();
+  		//alert(order_cno);
+  		location = "sale.do?order_cno="+order_cno;
+  	});
+  	
   	$("#orderSave").click(function(){
-  		let ori_250 = $("#ori_250").val();
+ 		let ori_250 = $("#ori_250").val();
   		if(ori_250 == null || ori_250 =="" || typeof ori_250 == "undefined" || ori_250 >= 10000) ori_250 = 0; 
   		$("#ori_250").val(ori_250);
   		let ori_500 = $("#ori_500").val();
@@ -201,11 +212,33 @@ div.panel-body {
 		let sns_1000 = $("#sns_1000").val();
 		if(sns_1000 == null || sns_1000 =="" || typeof sns_1000 == "undefined" || sns_1000 >= 10000) sns_1000 = 0; 
 		$("#sns_1000").val(sns_1000);
+
+		if((ori_250+ori_500+ori_1000+erl_250+erl_500+erl_1000+sns_250+sns_500+sns_1000)==0) {
+		      alert('주문 제품의 수량을 넣어주세요!');
+		      $("#ori_250").select();
+		      return false;
+	    }
+		
+		let saleDate = $("#saleDate").val();		
+		if( saleDate== null || saleDate ==""  || saleDate.length<10)  {
+			alert('판매일을 입력해주세요!');
+			$("#saleDate").select();
+		      return false;
+	    }
+		
+		let price = $("#price").val();
+		if(price == null || price =="" || typeof price == "undefined") {
+			alert('금액을 입력해주세요!');
+			$("#price").val("0");
+			$("#price").select();
+		      return false;
+		}		
 		
 		$("#frm").submit();
   	});
     
-  });
+});
+
   
   </script>
 </head>
@@ -213,7 +246,7 @@ div.panel-body {
 <body>
 <div class="container">
 <form class="form-horizontal" method="post" id="frm">
-	<input id="order_cno" name="order_cno" type="hidden" value="${vo.cno}">
+	<%-- <input id="order_cno" name="order_cno" type="hidden" value="${vo.cno}"> --%>
   <h4>판매 입력</h4>
   <div class="col-md-2">
     <div class="panel panel-default" style="border: none;">
@@ -319,7 +352,7 @@ div.panel-body {
 		<div class="form-group"> 
 			<label for="price" class="col-sm-3 control-label">금액</label>
 		 	<div class="col-sm-8">
-				<input class="form-control" type="text" id="price" name="price">
+				<input class="form-control" type="text" id="price" name="price" required="required">
 		 	</div>
 		</div>
 	    <div class="form-group">
@@ -370,7 +403,7 @@ div.panel-body {
     <div class="form-group">
       <div class="col-sm-1"></div>
       <div class="col-sm-5">
-		<button type="reset" class="btn btn-block">초기화</button>
+		<button type="button" class="btn btn-block" id="orderReset">초기화</button>
       </div>      
       <div class="col-sm-5">
       	<button type="button" class="btn btn-block" id="orderSave">저장</button>
@@ -384,8 +417,38 @@ div.panel-body {
 
 <!-- 	</div> 3블럭 Start -->
 <div class="col-md-7">
+	<!-- 	주문 List Start -->
+	  <table class="table table-striped orderListTable">
+	    <thead>
+	      <tr>
+	        <th  style="width: 15%">일자</th>
+	        <th  style="width: 10%">구분</th>
+	        <th  style="width: 15%">주문경로</th>
+	        <th style="width: 50%">주문내역 ( 판매 대기 )</th>
+	        <th style="width: 10%">주문자</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	<c:forEach items="${orderList}" var="vo">
+	      <tr class="dataRow" id="dataRow">
+	        <td class="order_cno" style="display:none">${vo.cno}</td>
+	        <td>${vo.orderDate}</td>
+	        <td>${vo.gubun}</td>
+	        <td>${vo.salePath}</td>
+	        <td>${vo.ori_250_format}${vo.erl_250_format}${vo.sns_250_format}</td>
+	        <td>${vo.orderer}</td>
+	      </tr>
+	</c:forEach>
+	    </tbody>
+	  </table>
+	
+	<!-- 	주문 List End -->
+
   <table class="table table-striped">
     <thead>
+    	<tr>
+    		<th colspan="13">판매 List</td>
+    	</tr>
       <tr>
         <th  style="width: 15%">판매일</th>
         <th  style="width: 10%">구분</th>
@@ -404,7 +467,7 @@ div.panel-body {
     </thead>
     <tbody>
 <c:forEach items="${saleList}" var="vo">
-      <tr>
+      <tr class="dataRow">
         <td>${vo.saleDate}</td>
         <td>${vo.gubun}</td>
         <td>${vo.salePath}</td>

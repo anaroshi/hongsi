@@ -5,7 +5,7 @@ import java.sql.Date;
 import lombok.Data;
 
 @Data
-public class PurchshopVO {
+public class PurchOrderVO {
 	
 	// 주문이 오면 생산에 들어가 위해 사용
 	private long 	cno;		// cno
@@ -38,71 +38,47 @@ public class PurchshopVO {
 	private long 	erl_sum;
 	private long 	sns_sum;
 	
-	private String 	ori_250_order;	// ori_250 주문갯수
-	private String 	ori_500_order;	// ori_500 주문갯수
-	private String 	ori_1000_order;	// ori_1000 주문갯수
-	private String 	erl_250_order;	// erl_250 주문갯수
-	private String 	erl_500_order;	// erl_500 주문갯수
-	private String 	erl_1000_order;	// erl_1000 주문갯수
-	private String 	sns_250_order;	// sns_250 주문갯수
-	private String 	sns_500_order;	// sns_500 주문갯수
-	private String 	sns_1000_order;	// sns_1000 주문갯수
-	
-	private String  startDate;		// 기준되는 한주의 시작 일요일 구하기
-	private String  endDate;		// 기준되는 한주의 시작 토요일 구하기
-	private String  toDate;			// 기준되는 한주의 시작 토요일 구하기
+	private String 	ori_250_format;	// ori_250 주문갯수
+	private String 	ori_500_format;	// ori_500 주문갯수
+	private String 	ori_1000_format;	// ori_1000 주문갯수
+	private String 	erl_250_format;	// erl_250 주문갯수
+	private String 	erl_500_format;	// erl_500 주문갯수
+	private String 	erl_1000_format;	// erl_1000 주문갯수
+	private String 	sns_250_format;	// sns_250 주문갯수
+	private String 	sns_500_format;	// sns_500 주문갯수
+	private String 	sns_1000_format;	// sns_1000 주문갯수
 	
 	private String  gubunCode;		// 제품 재고에 더할 값인지 뺄 값인지 구하기 위함 (더할 값: in/ 뺄 값: out )
-	private String  status;			// 제품 판매(shop)에서 입력되는지. 생산 입출고(product)에서 입력되는지 구분을 위한 값 (shop/product)
-	private Date 	dDate;			// 입출고일자 
+	private String  status;			// 제품 판매(shop)에서 입력되는지. 생산 입출고(product)에서 입력되는지 구분을 위한 값 (shop/product)	
 }
 
 
 /*
-CREATE TABLE PURCHSHOP (
+CREATE TABLE PURCHORDER (
 		CNO number not null primary key,
 		ORDERDATE  DATE not null,
 		ORI_250 NUMBER DEFAULT 0,
 		ORI_500 NUMBER DEFAULT 0,
 		ORI_1000 NUMBER DEFAULT 0,
-		ERL_200 NUMBER DEFAULT 0,
+		ERL_250 NUMBER DEFAULT 0,
 		ERL_500 NUMBER DEFAULT 0,
 		ERL_1000 NUMBER DEFAULT 0,
 		SNS_250 NUMBER DEFAULT 0,
 		SNS_500 NUMBER DEFAULT 0,
 		SNS_1000 NUMBER DEFAULT 0,
 		GUBUN varchar2(20),	
-		SALEPATH varchar2(20),	
+		SALEPATH varchar2(30),	
 		ORDERER varchar2(40),
 		COMM varchar2(200),
 		MANAGER varchar2(20),
+		GUBUNCODE VARCHAR2(30),
+		STATUS VARCHAR2(30),
+		ADMIT VARCHAR2(10),
 		RDATE timestamp default sysdate );
 		
-create sequence  PURCHSHOP_PK
+create sequence  PURCHORDER_PK
 increment by 1
 start with 1
 maxvalue 99999;	
-
-CNO
-ORDER_CNO
-SALEDATE
-ORI_250
-ORI_500
-ORI_1000
-ERL_200
-ERL_500
-ERL_1000
-SNS_250
-SNS_500
-SNS_1000
-GUBUN
-ORDERPATH
-SALEPATH
-DELEVERYPATH
-DELEVERYDATE
-ORDERER
-COMM
-MANAGER
-RDATE
 	
 */		

@@ -8,10 +8,6 @@
 <meta charset="UTF-8">
 <title>PurchShop</title>
 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
-<link href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" rel="stylesheet">
-
 <style type="text/css">
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 
@@ -41,6 +37,12 @@ div.panel-body {
 .dataRow:hover {
 	background: #ccc;
 	cursor: pointer; 
+}
+
+tfoot {
+	border-color: #F9F9F9;
+	border-top: 2px double;
+	border-bottom: 1px solid;
 }
 </style>
   
@@ -82,6 +84,25 @@ div.panel-body {
 	    </tr>
 	</c:forEach>
 	</tbody>
+    <tfoot>
+      	<tr>
+<!-- 	        <td></td> -->
+<!-- 	        <td></td> -->
+<!-- 	        <td></td> -->
+<%-- 	        <th class="text-right">${saleStock.ori_250_sum}</th> --%>
+<%-- 	        <th class="text-right">${saleStock.ori_500_sum}</th> --%>
+<%-- 	        <th class="text-right">${saleStock.ori_1000_sum}</th> --%>
+<%-- 	        <th class="text-right">${saleStock.erl_250_sum}</th> --%>
+<%-- 	        <th class="text-right">${saleStock.erl_500_sum}</th> --%>
+<%-- 	        <th class="text-right">${saleStock.erl_1000_sum}</th> --%>
+<%-- 	        <th class="text-right">${saleStock.sns_250_sum}</th> --%>
+<%-- 	        <th class="text-right">${saleStock.sns_500_sum}</th> --%>
+<%-- 	        <th class="text-right">${saleStock.sns_1000_sum}</th> --%>
+<!-- 	        <td></td> -->
+<!-- 	        <td></td> -->
+<!-- 	        <td></td> -->
+      	</tr>
+    </tfoot>
 </table>
 </div>
 </div>

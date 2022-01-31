@@ -7,7 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.hongsi.purchshop.service.PurchshopService;
+import com.hongsi.purchshop.service.PurchSaleService;
+import com.hongsi.purchshop.service.PurchOrderService;
 import com.hongsi.quantity.service.QuantityService;
 
 import lombok.extern.log4j.Log4j;
@@ -24,23 +25,32 @@ public class MainController {
 	private QuantityService quantityService;
 	
 	@Autowired
-	@Qualifier("purchshopServiceImpl")
-	private PurchshopService purchshopService;
+	@Qualifier("purchOrderServiceImpl")
+	private PurchOrderService purchOrderService;
+	
+	@Autowired
+	@Qualifier("purchSaleServiceImpl")
+	private PurchSaleService purchSaleService;
 	
 	// 전체 재료, original 재료량, earlgrey 재료량, sweet&salty 재료량, 전체 재고 보기
 	@GetMapping("main.do")
 	public String selectAllIngreStock(Model model) {
 		log.info(".............................selectAllIngreStock..");		
+		
 		// 재료 (ori 필요 & erl 필요 & sns 필요 & 현재재고 & 금주필요 & 최종재고 & 주문필요)
 		model.addAttribute("resultList", quantityService.selectTotalNeedFinal());
+		
 		// 이번주에 생산해야할 필요량 g으로 환산
-		model.addAttribute("itemTotSum", purchshopService.selectItemTotSum());
+		model.addAttribute("itemTotSum", purchOrderService.selectItemTotSum());
+		
 		// 이번주 주문량
-		model.addAttribute("itemSum", purchshopService.selectItemSum());
+		model.addAttribute("itemSum", purchOrderService.selectOrderSum());
+		
 		// 제품 재고 수량
-		model.addAttribute("stockSum", purchshopService.selectProductStock());
+		model.addAttribute("stockSum", purchSaleService.selectStock());
+		
 		// 오늘 일자 & 한주간 일자
-		model.addAttribute("weekDay", purchshopService.getWeekDay());
+		model.addAttribute("weekDay", purchSaleService.getWeekDay());
 		return MODULE+"/main";
 	}
 

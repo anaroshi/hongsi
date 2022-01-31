@@ -7,10 +7,6 @@
 <meta charset="UTF-8">
 <title>PurchShop</title>
 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
-<link href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" rel="stylesheet">
-
 <style type="text/css">
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 
@@ -19,12 +15,6 @@ input[type=number]::-webkit-outer-spin-button {
     appearance: none;
     margin: 0; 
 }
-
-.order_item {
- 	font-size: 12px;
- 	padding: 6px 4px;
- }
- 
 .btn, .select {
  	font-size: 12px;
  }
@@ -36,6 +26,18 @@ input[type=number]::-webkit-outer-spin-button {
 div.panel-body {
 	padding-bottom: 7px;
 }
+
+.dataRow:hover {
+	background: #ccc;
+	cursor: pointer;
+}
+
+tfoot {
+	border-color: #F9F9F9;
+	border-top: 2px double;
+	border-bottom: 1px solid;
+}
+
 </style>
   
 <script>
@@ -54,45 +56,64 @@ div.panel-body {
     	<tr>
 			<td colspan="15" class="text-center"><h5>판매 LIST</h5></td>    	
 		</tr>
-       <tr>
-        <th  style="width: 10%">판매일</th>
-        <th  style="width: 5%">구분</th>
-        <th  style="width: 10%">주문</th>
-        <th style="width: 5%; font-size: 9px">O250</th>
-        <th style="width: 5%; font-size: 9px">O500</th>
-        <th style="width: 5%; font-size: 9px">O1000</th>
-        <th style="width: 5%; font-size: 9px">E250</th>
-        <th style="width: 5%; font-size: 9px">E500</th>
-        <th style="width: 5%; font-size: 9px">E1000</th>
-        <th style="width: 5%; font-size: 9px">S250</th>
-        <th style="width: 5%; font-size: 9px">S500</th>
-        <th style="width: 5%; font-size: 9px">S1000</th>
-        <th style="width: 10%">금액</th>
-        <th style="width: 10%">지불방식</th>
-        <th style="width: 10%">배송</th>
-      </tr>
+       	<tr>
+	        <th  style="width: 10%">판매일</th>
+	        <th  style="width: 5%">구분</th>
+	        <th  style="width: 10%">주문</th>
+	        <th style="width: 5%; font-size: 9px">O250</th>
+	        <th style="width: 5%; font-size: 9px">O500</th>
+	        <th style="width: 5%; font-size: 9px">O1000</th>
+	        <th style="width: 5%; font-size: 9px">E250</th>
+	        <th style="width: 5%; font-size: 9px">E500</th>
+	        <th style="width: 5%; font-size: 9px">E1000</th>
+	        <th style="width: 5%; font-size: 9px">S250</th>
+	        <th style="width: 5%; font-size: 9px">S500</th>
+	        <th style="width: 5%; font-size: 9px">S1000</th>
+	        <th style="width: 10%">금액</th>
+	        <th style="width: 10%">지불방식</th>
+	        <th style="width: 10%">배송</th>
+      	</tr>
     </thead>
     <tbody>
 <c:forEach items="${saleList}" var="vo">
-      <tr>
+      <tr class = "dataRow">
         <td>${vo.saleDate}</td>
         <td>${vo.gubun}</td>
         <td>${vo.salePath}</td>
-        <td>${vo.ori_250}</td>
-        <td>${vo.ori_500}</td>
-        <td>${vo.ori_1000}</td>
-        <td>${vo.erl_250}</td>
-        <td>${vo.erl_500}</td>
-        <td>${vo.erl_1000}</td>
-        <td>${vo.sns_250}</td>
-        <td>${vo.sns_500}</td>
-        <td>${vo.sns_1000}</td>
-        <td>${vo.price}</td>
+        <td class="text-right">${vo.ori_250}</td>
+        <td class="text-right">${vo.ori_500}</td>
+        <td class="text-right">${vo.ori_1000}</td>
+        <td class="text-right">${vo.erl_250}</td>
+        <td class="text-right">${vo.erl_500}</td>
+        <td class="text-right">${vo.erl_1000}</td>
+        <td class="text-right">${vo.sns_250}</td>
+        <td class="text-right">${vo.sns_500}</td>
+        <td class="text-right">${vo.sns_1000}</td>
+        <td class="text-right">${vo.price}</td>
         <td>${vo.paymentPath}</td>
         <td>${vo.deleveryPath}</td>
       </tr>
 </c:forEach>
     </tbody>
+    <tfoot>
+      	<tr>
+	        <td></td>
+	        <td></td>
+	        <td></td>
+	        <th class="text-right">${saleStock.ori_250_sum}</th>
+	        <th class="text-right">${saleStock.ori_500_sum}</th>
+	        <th class="text-right">${saleStock.ori_1000_sum}</th>
+	        <th class="text-right">${saleStock.erl_250_sum}</th>
+	        <th class="text-right">${saleStock.erl_500_sum}</th>
+	        <th class="text-right">${saleStock.erl_1000_sum}</th>
+	        <th class="text-right">${saleStock.sns_250_sum}</th>
+	        <th class="text-right">${saleStock.sns_500_sum}</th>
+	        <th class="text-right">${saleStock.sns_1000_sum}</th>
+	        <td></td>
+	        <td></td>
+	        <td></td>
+      	</tr>
+    </tfoot>
   </table>
 </div>
 </div>

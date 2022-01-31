@@ -74,7 +74,7 @@ public class PurchbookController {
 		log.info(".............................insertInDate..:"+vo);
 		
 	  int result = purchbookSerivce.updateInDate(vo); if (result==1) {
-		  rttr.addFlashAttribute("msg", "입고일 저장완료"); 
+		  rttr.addFlashAttribute("msg", "입고일 완료"); 
 	  }		 
 	  return "redirect:buy.do";
 	}
@@ -97,7 +97,7 @@ public class PurchbookController {
 	public String insertStorage(PurchbookVO vo, RedirectAttributes rttr) {		
 		log.info(".............................insertStorage..:"+vo);
 		int result = purchbookSerivce.insertStorage(vo); if (result==1) {
-			  rttr.addFlashAttribute("msg", "입출고 입력 저장완료"); 
+			  rttr.addFlashAttribute("msg", "입출고 완료"); 
 		}		
 		return "redirect:storage.do";
 	}

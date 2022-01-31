@@ -19,9 +19,15 @@ request.setAttribute("path", request.getContextPath());
 
 <!-- BootStrap 라이브러리 등록 전체적으로 진행을 했다. filter가 적용이 되면 개별적으로 한것은 다 지워야 한다. -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+<link href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" rel="stylesheet">
+
 <link rel="stylesheet" href="/resources/css/style.css">
 <style type="text/css">
 header, footer {
@@ -135,11 +141,17 @@ article {
 						<li><a href="${path }/purchshop/product.do">생산</a></li>
 						<li><a href="${path }/purchshop/order.do">주문</a></li>
 						<li><a href="${path }/purchshop/sale.do">판매</a></li>
-						<li><a href="${path }/purchbook/buyAllList.do">재료구매L</a></li>
-						<li><a href="${path }/purchbook/storageAllList.do">재료입출고L</a></li>
-						<li><a href="${path }/purchshop/productAllList.do">생산L</a></li>
-						<li><a href="${path }/purchshop/orderAllList.do">주문L</a></li>
-						<li><a href="${path }/purchshop/saleAllList.do">판매L</a></li>
+						<li class="dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#">리스트
+							<span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="${path }/purchbook/buyAllList.do">재료구매L</a></li>
+								<li><a href="${path }/purchbook/storageAllList.do">재료입출고L</a></li>
+								<li><a href="${path }/purchshop/productAllList.do">생산L</a></li>
+								<li><a href="${path }/purchshop/orderAllList.do">주문L</a></li>
+								<li><a href="${path }/purchshop/saleAllList.do">판매L</a></li>
+							</ul>
+						</li>
 						<li><a href="${path }/quantity/list.do">재료함량</a></li>
 						<li><a href="${path }/purchbook/stockList.do">재료재고</a></li>
 						<li><a href="${path }/quantity/product.do">제품생산</a></li>									

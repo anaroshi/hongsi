@@ -8,10 +8,6 @@
 <meta charset="UTF-8">
 <title>PurchBook</title>
 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
-<link href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" rel="stylesheet">
-
 <style type="text/css">
 .btn:hover {
 	background-color: #CCCCCC;
@@ -149,7 +145,8 @@ div.modal-body {
     	}    
     });
     
-	$(".dataRow").click(function(){
+    // 주문 리스트에서 입고일자 등록하기
+	$(".orderRow").click(function(){
 		let cno 	= $(this).find(".cno").text();		
 		let buyDate = $(this).find(".buyDate").text();		
 		let gubun 	= $(this).find(".gubun").text();		
@@ -316,7 +313,7 @@ div.modal-body {
     </thead>
     <tbody>
 <c:forEach items="${buyList}" var="vo" varStatus="status">
- 	<tr class="dataRow">
+ 	<tr class="dataRow orderRow">
  		<td class="cno" style="display:none">${vo.cno}</td>
         <td class="buyDate">${vo.buyDate}</td>
         <td class="gubun">${vo.gubun}</td>

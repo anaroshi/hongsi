@@ -7,10 +7,6 @@
 <meta charset="UTF-8">
 <title>PurchShop</title>
 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
-<link href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" rel="stylesheet">
-
 <style type="text/css">
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 
@@ -66,22 +62,6 @@ div.panel-body {
 		dateFormat: "yy-mm-dd", 
 		showAnim: "slide", 
 		showMonthAfterYear: true, dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], 
-		monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']
-    });
-    
-    $( "#deleveryDate" ).datepicker({
-		changeMonth: true,
-		changeYear: true,
-		mdeleveryDate: '-50y', 
-		nextText: '다음 달', 
-		prevText: '이전 달', 
-		yearRange: 'c-3:c+3', 
-		showButtonPanel: true, 
-		currentText: '오늘 날짜', 
-		closeText: '닫기', 
-		dateFormat: "yy-mm-dd", 
-		showAnim: "slide", 
-		showMonthAfterYear: true, dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
 		monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']
     });
     
@@ -145,7 +125,7 @@ div.panel-body {
     });
 
   	$("#orderSave").click(function(){
-  		let ori_250 = $("#ori_250").val();
+ 		let ori_250 = $("#ori_250").val();
   		if(ori_250 == null || ori_250 =="" || typeof ori_250 == "undefined" || ori_250 >= 10000) ori_250 = 0; 
   		$("#ori_250").val(ori_250);
   		let ori_500 = $("#ori_500").val();
@@ -174,17 +154,31 @@ div.panel-body {
 		let sns_1000 = $("#sns_1000").val();
 		if(sns_1000 == null || sns_1000 =="" || typeof sns_1000 == "undefined" || sns_1000 >= 10000) sns_1000 = 0; 
 		$("#sns_1000").val(sns_1000);
+
+		if((ori_250+ori_500+ori_1000+erl_250+erl_500+erl_1000+sns_250+sns_500+sns_1000)==0) {
+		      alert('주문 제품의 수량을 넣어주세요!');
+		      $("#ori_250").select();
+		      return false;
+	    }
+		
+		let orderDate = $("#orderDate").val();		
+		if( orderDate== null || orderDate ==""  || orderDate.length<10)  {
+			alert('주문일을 입력해주세요!');
+			$("#orderDate").select();
+		      return false;
+	    }
+		
+		let orderer = $("#orderer").val();		
+		if( orderer== null || orderer =="")  {
+			alert('주문자를 입력해주세요!');
+			$("#orderer").select();
+		      return false;
+	    }
 		
 		$("#frm").submit();
   	});
-  	
-  	$(".dataRow").click(function(){
-  		let cno = $(this).find(".cno").text();
-  		location = "sale.do?cno="+cno;
-  	});
-    
-  });
-  
+ 	
+});  	
   </script>
 </head>
 
@@ -334,11 +328,10 @@ div.panel-body {
     </thead>
     <tbody>
 <c:forEach items="${orderList}" var="vo">
-      <tr class="dataRow">
-        <td class="cno" style="display:none">${vo.cno}</td>
+      <tr class="dataRow">        
         <td>${vo.orderDate}</td>
         <td>${vo.gubun}</td>
-        <td>${vo.ori_250_order}${vo.erl_250_order}${vo.sns_250_order}</td>
+        <td>${vo.ori_250_format}${vo.erl_250_format}${vo.sns_250_format}</td>
         <td>${vo.orderer}</td>
       </tr>
 </c:forEach>

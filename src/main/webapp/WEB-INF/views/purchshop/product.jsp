@@ -50,7 +50,7 @@ div.panel-body {
 		  $("#ori_250").focus();	  
 	  };
 	  
-    $( "#orderDate" ).datepicker({
+    $( "#productDate" ).datepicker({
 		changeMonth: true,
 		changeYear: true,
 		mdeleveryDate: '-50y', 
@@ -64,23 +64,7 @@ div.panel-body {
 		showAnim: "slide", 
 		showMonthAfterYear: true, dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], 
 		monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']
-    });
-    
-    $( "#deleveryDate" ).datepicker({
-		changeMonth: true,
-		changeYear: true,
-		mdeleveryDate: '-50y', 
-		nextText: '다음 달', 
-		prevText: '이전 달', 
-		yearRange: 'c-3:c+3', 
-		showButtonPanel: true, 
-		currentText: '오늘 날짜', 
-		closeText: '닫기', 
-		dateFormat: "yy-mm-dd", 
-		showAnim: "slide", 
-		showMonthAfterYear: true, dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-		monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']
-    });
+    });    
     
     $("#item").change(function() {
     	let selectedVal = $(this).val();
@@ -196,66 +180,66 @@ div.panel-body {
         <th colspan="2" class="text-center">제품명</th>
         <th width="20%">주문량</th>
         <th width="20%">재고량</th>
-        <th width="20%">금주필요</th>
+        <th width="20%" style="font-size: 10px">금주필요</th>
       </tr>
     </thead>
     <tbody>
  	<tr>
         <td rowspan="3" class="text-center">Original</td>
         <td width="20%">250g</td>
-        <td>${itemSum.ori_250_sum}개</td>
-        <td>${stockSum.ori_250_sum}개</td>
-        <td>${stockSum.ori_250_sum - itemSum.ori_250_sum}개</td>
+        <td class="text-right">${orderSum.ori_250_sum}개</td>
+        <td class="text-right">${stockSum.ori_250_sum}개</td>
+        <td class="text-right">${stockSum.ori_250_sum - orderSum.ori_250_sum}개</td>
     </tr>
 	<tr>
         <td>500g</td>
-        <td>${itemSum.ori_500_sum}개</td>
-        <td>${stockSum.ori_500_sum}개</td>
-        <td>${stockSum.ori_500_sum - itemSum.ori_500_sum}개</td>
+        <td class="text-right">${orderSum.ori_500_sum}개</td>
+        <td class="text-right">${stockSum.ori_500_sum}개</td>
+        <td class="text-right">${stockSum.ori_500_sum - orderSum.ori_500_sum}개</td>
     </tr>
 	<tr>        
         <td>1,000g</td>
-        <td>${itemSum.ori_1000_sum}개</td>
-        <td>${stockSum.ori_1000_sum}개</td>
-        <td>${stockSum.ori_1000_sum - itemSum.ori_1000_sum}개</td>
+        <td class="text-right">${orderSum.ori_1000_sum}개</td>
+        <td class="text-right">${stockSum.ori_1000_sum}개</td>
+        <td class="text-right">${stockSum.ori_1000_sum - orderSum.ori_1000_sum}개</td>
     </tr>
 	<tr>
         <td rowspan="3" class="text-center">Earlgrey</td>
         <td>250g</td>
-        <td>${itemSum.erl_250_sum}개</td>
-        <td>${stockSum.erl_250_sum}개</td>
-        <td>${stockSum.erl_250_sum - itemSum.erl_250_sum}개</td>
+        <td class="text-right">${orderSum.erl_250_sum}개</td>
+        <td class="text-right">${stockSum.erl_250_sum}개</td>
+        <td class="text-right">${stockSum.erl_250_sum - orderSum.erl_250_sum}개</td>
     </tr>
 	<tr>
         <td>500g</td>
-        <td>${itemSum.erl_500_sum}개</td>
-        <td>${stockSum.erl_500_sum}개</td>
-        <td>${stockSum.erl_500_sum - itemSum.erl_500_sum}개</td>
+        <td class="text-right">${orderSum.erl_500_sum}개</td>
+        <td class="text-right">${stockSum.erl_500_sum}개</td>
+        <td class="text-right">${stockSum.erl_500_sum - orderSum.erl_500_sum}개</td>
     </tr>
 	<tr>        
         <td>1,000g</td>
-        <td>${itemSum.erl_1000_sum}개</td>
-        <td>${stockSum.erl_1000_sum}개</td>
-        <td>${stockSum.erl_1000_sum - itemSum.erl_1000_sum}개</td>
+        <td class="text-right">${orderSum.erl_1000_sum}개</td>
+        <td class="text-right">${stockSum.erl_1000_sum}개</td>
+        <td class="text-right">${stockSum.erl_1000_sum - orderSum.erl_1000_sum}개</td>
     </tr>
     <tr>
         <td rowspan="3" class="text-center">Sweet &amp; Salty</td>
         <td>250g</td>
-        <td>${itemSum.sns_250_sum}개</td>
-        <td>${stockSum.sns_250_sum}개</td>
-        <td>${stockSum.sns_250_sum - itemSum.sns_250_sum}개</td>
+        <td class="text-right">${orderSum.sns_250_sum}개</td>
+        <td class="text-right">${stockSum.sns_250_sum}개</td>
+        <td class="text-right">${stockSum.sns_250_sum - orderSum.sns_250_sum}개</td>
     </tr>
 	<tr>
         <td>500g</td>
-        <td>${itemSum.sns_500_sum}개</td>
-        <td>${stockSum.sns_500_sum}개</td>
-        <td>${stockSum.sns_500_sum - itemSum.sns_500_sum}개</td>
+        <td class="text-right">${orderSum.sns_500_sum}개</td>
+        <td class="text-right">${stockSum.sns_500_sum}개</td>
+        <td class="text-right">${stockSum.sns_500_sum - orderSum.sns_500_sum}개</td>
     </tr>
 	<tr>        
         <td>1,000g</td>
-        <td>${itemSum.sns_1000_sum}개</td>
-        <td>${stockSum.sns_1000_sum}개</td>
-        <td>${stockSum.sns_1000_sum - itemSum.sns_1000_sum}개</td>
+        <td class="text-right">${orderSum.sns_1000_sum}개</td>
+        <td class="text-right">${stockSum.sns_1000_sum}개</td>
+        <td class="text-right">${stockSum.sns_1000_sum - orderSum.sns_1000_sum}개</td>
     </tr>
     </tbody>
   	</table>
@@ -329,9 +313,9 @@ div.panel-body {
 <!--   <div class="row">  -->
 	<div class="col-sm-2">
 	   <div class="form-group">
-	      <label for="orderDate" class="col-sm-3 control-label">생산일</label>
+	      <label for="productDate" class="col-sm-3 control-label">생산일</label>
 	      <div class="col-sm-8">
-	        <input class="form-control" id="orderDate" name="orderDate" type="text" required="required">
+	        <input class="form-control" id="productDate" name="productDate" type="text" required="required">
 	      </div>
 	    </div>	    
 	    <div class="form-group">
@@ -385,9 +369,9 @@ div.panel-body {
     <tbody>
 <c:forEach items="${productList}" var="vo">
       <tr>
-        <td>${vo.orderDate}</td>
+        <td>${vo.productDate}</td>
         <td>${vo.gubun}</td>
-        <td>${vo.ori_250_order}${vo.erl_250_order}${vo.sns_250_order}</td>
+        <td>${vo.ori_250_format}${vo.erl_250_format}${vo.sns_250_format}</td>
       </tr>
 </c:forEach>
     </tbody>
