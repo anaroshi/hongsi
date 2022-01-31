@@ -51,7 +51,7 @@ tfoot {
 		
   });
   
-  </script>
+</script>
 </head>
 
 <body>

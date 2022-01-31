@@ -228,7 +228,7 @@ function fn_update(cno) {
 	   <div class="form-group">
 	      <label for="buyDate" class="col-sm-3 control-label">주문일</label>
 	      <div class="col-sm-8">
-	        <input class="form-control" id="buyDate" name="buyDate" type="text" required="required" value=${buyInfo.buyDate}>
+	        <input class="form-control" id="buyDate" name="buyDate" type="text" required="required" value="${buyInfo.buyDate}">
 	      </div>
 	    </div>
 	    <div class="form-group">

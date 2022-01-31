@@ -162,7 +162,7 @@ div.modal-body {
 	});	
 	
 });
-  </script>
+</script>
 </head>
 <body>
 <div class="container">

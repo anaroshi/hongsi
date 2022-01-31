@@ -148,9 +148,9 @@ $(function() {
     </tbody>
   	</table>
  	</div>
-<!-- 주 생산량 end -->
+	<!-- 주 생산량 end -->
 
-<!-- 재고량 보이기 -->
+	<!-- 재고량 보이기 -->
 	<div class="col-md-6">
 		<table class="table table-bordered">
 			<thead>

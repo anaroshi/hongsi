@@ -175,7 +175,7 @@ div.panel-body {
     
   });
   
-  </script>
+</script>
 </head>
 
 <body>

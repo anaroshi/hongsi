@@ -13,7 +13,6 @@
 	background-color: #CCCCCC;
 	color: white;
 }
-
 .select {
 	font-size: 12px;
 }

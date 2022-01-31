@@ -107,8 +107,7 @@
 	) A		
 	</select>
 	
-	<select id="selectSaleStock" resultType="com.hongsi.purchshop.vo.PurchSaleVO">
-	
+	<select id="selectSaleStock" resultType="com.hongsi.purchshop.vo.PurchSaleVO">	
 	SELECT 	
 		(B.OUT_ORI_250_TOTAL-A.IN_ORI_250_TOTAL) 	ORI_250_SUM,
 		(B.OUT_ORI_500_TOTAL-A.IN_ORI_500_TOTAL) 	ORI_500_SUM,

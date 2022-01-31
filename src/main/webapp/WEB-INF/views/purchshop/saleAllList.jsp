@@ -44,8 +44,7 @@ tfoot {
   $( function() {
 
   });
-  
-  </script>
+</script>
 </head>
 
 <body>

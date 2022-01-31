@@ -14,10 +14,10 @@
 		<div class="row">
 			<div class="col-md-6">
 				<!-- private String  kname;		// 구매품 이름
-	private long 	inTotal;	// 입고 수량
-	private long 	outTotal;	// 출고 수량
-	private long 	disTotal;	// 폐기 수량
-	private long 	total;		// 잔고 수량 -->
+					private long 	inTotal;	// 입고 수량
+					private long 	outTotal;	// 출고 수량
+					private long 	disTotal;	// 폐기 수량
+					private long 	total;		// 잔고 수량 -->
 
 				<table class="table table-bordered">
 					<thead>

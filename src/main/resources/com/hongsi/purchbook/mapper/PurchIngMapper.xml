@@ -265,7 +265,7 @@
 	ORDER BY P.BUYDATE DESC
 	</select>
 	
-		<!-- 구매정보 수정 처리 -->
+	<!-- 구매정보 수정 처리 -->
 	<update id="updateBuyInfoByCno">
 	UPDATE 	PURCH_ING
 	SET		BUYDATE = #{buyDate},		

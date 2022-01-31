@@ -36,8 +36,7 @@
 	
 	</select>
 
-	<select id="selectTotalByItem" resultType="com.hongsi.quantity.vo.QuantityVO">
-	
+	<select id="selectTotalByItem" resultType="com.hongsi.quantity.vo.QuantityVO">	
 	SELECT 
 		Q.CNO,
 		Q.CODE,

@@ -204,7 +204,7 @@
 	) A
 	</select>
 	
-		<select id="selectOrderListSuntSat" resultType="com.hongsi.purchshop.vo.PurchOrderVO">
+	<select id="selectOrderListSuntSat" resultType="com.hongsi.purchshop.vo.PurchOrderVO">
 	SELECT 	A.CNO, A.ORDERDATE, A.GUBUN, A.SALEPATH,
 			A.ORI_250_FORMAT || A.ORI_500_FORMAT || A.ORI_1000_FORMAT ORI_250_FORMAT,
 			A.ERL_250_FORMAT || A.ERL_500_FORMAT || A.ERL_1000_FORMAT ERL_250_FORMAT,

@@ -213,7 +213,6 @@ $(function() {
 					</div>
 				</div>
 			</div>
-			
 			<div class="col-sm-6">
 				<div class="form-group">
 					<label for="item" class="col-sm-3 control-label">제품 100g 단위 (g)</label>

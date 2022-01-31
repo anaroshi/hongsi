@@ -29,7 +29,6 @@ input[type=number]::-webkit-outer-spin-button {
 	background-color: #CCCCCC;
 	color: white;
 }
-
 div.panel-body {
 	padding-bottom: 7px;
 }

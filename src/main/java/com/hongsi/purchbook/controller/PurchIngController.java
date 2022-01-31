@@ -55,6 +55,7 @@ public class PurchIngController {
 		return "redirect:buy.do";
 	}	
 
+	// 재료구매 리스트 화면
 	@GetMapping("buyAllList.do")
 	public String buyAllList(Model model) {
 		log.info(".............................buyList..buy");
