@@ -24,13 +24,14 @@ public class PurchSaleVO {
 	private long 	price;		// 금액
 	private String 	paymentPath;// 지불방법
 	private String  salePath;	// 판매경로 : 개별구매, Naver쇼핑, 홈페이지, 쎈인생블로거
-	private Date 	deleveryDate;	// 배송일 
+	private String 	deleveryDate;	// 배송일 
 	private String  deleveryPath;	// 배송방법 : 택배, 고객수령, 직접배송
 	private String 	orderer;	// 주문자
 	private String 	comm;		// 비고
 	private String 	manager;	// 담당자	
 	private String 	gubunCode;	// 담당자	
 	private String 	status;		// 담당자	
+	private String 	orderDate;	// 주문일 
 	
 	private long 	ori_250_sum;	// ori_250 판매 갯수
 	private long 	ori_500_sum;	// ori_500 판매 갯수
@@ -48,6 +49,8 @@ public class PurchSaleVO {
 	private String  startDate;		// 기준되는 한주의 시작 일요일 구하기
 	private String  endDate;		// 기준되는 한주의 시작 토요일 구하기
 	private String  toDate;			// 기준되는 한주의 시작 토요일 구하기
+
+	private long 	flag;			// 재료 입력 1 / 수정 2 / 삭제 4 여부 확인용
 
 }
 

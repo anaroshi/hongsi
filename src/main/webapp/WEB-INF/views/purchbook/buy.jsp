@@ -229,7 +229,7 @@ div.modal-body {
 	    <div class="form-group">
 	      <label for="qty" class="col-sm-3 control-label">수량</label>
 	      <div class="col-sm-8">
-	        <input class="form-control" id="qty" name="qty" type="number" placeholder="qty" required="required">
+	        <input class="form-control inputNumber" id="qty" name="qty" type="number" placeholder="qty" required="required">
 	      </div>
 	    </div>
 	    

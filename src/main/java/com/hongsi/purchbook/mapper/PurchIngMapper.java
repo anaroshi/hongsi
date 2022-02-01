@@ -20,12 +20,18 @@ public interface PurchIngMapper {
 
 	List<PurchIngVO> selectStorageInOut();
 
-	PurchIngVO selectBuyInfoByCno(Integer cno);
-
-	int deleteBuyInfoByCno(Integer cno);
+	int deleteBuyStorageInfoByCno(PurchIngVO vo);
 
 	int updateBuyInfoByCno(PurchIngVO vo);
 
-	int insertTrace(PurchIngVO vo);
+	int insertBuyTrace(PurchIngVO vo);
+
+//	PurchIngVO selectStorageInfoByCno(Integer cno);
+
+	int updateStorageInfoByCno(PurchIngVO vo);
+
+	PurchIngVO selectBuyStorageInfoByCno(PurchIngVO vo);
+
+	int insertStorageTrace(PurchIngVO vo);
 
 }

@@ -44,9 +44,9 @@
 	WHERE 	P.ITEM = I.CODE	
 	ORDER BY P.BUYDATE DESC 
 	</select>
-	
-	<!-- 	주문번호에 의한 재료 주문정보 가져오기 -->
-	<select id="selectBuyInfoByCno" resultType="com.hongsi.purchbook.vo.PurchIngVO">
+
+	<!-- 	주문번호에 의한 재료 구매 or 입출고 정보 가져오기 -->
+	<select id="selectBuyStorageInfoByCno" resultType="com.hongsi.purchbook.vo.PurchIngVO">
 	SELECT 	
 		P.CNO,
 		P.BUYDATE, 
@@ -56,7 +56,7 @@
 		P.CONTENT,		
 		P.QTY,		
 		P.PRICE,
-		P.PURSHOP,			
+		P.PURSHOP,
 		P.INDATE,
 		P.COMM,
 		P.BUYER,
@@ -79,7 +79,7 @@
 			SUMQTY,
 			RDATE		
 		FROM PURCH_ING
-		WHERE	STATUS = 'purch'
+		WHERE	STATUS = #{status}
 		AND FLAG != 4
 		AND		CNO = #{cno}
 	) P,
@@ -90,13 +90,15 @@
 	ORDER BY P.BUYDATE DESC 
 	</select>
 
-<!-- 	재료 구매정보삭제 처리		 -->
-	<update id="deleteBuyInfoByCno">
+	<!-- 	재료 구매 or 입출고 정보삭제 처리		 -->
+	<update id="deleteBuyStorageInfoByCno">
 	UPDATE PURCH_ING
 	SET 	FLAG = 4, UDATE = SYSDATE
 	WHERE 	CNO	= #{cno}
+	AND		STATUS = #{status}
 	</update>
 	
+	<!-- 	구매한 재료중에 입력일이 없는 재료들만 구하기 : 재료구매 화면에서 입력일 기입 가능 -->
 	<select id="selectNonInDate" resultType="com.hongsi.purchbook.vo.PurchIngVO">		
 	SELECT 	
 		P.CNO,		
@@ -131,6 +133,7 @@
 	ORDER BY P.BUYDATE DESC
 	</select>
 	
+	<!-- 	재료 구매 정보 저장 -->
 	<insert id="buyProcess">
 	INSERT INTO PURCH_ING (
 		CNO,
@@ -167,6 +170,7 @@
 	)
 	</insert>
 	
+	
 	<select id="selectIgdTotalList" resultType="com.hongsi.purchbook.vo.PurchIngVO">
 	SELECT 	A.ITEM ITEM,
 			B.KNAME KNAME,
@@ -196,12 +200,14 @@
 	ORDER BY B.KNAME
 	</select>
 	
+	<!-- 	재료구매 화면에서 입력일 입력 -->
 	<update id="updateInDate">
 	UPDATE PURCH_ING 
-	SET INDATE = TO_DATE(#{inDate},'YYYY-MM-DD'), FLAG = 1	
+	SET INDATE = TO_DATE(#{inDate},'YYYY-MM-DD'), FLAG = 2	
 	WHERE CNO = #{cno}	
 	</update>
 
+	<!-- 	재료입출고 화면에서 재료 입출고 정보 저장 -->
 	<insert id="insertStorage">
 	INSERT INTO PURCH_ING (
 		CNO,
@@ -236,6 +242,7 @@
 	)	
 	</insert>
 	
+	<!-- 	재료 입출고 List -->
 	<select id="selectStorageInOut" resultType="com.hongsi.purchbook.vo.PurchIngVO">		
 	SELECT 	
 		P.CNO,		
@@ -244,7 +251,9 @@
 		I.KNAME, 
 		P.GUBUN,
 		P.CONTENT,		
-		P.QTY
+		P.QTY,		
+		P.BUYER,
+		P.COMM
 	FROM 
 	(
 		SELECT 
@@ -253,7 +262,9 @@
 			ITEM,
 			GUBUN,
 			CONTENT,		
-			QTY
+			QTY,		
+			BUYER,
+			COMM
 		FROM PURCH_ING
 		WHERE STATUS = 'storage'
 		AND FLAG != 4		
@@ -264,8 +275,39 @@
 	WHERE P.ITEM = I.CODE
 	ORDER BY P.BUYDATE DESC
 	</select>
-	
-	<!-- 구매정보 수정 처리 -->
+
+ 	<!-- CNO에 의한 재료 입출고 정보 가져오기 -->
+<!-- 	<select id="selectStorageInfoByCno" resultType="com.hongsi.purchbook.vo.PurchIngVO">		 -->
+<!-- 	SELECT 	 -->
+<!-- 		P.CNO,		 -->
+<!-- 		P.BUYDATE,  -->
+<!-- 		P.ITEM,  -->
+<!-- 		I.KNAME,  -->
+<!-- 		P.GUBUN, -->
+<!-- 		P.CONTENT,		 -->
+<!-- 		P.QTY -->
+<!-- 	FROM  -->
+<!-- 	( -->
+<!-- 		SELECT  -->
+<!-- 			CNO, -->
+<!-- 			TO_CHAR(BUYDATE, 'yyyy-MM-dd') BUYDATE, -->
+<!-- 			ITEM, -->
+<!-- 			GUBUN, -->
+<!-- 			CONTENT,		 -->
+<!-- 			QTY -->
+<!-- 		FROM PURCH_ING -->
+<!-- 		WHERE STATUS = 'storage' -->
+<!-- 		AND FLAG != 4 -->
+<!-- 		AND CNO = #{cno} -->
+<!-- 	) P, -->
+<!-- 	( -->
+<!-- 		SELECT KNAME, CODE FROM INGREDIENT -->
+<!-- 	) I -->
+<!-- 	WHERE P.ITEM = I.CODE -->
+<!-- 	ORDER BY P.BUYDATE DESC -->
+<!-- 	</select> -->
+
+	<!-- 재료 구매 정보 수정 처리 -->
 	<update id="updateBuyInfoByCno">
 	UPDATE 	PURCH_ING
 	SET		BUYDATE = #{buyDate},		
@@ -286,9 +328,9 @@
 	WHERE 	CNO 	= #{cno}
 	AND		FLAG 	!= 4
 	</update>
-	
-	<!-- 구매 이력 저장 -->
-	<insert id="insertTrace">
+
+	<!-- 입출고 이력 저장 -->
+	<insert id="insertBuyTrace">
 	INSERT INTO PURCH_ING_TRACE (
 		UNQ,
 		CNO,
@@ -323,6 +365,60 @@
 		'purch',
 		#{gubunCode},
 		#{flag}
+	)
+	</insert>
+
+
+	<!-- 재료 입출고 정보 수정 처리 -->
+	<update id="updateStorageInfoByCno">
+	UPDATE 	PURCH_ING
+	SET		BUYDATE = #{buyDate},		
+			ITEM 	= #{item},		
+			GUBUN 	= #{gubun},
+			CONTENT = #{content},
+			INDATE 	= #{buyDate},
+			COMM 	= #{comm},
+			BUYER 	= #{buyer},
+			SUMQTY 	= #{content},
+			STATUS 	= 'storage',
+			GUBUNCODE = #{gubunCode},
+			FLAG 	= 2,
+			UDATE 	= SYSDATE	
+	WHERE 	CNO 	= #{cno}
+	AND		FLAG 	!= 4
+	</update>
+
+
+	<!-- 재료 입출고 정보 이력 저장 -->
+	<insert id="insertStorageTrace">
+	INSERT INTO PURCH_ING_TRACE (
+		UNQ,
+		CNO,
+		BUYDATE,
+		ITEM,
+		GUBUN,
+		CONTENT,
+		INDATE,
+		COMM,
+		BUYER,
+		SUMQTY,
+		STATUS,
+		GUBUNCODE,
+		FLAG	
+	) VALUES (
+		PURCH_ING_TRACE_PK.NEXTVAL,
+		#{cno},
+		#{buyDate},
+		#{item},
+		#{gubun},
+		#{content},
+		#{buyDate},
+		#{comm},
+		#{buyer},
+		#{content},
+		'storage',
+		#{gubunCode},
+		2
 	)
 	</insert>
 	

@@ -12,7 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
 @Service
-@Qualifier("purchsaleServiceImpl")
+@Qualifier("purchSaleServiceImpl")
 @AllArgsConstructor
 @Log4j
 public class PurchSaleServiceImpl implements PurchSaleService {
@@ -51,6 +51,34 @@ public class PurchSaleServiceImpl implements PurchSaleService {
 	@Override
 	public PurchSaleVO selectSaleStock() {
 		return mapper.selectSaleStock();
+	}
+
+	@Override
+	public PurchSaleVO selectSaleInfoByCno(int cno) {
+		return mapper.selectSaleInfoByCno(cno);
+	}
+
+	@Override
+	public int deleteSaleInfoByCno(int cno) {
+		return mapper.deleteSaleInfoByCno(cno);
+	}
+
+	@Override
+	public int updateSaleInfoByCno(PurchSaleVO vo) {
+		vo.setOrderDate(vo.getOrderDate().replace("/", ""));
+		vo.setOrderDate(vo.getOrderDate().replace(".", ""));
+		vo.setOrderDate(vo.getOrderDate().replace("-", ""));
+		vo.setDeleveryDate(vo.getDeleveryDate().replace("/", ""));
+		vo.setDeleveryDate(vo.getDeleveryDate().replace(".", ""));
+		vo.setDeleveryDate(vo.getDeleveryDate().replace("-", ""));
+		if(vo.getGubun().equals("판매")) vo.setGubunCode("out");
+		else if(vo.getGubun().equals("교환")) vo.setGubunCode("out");
+		else if(vo.getGubun().equals("반품")) vo.setGubunCode("in");
+		else if(vo.getGubun().equals("손실")) vo.setGubunCode("out");
+		else if(vo.getGubun().equals("샘플")) vo.setGubunCode("out");
+		log.info("PurchsaleServiceImpl vo:"+vo);
+		
+		return mapper.updateSaleInfoByCno(vo);
 	}
 
 

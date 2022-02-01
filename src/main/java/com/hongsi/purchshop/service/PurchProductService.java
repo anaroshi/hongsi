@@ -11,4 +11,10 @@ public interface PurchProductService {
 	public List<PurchProductVO> selectProductList();
 
 	public PurchProductVO selectProductStock();
+
+	public PurchProductVO selectProductInfoByCno(int cno);
+
+	public int deleteProductInfoByCno(int cno);
+
+	public int updateProductInfoByCno(PurchProductVO vo);
 }

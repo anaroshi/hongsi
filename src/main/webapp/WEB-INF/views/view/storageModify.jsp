@@ -22,8 +22,7 @@
 </style>
 
 <script>
-  $( function() {
-	  
+$( function() {
     $( "#buyDate" ).datepicker({
 		changeMonth: true,
 		changeYear: true,
@@ -37,68 +36,67 @@
 		dateFormat: "yy-mm-dd", 
 		showAnim: "slide", 
 		showMonthAfterYear: true, dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-		monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] 
-      
+		monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']      
     });
-    
-    function fn_delete(cno) {
-    	if(confirm("삭제하시겠습니까")) {
-    		// alert(cno);		
-    		$.ajax({
-    			type: "POST",
-    			url: "storageDelete.do",
-    			async: false,
-    			data: "cno="+cno, // json(전송) 타입
-    			dtatType: "text"				
-    		})
-    		.done(function (result, textStatus, xhr) {
-    			console.log("result:"+result+" -> xhr: "+xhr);
-    	        if(result=="ok") {
-    	        	alert("삭제완료");
-    	        	 	// 부모창 reload
-    				opener.parent.location ="/purchbook/storageAllList.do";				
-    	        	self.close();
-    			}
-    		})
-    		.fail(function(data, textStatus, errorThrown) {
-    			console.log("fail");
-    			alert("오류발생");
-    		});
-    	}	
-    };  
-
-    function fn_update(cno) {
-    	if(confirm("수정하시겠습니까")) {
-    		// alert(cno);
-    		let formData = $("#frm").serialize();		
-    		//alert(JSON.stringify(formData));
-    		
-    		$.ajax({
-    			type: "POST",
-    			url: "storageUpdate.do",
-    			async: false,
-    			data: formData, // json(전송) 타입
-    			dataType: "text"					
-    		})
-    		.done(function (result, textStatus, xhr) {
-    			console.log("result:"+JSON.stringify(result)+" -> xhr: "+ JSON.stringify(xhr));
-    	        if(result=="ok") {
-    	        	alert("수정 완료");
-    	        	 	// 부모창 reload
-    				opener.parent.location ="/purchbook/storageAllList.do";				
-    	        	self.close();
-    			} else {
-    				alert("수정 실패");	
-    			}
-    		})
-    		.fail(function(data, textStatus, errorThrown) {
-    			console.log("fail");
-    			alert("오류발생");
-    		});
-    	}	
-    };		
 });
-  </script>
+
+function fn_delete(cno) {
+	if(confirm("삭제하시겠습니까")) {
+		alert(cno);		
+		$.ajax({
+			type: "POST",
+			url: "storageDelete.do",
+			async: false,
+			data: "cno="+cno, // json(전송) 타입
+			dtatType: "text"				
+		})
+		.done(function (result, textStatus, xhr) {
+			console.log("result:"+result+" -> xhr: "+xhr);
+	        if(result=="ok") {
+	        	alert("삭제완료");
+	        	 	// 부모창 reload
+				opener.parent.location ="/purchbook/storageAllList.do";				
+	        	self.close();
+			}
+		})
+		.fail(function(data, textStatus, errorThrown) {
+			console.log("fail");
+			alert("오류발생");
+		});
+	}	
+};
+
+function fn_update() {
+	if(confirm("수정하시겠습니까")) {
+		
+		let formData = $("#frm").serialize();		
+		alert(JSON.stringify(formData));
+		
+		$.ajax({
+			type: "POST",
+			url: "storageUpdate.do",
+			async: false,
+			data: formData, // json(전송) 타입
+			dataType: "text"					
+		})
+		.done(function (result, textStatus, xhr) {
+			console.log("result:"+JSON.stringify(result)+" -> xhr: "+ JSON.stringify(xhr));
+	        if(result=="ok") {
+	        	alert("수정 완료");
+	        	 	// 부모창 reload
+				opener.parent.location ="/purchbook/storageAllList.do";				
+	        	self.close();
+			} else {
+				alert("수정 실패");	
+			}
+		})
+		.fail(function(data, textStatus, errorThrown) {
+			console.log("fail");
+			alert("오류발생");
+		});
+	}	
+};
+</script>
 </head>
 
 <body>
@@ -114,7 +112,7 @@
 		<div class="form-group">
 	      <label for="buyDate" class="col-sm-3 control-label">입출고일</label>
 	      <div class="col-sm-8">
-	        <input class="form-control inputDate" id="buyDate" name="buyDate" type="text" required="required">
+	        <input class="form-control inputDate" id="buyDate" name="buyDate" type="text" required="required" value="${storageInfo.buyDate}">
 	      </div>
 		</div>
 	    <div class="form-group">
@@ -123,7 +121,7 @@
 	      <select id="item" name="item" class="form-control select" required="required">
 	      	<option value="*"></option>
 		      <c:forEach items="${ingreList}" var="vo">
-		      	<option value="${vo.code}">${vo.kname}</option>
+		      	<option value="${vo.code}" <c:if test="${storageInfo.item ==vo.code}">selected</c:if> >${vo.kname}</option>
 		      </c:forEach>
 	      </select>	        
 	      </div>
@@ -132,10 +130,10 @@
 	      <label for="gubun" class="col-sm-3 control-label">구분</label>
 	      <div class="col-sm-8">
 			<select id="gubun" name="gubun" class="form-control select" required="required">
-	            <option value="출고">출고</option>
-	            <option value="입고_office">입고_office</option>
-	            <option value="입고_cafe">입고_cafe</option>
-	            <option value="손실">손실</option>
+	            <option value="출고" <c:if test="${storageInfo.gubun =='출고'}">selected</c:if> >출고</option>
+	            <option value="입고_office" <c:if test="${storageInfo.gubun=='입고_office'}">selected</c:if> >입고_office</option>
+	            <option value="입고_cafe" <c:if test="${storageInfo.gubun=='입고_cafe'}">selected</c:if> >입고_cafe</option>
+	            <option value="손실" <c:if test="${storageInfo.gubun=='손실'}">selected</c:if> >손실</option>
 			</select>
 	      </div>
 		</div>	    
@@ -143,7 +141,7 @@
 	    <div class="form-group">
 			<label for="content" class="col-sm-3 control-label">용량</label>
 			<div class="col-sm-8">
-				<input class="form-control" id="content" name="content" type="number" placeholder="content" required="required">		      
+				<input class="form-control inputNumber" id="content" name="content" type="number" placeholder="content" required="required" value="${storageInfo.content}">		      
 			</div>
 	    </div>
 	</div> 
@@ -154,22 +152,22 @@
 		<div class="form-group">
 	      <label for="comm" class="col-sm-3 control-label">비고</label>
 	      <div class="col-sm-8">
-	      	<textarea class="form-control" rows="5" id="comm" name="comm"></textarea>
+	      	<textarea class="form-control" rows="5" id="comm" name="comm">${storageInfo.comm}</textarea>
 	      </div>
 	     </div>	     
 	     <div class="form-group">
 	      <label for="buyer" class="col-sm-3 control-label">담당자</label>
 	      <div class="col-sm-8">
 	      	<select id="buyer" name="buyer" class="form-control select">
-	            <option value="홍동호">홍동호</option>
-	            <option value="대행인">대행인</option>
+	            <option value="홍동호" <c:if test="${storageInfo.buyer=='홍동호'}">selected</c:if> >홍동호</option>
+	            <option value="대행인" <c:if test="${storageInfo.buyer=='대행인'}">selected</c:if> >대행인</option>
 			</select>
 	      </div>
  		</div>	    
 	    <div class="form-group">
     	<div class="col-sm-1"></div>
-    	<div class="col-sm-3"><button type="button" class="btn btn-block" id="orderUpdate" onclick="fn_update(${productInfo.cno}); return false;">수정</button></div>
-    	<div class="col-sm-3"><button type="button" class="btn btn-block" id="orderDelete" onclick="fn_delete(${productInfo.cno}); return false;">삭제</button></div>
+    	<div class="col-sm-3"><button type="button" class="btn btn-block" id="orderUpdate" onclick="fn_update(); return false;">수정</button></div>
+    	<div class="col-sm-3"><button type="button" class="btn btn-block" id="orderDelete" onclick="fn_delete(${storageInfo.cno}); return false;">삭제</button></div>
     	<div class="col-sm-4"><button type="button" class="btn btn-block" onclick="javascript:self.close();" >닫기</button></div> 
     	</div>
 

@@ -124,7 +124,7 @@
   
 function fn_delete(cno) {
 	if(confirm("삭제하시겠습니까")) {
-		// alert(cno);		
+		alert(cno);		
 		$.ajax({
 			type: "POST",
 			url: "buyDelete.do",
@@ -148,9 +148,9 @@ function fn_delete(cno) {
 	}	
 };  
 
-function fn_update(cno) {
+function fn_update() {
 	if(confirm("수정하시겠습니까")) {
-		// alert(cno);
+		
 		let formData = $("#frm").serialize();		
 		//alert(JSON.stringify(formData));
 		
@@ -212,7 +212,7 @@ function fn_update(cno) {
 	      <div class="col-sm-8">
 			<select id="gubun" name="gubun" class="form-control select" required="required">
 	            <option value="구매" <c:if test="${buyInfo.gubun=='구매'}">selected</c:if>>구매</option>
-	            <option value="교환" <c:if test="${buyInfo.gubun=='교환'}">selected</c:if>>교환</option>
+<%-- 	            <option value="교환" <c:if test="${buyInfo.gubun=='교환'}">selected</c:if>>교환</option> --%>
 	            <option value="반품" <c:if test="${buyInfo.gubun=='반품'}">selected</c:if>>반품</option>
 	            <option value="손실" <c:if test="${buyInfo.gubun=='손실'}">selected</c:if>>손실</option>
 			</select>
@@ -229,7 +229,7 @@ function fn_update(cno) {
 	    <div class="form-group">
 	      <label for="qty" class="col-sm-3 control-label">수량</label>
 	      <div class="col-sm-8">
-	        <input class="form-control" id="qty" name="qty" type="number" placeholder="qty" required="required" value="${buyInfo.qty}">
+	        <input class="form-control inputNumber" id="qty" name="qty" type="number" placeholder="qty" required="required" value="${buyInfo.qty}">
 	      </div>
 	    </div>
 	    
@@ -238,7 +238,7 @@ function fn_update(cno) {
 	      <div class="col-sm-8"> 
 	      <div class="input-group">
 	      	<span class="input-group-addon"><i class="fas fa-won-sign"></i></span>
-			<input class="form-control" type="number" id="price" name="price" required="required" value="${buyInfo.price}">
+			<input class="form-control inputNumber" type="number" id="price" name="price" required="required" value="${buyInfo.price}">
 		  </div></div>
 	    </div>
 	</div> 
@@ -279,8 +279,8 @@ function fn_update(cno) {
     </div>
     <div class="form-group">
     	<div class="col-sm-1"></div>
-    	<div class="col-sm-3"><button type="button" class="btn btn-block" id="orderUpdate" onclick="fn_update(${productInfo.cno}); return false;">수정</button></div>
-    	<div class="col-sm-3"><button type="button" class="btn btn-block" id="orderDelete" onclick="fn_delete(${productInfo.cno}); return false;">삭제</button></div>
+    	<div class="col-sm-3"><button type="button" class="btn btn-block" id="orderUpdate" onclick="fn_update(); return false;">수정</button></div>
+    	<div class="col-sm-3"><button type="button" class="btn btn-block" id="orderDelete" onclick="fn_delete(${buyInfo.cno}); return false;">삭제</button></div>
     	<div class="col-sm-4"><button type="button" class="btn btn-block" onclick="javascript:self.close();" >닫기</button></div> 
     </div>
 	</div> 

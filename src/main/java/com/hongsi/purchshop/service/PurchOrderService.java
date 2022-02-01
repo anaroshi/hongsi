@@ -25,5 +25,11 @@ public interface PurchOrderService {
 	public PurchOrderVO selectOrderStock();
 
 	public List<PurchOrderVO> selectOrderListWaitSale();
+
+	public PurchOrderVO selectOrderInfoByCno(int cno);
+
+	public int deleteOrderInfoByCno(int cno);
+
+	public int updateOrderInfoByCno(PurchOrderVO vo);
 	
 }

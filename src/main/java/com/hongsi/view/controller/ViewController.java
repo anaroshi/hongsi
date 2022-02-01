@@ -8,11 +8,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.hongsi.ingredient.service.IngredientService;
 import com.hongsi.purchbook.service.PurchIngSerivce;
 import com.hongsi.purchbook.vo.PurchIngVO;
+import com.hongsi.purchshop.service.PurchOrderService;
+import com.hongsi.purchshop.service.PurchProductService;
+import com.hongsi.purchshop.service.PurchSaleService;
+import com.hongsi.purchshop.vo.PurchOrderVO;
+import com.hongsi.purchshop.vo.PurchProductVO;
+import com.hongsi.purchshop.vo.PurchSaleVO;
 
 import lombok.extern.log4j.Log4j;
 
@@ -27,119 +32,126 @@ public class ViewController {
 	@Autowired
 	@Qualifier("ingredientServiceImpl")
 	private IngredientService ingredientService;
-
+	
+	@Autowired
+	@Qualifier("purchSaleServiceImpl")
+	private PurchSaleService purchSaleService;
+	
+	@Autowired
+	@Qualifier("purchOrderServiceImpl")
+	private PurchOrderService purchOrderService;
+	
+	@Autowired
+	@Qualifier("purchProductServiceImpl")	
+	private PurchProductService purchProductService;
+	
 	// --------------------------------------- 재료 구매 -----------------------------------------------
 	
 	@GetMapping("view/buyModify.do")
-	public String buyModify(Integer cno, Model model) {
+	public String buyModify(PurchIngVO vo, Model model) {
 		log.info(".............................buyModify..");
+
 		// 재료 list
 		model.addAttribute("ingreList", ingredientService.list());
+
 		// 재료 구매한 정보
-		model.addAttribute("buyInfo", purchIngSerivce.selectBuyInfoByCno(cno));
+		vo.setStatus("purch");
+		model.addAttribute("buyInfo", purchIngSerivce.selectBuyStorageInfoByCno(vo));
 		return "view/buyModify";
 	}
 
-	// 주문 삭제 처리
+	// 재료 구매 삭제 처리
 	@ResponseBody
 	@PostMapping("view/buyDelete.do")
-	public String buyDelete(Integer cno, RedirectAttributes rttr) {
+	public String buyDelete(PurchIngVO vo) {
 		log.info(".............................buyDelete..");
-		int result = purchIngSerivce.deleteBuyInfoByCno(cno);
+		vo.setStatus("purch");
+		int result = purchIngSerivce.deleteBuyStorageInfoByCno(vo);
 		if (result == 1) {
 			return "ok";
 		}
 		return "";
 	}
 
-	// 주문 수정 처리
+	// 재료 구매 수정 처리
 	@Nullable  // null 허용
 	@ResponseBody
 	@PostMapping("view/buyUpdate.do")
 	public String buyUpdate(PurchIngVO vo) {
 		log.info(".............................buyUpdate..vo:" + vo);
 		vo.setFlag(2);
-//		int result = purchIngSerivce.updateBuyInfoByCno(vo);	
-//		log.info("............................result1:"+result);
-//		result = purchIngSerivce.insertTrace(vo);
-//		log.info("............................result2:"+result);
-//		return "ok";
-
-		 int result = purchIngSerivce.updateBuyInfoByCno(vo);
-		 log.info("............................result:"+result); 
-		 if (result==1) {
-			 purchIngSerivce.insertTrace(vo); 
-			 return "ok"; 
-		 }
-		 return "fail";
+		int result = purchIngSerivce.updateBuyInfoByCno(vo);
+		log.info("............................result:"+result); 
+		if (result==1) {
+			purchIngSerivce.insertBuyTrace(vo); 
+			return "ok"; 
+		}
+		return "fail";
 	}
 	
 	
 	// --------------------------------------- 재료 입출고 -----------------------------------------------
 	
 	@GetMapping("view/storageModify.do")
-	public String storageUpdate(Integer cno, Model model) {
-		log.info(".............................storageUpdate..");
+	public String storageModify(PurchIngVO vo, Model model) {
+		log.info(".............................storageModify..cno:"+vo);
+		
 		// 재료 list
-//		model.addAttribute("ingreList", ingredientService.list());
-		// 재료 구매한 정보
-//		model.addAttribute("buyInfo", purchIngSerivce.selectBuyInfoByCno(cno));
+		model.addAttribute("ingreList", ingredientService.list());
+		
+		// 재료 입출고한 정보
+		vo.setStatus("storage");
+		model.addAttribute("storageInfo", purchIngSerivce.selectBuyStorageInfoByCno(vo));
 		return "view/storageModify";
 	}
 
-	// 주문 삭제 처리
+	// 재료 입출고 삭제 처리
 	@ResponseBody
 	@PostMapping("view/storageDelete.do")
-	public String storageDelete(Integer cno, RedirectAttributes rttr) {
-		log.info(".............................storageDelete..");
-		int result = purchIngSerivce.deleteBuyInfoByCno(cno);
+	public String storageDelete(PurchIngVO vo) {
+		vo.setStatus("storage");
+		log.info(".............................storageDelete..vo:"+vo);
+		int result = purchIngSerivce.deleteBuyStorageInfoByCno(vo);
 		if (result == 1) {
 			return "ok";
 		}
 		return "";
 	}
 
-	// 주문 수정 처리
+	// 재료 입출고 수정 처리
 	@Nullable  // null 허용
 	@ResponseBody
 	@PostMapping("view/storageUpdate.do")
 	public String storageUpdate(PurchIngVO vo) {
 		log.info(".............................storageUpdate..vo:" + vo);
 		vo.setFlag(2);
-//		int result = purchIngSerivce.updateBuyInfoByCno(vo);	
-//		log.info("............................result1:"+result);
-//		result = purchIngSerivce.insertTrace(vo);
-//		log.info("............................result2:"+result);
-//		return "ok";
 
-		 int result = purchIngSerivce.updateBuyInfoByCno(vo);
-		 log.info("............................result:"+result); 
-		 if (result==1) {
-			 purchIngSerivce.insertTrace(vo); 
-			 return "ok"; 
-		 }
-		 return "fail";
+		int result = purchIngSerivce.updateStorageInfoByCno(vo);
+		log.info("............................result:"+result); 
+		if (result==1) {
+			purchIngSerivce.insertStorageTrace(vo); 
+			return "ok"; 
+		}
+		return "fail";
 	}
 	
 	
 	// --------------------------------------- 생산 -----------------------------------------------
 	
+	// 생산 정보
 	@GetMapping("view/productModify.do")
-	public String productModify(Integer cno, Model model) {
+	public String productModify(int cno, Model model) {
 		log.info(".............................productModify..");
-		// 재료 list
-		model.addAttribute("ingreList", ingredientService.list());
-		// 재료 구매한 정보
-		model.addAttribute("buyInfo", purchIngSerivce.selectBuyInfoByCno(cno));
+		model.addAttribute("productInfo", purchProductService.selectProductInfoByCno(cno));
 		return "view/productModify";
 	}
 
 	// 주문 삭제 처리
 	@ResponseBody
 	@PostMapping("view/productDelete.do")
-	public String productDelete(Integer cno, RedirectAttributes rttr) {
+	public String productDelete(int cno) {
 		log.info(".............................productDelete..");
-		int result = purchIngSerivce.deleteBuyInfoByCno(cno);
+		int result = purchProductService.deleteProductInfoByCno(cno);
 		if (result == 1) {
 			return "ok";
 		}
@@ -150,19 +162,19 @@ public class ViewController {
 	@Nullable  // null 허용
 	@ResponseBody
 	@PostMapping("view/productUpdate.do")
-	public String productUpdate(PurchIngVO vo) {
+	public String productUpdate(PurchProductVO vo) {
 		log.info(".............................productUpdate..vo:" + vo);
 		vo.setFlag(2);
-//		int result = purchIngSerivce.updateBuyInfoByCno(vo);	
+//		int result = purchProductService.updateProductInfoByCno(vo);	
 //		log.info("............................result1:"+result);
-//		result = purchIngSerivce.insertTrace(vo);
+//		result = purchProductService.insertTrace(vo);
 //		log.info("............................result2:"+result);
 //		return "ok";
 
-		 int result = purchIngSerivce.updateBuyInfoByCno(vo);
+		 int result = purchProductService.updateProductInfoByCno(vo);
 		 log.info("............................result:"+result); 
 		 if (result==1) {
-			 purchIngSerivce.insertTrace(vo); 
+//			 purchProductService.insertTrace(vo); 
 			 return "ok"; 
 		 }
 		 return "fail";
@@ -172,21 +184,21 @@ public class ViewController {
 	// --------------------------------------- 주문 -----------------------------------------------
 	
 	@GetMapping("view/orderModify.do")
-	public String orderModify(Integer cno, Model model) {
+	public String orderModify(int cno, Model model) {
 		log.info(".............................orderModify..");
 		// 재료 list
 		model.addAttribute("ingreList", ingredientService.list());
 		// 재료 구매한 정보
-		model.addAttribute("buyInfo", purchIngSerivce.selectBuyInfoByCno(cno));
+		model.addAttribute("orderInfo", purchOrderService.selectOrderInfoByCno(cno));
 		return "view/orderModify";
 	}
 
 	// 주문 삭제 처리
 	@ResponseBody
 	@PostMapping("view/orderDelete.do")
-	public String orderDelete(Integer cno, RedirectAttributes rttr) {
+	public String orderDelete(int cno) {
 		log.info(".............................orderDelete..");
-		int result = purchIngSerivce.deleteBuyInfoByCno(cno);
+		int result = purchOrderService.deleteOrderInfoByCno(cno);
 		if (result == 1) {
 			return "ok";
 		}
@@ -197,19 +209,19 @@ public class ViewController {
 	@Nullable  // null 허용
 	@ResponseBody
 	@PostMapping("view/orderUpdate.do")
-	public String orderUpdate(PurchIngVO vo) {
+	public String orderUpdate(PurchOrderVO vo) {
 		log.info(".............................orderUpdate..vo:" + vo);
 		vo.setFlag(2);
-//		int result = purchIngSerivce.updateBuyInfoByCno(vo);	
+//		int result = purchOrderService.updateOrderInfoByCno(vo);	
 //		log.info("............................result1:"+result);
-//		result = purchIngSerivce.insertTrace(vo);
+//		result = purchOrderService.insertTrace(vo);
 //		log.info("............................result2:"+result);
 //		return "ok";
 
-		 int result = purchIngSerivce.updateBuyInfoByCno(vo);
+		 int result = purchOrderService.updateOrderInfoByCno(vo);
 		 log.info("............................result:"+result); 
 		 if (result==1) {
-			 purchIngSerivce.insertTrace(vo); 
+//			 purchOrderService.insertTrace(vo); 
 			 return "ok"; 
 		 }
 		 return "fail";
@@ -219,21 +231,21 @@ public class ViewController {
 	// --------------------------------------- 판매 -----------------------------------------------
 	
 	@GetMapping("view/saleModify.do")
-	public String saleModify(Integer cno, Model model) {
+	public String saleModify(int cno, Model model) {
 		log.info(".............................saleModify..");
 		// 재료 list
 		model.addAttribute("ingreList", ingredientService.list());
 		// 재료 구매한 정보
-		model.addAttribute("buyInfo", purchIngSerivce.selectBuyInfoByCno(cno));
+		model.addAttribute("saleInfo", purchSaleService.selectSaleInfoByCno(cno));
 		return "view/saleModify";
 	}
 
 	// 주문 삭제 처리
 	@ResponseBody
 	@PostMapping("view/saleDelete.do")
-	public String saleDelete(Integer cno, RedirectAttributes rttr) {
+	public String saleDelete(int cno) {
 		log.info(".............................saleDelete..");
-		int result = purchIngSerivce.deleteBuyInfoByCno(cno);
+		int result = purchSaleService.deleteSaleInfoByCno(cno);
 		if (result == 1) {
 			return "ok";
 		}
@@ -244,19 +256,19 @@ public class ViewController {
 	@Nullable  // null 허용
 	@ResponseBody
 	@PostMapping("view/saleUpdate.do")
-	public String saleUpdate(PurchIngVO vo) {
+	public String saleUpdate(PurchSaleVO vo) {
 		log.info(".............................saleUpdate..vo:" + vo);
 		vo.setFlag(2);
-//		int result = purchIngSerivce.updateBuyInfoByCno(vo);	
+//		int result = purchSaleService.updateSaleInfoByCno(vo);	
 //		log.info("............................result1:"+result);
-//		result = purchIngSerivce.insertTrace(vo);
+//		result = purchSaleService.insertTrace(vo);
 //		log.info("............................result2:"+result);
 //		return "ok";
 
-		 int result = purchIngSerivce.updateBuyInfoByCno(vo);
+		 int result = purchSaleService.updateSaleInfoByCno(vo);
 		 log.info("............................result:"+result); 
 		 if (result==1) {
-			 purchIngSerivce.insertTrace(vo); 
+//			 purchSaleService.insertTrace(vo); 
 			 return "ok"; 
 		 }
 		 return "fail";

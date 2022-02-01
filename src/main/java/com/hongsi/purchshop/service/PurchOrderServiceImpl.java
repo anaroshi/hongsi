@@ -12,7 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
 @Service
-@Qualifier("productionServiceImpl")
+@Qualifier("purchOrderServiceImpl")
 @AllArgsConstructor
 @Log4j
 public class PurchOrderServiceImpl implements PurchOrderService {
@@ -81,6 +81,27 @@ public class PurchOrderServiceImpl implements PurchOrderService {
 	@Override
 	public List<PurchOrderVO> selectOrderListWaitSale() {
 		return mapper.selectOrderListWaitSale();
+	}
+
+	@Override
+	public PurchOrderVO selectOrderInfoByCno(int cno) {		
+		return mapper.selectOrderInfoByCno(cno);
+	}
+
+	@Override
+	public int deleteOrderInfoByCno(int cno) {		
+		return mapper.deleteOrderInfoByCno(cno);
+	}
+
+	@Override
+	public int updateOrderInfoByCno(PurchOrderVO vo) {
+		if(vo.getGubun().equals("주문")) vo.setGubunCode("out");
+		else if(vo.getGubun().equals("교환")) vo.setGubunCode("out");
+		else if(vo.getGubun().equals("반품")) vo.setGubunCode("in");
+		else if(vo.getGubun().equals("손실")) vo.setGubunCode("out");
+		log.info("Impl vo : "+vo);
+
+		return mapper.updateOrderInfoByCno(vo);
 	}
 
 

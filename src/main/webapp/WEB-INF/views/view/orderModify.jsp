@@ -38,7 +38,7 @@ div.panel.panel-default {
 
 $( function() {
 
-    $( "#productDate" ).datepicker({
+    $( "#orderDate" ).datepicker({
 		changeMonth: true,
 		changeYear: true,
 		minDate: '-50y', 
@@ -62,7 +62,7 @@ function fn_delete(cno) {
 		// alert(cno);		
 		$.ajax({
 			type: "POST",
-			url: "productDelete.do",
+			url: "orderDelete.do",
 			async: false,
 			data: "cno="+cno, // json(전송) 타입
 			dtatType: "text"				
@@ -72,7 +72,7 @@ function fn_delete(cno) {
 	        if(result=="ok") {
 	        	alert("삭제완료");
 	        	 	// 부모창 reload
-				opener.parent.location ="/purchbook/productAllList.do";				
+				opener.parent.location ="/purchshop/orderAllList.do";				
 	        	self.close();
 			}
 		})
@@ -83,7 +83,7 @@ function fn_delete(cno) {
 	}	
 };  
 
-function fn_update(cno) {
+function fn_update() {
 
 	if(confirm("수정하시겠습니까")) {
 		
@@ -124,20 +124,20 @@ function fn_update(cno) {
 		      return false;
 	    }
 		
-		let productDate = $("#productDate").val();		
-		if( productDate== null || productDate ==""  || productDate.length<10)  {
+		let orderDate = $("#orderDate").val();		
+		if( orderDate== null || orderDate ==""  || orderDate.length<10)  {
 			alert('주문일을 입력해주세요!');
-			$("#productDate").select();
+			$("#orderDate").select();
 		      return false;
 	    }
 		
 		// alert(cno);
-		let formData = $("#frm").serialize();		
+		let formData = $("#frm").serialize();
 		//alert(JSON.stringify(formData));
 		
 		$.ajax({
 			type: "POST",
-			url: "productUpdate.do",
+			url: "orderUpdate.do",
 			async: false,
 			data: formData, // json(전송) 타입
 			dataType: "text"					
@@ -147,7 +147,7 @@ function fn_update(cno) {
 	        if(result=="ok") {
 	        	alert("수정 완료");
 	        	 	// 부모창 reload
-				opener.parent.location ="/purchbook/productAllList.do";				
+				opener.parent.location ="/purchshop/orderAllList.do";				
 	        	self.close();
 			} else {
 				alert("수정 실패");	
@@ -166,7 +166,7 @@ function fn_update(cno) {
 	<div class="container">
 		<form class="form-horizontal" method="post" id="frm"
 			action="buyUpdate.do">
-			<input name="cno" type="hidden" value="${productInfo.cno}" />
+			<input name="cno" type="hidden" value="${orderInfo.cno}" />
 			<div class="row">
 				<h4>주문 수정</h4>
 				<!-- 주문 Start -->
@@ -180,17 +180,17 @@ function fn_update(cno) {
 								<div class="col-xs-4">
 									<label for="ori_250">250g</label> <input
 										class="form-control order_item" id="ori_250" name="ori_250"
-										type="number" pattern="[0-9]{4}">
+										type="number" pattern="[0-9]{4}" value="${orderInfo.ori_250}">
 								</div>
 								<div class="col-xs-4">
 									<label for="ori_500">500g</label> <input
 										class="form-control order_item" id="ori_500" name="ori_500"
-										type="number" pattern="[0-9]{4}">
+										type="number" pattern="[0-9]{4}" value="${orderInfo.ori_500}">
 								</div>
 								<div class="col-xs-4">
 									<label for="ori_1000">1,000g</label> <input
 										class="form-control order_item" id="ori_1000" name="ori_1000"
-										type="number" pattern="[0-9]{4}">
+										type="number" pattern="[0-9]{4}" value="${orderInfo.ori_1000}">
 								</div>
 							</div>
 						</div>
@@ -202,17 +202,17 @@ function fn_update(cno) {
 								<div class="col-xs-4">
 									<label for="erl_250">250g</label> <input
 										class="form-control order_item" id="erl_250" name="erl_250"
-										type="number" pattern="[0-9]{4}">
+										type="number" pattern="[0-9]{4}" value="${orderInfo.erl_250}">
 								</div>
 								<div class="col-xs-4">
 									<label for="erl_500">500g</label> <input
 										class="form-control order_item" id="erl_500" name="erl_500"
-										type="number" pattern="[0-9]{4}">
+										type="number" pattern="[0-9]{4}" value="${orderInfo.erl_500}">
 								</div>
 								<div class="col-xs-4">
 									<label for="erl_1000">1,000g</label> <input
 										class="form-control order_item" id="erl_1000" name="erl_1000"
-										type="number" pattern="[0-9]{4}">
+										type="number" pattern="[0-9]{4}" value="${orderInfo.erl_1000}">
 								</div>
 							</div>
 						</div>
@@ -225,17 +225,17 @@ function fn_update(cno) {
 								<div class="col-xs-4">
 									<label for="sns_250">250g</label> <input
 										class="form-control order_item" id="sns_250" name="sns_250"
-										type="number" pattern="[0-9]{4}">
+										type="number" pattern="[0-9]{4}" value="${orderInfo.sns_250}">
 								</div>
 								<div class="col-xs-4">
 									<label for="sns_500">500g</label> <input
 										class="form-control order_item" id="sns_500" name="sns_500"
-										type="number" pattern="[0-9]{4}">
+										type="number" pattern="[0-9]{4}" value="${orderInfo.sns_500}">
 								</div>
 								<div class="col-xs-4">
 									<label for="sns_1000">1,000g</label> <input
 										class="form-control order_item" id="sns_1000" name="sns_1000"
-										type="number" pattern="[0-9]{4}">
+										type="number" pattern="[0-9]{4}" value="${orderInfo.sns_1000}">
 								</div>
 							</div>
 						</div>
@@ -249,17 +249,17 @@ function fn_update(cno) {
 						<label for="orderDate" class="col-sm-3 control-label">주문일자</label>
 						<div class="col-sm-8">
 							<input class="form-control inputDate" id="orderDate" name="orderDate"
-								type="text" required="required">
+								type="text" required="required"  value="${orderInfo.orderDate}">
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="gubun" class="col-sm-3 control-label">구분</label>
 						<div class="col-sm-8">
 							<select id="gubun" name="gubun" class="form-control select">
-								<option value="주문">주문</option>
-								<option value="교환">교환</option>
-								<option value="교환">반품</option>
-								<option value="손실">손실</option>
+								<option value="주문" <c:if test="${orderInfo.gubun=='주문'}">selected</c:if> >주문</option>
+								<option value="교환" <c:if test="${orderInfo.gubun=='교환'}">selected</c:if> >교환</option>
+								<option value="반품" <c:if test="${orderInfo.gubun=='반품'}">selected</c:if> >반품</option>
+								<option value="손실" <c:if test="${orderInfo.gubun=='손실'}">selected</c:if> >손실</option>
 							</select>
 						</div>
 					</div>
@@ -267,10 +267,10 @@ function fn_update(cno) {
 						<label for="salePath" class="col-sm-3 control-label">주문경로</label>
 						<div class="col-sm-8">
 							<select id="gubun" name="salePath" class="form-control select">
-								<option value="개별구매">개별구매</option>
-								<option value="NAVER쇼핑">NAVER쇼핑</option>
-								<option value="Homepage">Homepage</option>
-								<option value="Homepage">쎈인생블로거</option>
+								<option value="개별구매" <c:if test="${orderInfo.salePath=='개별구매'}">selected</c:if> >개별구매</option>
+								<option value="NAVER쇼핑" <c:if test="${orderInfo.salePath=='NAVER'}">selected</c:if> >NAVER쇼핑</option>
+								<option value="Homepage" <c:if test="${orderInfo.salePath=='Homepage'}">selected</c:if> >Homepage</option>
+								<option value="쎈인생블로거" <c:if test="${orderInfo.salePath=='쎈인생블로거'}">selected</c:if> >쎈인생블로거</option>
 							</select>
 						</div>
 					</div>
@@ -278,19 +278,19 @@ function fn_update(cno) {
 						<label for="orderer" class="col-sm-3 control-label">주문자</label>
 						<div class="col-sm-8">
 							<input class="form-control" type="text" id="orderer"
-								name="orderer">
+								name="orderer" value="${orderInfo.orderer}">
 						</div>
 					</div>
 					<div class="form-group">					
 						<label for="comm" class="col-sm-3 control-label">내역</label>
 						<div class="col-sm-8">
-							<textarea class="form-control" rows="5" id="comm" name="comm"></textarea>
+							<textarea class="form-control" rows="5" id="comm" name="comm">${orderInfo.comm}</textarea>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="manager" class="col-sm-3 control-label">담당자</label>
 						<div class="col-sm-8">
-							<input class="form-control" type="text" id="" name="manager">
+							<input class="form-control" type="text" id="" name="manager" value="${orderInfo.manager}">
 						</div>
 					</div>
 	
@@ -298,11 +298,11 @@ function fn_update(cno) {
 						<div class="col-sm-1"></div>
 						<div class="col-sm-3">
 							<button type="button" class="btn btn-block" id="orderUpdate"
-								onclick="fn_update(${productInfo.cno}); return false;">수정</button>
+								onclick="fn_update(); return false;">수정</button>
 						</div>
 						<div class="col-sm-3">
 							<button type="button" class="btn btn-block" id="orderDelete"
-								onclick="fn_delete(${productInfo.cno}); return false;">삭제</button>
+								onclick="fn_delete(${orderInfo.cno}); return false;">삭제</button>
 						</div>
 						<div class="col-sm-4">
 							<button type="button" class="btn btn-block"

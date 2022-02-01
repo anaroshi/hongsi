@@ -45,7 +45,8 @@
 	        <th width="30%">재료</th>
 	        <th style="display:none">재료</th>
 	        <th width="15%">용량</th>
-	        <th width="25%">비고</th>
+	        <th width="15%">비고</th>
+	        <th width="10%">담당자</th>
 	      </tr>
 	</thead>
 	<tbody>
@@ -58,6 +59,7 @@
 	        <td class="kname">${vo.kname}</td>
 	        <td class="content text-right">${vo.content} g</td>
 	        <td class="comm">${vo.comm}</td>
+	        <td class="buyer">${vo.buyer}</td>
 	    </tr>
 	</c:forEach>
 	</tbody>

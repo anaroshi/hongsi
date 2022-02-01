@@ -24,25 +24,55 @@
 <link rel="stylesheet" href="/resources/css/style.css">
 
 <style type="text/css">
-div.panel.panel-default {
-	height: 89px;
-}
-
 .order_item {
 	font-size: 12px;
 	padding: 6px 4px;
 }
 
 div.panel-body {
-	padding: 3px 0px 0px;
-	height: 60px;
+	padding: 8px 0px 0px;
+	height: 63px;
 }
 </style>
 <script>
 
 $( function() {
 
-    $( "#productDate" ).datepicker({
+    $( "#saleDate" ).datepicker({
+		changeMonth: true,
+		changeYear: true,
+		minDate: '-50y', 
+		nextText: '다음 달', 
+		prevText: '이전 달', 
+		yearRange: 'c-3:c+3', 
+		showButtonPanel: true, 
+		currentText: '오늘 날짜', 
+		closeText: '닫기', 
+		dateFormat: "yy-mm-dd", 
+		showAnim: "slide", 
+		showMonthAfterYear: true, dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+		monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] 
+      
+    });
+
+    $( "#deleveryDate" ).datepicker({
+		changeMonth: true,
+		changeYear: true,
+		minDate: '-50y', 
+		nextText: '다음 달', 
+		prevText: '이전 달', 
+		yearRange: 'c-3:c+3', 
+		showButtonPanel: true, 
+		currentText: '오늘 날짜', 
+		closeText: '닫기', 
+		dateFormat: "yy-mm-dd", 
+		showAnim: "slide", 
+		showMonthAfterYear: true, dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+		monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] 
+      
+    });
+    
+    $( "#orderDate" ).datepicker({
 		changeMonth: true,
 		changeYear: true,
 		minDate: '-50y', 
@@ -66,7 +96,7 @@ function fn_delete(cno) {
 		// alert(cno);		
 		$.ajax({
 			type: "POST",
-			url: "productDelete.do",
+			url: "saleDelete.do",
 			async: false,
 			data: "cno="+cno, // json(전송) 타입
 			dtatType: "text"				
@@ -76,7 +106,7 @@ function fn_delete(cno) {
 	        if(result=="ok") {
 	        	alert("삭제완료");
 	        	 	// 부모창 reload
-				opener.parent.location ="/purchbook/productAllList.do";				
+				opener.parent.location ="/purchshop/saleAllList.do";				
 	        	self.close();
 			}
 		})
@@ -87,7 +117,7 @@ function fn_delete(cno) {
 	}	
 };  
 
-function fn_update(cno) {
+function fn_update() {
 
 	if(confirm("수정하시겠습니까")) {
 		
@@ -128,30 +158,30 @@ function fn_update(cno) {
 		      return false;
 	    }
 		
-		let productDate = $("#productDate").val();		
-		if( productDate== null || productDate ==""  || productDate.length<10)  {
+		let saleDate = $("#saleDate").val();		
+		if( saleDate== null || saleDate ==""  || saleDate.length<10)  {
 			alert('판매일을 입력해주세요!');
-			$("#productDate").select();
+			$("#saleDate").select();
 		      return false;
 	    }
 		
 		// alert(cno);
 		let formData = $("#frm").serialize();		
-		//alert(JSON.stringify(formData));
+		alert(JSON.stringify(formData));
 		
 		$.ajax({
 			type: "POST",
-			url: "productUpdate.do",
+			url: "saleUpdate.do",
 			async: false,
 			data: formData, // json(전송) 타입
-			dataType: "text"					
+			dataType: "text"	
 		})
 		.done(function (result, textStatus, xhr) {
 			console.log("result:"+JSON.stringify(result)+" -> xhr: "+ JSON.stringify(xhr));
 	        if(result=="ok") {
 	        	alert("수정 완료");
 	        	 	// 부모창 reload
-				opener.parent.location ="/purchbook/productAllList.do";				
+				opener.parent.location ="/purchshop/saleAllList.do";				
 	        	self.close();
 			} else {
 				alert("수정 실패");	
@@ -170,7 +200,7 @@ function fn_update(cno) {
 	<div class="container">
 		<form class="form-horizontal" method="post" id="frm"
 			action="buyUpdate.do">
-			<input name="cno" type="hidden" value="${productInfo.cno}" />
+			<input name="cno" type="hidden" value="${saleInfo.cno}" />
 			<div class="row">
 				<h4>판매 수정</h4>
 				<!-- 판매 Start -->
@@ -182,15 +212,15 @@ function fn_update(cno) {
 							<div class="form-group">
 								<div class="col-xs-4">
 									<label for="ori_250">250g</label>
-									<input class="form-control order_item" id="ori_250" name="ori_250" type="number" pattern="[0-9]{4}">
+									<input class="form-control order_item" id="ori_250" name="ori_250" type="number" pattern="[0-9]{4}" value="${saleInfo.ori_250}" >
 								</div>
 								<div class="col-xs-4">
 									<label for="ori_500">500g</label>
-									<input class="form-control order_item" id="ori_500" name="ori_500" type="number" pattern="[0-9]{4}">
+									<input class="form-control order_item" id="ori_500" name="ori_500" type="number" pattern="[0-9]{4}" value="${saleInfo.ori_500}" >
 								</div>
 								<div class="col-xs-4">
 									<label for="ori_1000">1,000g</label>
-									<input class="form-control order_item" id="ori_1000" name="ori_1000" type="number" pattern="[0-9]{4}">
+									<input class="form-control order_item" id="ori_1000" name="ori_1000" type="number" pattern="[0-9]{4}" value="${saleInfo.ori_1000}" >
 								</div>
 							</div>
 						</div>
@@ -201,15 +231,15 @@ function fn_update(cno) {
 							<div class="form-group">
 								<div class="col-xs-4">
 									<label for="erl_250">250g</label>
-									<input class="form-control order_item" id="erl_250" name="erl_250" type="number" pattern="[0-9]{4}">
+									<input class="form-control order_item" id="erl_250" name="erl_250" type="number" pattern="[0-9]{4}" value="${saleInfo.erl_250}" >
 								</div>
 								<div class="col-xs-4">
 									<label for="erl_500">500g</label>
-									<input class="form-control order_item" id="erl_500" name="erl_500" type="number" pattern="[0-9]{4}">
+									<input class="form-control order_item" id="erl_500" name="erl_500" type="number" pattern="[0-9]{4}" value="${saleInfo.erl_500}" >
 								</div>
 								<div class="col-xs-4">
 									<label for="erl_1000">1,000g</label>
-									<input class="form-control order_item" id="erl_1000" name="erl_1000" type="number" pattern="[0-9]{4}">
+									<input class="form-control order_item" id="erl_1000" name="erl_1000" type="number" pattern="[0-9]{4}" value="${saleInfo.erl_1000}" >
 								</div>
 							</div>
 						</div>
@@ -221,15 +251,15 @@ function fn_update(cno) {
 							<div class="form-group">
 								<div class="col-xs-4">
 									<label for="sns_250">250g</label>
-									<input class="form-control order_item" id="sns_250" name="sns_250" type="number" pattern="[0-9]{4}">
+									<input class="form-control order_item" id="sns_250" name="sns_250" type="number" pattern="[0-9]{4}" value="${saleInfo.sns_250}" >
 								</div>
 								<div class="col-xs-4">
 									<label for="sns_500">500g</label>
-									<input class="form-control order_item" id="sns_500" name="sns_500" type="number" pattern="[0-9]{4}">
+									<input class="form-control order_item" id="sns_500" name="sns_500" type="number" pattern="[0-9]{4}" value="${saleInfo.sns_500}" >
 								</div>
 								<div class="col-xs-4">
 									<label for="sns_1000">1,000g</label>
-									<input class="form-control order_item" id="sns_1000" name="sns_1000" type="number" pattern="[0-9]{4}">
+									<input class="form-control order_item" id="sns_1000" name="sns_1000" type="number" pattern="[0-9]{4}" value="${saleInfo.sns_1000}" >
 								</div>
 							</div>
 						</div>
@@ -243,7 +273,7 @@ function fn_update(cno) {
 						<label for="saleDate" class="col-sm-3 control-label">판매일</label>
 						<div class="col-sm-8">
 							<input class="form-control inputDate" id="saleDate"
-								name="saleDate" type="text" required="required">
+								name="saleDate" type="text" required="required" value="${saleInfo.saleDate}" >
 						</div>
 					</div>
 
@@ -251,18 +281,20 @@ function fn_update(cno) {
 						<label for="gubun" class="col-sm-3 control-label">구분</label>
 						<div class="col-sm-8">
 							<select id="gubun" name="gubun" class="form-control select">
-								<option value="판매" <c:if test="${vo.gubun=='주문'}">selected</c:if>>판매</option>
-								<option value="교환" <c:if test="${vo.gubun=='교환'}">selected</c:if>>교환</option>
-								<option value="교환" <c:if test="${vo.gubun=='반품'}">selected</c:if>>반품</option>
-								<option value="손실" <c:if test="${vo.gubun=='손실'}">selected</c:if>>손실</option>
-								<option value="샘플" <c:if test="${vo.gubun=='샘플'}">selected</c:if>>샘플</option>
+								<option value="판매" <c:if test="${saleInfo.gubun=='주문'}">selected</c:if>>판매</option>
+								<option value="교환출고" <c:if test="${saleInfo.gubun=='교환출고'}">selected</c:if>>교환_출고</option>
+								<option value="교환입고" <c:if test="${saleInfo.gubun=='교환입고'}">selected</c:if>>교환_입고</option>
+								<option value="교환손실" <c:if test="${saleInfo.gubun=='교환손실'}">selected</c:if>>교환_손실</option>
+								<option value="반품" <c:if test="${saleInfo.gubun=='반품'}">selected</c:if>>반품</option>
+								<option value="손실" <c:if test="${saleInfo.gubun=='손실'}">selected</c:if>>손실</option>
+								<option value="경비" <c:if test="${saleInfo.gubun=='경비'}">selected</c:if>>경비</option>
 							</select>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="price" class="col-sm-3 control-label">금액</label>
 						<div class="col-sm-8">
-							<input class="form-control" type="number" id="price" name="price" required="required">
+							<input class="form-control inputNumber" type="number" id="price" name="price" required="required" value="${saleInfo.price}" >
 						</div>
 					</div>
 					<div class="form-group">
@@ -270,10 +302,10 @@ function fn_update(cno) {
 						<div class="col-sm-8">
 							<select id="paymentPath" name="paymentPath"
 								class="form-control select">
-								<option value="계좌이체">계좌이체</option>
-								<option value="현금">현금</option>
-								<option value="신용카드">신용카드</option>
-								<option value="경비">경비</option>
+								<option value="계좌이체" <c:if test="${saleInfo.paymentPath == '계좌이체'}">selected</c:if> >계좌이체</option>
+								<option value="현금" <c:if test="${saleInfo.paymentPath == '현금'}">selected</c:if> >현금</option>
+								<option value="신용카드" <c:if test="${saleInfo.paymentPath == '신용카드'}">selected</c:if> >신용카드</option>
+								<option value="경비" <c:if test="${saleInfo.paymentPath == '경비'}">selected</c:if> >경비</option>
 							</select>
 						</div>
 					</div>
@@ -281,17 +313,27 @@ function fn_update(cno) {
 						<label for="salePath" class="col-sm-3 control-label">주문경로</label>
 						<div class="col-sm-8">
 							<select id="salePath" name="salePath" class="form-control select">
-								<option value="개별구매">개별구매</option>
-								<option value="NAVER쇼핑">NAVER쇼핑</option>
-								<option value="Homepage">Homepage</option>
-								<option value="Homepage">쎈인생블로거</option>
+								<option value="개별구매" <c:if test="${saleInfo.salePath == '개별구매'}">selected</c:if> >개별구매</option>
+								<option value="NAVER쇼핑" <c:if test="${saleInfo.salePath == 'NAVER쇼핑'}">selected</c:if> >NAVER쇼핑</option>
+								<option value="Homepage" <c:if test="${saleInfo.salePath == 'Homepage'}">selected</c:if> >Homepage</option>
+								<option value="쎈인생블로거" <c:if test="${saleInfo.salePath == '쎈인생블로거'}">selected</c:if> >쎈인생블로거</option>
 							</select>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="deleveryDate" class="col-sm-3 control-label">수령일</label>
 						<div class="col-sm-8">
-							<input class="form-control inputDate" id="deleveryDate" name="deleveryDate" type="text" required="required">
+							<input class="form-control inputDate" id="deleveryDate" name="deleveryDate" type="text" required="required" value="${saleInfo.deleveryDate}" >
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="deleveryPath" class="col-sm-3 control-label">배송방법</label>
+						<div class="col-sm-8">
+							<select id="deleveryPath" name="deleveryPath" class="form-control select">
+								<option value="택배" <c:if test="${saleInfo.deleveryPath == '택배'}">selected</c:if> >택배</option>
+								<option value="고객수령" <c:if test="${saleInfo.deleveryPath == '고객수령'}">selected</c:if> >고객수령</option>
+								<option value="직접배송" <c:if test="${saleInfo.deleveryPath == '직접배송'}">selected</c:if> >직접배송</option>
+							</select>
 						</div>
 					</div>
 
@@ -301,37 +343,38 @@ function fn_update(cno) {
 				<!-- 3블럭 Start -->
 				<div class="col-sm-4">
 					<div class="form-group">
-						<label for="deleveryPath" class="col-sm-3 control-label">배송방법</label>
-						<div class="col-sm-8">
-							<select id="deleveryPath" name="deleveryPath" class="form-control select">
-								<option value="택배">택배</option>
-								<option value="고객수령">고객수령</option>
-								<option value="직접배송">직접배송</option>
-							</select>
-						</div>
-					</div>
-
-					<div class="form-group">
 						<label for="comm" class="col-sm-3 control-label">내역</label>
 						<div class="col-sm-8">
-							<textarea class="form-control" rows="5" id="comm" name="comm"></textarea>
+							<textarea class="form-control" rows="5" id="comm" name="comm">${saleInfo.comm}</textarea>
 						</div>
+					</div>
+					<div class="form-group">
+						<label for="orderDate" class="col-sm-3 control-label">주문일</label>
+					    <div class="col-sm-8">
+				        	<input class="form-control inputDate" id="orderDate" name="orderDate" type="text" value="${saleInfo.orderDate}">
+				      	</div>
+					</div>
+					<div class="form-group">
+						<label for="orderer" class="col-sm-3 control-label">주문자</label>
+					 	<div class="col-sm-8">
+							<input class="form-control" type="text" id="orderer" name="orderer" value="${saleInfo.orderer}">
+					 	</div>
 					</div>
 					<div class="form-group">
 						<label for="manager" class="col-sm-3 control-label">담당자</label>
 						<div class="col-sm-8">
-							<input class="form-control" type="text" id="" name="manager">
+							<input class="form-control" type="text" id="" name="manager" value="${saleInfo.manager}" >
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="col-sm-1"></div>
 						<div class="col-sm-3">
 							<button type="button" class="btn btn-block" id="orderUpdate"
-								onclick="fn_update(${productInfo.cno}); return false;">수정</button>
+								onclick="fn_update(); return false;">수정</button>
 						</div>
 						<div class="col-sm-3">
 							<button type="button" class="btn btn-block" id="orderDelete"
-								onclick="fn_delete(${productInfo.cno}); return false;">삭제</button>
+								onclick="fn_delete(${saleInfo.cno}); return false;">삭제</button>
 						</div>
 						<div class="col-sm-4">
 							<button type="button" class="btn btn-block"

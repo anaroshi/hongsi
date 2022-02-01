@@ -18,7 +18,7 @@
 		
 		//alert(cno);
 		var w = 1000;
-		var h = 470;
+		var h = 600;
 		var url = "../view/orderModify.do?cno="+cno;
 		
 		var xPos = (document.body.offsetWidth/2) - (w/2); // 가운데 정렬

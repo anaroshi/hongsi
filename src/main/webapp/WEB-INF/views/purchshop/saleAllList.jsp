@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,7 +72,7 @@
         <td class="text-right">${vo.sns_250}</td>
         <td class="text-right">${vo.sns_500}</td>
         <td class="text-right">${vo.sns_1000}</td>
-        <td class="text-right">${vo.price}</td>
+        <td class="text-right"><fmt:formatNumber value="${vo.price}" /></td>
         <td>${vo.paymentPath}</td>
         <td>${vo.deleveryPath}</td>
       </tr>

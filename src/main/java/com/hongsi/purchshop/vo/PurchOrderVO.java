@@ -49,7 +49,9 @@ public class PurchOrderVO {
 	private String 	sns_1000_format;	// sns_1000 주문갯수
 	
 	private String  gubunCode;		// 제품 재고에 더할 값인지 뺄 값인지 구하기 위함 (더할 값: in/ 뺄 값: out )
-	private String  status;			// 제품 판매(shop)에서 입력되는지. 생산 입출고(product)에서 입력되는지 구분을 위한 값 (shop/product)	
+	private String  status;			// 제품 판매(shop)에서 입력되는지. 생산 입출고(product)에서 입력되는지 구분을 위한 값 (shop/product)
+	private long 	flag;			// 재료 입력 1 / 수정 2 / 삭제 4 여부 확인용
+	
 }
 
 

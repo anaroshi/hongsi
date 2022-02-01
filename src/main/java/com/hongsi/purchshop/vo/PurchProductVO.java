@@ -47,6 +47,8 @@ public class PurchProductVO {
  	private long 	ori_sum;		
 	private long 	erl_sum;
 	private long 	sns_sum;
+
+	private long 	flag;		// 재료 입력 1 / 수정 2 / 삭제 4 여부 확인용
 	
 }
 

@@ -163,7 +163,7 @@
 	    <div class="form-group">
 			<label for="content" class="col-sm-3 control-label">용량</label>
 			<div class="col-sm-8">
-				<input class="form-control" id="content" name="content" type="number" placeholder="content" required="required">		      
+				<input class="form-control inputNumber" id="content" name="content" type="number" placeholder="content" required="required">		      
 			</div>
 	    </div>
 

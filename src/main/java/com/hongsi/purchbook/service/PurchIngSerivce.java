@@ -20,11 +20,18 @@ public interface PurchIngSerivce {
 
 	public List<PurchIngVO> selectStorageInOut();
 
-	public PurchIngVO selectBuyInfoByCno(Integer cno);
-
-	public int deleteBuyInfoByCno(Integer cno);
+	public int deleteBuyStorageInfoByCno(PurchIngVO vo);
 
 	public int updateBuyInfoByCno(PurchIngVO vo);
 
-	public int insertTrace(PurchIngVO vo);
+	public int insertBuyTrace(PurchIngVO vo);
+
+//	public PurchIngVO selectStorageInfoByCno(Integer cno);
+
+	public PurchIngVO selectBuyStorageInfoByCno(PurchIngVO vo);
+
+	public int updateStorageInfoByCno(PurchIngVO vo);
+	
+	public int insertStorageTrace(PurchIngVO vo);
+
 }

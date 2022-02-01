@@ -15,4 +15,10 @@ public interface PurchSaleService {
 	public PurchSaleVO selectStock();
 
 	public PurchSaleVO selectSaleStock();
+
+	public PurchSaleVO selectSaleInfoByCno(int cno);
+
+	public int deleteSaleInfoByCno(int cno);
+
+	public int updateSaleInfoByCno(PurchSaleVO vo);
 }

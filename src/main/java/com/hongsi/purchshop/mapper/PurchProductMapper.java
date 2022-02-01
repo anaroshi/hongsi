@@ -12,5 +12,11 @@ public interface PurchProductMapper {
 	List<PurchProductVO> selectProductList();
 
 	PurchProductVO selectProductStock();
+
+	PurchProductVO selectProductInfoByCno(int cno);
+
+	int deleteProductInfoByCno(int cno);
+
+	int updateProductInfoByCno(PurchProductVO vo);
 	
 }

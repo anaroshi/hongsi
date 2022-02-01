@@ -68,14 +68,10 @@ public class PurchIngSerivceImpl implements PurchIngSerivce {
 		return mapper.selectStorageInOut();
 	}
 
+	// 재료 구매 & 입출고 정보 삭제
 	@Override
-	public PurchIngVO selectBuyInfoByCno(Integer cno) {		
-		return mapper.selectBuyInfoByCno(cno);
-	}
-
-	@Override
-	public int deleteBuyInfoByCno(Integer cno) {
-		return mapper.deleteBuyInfoByCno(cno);
+	public int deleteBuyStorageInfoByCno(PurchIngVO vo) {
+		return mapper.deleteBuyStorageInfoByCno(vo);
 	}
 
 	@Override
@@ -92,14 +88,46 @@ public class PurchIngSerivceImpl implements PurchIngSerivce {
 	}
 
 	@Override
-	public int insertTrace(PurchIngVO vo) {
+	public int insertBuyTrace(PurchIngVO vo) {
 		if(vo.getGubun().equals("구매")) vo.setGubunCode("in");
 		else if(vo.getGubun().equals("교환")) vo.setGubunCode("out");
 		else if(vo.getGubun().equals("반품")) vo.setGubunCode("in");
 		else if(vo.getGubun().equals("손실")) vo.setGubunCode("out");
 		log.info("impl: vo"+vo);		
-		return mapper.insertTrace(vo);
+		return mapper.insertBuyTrace(vo);
 	}
-	
+
+	// 재료 입출고 수정을 위한 cno에 해당하는 정보 가져오기
+//	@Override
+//	public PurchIngVO selectStorageInfoByCno(Integer cno) {		
+//		return mapper.selectStorageInfoByCno(cno);
+//	}
+
+	// 재료 입출고 수정
+	@Override
+	public int updateStorageInfoByCno(PurchIngVO vo) {
+		if(vo.getGubun().equals("출고")) vo.setGubunCode("out");
+		else if(vo.getGubun().equals("입고_office")) vo.setGubunCode("in");
+		else if(vo.getGubun().equals("입고_cafe")) vo.setGubunCode("in");
+		else if(vo.getGubun().equals("손실")) vo.setGubunCode("out");
+		log.info("impl: vo"+vo);
+		return mapper.updateStorageInfoByCno(vo);
+	}
+
+	// 재료 입출고 수정을 위한 cno에 해당하는 정보 가져오기
+	@Override
+	public PurchIngVO selectBuyStorageInfoByCno(PurchIngVO vo) {
+		return mapper.selectBuyStorageInfoByCno(vo);
+	}
+
+	@Override
+	public int insertStorageTrace(PurchIngVO vo) {
+		if(vo.getGubun().equals("구매")) vo.setGubunCode("in");
+		else if(vo.getGubun().equals("교환")) vo.setGubunCode("out");
+		else if(vo.getGubun().equals("반품")) vo.setGubunCode("in");
+		else if(vo.getGubun().equals("손실")) vo.setGubunCode("out");
+		log.info("impl: vo"+vo);		
+		return mapper.insertStorageTrace(vo);
+	}
 
 }

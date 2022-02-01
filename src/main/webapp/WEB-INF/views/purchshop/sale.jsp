@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -137,12 +138,12 @@ div.panel-body {
 		      return false;
 		}		
 		
-		let deleveryDate = $("#deleveryDate").val();		
-		if( deleveryDate== null || deleveryDate ==""  || deleveryDate.length<10)  {
-			alert('수령일을 입력해주세요!');
-			$("#deleveryDate").select();
-		      return false;
-	    }
+// 		let deleveryDate = $("#deleveryDate").val();		
+// 		if( deleveryDate== null || deleveryDate ==""  || deleveryDate.length<10)  {
+// 			alert('수령일을 입력해주세요!');
+// 			$("#deleveryDate").select();
+// 		      return false;
+// 	    }
 		
 		$("#frm").submit();
   	});
@@ -219,13 +220,13 @@ div.panel-body {
 	<div class="form-group">
 		<label for="orderDate" class="col-sm-4 control-label">주문일</label>
 	    <div class="col-sm-7">
-        	<input class="form-control inputDate" id="orderDate" name="orderDate" type="text" value="${vo.orderDate}" readonly="readonly">
+        	<input class="form-control inputDate" id="orderDate" name="orderDate" type="text" value="${vo.orderDate}">
       	</div>
 	</div>
 	<div class="form-group">
 		<label for="orderer" class="col-sm-4 control-label">주문자</label>
 	 	<div class="col-sm-7">
-			<input class="form-control" type="text" id="orderer" name="orderer" value="${vo.orderer}" readonly="readonly">
+			<input class="form-control" type="text" id="orderer" name="orderer" value="${vo.orderer}">
 	 	</div>
 	</div>
 	<div class="form-group">
@@ -260,7 +261,7 @@ div.panel-body {
 		<div class="form-group"> 
 			<label for="price" class="col-sm-3 control-label">금액</label>
 		 	<div class="col-sm-8">
-				<input class="form-control" type="number" id="price" name="price" required="required">
+				<input class="form-control inputNumber" type="number" id="price" name="price" required="required">
 		 	</div>
 		</div>
 	    <div class="form-group">
@@ -288,7 +289,7 @@ div.panel-body {
 	   	<div class="form-group">
 	      <label for="deleveryDate" class="col-sm-3 control-label">수령일</label>
 	      <div class="col-sm-8">
-	        <input class="form-control inputDate" id="deleveryDate" name="deleveryDate" type="text" required="required">
+	        <input class="form-control inputDate" id="deleveryDate" name="deleveryDate" type="text">
 	      </div>
 	    </div>	    
 	    <div class="form-group">
@@ -355,7 +356,7 @@ div.panel-body {
   <table class="table table-striped">
     <thead>
     	<tr>
-    		<th colspan="13">판매 List</td>
+    		<th colspan="13">판매 List</th>
     	</tr>
       <tr>
         <th  style="width: 15%">판매일</th>

@@ -26,4 +26,10 @@ public interface PurchOrderMapper {
 
 	List<PurchOrderVO> selectOrderListWaitSale();
 
+	PurchOrderVO selectOrderInfoByCno(int cno);
+
+	int deleteOrderInfoByCno(int cno);
+
+	int updateOrderInfoByCno(PurchOrderVO vo);
+
 }

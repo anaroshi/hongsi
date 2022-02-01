@@ -20,4 +20,10 @@ public interface PurchSaleMapper {
 
 	PurchSaleVO selectSaleStock();
 
+	PurchSaleVO selectSaleInfoByCno(int cno);
+
+	int deleteSaleInfoByCno(int cno);
+
+	int updateSaleInfoByCno(PurchSaleVO vo);
+
 }

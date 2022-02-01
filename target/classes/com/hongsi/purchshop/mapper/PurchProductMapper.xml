@@ -175,4 +175,54 @@
 	) F
 	</select>
 	
+	<!-- 	생산 정보 가져오기 by CNO -->
+	<select id="selectProductInfoByCno" resultType="com.hongsi.purchshop.vo.PurchProductVO">
+	SELECT 
+		CNO,
+		PRODUCTDATE,
+		ORI_250,
+		ORI_500,
+		ORI_1000,
+		ERL_250,		
+		ERL_500,		
+		ERL_1000,	
+		SNS_250,		
+		SNS_500,
+		SNS_1000,
+		GUBUN,
+		COMM,
+		MANAGER
+	FROM	PURCH_PRODUCT
+	WHERE	CNO = #{cno}	
+	</select>
+	
+	<!-- 	생산 정보 삭제 -->
+	<update id="deleteProductInfoByCno">
+	UPDATE	PURCH_PRODUCT
+	SET		FLAG = 4, UDATE = SYSDATE
+	WHERE 	CNO = #{cno}
+	</update>
+	
+	<!-- 생산정보 수정하기 by CNO --> 
+	<update id="updateProductInfoByCno">
+	UPDATE	PURCH_PRODUCT
+	SET		PRODUCTDATE = #{productDate},
+			ORI_250 = #{ori_250},
+			ORI_500 = #{ori_500},
+			ORI_1000 = #{ori_1000},
+			ERL_250 = #{erl_250},		
+			ERL_500 = #{erl_500},		
+			ERL_1000 = #{erl_1000},	
+			SNS_250 = #{sns_250},		
+			SNS_500 = #{sns_500},
+			SNS_1000 = #{sns_1000},
+			GUBUN = #{gubun},
+			COMM = #{comm},
+			MANAGER = #{manager},
+			GUBUNCODE = #{gubunCode},
+			FLAG = 2, 
+			UDATE = SYSDATE
+	WHERE 	CNO = #{cno}
+	</update>
+	
 </mapper>
