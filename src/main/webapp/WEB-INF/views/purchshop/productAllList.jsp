@@ -5,46 +5,28 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>PurchShop</title>
+<title>생산 리스트</title>
 
 <style type="text/css">
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    margin: 0; 
-}
-
-.order_item {
- 	font-size: 12px;
- 	padding: 6px 4px;
- }
- 
-.btn, .select {
- 	font-size: 12px;
- }
- 
-.btn:hover {
-	background-color: #CCCCCC;
-}
-
-div.panel-body {
-	padding-bottom: 7px;
-}
-
-tfoot {
-	border-color: #F9F9F9;
-	border-top: 2px double;
-	border-bottom: 1px solid;
-}
 </style>
   
 <script>
   $( function() {
 
   });
-  
+  function fn_view(cno) {	
+		
+		//alert(cno);
+		var w = 1000;
+		var h = 470;
+		var url = "../view/productModify.do?cno="+cno;
+		
+		var xPos = (document.body.offsetWidth/2) - (w/2); // 가운데 정렬
+		xPos += window.screenLeft; // 듀얼 모니터일 때
+		var yPos = (document.body.offsetHeight/2) - (h/2) - 200;
+
+		window.open(url, "pop_name", "width="+w+", height="+h+", left="+xPos+", top="+yPos+", menubar=no, status=no, titlebar=no, resizable=no");
+	}; 
 </script>
 </head>
 
@@ -73,7 +55,7 @@ tfoot {
     </thead>
     <tbody>
 <c:forEach items="${productList}" var="vo">	
-      <tr>
+      <tr class="dataRow" onclick="fn_view(${vo.cno}); return false;">
         <td>${vo.productDate}</td>
         <td>${vo.gubun}</td>
         <td class="text-right">${vo.ori_250}</td>

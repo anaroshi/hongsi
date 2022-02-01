@@ -19,24 +19,6 @@
 <link rel="stylesheet" href="/resources/css/style.css">
 
 <style type="text/css">
-.btn:hover {
-	background-color: #CCCCCC;
-	color: white;
-}
-.select {
-	font-size: 12px;
-}
-.dataRow:hover {
-	background: #ccc;
-	cursor: pointer; 
-}
-div.modal-body {
-	height: 90px;
-}
-.btn {
-	font-size: 12px;
-}
-		
 </style>  
 <script>
   $( function() {
@@ -64,23 +46,6 @@ div.modal-body {
     });
     
     $( "#inDate" ).datepicker({
-		changeMonth: true,
-		changeYear: true,
-		minDate: '-50y', 
-		nextText: '다음 달', 
-		prevText: '이전 달', 
-		yearRange: 'c-3:c+3', 
-		showButtonPanel: true, 
-		currentText: '오늘 날짜', 
-		closeText: '닫기', 
-		dateFormat: "yy-mm-dd", 
-		showAnim: "slide", 
-		showMonthAfterYear: true, dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-		monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] 
-      
-    });
-    
-    $( "#inDateSave" ).datepicker({
 		changeMonth: true,
 		changeYear: true,
 		minDate: '-50y', 
@@ -228,7 +193,7 @@ function fn_update(cno) {
 	   <div class="form-group">
 	      <label for="buyDate" class="col-sm-3 control-label">주문일</label>
 	      <div class="col-sm-8">
-	        <input class="form-control" id="buyDate" name="buyDate" type="text" required="required" value="${buyInfo.buyDate}">
+	        <input class="form-control inputDate" id="buyDate" name="buyDate" type="text" required="required" value="${buyInfo.buyDate}">
 	      </div>
 	    </div>
 	    <div class="form-group">
@@ -264,7 +229,7 @@ function fn_update(cno) {
 	    <div class="form-group">
 	      <label for="qty" class="col-sm-3 control-label">수량</label>
 	      <div class="col-sm-8">
-	        <input class="form-control" id="qty" name="qty" type="text" placeholder="qty" required="required" value="${buyInfo.qty}">
+	        <input class="form-control" id="qty" name="qty" type="number" placeholder="qty" required="required" value="${buyInfo.qty}">
 	      </div>
 	    </div>
 	    
@@ -273,7 +238,7 @@ function fn_update(cno) {
 	      <div class="col-sm-8"> 
 	      <div class="input-group">
 	      	<span class="input-group-addon"><i class="fas fa-won-sign"></i></span>
-			<input class="form-control" type="text" id="price" name="price" required="required" value="${buyInfo.price}">
+			<input class="form-control" type="number" id="price" name="price" required="required" value="${buyInfo.price}">
 		  </div></div>
 	    </div>
 	</div> 
@@ -294,7 +259,7 @@ function fn_update(cno) {
     <div class="form-group">
       <label for="inDate" class="col-sm-3 control-label">입고일자</label>
       <div class="col-sm-8">
-       	<input class="form-control" type="text" id="inDate" name="inDate" value="${buyInfo.inDate}">
+       	<input class="form-control inputDate" type="text" id="inDate" name="inDate" value="${buyInfo.inDate}">
       </div>
     </div>
      <div class="form-group">
@@ -313,9 +278,10 @@ function fn_update(cno) {
       </div>
     </div>
     <div class="form-group">
-    	<div class="col-sm-4"><button type="button" class="btn btn-block" id="orderUpdate" onclick="fn_update(${buyInfo.cno}); return false;">수정</button></div>
-    	<div class="col-sm-4"><button type="button" class="btn btn-block" id="orderDelete" onclick="fn_delete(${buyInfo.cno}); return false;">삭제</button></div>
-    	<div class="col-sm-4"><button type="button" class="btn btn-block" onclick="javascript:self.close();" >닫기</button></div>
+    	<div class="col-sm-1"></div>
+    	<div class="col-sm-3"><button type="button" class="btn btn-block" id="orderUpdate" onclick="fn_update(${productInfo.cno}); return false;">수정</button></div>
+    	<div class="col-sm-3"><button type="button" class="btn btn-block" id="orderDelete" onclick="fn_delete(${productInfo.cno}); return false;">삭제</button></div>
+    	<div class="col-sm-4"><button type="button" class="btn btn-block" onclick="javascript:self.close();" >닫기</button></div> 
     </div>
 	</div> 
 	<!-- 2블럭 End -->	

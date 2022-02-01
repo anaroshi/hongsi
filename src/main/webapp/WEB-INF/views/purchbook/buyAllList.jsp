@@ -7,44 +7,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>PurchShop</title>
+<title>재료 구매 리스트</title>
 
 <style type="text/css">
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    margin: 0; 
-}
-
-.order_item {
- 	font-size: 12px;
- 	padding: 6px 4px;
- }
- 
-.btn, .select {
- 	font-size: 12px;
- }
- 
-.btn:hover {
-	background-color: #CCCCCC;
-}
-
-div.panel-body {
-	padding-bottom: 7px;
-}
-
-.dataRow:hover {
-	background: #ccc;
-	cursor: pointer; 
-}
-
-tfoot {
-	border-color: #F9F9F9;
-	border-top: 2px double;
-	border-bottom: 1px solid;
-}
 </style>
   
 <script>
@@ -57,7 +22,7 @@ function fn_view(cno) {
 	//alert(cno);
 	var w = 1000;
 	var h = 470;
-	var url = "../view/buyModi.do?cno="+cno;
+	var url = "../view/buyModify.do?cno="+cno;
 	
 	var xPos = (document.body.offsetWidth/2) - (w/2); // 가운데 정렬
 	xPos += window.screenLeft; // 듀얼 모니터일 때

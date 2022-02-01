@@ -9,26 +9,20 @@
 <title>PurchBook</title>
 
 <style type="text/css">
-.btn:hover {
-	background-color: #CCCCCC;
-	color: white;
-}
-.select {
-	font-size: 12px;
-}
-.dataRow:hover {
-	background: #ccc;
-	cursor: pointer; 
-}
-div.modal-body {
-	height: 90px;
-}
+
 </style>
 
 <script>
-  $( function() {
+  $( function() {	  
 	  
-    $( "#buyDate" ).datepicker({
+	startWith();
+	  
+	function startWith() {
+		// 화면 로드시 커서가 위치하게
+		$("#buyDate").focus();	  
+	};
+
+	$("#buyDate").datepicker({
 		changeMonth: true,
 		changeYear: true,
 		minDate: '-50y', 
@@ -44,7 +38,7 @@ div.modal-body {
 		monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] 
       
     });
-     
+    
     $("#item").change(function() {
     	let selectedVal = $(this).val();
     	//alert(selectedVal);
@@ -140,7 +134,7 @@ div.modal-body {
 		<div class="form-group">
 	      <label for="buyDate" class="col-sm-3 control-label">입출고일</label>
 	      <div class="col-sm-8">
-	        <input class="form-control" id="buyDate" name="buyDate" type="text" required="required">
+	        <input class="form-control inputDate" id="buyDate" name="buyDate" type="text" required="required">
 	      </div>
 		</div>
 	    <div class="form-group">
@@ -169,7 +163,7 @@ div.modal-body {
 	    <div class="form-group">
 			<label for="content" class="col-sm-3 control-label">용량</label>
 			<div class="col-sm-8">
-				<input class="form-control" id="content" name="content" type="text" placeholder="content" required="required">		      
+				<input class="form-control" id="content" name="content" type="number" placeholder="content" required="required">		      
 			</div>
 	    </div>
 
@@ -192,8 +186,8 @@ div.modal-body {
 
 		<div class="row">
 	    <div class="form-group">
-		    <div class="col-sm-6"></div>
-		    <div class="col-sm-6">
+		    <div class="col-sm-2"></div>
+		    <div class="col-sm-9">
 		    	<button type="submit" class="btn btn-block">저장</button>
 		    </div>	
 	    </div>
@@ -205,11 +199,8 @@ div.modal-body {
 
 	<!-- 재료 입출고  List Start -->
 	<div class="col-md-6">
-	<table class="table table-condensed">
+	<table class="table table-striped">
 	   <thead>    
-	 	<tr>
-	    	<td colspan="7" class="text-center"><h5>입출고 LIST</h5></td>    	
-	    </tr>
 		<tr>
 	        <th width="15%">입출고일</th>
 	        <th width="15%">구분</th>

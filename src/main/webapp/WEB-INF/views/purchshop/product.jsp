@@ -13,27 +13,14 @@
 <link href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" rel="stylesheet">
 
 <style type="text/css">
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    margin: 0; 
+div.panel.panel-default {
+	height: 89px;
 }
 
 .order_item {
  	font-size: 12px;
  	padding: 6px 4px;
- }
- 
-.btn, .select {
- 	font-size: 12px;
- }
- 
-.btn:hover {
-	background-color: #CCCCCC;
-	color: white;
-}
+ } 
 
 div.panel-body {
 	padding: 5px 15px 0px;
@@ -41,14 +28,14 @@ div.panel-body {
 </style>
   
 <script>
-  $( function() {
+$( function() {
 
-	  startWith();
+	startWith();
 	  
-	  function startWith() {
-		  // 화면 로드시 커서가 위치하게
-		  $("#ori_250").focus();	  
-	  };
+	function startWith() {
+		// 화면 로드시 커서가 위치하게
+		$("#ori_250").focus();	  
+	};
 	  
     $( "#productDate" ).datepicker({
 		changeMonth: true,
@@ -66,65 +53,6 @@ div.panel-body {
 		monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']
     });    
     
-    $("#item").change(function() {
-    	let selectedVal = $(this).val();
-    	//alert(selectedVal);
-    	
-    	let itemA =["100"];
-    	let itemB =["200"];
-    	let itemC =["500"];
-    	let itemD =["545"];
-    	let itemE =["800"];
-    	let itemF =["1000"];
-    	let itemG =["1800"];
-    	let itemH =["2000"];
-    	let itemI =["2270"];
-    	let itemJ =["2300"];
-    	let d = "";
-    	switch(selectedVal) {
-    		case "in_020":
-    			d = itemA;
-    		break;
-    		case "in_009": case "in_019":
-    			d = itemB;
-    		break;
-    		case "in_001":
-    			d = itemC;
-    		break;
-    		case "in_015":
-    			d = itemD;
-    		break;
-    		case "in_014: case in_027":
-    			d = itemE;
-    		break;
-    		case "in_003": case "in_004": case "in_005": case "in_006": case "in_007": case "in_008": case "in_010": case "in_011": case "in_013": case "in_017": case "in_018": case "in_021": case "in_022": case "in_023": case "in_024": case "in_025": case "in_026":
-    			d = itemF;
-    		break;
-    		case "in_016":
-    			d = itemG;
-    		break;
-    		case "in_002":
-    			d = itemH;
-    		break;
-    		case "in_028":
-    			d = itemI;
-    		break;
-    		case "in_012":
-    			d = itemJ;
-    		break;
-    		default:
-    			d = "";
-    		break;
-    	}
-    	
-    	$("#content").empty();
-    	
-    	for ( x in d) {
-    		let opt = $("<option value='"+d[x]+"'>"+d[x]+"</option>");
-    		$("#content").append(opt);
-    	}    
-    });
-
   	$("#orderSave").click(function(){
 
  		let ori_250 = $("#ori_250").val();
@@ -324,12 +252,12 @@ div.panel-body {
   	  </div>
 	</div>
   </div> 
-<!--   <div class="row">  -->
+
 	<div class="col-sm-2">
 	   <div class="form-group">
 	      <label for="productDate" class="col-sm-3 control-label">생산일</label>
 	      <div class="col-sm-8">
-	        <input class="form-control" id="productDate" name="productDate" type="text" required="required">
+	        <input class="form-control inputDate" id="productDate" name="productDate" type="text" required="required">
 	      </div>
 	    </div>	    
 	    <div class="form-group">
@@ -382,7 +310,7 @@ div.panel-body {
     </thead>
     <tbody>
 <c:forEach items="${productList}" var="vo">
-      <tr>
+      <tr class="dataRow">
         <td>${vo.productDate}</td>
         <td>${vo.gubun}</td>
         <td>${vo.ori_250_format}${vo.erl_250_format}${vo.sns_250_format}</td>

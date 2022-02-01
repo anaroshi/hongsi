@@ -19,7 +19,7 @@
 					private long 	disTotal;	// 폐기 수량
 					private long 	total;		// 잔고 수량 -->
 
-				<table class="table table-bordered">
+				<table class="table table-striped">
 					<thead>
 						<tr>
 							<th>Ingredient</th>
@@ -31,20 +31,22 @@
 					</thead>
 					<tbody>
 						<c:forEach items="${ingreTotalList}" var="vo">
-							<tr>
+						<c:if test="${vo.inTotal != '0' or vo.total != '0'}">
+							<tr class="dataRow">
 								<td>${vo.kname}</td>
 								<td class="text-right">${vo.inTotal}</td>
 								<td class="text-right">${vo.outTotal}</td>
 								<td class="text-right">${vo.disTotal}</td>
 								<td class="text-right">${vo.total}</td>
 							</tr>
+						</c:if>	
 						</c:forEach>
 						<!-- qtyList End -->
 					</tbody>
 				</table>
 			</div>
 
-			<div class="col-md-6">
+			<div class="col-md-3">
 			<div class="panel-group">
 			<div class="panel panel-danger">
 				<div class="panel-heading">재고 확인해 주세요.</div>

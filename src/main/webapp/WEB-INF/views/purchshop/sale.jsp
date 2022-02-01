@@ -8,36 +8,14 @@
 <title>PurchShop</title>
 
 <style type="text/css">
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    margin: 0; 
-}
-
 .order_item {
  	font-size: 12px;
  	padding: 6px 4px;
  }
  
-.btn, .select {
- 	font-size: 12px;
- }
- 
-.btn:hover {
-	background-color: #CCCCCC;
-	color: white;
-}
-
 div.panel-body {
 	padding-top: 5px;
 	padding-bottom: 0px;
-}
-
-.dataRow:hover {
-	background-color: #ccc;
-	cursor: pointer;
 }
 </style>
   
@@ -95,81 +73,6 @@ div.panel-body {
 		showAnim: "slide", 
 		showMonthAfterYear: true, dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], 
 		monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']
-    });
-    
-    $( "#deleveryDate" ).datepicker({
-		changeMonth: true,
-		changeYear: true,
-		mdeleveryDate: '-50y', 
-		nextText: '다음 달', 
-		prevText: '이전 달', 
-		yearRange: 'c-3:c+3', 
-		showButtonPanel: true, 
-		currentText: '오늘 날짜', 
-		closeText: '닫기', 
-		dateFormat: "yy-mm-dd", 
-		showAnim: "slide", 
-		showMonthAfterYear: true, dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-		monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']
-    });
-    
-    $("#item").change(function() {
-    	let selectedVal = $(this).val();
-    	//alert(selectedVal);
-    	
-    	let itemA =["100"];
-    	let itemB =["200"];
-    	let itemC =["500"];
-    	let itemD =["545"];
-    	let itemE =["800"];
-    	let itemF =["1000"];
-    	let itemG =["1800"];
-    	let itemH =["2000"];
-    	let itemI =["2270"];
-    	let itemJ =["2300"];
-    	let d = "";
-    	switch(selectedVal) {
-    		case "in_020":
-    			d = itemA;
-    		break;
-    		case "in_009": case "in_019":
-    			d = itemB;
-    		break;
-    		case "in_001":
-    			d = itemC;
-    		break;
-    		case "in_015":
-    			d = itemD;
-    		break;
-    		case "in_014: case in_027":
-    			d = itemE;
-    		break;
-    		case "in_003": case "in_004": case "in_005": case "in_006": case "in_007": case "in_008": case "in_010": case "in_011": case "in_013": case "in_017": case "in_018": case "in_021": case "in_022": case "in_023": case "in_024": case "in_025": case "in_026":
-    			d = itemF;
-    		break;
-    		case "in_016":
-    			d = itemG;
-    		break;
-    		case "in_002":
-    			d = itemH;
-    		break;
-    		case "in_028":
-    			d = itemI;
-    		break;
-    		case "in_012":
-    			d = itemJ;
-    		break;
-    		default:
-    			d = "";
-    		break;
-    	}
-    	
-    	$("#content").empty();
-    	
-    	for ( x in d) {
-    		let opt = $("<option value='"+d[x]+"'>"+d[x]+"</option>");
-    		$("#content").append(opt);
-    	}    
     });
 
   	$("#orderReset").click(function() {  		
@@ -274,8 +177,6 @@ div.panel-body {
   		</div>
   	  </div>
 	</div>
-<!--   </div> -->
-<!--   <div class="col-md-4"> -->
     <div class="panel panel-default" style="border: none;">
 	  <div class="panel-heading">EARLGREY</div>
 	  <div class="panel-body">
@@ -318,7 +219,7 @@ div.panel-body {
 	<div class="form-group">
 		<label for="orderDate" class="col-sm-4 control-label">주문일</label>
 	    <div class="col-sm-7">
-        	<input class="form-control" id="orderDate" name="orderDate" type="text" value="${vo.orderDate}" readonly="readonly">
+        	<input class="form-control inputDate" id="orderDate" name="orderDate" type="text" value="${vo.orderDate}" readonly="readonly">
       	</div>
 	</div>
 	<div class="form-group">
@@ -334,12 +235,13 @@ div.panel-body {
       </div>
  	</div>	
   </div> 
-<!--   <div class="row">  -->
+
+	<!-- 	2블럭 Start -->
 	<div class="col-sm-3">
 	   <div class="form-group">
 	      <label for="saleDate" class="col-sm-3 control-label">판매일</label>
 	      <div class="col-sm-8">
-	        <input class="form-control" id="saleDate" name="saleDate" type="text" required="required">
+	        <input class="form-control inputDate" id="saleDate" name="saleDate" type="text" required="required">
 	      </div>
 	    </div>
 	    	    
@@ -358,7 +260,7 @@ div.panel-body {
 		<div class="form-group"> 
 			<label for="price" class="col-sm-3 control-label">금액</label>
 		 	<div class="col-sm-8">
-				<input class="form-control" type="text" id="price" name="price" required="required">
+				<input class="form-control" type="number" id="price" name="price" required="required">
 		 	</div>
 		</div>
 	    <div class="form-group">
@@ -386,7 +288,7 @@ div.panel-body {
 	   	<div class="form-group">
 	      <label for="deleveryDate" class="col-sm-3 control-label">수령일</label>
 	      <div class="col-sm-8">
-	        <input class="form-control" id="deleveryDate" name="deleveryDate" type="text" required="required">
+	        <input class="form-control inputDate" id="deleveryDate" name="deleveryDate" type="text" required="required">
 	      </div>
 	    </div>	    
 	    <div class="form-group">
@@ -421,8 +323,8 @@ div.panel-body {
 <!-- 	</div> 2블럭 End -->
 
 
-<!-- 	</div> 3블럭 Start -->
-<div class="col-md-7">
+	<!-- 	</div> 3블럭 Start -->
+	<div class="col-md-7">
 	<!-- 	주문 List Start -->
 	  <table class="table table-striped orderListTable">
 	    <thead>
