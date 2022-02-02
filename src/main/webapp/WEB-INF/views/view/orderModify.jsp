@@ -257,9 +257,10 @@ function fn_update() {
 						<div class="col-sm-8">
 							<select id="gubun" name="gubun" class="form-control select">
 								<option value="주문" <c:if test="${orderInfo.gubun=='주문'}">selected</c:if> >주문</option>
-								<option value="교환" <c:if test="${orderInfo.gubun=='교환'}">selected</c:if> >교환</option>
-								<option value="반품" <c:if test="${orderInfo.gubun=='반품'}">selected</c:if> >반품</option>
-								<option value="손실" <c:if test="${orderInfo.gubun=='손실'}">selected</c:if> >손실</option>
+<%-- 								<option value="교환" <c:if test="${orderInfo.gubun=='교환'}">selected</c:if> >교환</option> --%>
+<%-- 								<option value="반품" <c:if test="${orderInfo.gubun=='반품'}">selected</c:if> >반품</option> --%>
+<%-- 								<option value="손실" <c:if test="${orderInfo.gubun=='손실'}">selected</c:if> >손실</option> --%>
+								<option value="주문취소" <c:if test="${orderInfo.gubun=='주문취소'}">selected</c:if> >주문취소</option>
 							</select>
 						</div>
 					</div>

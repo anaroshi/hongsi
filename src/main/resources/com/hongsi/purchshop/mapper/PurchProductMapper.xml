@@ -47,6 +47,48 @@
 		1
 	)
 	</insert>
+
+	<insert id="insertProductTrace">
+	INSERT INTO PURCH_PRODUCT_TRACE (
+		UNQ,
+		CNO,
+		PRODUCTDATE,
+		ORI_250,
+		ORI_500,
+		ORI_1000,
+		ERL_250,		
+		ERL_500,		
+		ERL_1000,	
+		SNS_250,		
+		SNS_500,
+		SNS_1000,
+		GUBUN,
+		COMM,
+		MANAGER,
+		GUBUNCODE,
+		STATUS,
+		FLAG
+	) VALUES (
+		PURCHPRODUCT_TRACE_PK.NEXTVAL,
+		#{cno},
+		#{productDate},
+		#{ori_250},
+		#{ori_500},
+		#{ori_1000},
+		#{erl_250},
+		#{erl_500},
+		#{erl_1000},
+		#{sns_250},
+		#{sns_500},
+		#{sns_1000},
+		#{gubun},
+		#{comm},
+		#{manager},
+		#{gubunCode},
+		#{status},
+		#{flag}
+	)
+	</insert>
 	
 	<select id="selectProductList" resultType="com.hongsi.purchshop.vo.PurchProductVO">
 	SELECT 	A.CNO, A.PRODUCTDATE, A.GUBUN, 
@@ -203,6 +245,23 @@
 	WHERE 	CNO = #{cno}
 	</update>
 	
+
+	<!-- Trace : 생산 정보 삭제 -->
+	<insert id="deleteProductInfoByCnoTrace">
+	INSERT INTO PURCH_PRODUCT_TRACE (
+		UNQ,
+		CNO,
+		STATUS,
+		FLAG
+	) VALUES (
+		PURCHPRODUCT_TRACE_PK.NEXTVAL,
+		#{cno},
+		'product',
+		4
+	)
+	</insert>
+
+
 	<!-- 생산정보 수정하기 by CNO --> 
 	<update id="updateProductInfoByCno">
 	UPDATE	PURCH_PRODUCT

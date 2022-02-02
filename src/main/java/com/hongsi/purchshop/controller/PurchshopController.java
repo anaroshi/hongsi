@@ -56,8 +56,11 @@ public class PurchshopController {
 	@PostMapping("order.do")
 	public String insertPurchshopOrder(PurchOrderVO vo, RedirectAttributes rttr) {
 		log.info("insertOrder vo :" + vo);
+		vo.setStatus("order");
+		vo.setFlag(1);
 		int result = purchOrderService.insertPurchshopOrder(vo);
 		if (result == 1) {
+			purchOrderService.insertPurchshopOrderTrace(vo);
 			rttr.addFlashAttribute("msg", "주문 완료");
 		}
 		return "redirect:/purchshop/order.do";
@@ -96,8 +99,11 @@ public class PurchshopController {
 	@PostMapping("product.do")
 	public String insertProduct(PurchProductVO vo, RedirectAttributes rttr) {
 		log.info("insertProduct vo :" + vo);
+		vo.setStatus("product");
+		vo.setFlag(1);
 		int result = purchProductService.insertProduct(vo);
 		if (result == 1) {
+			purchProductService.insertProductTrace(vo);
 			rttr.addFlashAttribute("msg", "생산 완료");
 		}
 		return "redirect:/purchshop/product.do";
@@ -132,8 +138,10 @@ public class PurchshopController {
 
 	// 판매 정보 저장
 	@PostMapping("sale.do")
-	public String insertPurchsale(PurchSaleVO vo, RedirectAttributes rttr) {
+	public String insertSale(PurchSaleVO vo, RedirectAttributes rttr) {
 		log.info("insertPurchsale vo :" + vo);
+		vo.setStatus("sale");
+		vo.setFlag(1);
 		
 		// 주문 정보에서 값을 가져와 판매 처리할 경우
 		// PURCHORDER 테이블에 STATUS에 'done' 입력하여 주문완료 처리를 해준다. 		
@@ -144,8 +152,11 @@ public class PurchshopController {
 		}
 		
 		// 판매 테이블에 주문 정보 저장
-		int result = purchSaleService.insertPurchsale(vo);		
-		if (result == 1) { rttr.addFlashAttribute("msg", "판매 완료"); }
+		int result = purchSaleService.insertSale(vo);		
+		if (result == 1) { 
+			purchSaleService.insertSaleTrace(vo);
+			rttr.addFlashAttribute("msg", "판매 완료"); 
+		}
 
 		return "redirect:/purchshop/sale.do";
 	}

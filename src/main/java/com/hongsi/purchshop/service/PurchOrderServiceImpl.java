@@ -33,6 +33,17 @@ public class PurchOrderServiceImpl implements PurchOrderService {
 		return mapper.insertPurchshopOrder(vo);
 	}
 
+	//  Trace : 주문 저장 
+	public int insertPurchshopOrderTrace(PurchOrderVO vo) {
+		log.info("Impl vo : "+vo);
+		// 주문 들어온 상품에 대한 생산 준비
+		if(vo.getGubun().equals("주문")) vo.setGubunCode("out");
+		else if(vo.getGubun().equals("교환")) vo.setGubunCode("out");
+		else if(vo.getGubun().equals("반품")) vo.setGubunCode("in");
+		else if(vo.getGubun().equals("손실")) vo.setGubunCode("out");
+		return mapper.insertPurchshopOrderTrace(vo);
+	}
+	
 	@Override
 	public PurchOrderVO selectItemTotSum() {
 		return mapper.selectItemTotSum();
@@ -89,16 +100,24 @@ public class PurchOrderServiceImpl implements PurchOrderService {
 	}
 
 	@Override
-	public int deleteOrderInfoByCno(int cno) {		
+	public int deleteOrderInfoByCno(int cno) {
+		log.info("-----------impl-------------deleteOrderInfoByCno :"+cno);
 		return mapper.deleteOrderInfoByCno(cno);
+	}
+	
+	@Override
+	public int deleteOrderInfoByCnoTrace(int cno) {
+		log.info("-----------impl-------------deleteOrderTrace :"+cno);
+		return mapper.deleteOrderInfoByCnoTrace(cno);
 	}
 
 	@Override
 	public int updateOrderInfoByCno(PurchOrderVO vo) {
 		if(vo.getGubun().equals("주문")) vo.setGubunCode("out");
-		else if(vo.getGubun().equals("교환")) vo.setGubunCode("out");
-		else if(vo.getGubun().equals("반품")) vo.setGubunCode("in");
-		else if(vo.getGubun().equals("손실")) vo.setGubunCode("out");
+//		else if(vo.getGubun().equals("교환")) vo.setGubunCode("out");
+//		else if(vo.getGubun().equals("반품")) vo.setGubunCode("in");
+//		else if(vo.getGubun().equals("손실")) vo.setGubunCode("out");
+		else if(vo.getGubun().equals("주문취소")) vo.setGubunCode("cancle");
 		log.info("Impl vo : "+vo);
 
 		return mapper.updateOrderInfoByCno(vo);

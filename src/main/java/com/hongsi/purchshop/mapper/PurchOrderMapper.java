@@ -7,6 +7,12 @@ import com.hongsi.purchshop.vo.PurchOrderVO;
 public interface PurchOrderMapper {
 
 	int insertPurchshopOrder(PurchOrderVO vo);
+	int insertPurchshopOrderTrace(PurchOrderVO vo);
+	
+	int deleteOrderInfoByCno(int cno);
+	int deleteOrderInfoByCnoTrace(int cno);
+	
+	int updateOrderInfoByCno(PurchOrderVO vo);
 
 	PurchOrderVO selectItemTotSum();
 	
@@ -27,9 +33,5 @@ public interface PurchOrderMapper {
 	List<PurchOrderVO> selectOrderListWaitSale();
 
 	PurchOrderVO selectOrderInfoByCno(int cno);
-
-	int deleteOrderInfoByCno(int cno);
-
-	int updateOrderInfoByCno(PurchOrderVO vo);
 
 }

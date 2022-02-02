@@ -40,18 +40,18 @@
 		</tr>
        <tr>
         <th  style="width: 8%">주문일</th>
-        <th  style="width: 5%">구분</th>
-        <th style="width: 8%">O250</th>
-        <th style="width: 8%">O500</th>
-        <th style="width: 8%">O1000</th>
-        <th style="width: 8%">E250</th>
-        <th style="width: 8%">E500</th>
-        <th style="width: 8%">E1000</th>
-        <th style="width: 8%">S250</th>
-        <th style="width: 8%">S500</th>
-        <th style="width: 8%">S1000</th>
+        <th  style="width: 9%">구분</th>
+        <th style="width: 7%">O250</th>
+        <th style="width: 7%">O500</th>
+        <th style="width: 7%">O1000</th>
+        <th style="width: 7%">E250</th>
+        <th style="width: 7%">E500</th>
+        <th style="width: 7%">E1000</th>
+        <th style="width: 7%">S250</th>
+        <th style="width: 7%">S500</th>
+        <th style="width: 7%">S1000</th>
         <th style="width: 8%">주문자</th>
-		<th style="width: 7%">비고</th>
+		<th style="width: 12%">비고</th>
       </tr>
     </thead>
     <tbody>

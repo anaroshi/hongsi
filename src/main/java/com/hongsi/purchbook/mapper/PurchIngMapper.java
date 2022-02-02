@@ -9,29 +9,25 @@ public interface PurchIngMapper {
 	List<PurchIngVO> list();
 
 	List<PurchIngVO> selectNonInDate();
-	
-	Integer buyProcess(PurchIngVO vo);
 
-	List<PurchIngVO> selectIgdTotalList();
+	int insertIng(PurchIngVO vo);
+	int insertIngTrace(PurchIngVO vo);
 
 	int updateInDate(PurchIngVO vo);
-
-	int insertStorage(PurchIngVO vo);
+	int insertInDateTrace(PurchIngVO vo);
+	
+	List<PurchIngVO> selectIgdTotalList();
 
 	List<PurchIngVO> selectStorageInOut();
 
-	int deleteBuyStorageInfoByCno(PurchIngVO vo);
+	int deleteIng(PurchIngVO vo);
+	int deleteIngTrace(PurchIngVO vo);
 
-	int updateBuyInfoByCno(PurchIngVO vo);
-
-	int insertBuyTrace(PurchIngVO vo);
+	int updateIng(PurchIngVO vo);
+	int updateIngTrace(PurchIngVO vo);
 
 //	PurchIngVO selectStorageInfoByCno(Integer cno);
 
-	int updateStorageInfoByCno(PurchIngVO vo);
-
 	PurchIngVO selectBuyStorageInfoByCno(PurchIngVO vo);
-
-	int insertStorageTrace(PurchIngVO vo);
 
 }

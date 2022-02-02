@@ -8,7 +8,7 @@
 
 <mapper namespace="com.hongsi.purchshop.mapper.PurchSaleMapper">
 
-	<insert id="insertPurchsale">
+	<insert id="insertSale">
 	INSERT INTO PURCH_SALE (
 		CNO,
 		ORDER_CNO,
@@ -61,6 +61,64 @@
 		#{gubunCode},
 		'sale',
 		1
+	)
+	</insert>
+	
+	<insert id="insertSaleTrace">
+	INSERT INTO PURCH_SALE_TRACE (
+		UNQ,
+		CNO,
+		ORDER_CNO,
+		SALEDATE,
+		ORI_250,
+		ORI_500,
+		ORI_1000,
+		ERL_250,		
+		ERL_500,		
+		ERL_1000,	
+		SNS_250,		
+		SNS_500,
+		SNS_1000,
+		GUBUN,
+		PRICE,
+		PAYMENTPATH,
+		SALEPATH,
+		DELEVERYDATE,
+		DELEVERYPATH,
+		ORDERER,
+		ORDERDATE,
+		COMM,
+		MANAGER,
+		GUBUNCODE,
+		STATUS,
+		FLAG
+	) VALUES (
+		PURCHSALE_TRACE_PK.NEXTVAL,
+		#{cno},
+		#{order_cno},
+		#{saleDate},
+		#{ori_250},
+		#{ori_500},
+		#{ori_1000},
+		#{erl_250},
+		#{erl_500},
+		#{erl_1000},
+		#{sns_250},
+		#{sns_500},
+		#{sns_1000},
+		#{gubun},
+		#{price},
+		#{paymentPath},
+		#{salePath},
+		TO_DATE(#{deleveryDate},'YYYY-MM-DD'),
+		#{deleveryPath},
+		#{orderer},
+		TO_DATE(#{orderDate},'YYYY-MM-DD'),
+		#{comm},
+		#{manager},
+		#{gubunCode},
+		#{status},
+		#{flag}
 	)
 	</insert>
 
@@ -207,7 +265,7 @@
 					NVL(SUM(ORI_250),0) IN_ORI_250_TOTAL,
 					NVL(SUM(ORI_500),0) IN_ORI_500_TOTAL,
 					NVL(SUM(ORI_1000),0) IN_ORI_1000_TOTAL
-			FROM 	PURCH_SALE
+			FROM 	PURCH_PRODUCT
 			WHERE 	GUBUNCODE = 'in'
 			AND 	FLAG != 4
 		) A,
@@ -216,7 +274,7 @@
 					NVL(SUM(ORI_250),0) OUT_ORI_250_TOTAL,
 					NVL(SUM(ORI_500),0) OUT_ORI_500_TOTAL,
 					NVL(SUM(ORI_1000),0) OUT_ORI_1000_TOTAL
-			FROM 	PURCH_SALE
+			FROM 	PURCH_PRODUCT
 			WHERE 	GUBUNCODE = 'out'
 			AND 	FLAG != 4
 		) B,
@@ -225,7 +283,7 @@
 					NVL(SUM(ERL_250),0) IN_ERL_250_TOTAL,
 					NVL(SUM(ERL_500),0) IN_ERL_500_TOTAL,
 					NVL(SUM(ERL_1000),0) IN_ERL_1000_TOTAL
-			FROM 	PURCH_SALE
+			FROM 	PURCH_PRODUCT
 			WHERE 	GUBUNCODE = 'in'
 			AND 	FLAG != 4
 		) C,
@@ -234,7 +292,7 @@
 					NVL(SUM(ERL_250),0) OUT_ERL_250_TOTAL,
 					NVL(SUM(ERL_500),0) OUT_ERL_500_TOTAL,
 					NVL(SUM(ERL_1000),0) OUT_ERL_1000_TOTAL
-			FROM 	PURCH_SALE
+			FROM 	PURCH_PRODUCT
 			WHERE 	GUBUNCODE = 'out'
 			AND 	FLAG != 4
 		) D,
@@ -243,7 +301,7 @@
 					NVL(SUM(SNS_250),0) IN_SNS_250_TOTAL,
 					NVL(SUM(SNS_500),0) IN_SNS_500_TOTAL,
 					NVL(SUM(SNS_1000),0) IN_SNS_1000_TOTAL
-			FROM 	PURCH_SALE
+			FROM 	PURCH_PRODUCT
 			WHERE 	GUBUNCODE = 'in'
 			AND 	FLAG != 4
 		) E,
@@ -259,15 +317,15 @@
 	) PT,
 	(
 		SELECT 	
-			(A.IN_ORI_250_TOTAL-B.OUT_ORI_250_TOTAL) 	SALE_ORI_250_SUM,
-			(A.IN_ORI_500_TOTAL-B.OUT_ORI_500_TOTAL) 	SALE_ORI_500_SUM,
-			(A.IN_ORI_1000_TOTAL-B.OUT_ORI_1000_TOTAL) 	SALE_ORI_1000_SUM,
-			(C.IN_ERL_250_TOTAL-D.OUT_ERL_250_TOTAL) 	SALE_ERL_250_SUM,
-			(C.IN_ERL_500_TOTAL-D.OUT_ERL_500_TOTAL) 	SALE_ERL_500_SUM,
-			(C.IN_ERL_1000_TOTAL-D.OUT_ERL_1000_TOTAL) 	SALE_ERL_1000_SUM,
-			(E.IN_SNS_250_TOTAL-F.OUT_SNS_250_TOTAL) 	SALE_SNS_250_SUM,
-			(E.IN_SNS_500_TOTAL-F.OUT_SNS_500_TOTAL) 	SALE_SNS_500_SUM,
-			(E.IN_SNS_1000_TOTAL-F.OUT_SNS_1000_TOTAL) 	SALE_SNS_1000_SUM		
+			(B.OUT_ORI_250_TOTAL-A.IN_ORI_250_TOTAL) 	SALE_ORI_250_SUM,
+			(B.OUT_ORI_500_TOTAL-A.IN_ORI_500_TOTAL) 	SALE_ORI_500_SUM,
+			(B.OUT_ORI_1000_TOTAL-A.IN_ORI_1000_TOTAL) 	SALE_ORI_1000_SUM,
+			(D.OUT_ERL_250_TOTAL-C.IN_ERL_250_TOTAL) 	SALE_ERL_250_SUM,
+			(D.OUT_ERL_500_TOTAL-C.IN_ERL_500_TOTAL) 	SALE_ERL_500_SUM,
+			(D.OUT_ERL_1000_TOTAL-C.IN_ERL_1000_TOTAL) 	SALE_ERL_1000_SUM,
+			(F.OUT_SNS_250_TOTAL-E.IN_SNS_250_TOTAL) 	SALE_SNS_250_SUM,
+			(F.OUT_SNS_500_TOTAL-E.IN_SNS_500_TOTAL) 	SALE_SNS_500_SUM,
+			(F.OUT_SNS_1000_TOTAL-E.IN_SNS_1000_TOTAL) 	SALE_SNS_1000_SUM		
 		FROM 
 		
 		(
@@ -355,12 +413,28 @@
 	AND		FLAG != 4
 	</select>	
 	
+	<!-- 판매 정보 삭제 -->
 	<update id="deleteSaleInfoByCno">
 	UPDATE 	PURCH_SALE
 	SET 	FLAG = 4, UDATE = SYSDATE
 	WHERE 	CNO  = #{cno}	
 	</update>
 	
+	<!-- Trace : 판매 정보 삭제 정보 저장 -->
+	<insert id="deleteSaleInfoByCnoTrace">
+	INSERT INTO PURCH_SALE_TRACE (
+		UNQ,
+		CNO,
+		STATUS,
+		FLAG
+	) VALUES (
+		PURCHSALE_TRACE_PK.NEXTVAL,
+		#{cno},
+		'sale',
+		4
+	)
+	</insert>
+
 	<update id="updateSaleInfoByCno">
 	UPDATE 	PURCH_SALE
 	SET 	SALEDATE = #{saleDate},

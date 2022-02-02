@@ -167,7 +167,7 @@ function fn_update() {
 		
 		// alert(cno);
 		let formData = $("#frm").serialize();		
-		alert(JSON.stringify(formData));
+		//alert(JSON.stringify(formData));
 		
 		$.ajax({
 			type: "POST",
@@ -288,6 +288,7 @@ function fn_update() {
 								<option value="반품" <c:if test="${saleInfo.gubun=='반품'}">selected</c:if>>반품</option>
 								<option value="손실" <c:if test="${saleInfo.gubun=='손실'}">selected</c:if>>손실</option>
 								<option value="경비" <c:if test="${saleInfo.gubun=='경비'}">selected</c:if>>경비</option>
+								<option value="취소" <c:if test="${saleInfo.gubun=='취소'}">selected</c:if>>취소</option>
 							</select>
 						</div>
 					</div>

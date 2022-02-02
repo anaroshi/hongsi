@@ -47,6 +47,7 @@ public class ViewController {
 	
 	// --------------------------------------- 재료 구매 -----------------------------------------------
 	
+	// 재료 구매 정보 보기
 	@GetMapping("view/buyModify.do")
 	public String buyModify(PurchIngVO vo, Model model) {
 		log.info(".............................buyModify..");
@@ -66,8 +67,11 @@ public class ViewController {
 	public String buyDelete(PurchIngVO vo) {
 		log.info(".............................buyDelete..");
 		vo.setStatus("purch");
-		int result = purchIngSerivce.deleteBuyStorageInfoByCno(vo);
+		
+		int result = purchIngSerivce.deleteIng(vo);
+		log.info(".............................buyDelete..result:"+result);
 		if (result == 1) {
+			purchIngSerivce.deleteIngTrace(vo);
 			return "ok";
 		}
 		return "";
@@ -80,10 +84,11 @@ public class ViewController {
 	public String buyUpdate(PurchIngVO vo) {
 		log.info(".............................buyUpdate..vo:" + vo);
 		vo.setFlag(2);
-		int result = purchIngSerivce.updateBuyInfoByCno(vo);
+		vo.setStatus("purch");
+		int result = purchIngSerivce.updateIng(vo);
 		log.info("............................result:"+result); 
 		if (result==1) {
-			purchIngSerivce.insertBuyTrace(vo); 
+			purchIngSerivce.updateIngTrace(vo);
 			return "ok"; 
 		}
 		return "fail";
@@ -111,8 +116,10 @@ public class ViewController {
 	public String storageDelete(PurchIngVO vo) {
 		vo.setStatus("storage");
 		log.info(".............................storageDelete..vo:"+vo);
-		int result = purchIngSerivce.deleteBuyStorageInfoByCno(vo);
+		int result = purchIngSerivce.deleteIng(vo);
+		log.info(".............................storageDelete..result:"+result);
 		if (result == 1) {
+			purchIngSerivce.deleteIngTrace(vo);
 			return "ok";
 		}
 		return "";
@@ -124,12 +131,14 @@ public class ViewController {
 	@PostMapping("view/storageUpdate.do")
 	public String storageUpdate(PurchIngVO vo) {
 		log.info(".............................storageUpdate..vo:" + vo);
+		vo.setQty(1);
+		vo.setStatus("storage");
 		vo.setFlag(2);
-
-		int result = purchIngSerivce.updateStorageInfoByCno(vo);
+		
+		int result = purchIngSerivce.updateIng(vo);
 		log.info("............................result:"+result); 
 		if (result==1) {
-			purchIngSerivce.insertStorageTrace(vo); 
+			purchIngSerivce.updateIngTrace(vo);
 			return "ok"; 
 		}
 		return "fail";
@@ -146,38 +155,36 @@ public class ViewController {
 		return "view/productModify";
 	}
 
-	// 주문 삭제 처리
+	// 생산 삭제 처리
 	@ResponseBody
 	@PostMapping("view/productDelete.do")
 	public String productDelete(int cno) {
 		log.info(".............................productDelete..");
 		int result = purchProductService.deleteProductInfoByCno(cno);
 		if (result == 1) {
+			purchProductService.deleteProductInfoByCnoTrace(cno);
 			return "ok";
 		}
 		return "";
 	}
 
-	// 주문 수정 처리
+	// 생산 수정 처리
 	@Nullable  // null 허용
 	@ResponseBody
 	@PostMapping("view/productUpdate.do")
 	public String productUpdate(PurchProductVO vo) {
 		log.info(".............................productUpdate..vo:" + vo);
+		vo.setStatus("product");
 		vo.setFlag(2);
-//		int result = purchProductService.updateProductInfoByCno(vo);	
-//		log.info("............................result1:"+result);
-//		result = purchProductService.insertTrace(vo);
-//		log.info("............................result2:"+result);
-//		return "ok";
 
-		 int result = purchProductService.updateProductInfoByCno(vo);
-		 log.info("............................result:"+result); 
-		 if (result==1) {
-//			 purchProductService.insertTrace(vo); 
-			 return "ok"; 
-		 }
-		 return "fail";
+		int result = purchProductService.updateProductInfoByCno(vo);
+		log.info("............................result:"+result); 
+		if (result==1) {
+			log.info(".........................");
+			purchProductService.insertProductTrace(vo); 
+			return "ok"; 
+		}
+		return "fail";
 	}
 	
 
@@ -199,7 +206,10 @@ public class ViewController {
 	public String orderDelete(int cno) {
 		log.info(".............................orderDelete..");
 		int result = purchOrderService.deleteOrderInfoByCno(cno);
+		
+		log.info(".............................orderDelete..result:" + result);
 		if (result == 1) {
+			purchOrderService.deleteOrderInfoByCnoTrace(cno);
 			return "ok";
 		}
 		return "";
@@ -211,17 +221,13 @@ public class ViewController {
 	@PostMapping("view/orderUpdate.do")
 	public String orderUpdate(PurchOrderVO vo) {
 		log.info(".............................orderUpdate..vo:" + vo);
+		vo.setStatus("product");
 		vo.setFlag(2);
-//		int result = purchOrderService.updateOrderInfoByCno(vo);	
-//		log.info("............................result1:"+result);
-//		result = purchOrderService.insertTrace(vo);
-//		log.info("............................result2:"+result);
-//		return "ok";
 
 		 int result = purchOrderService.updateOrderInfoByCno(vo);
 		 log.info("............................result:"+result); 
 		 if (result==1) {
-//			 purchOrderService.insertTrace(vo); 
+			 purchOrderService.insertPurchshopOrderTrace(vo); 
 			 return "ok"; 
 		 }
 		 return "fail";
@@ -247,6 +253,7 @@ public class ViewController {
 		log.info(".............................saleDelete..");
 		int result = purchSaleService.deleteSaleInfoByCno(cno);
 		if (result == 1) {
+			purchSaleService.deleteSaleInfoByCnoTrace(cno);
 			return "ok";
 		}
 		return "";
@@ -258,20 +265,16 @@ public class ViewController {
 	@PostMapping("view/saleUpdate.do")
 	public String saleUpdate(PurchSaleVO vo) {
 		log.info(".............................saleUpdate..vo:" + vo);
+		vo.setStatus("sale");
 		vo.setFlag(2);
-//		int result = purchSaleService.updateSaleInfoByCno(vo);	
-//		log.info("............................result1:"+result);
-//		result = purchSaleService.insertTrace(vo);
-//		log.info("............................result2:"+result);
-//		return "ok";
 
-		 int result = purchSaleService.updateSaleInfoByCno(vo);
-		 log.info("............................result:"+result); 
-		 if (result==1) {
-//			 purchSaleService.insertTrace(vo); 
-			 return "ok"; 
-		 }
-		 return "fail";
+		int result = purchSaleService.updateSaleInfoByCno(vo);
+		log.info("............................result:"+result); 
+		if (result==1) {
+			purchSaleService.insertSaleTrace(vo); 
+			return "ok"; 
+		}
+		return "fail";
 	}	
 
 }

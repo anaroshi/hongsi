@@ -9,29 +9,25 @@ public interface PurchIngSerivce {
 	public List<PurchIngVO> list();
 
 	public List<PurchIngVO> selectNonInDate();
+
+	public int insertIng(PurchIngVO vo);
+	public int insertIngTrace(PurchIngVO vo);
 	
-	public Integer buyProcess(PurchIngVO vo);
+	public int updateInDate(PurchIngVO vo);
+	public int insertInDateTrace(PurchIngVO vo);
 	
 	public List<PurchIngVO> selectIgdTotalList();
 	
-	public int updateInDate(PurchIngVO vo);
-	
-	public int insertStorage(PurchIngVO vo);
-
 	public List<PurchIngVO> selectStorageInOut();
 
-	public int deleteBuyStorageInfoByCno(PurchIngVO vo);
+	public int deleteIng(PurchIngVO vo);
+	public int deleteIngTrace(PurchIngVO vo);
 
-	public int updateBuyInfoByCno(PurchIngVO vo);
-
-	public int insertBuyTrace(PurchIngVO vo);
+	public int updateIng(PurchIngVO vo);
+	public int updateIngTrace(PurchIngVO vo);
 
 //	public PurchIngVO selectStorageInfoByCno(Integer cno);
 
 	public PurchIngVO selectBuyStorageInfoByCno(PurchIngVO vo);
-
-	public int updateStorageInfoByCno(PurchIngVO vo);
-	
-	public int insertStorageTrace(PurchIngVO vo);
 
 }

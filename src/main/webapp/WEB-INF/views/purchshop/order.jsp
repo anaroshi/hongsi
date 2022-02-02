@@ -178,9 +178,9 @@ div.panel-body {
 	      <div class="col-sm-8">
 			<select id="gubun" name="gubun" class="form-control select">
 	            <option value="주문">주문</option>
-	            <option value="교환">교환</option>
-	            <option value="교환">반품</option>
-	            <option value="손실">손실</option>
+<!-- 	            <option value="교환">교환</option> -->
+<!-- 	            <option value="교환">반품</option> -->
+<!-- 	            <option value="손실">손실</option> -->
 			</select>
 	      </div>
 	    </div>

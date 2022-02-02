@@ -102,13 +102,13 @@ div.modal-body {
     		case "in_009": case "in_019":
     			d = itemB;
     		break;
-    		case "in_001":
+    		case "in_001": case "in_014":
     			d = itemC;
     		break;
     		case "in_015":
     			d = itemD;
     		break;
-    		case "in_014: case in_027":
+    		case "in_027":
     			d = itemE;
     		break;
     		case "in_003": case "in_004": case "in_005": case "in_006": case "in_007": case "in_008": case "in_010": case "in_011": case "in_013": case "in_017": case "in_018": case "in_021": case "in_022": case "in_023": case "in_024": case "in_025": case "in_026":
@@ -212,9 +212,9 @@ div.modal-body {
 	      <div class="col-sm-8">
 			<select id="gubun" name="gubun" class="form-control select" required="required">
 	            <option value="구매">구매</option>
-	            <option value="교환">교환</option>
-	            <option value="반품">반품</option>
-	            <option value="손실">손실</option>
+<!-- 	            <option value="교환">교환</option> -->
+<!-- 	            <option value="반품">반품</option> -->
+<!-- 	            <option value="손실">손실</option> -->
 			</select>
 	      </div>
 	    </div>	    
@@ -248,8 +248,9 @@ div.modal-body {
       <label for="purShop" class="col-sm-3 control-label">거래처</label>
       <div class="col-sm-8">
 		<select id="purShop" name="purShop" class="form-control select" required="required">
-			<option value="*"> </option>
+			<option value=""> </option>
             <option value="넛츠베리">넛츠베리</option>
+            <option value="네이버쇼핑">네이버쇼핑</option>
             <option value="쿠팡">쿠팡</option>
 		</select>
       </div>
@@ -292,12 +293,10 @@ div.modal-body {
 <div class="col-md-5">
 <table class="table table-striped">
    <thead>    
- 	<tr>
-    	<td colspan="7" class="text-center"><h5>주문 LIST</h5></td>    	
-    </tr>
 	<tr>
+        <th width="2%"></th>
         <th width="17%">주문일</th>
-        <th width="10%">구분</th>
+        <th width="8%">구분</th>
         <th width="22%">주문품</th>
         <th width="22%" style="display:none">주문품</th>
         <th width="9%">용량</th>
@@ -308,6 +307,7 @@ div.modal-body {
     <tbody>
 <c:forEach items="${buyList}" var="vo" varStatus="status">
  	<tr class="dataRow orderRow">
+ 		<td>${status.count}</td>
  		<td class="cno" style="display:none">${vo.cno}</td>
         <td class="buyDate">${vo.buyDate}</td>
         <td class="gubun">${vo.gubun}</td>

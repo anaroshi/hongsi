@@ -6,11 +6,15 @@ import com.hongsi.purchshop.vo.PurchSaleVO;
 
 public interface PurchSaleMapper {
 
-	int insertPurchsale(PurchSaleVO vo);
+	int insertSale(PurchSaleVO vo);
+	int insertSaleTrace(PurchSaleVO vo);
 
-	List<PurchSaleVO> selectSaleList();
+	int deleteSaleInfoByCno(int cno);
+	int deleteSaleInfoByCnoTrace(int cno);
+
+	int updateSaleInfoByCno(PurchSaleVO vo);
 	
-	int insertProduct(PurchSaleVO vo);
+	List<PurchSaleVO> selectSaleList();
 	
 	List<PurchSaleVO> selectProductList();
 	
@@ -21,9 +25,5 @@ public interface PurchSaleMapper {
 	PurchSaleVO selectSaleStock();
 
 	PurchSaleVO selectSaleInfoByCno(int cno);
-
-	int deleteSaleInfoByCno(int cno);
-
-	int updateSaleInfoByCno(PurchSaleVO vo);
 
 }

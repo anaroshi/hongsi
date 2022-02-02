@@ -84,13 +84,13 @@
     		case "in_009": case "in_019":
     			d = itemB;
     		break;
-    		case "in_001":
+    		case "in_001": case "in_014":
     			d = itemC;
     		break;
     		case "in_015":
     			d = itemD;
     		break;
-    		case "in_014: case in_027":
+    		case "in_027":
     			d = itemE;
     		break;
     		case "in_003": case "in_004": case "in_005": case "in_006": case "in_007": case "in_008": case "in_010": case "in_011": case "in_013": case "in_017": case "in_018": case "in_021": case "in_022": case "in_023": case "in_024": case "in_025": case "in_026":
@@ -215,6 +215,7 @@ function fn_update() {
 <%-- 	            <option value="교환" <c:if test="${buyInfo.gubun=='교환'}">selected</c:if>>교환</option> --%>
 	            <option value="반품" <c:if test="${buyInfo.gubun=='반품'}">selected</c:if>>반품</option>
 	            <option value="손실" <c:if test="${buyInfo.gubun=='손실'}">selected</c:if>>손실</option>
+	            <option value="취소" <c:if test="${buyInfo.gubun=='취소'}">selected</c:if>>취소</option>
 			</select>
 	      </div>
 	    </div>	    
@@ -252,6 +253,7 @@ function fn_update() {
 		<select id="purShop" name="purShop" class="form-control select" required="required">
 			<option value="*"> </option>
             <option value="넛츠베리" <c:if test="${buyInfo.purShop=='넛츠베리'}">selected</c:if>>넛츠베리</option>
+            <option value="네이버쇼핑" <c:if test="${buyInfo.purShop=='네이버쇼핑'}">selected</c:if>>네이버쇼핑</option>
             <option value="쿠팡" <c:if test="${buyInfo.purShop=='쿠팡'}">selected</c:if>>쿠팡</option>
 		</select>
       </div>

@@ -44,12 +44,18 @@ public class PurchIngController {
 		return MODULE + "/buy";
 	}
 	
+	// 재료구매 저장
 	@PostMapping("buy.do")
-	public String buyProcess(PurchIngVO vo, RedirectAttributes rttr) {
-		log.info(".............................buyProcess.vo:"+vo);		
-		Integer result = purchIngSerivce.buyProcess(vo);
+	public String insertIng(PurchIngVO vo, RedirectAttributes rttr) {
+		log.info(".............................buyProcess.vo:"+vo);
+
+		vo.setStatus("purch");
+		vo.setFlag(1); // 1: 저장
+
+		int result = purchIngSerivce.insertIng(vo);
 		if (result == 1) {
 			log.info(".............................저장성공");
+			purchIngSerivce.insertIngTrace(vo);
 			rttr.addFlashAttribute("msg", "입력되었습니다.");
 		}
 		return "redirect:buy.do";
@@ -70,11 +76,15 @@ public class PurchIngController {
 		return MODULE + "/stockList";
 	}
 	
+	// 입고일 저장
 	@PostMapping("inDateSave.do")
 	public String updateInDate(PurchIngVO vo, RedirectAttributes rttr) {
 		log.info(".............................insertInDate..:"+vo);
 		
-	  int result = purchIngSerivce.updateInDate(vo); if (result==1) {
+	  int result = purchIngSerivce.updateInDate(vo); 
+	  log.info("............updateInDate..result:"+result);
+	  if (result==1) {		  
+		  purchIngSerivce.insertInDateTrace(vo); 
 		  rttr.addFlashAttribute("msg", "입고일 완료"); 
 	  }		 
 	  return "redirect:buy.do";
@@ -93,12 +103,19 @@ public class PurchIngController {
 		return MODULE + "/storage";
 	}
 	
-	// 재료 입출고 화면에서 받아와 저장
+	// 재료 입출고 저장
 	@PostMapping("storage.do")
 	public String insertStorage(PurchIngVO vo, RedirectAttributes rttr) {		
+		vo.setQty(1);
+		vo.setStatus("storage");
+		vo.setFlag(1);
 		log.info(".............................insertStorage..:"+vo);
-		int result = purchIngSerivce.insertStorage(vo); if (result==1) {
-			  rttr.addFlashAttribute("msg", "입출고 완료"); 
+		int result = purchIngSerivce.insertIng(vo); 
+		log.info(".............................insertStorage..result:"+result);
+		if (result==1) {
+			log.info(".......................");
+			purchIngSerivce.insertIngTrace(vo);
+			rttr.addFlashAttribute("msg", "입출고 완료"); 
 		}		
 		return "redirect:storage.do";
 	}

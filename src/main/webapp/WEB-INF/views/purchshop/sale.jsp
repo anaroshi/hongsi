@@ -250,11 +250,11 @@ div.panel-body {
 	      <label for="gubun" class="col-sm-3 control-label">구분</label>
 	      <div class="col-sm-8">
 			<select id="gubun" name="gubun" class="form-control select">
-	            <option value="판매" <c:if test="${vo.gubun=='주문'}">selected</c:if> >판매</option>
-	            <option value="교환" <c:if test="${vo.gubun=='교환'}">selected</c:if> >교환</option>
-	            <option value="교환" <c:if test="${vo.gubun=='반품'}">selected</c:if> >반품</option>
+	            <option value="판매" <c:if test="${vo.gubun=='판매'}">selected</c:if> >판매</option>
+<%-- 	            <option value="교환" <c:if test="${vo.gubun=='교환'}">selected</c:if> >교환</option> --%>
+<%-- 	            <option value="반품" <c:if test="${vo.gubun=='반품'}">selected</c:if> >반품</option> --%>
 	            <option value="손실" <c:if test="${vo.gubun=='손실'}">selected</c:if> >손실</option>
-	            <option value="샘플" <c:if test="${vo.gubun=='샘플'}">selected</c:if> >샘플</option>
+	            <option value="경비" <c:if test="${vo.gubun=='경비'}">selected</c:if> >경비</option>
 			</select>
 	      </div>
 	    </div>	    
@@ -359,9 +359,9 @@ div.panel-body {
     		<th colspan="13">판매 List</th>
     	</tr>
       <tr>
-        <th  style="width: 15%">판매일</th>
+        <th  style="width: 17%">판매일</th>
         <th  style="width: 10%">구분</th>
-        <th  style="width: 15%">주문경로</th>
+        <th  style="width: 13%">주문경로</th>
         <th style="width: 5%; font-size: 9px">O250</th>
         <th style="width: 5%; font-size: 9px">O500</th>
         <th style="width: 5%; font-size: 9px">O1000</th>

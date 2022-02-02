@@ -61,13 +61,13 @@
     		case "in_009": case "in_019":
     			d = itemB;
     		break;
-    		case "in_001":
+    		case "in_001": case "in_014":
     			d = itemC;
     		break;
     		case "in_015":
     			d = itemD;
     		break;
-    		case "in_014: case in_027":
+    		case "in_027":
     			d = itemE;
     		break;
     		case "in_003": case "in_004": case "in_005": case "in_006": case "in_007": case "in_008": case "in_010": case "in_011": case "in_013": case "in_017": case "in_018": case "in_021": case "in_022": case "in_023": case "in_024": case "in_025": case "in_026":
@@ -128,6 +128,7 @@
 	</div>
 	<!-- 재고량 보이기 End -->
 	<form class="form-horizontal" method="post">	
+<!-- 	<input class="form-control inputDate" id="inDate" name="inDate" type="hidden" value=""> -->
 	<!-- 재료 입출고 입력 Start -->
 	<!-- 1블럭 Start -->
 	<div class="col-sm-4">
