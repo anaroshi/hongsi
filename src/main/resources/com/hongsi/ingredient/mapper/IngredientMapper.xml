@@ -7,6 +7,8 @@
 <!-- <![CDATA[ 이 사이에 있는 것은 mybatis가 처리하지 않고 그대로 넘긴다. DB에서 처리되도록 ]]> -->
 
 <mapper namespace="com.hongsi.ingredient.mapper.IngredientMapper">
+
+	<!-- 재료구매 / 입출고 화면에서 주문품 필드에 재료 목록 보여줌  -->
 	<select id="list" resultType="com.hongsi.ingredient.vo.IngredientVO">
 	SELECT 
 		CNO,

@@ -41,9 +41,12 @@ public class QuantityController {
 	public String list(Model model) {
 		log.info("hongsi...............................");
 		
-		model.addAttribute("itemList", itemService.list());		
+		// 재료함량 화면에서 제품 목록 EARLGREY, ORIGINAL, SWEETNSALTY
+		model.addAttribute("itemList", itemService.list());
+		// 제품별 목록 구성 비교 근거 & 제품 g
 		model.addAttribute("itemTypeList", itemqtytypeService.itemTypeList());
 		//log.info("hongsi..............................."+itemService.itemTypeList());
+		// 제품 100g당 함량 리스트
 		model.addAttribute("qtyList", quantityService.list());
 		return MODULE+"/list";
 	}

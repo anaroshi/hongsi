@@ -208,12 +208,6 @@ public class PurchIngSerivceImpl implements PurchIngSerivce {
 	}	
 
 	// 재료 입출고 수정을 위한 cno에 해당하는 정보 가져오기
-//	@Override
-//	public PurchIngVO selectStorageInfoByCno(Integer cno) {		
-//		return mapper.selectStorageInfoByCno(cno);
-//	}
-
-	// 재료 입출고 수정을 위한 cno에 해당하는 정보 가져오기
 	@Override
 	public PurchIngVO selectBuyStorageInfoByCno(PurchIngVO vo) {
 		return mapper.selectBuyStorageInfoByCno(vo);

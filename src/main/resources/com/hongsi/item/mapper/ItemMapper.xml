@@ -7,6 +7,8 @@
 <!-- <![CDATA[ 이 사이에 있는 것은 mybatis가 처리하지 않고 그대로 넘긴다. DB에서 처리되도록 ]]> -->
 
 <mapper namespace="com.hongsi.item.mapper.ItemMapper">
+
+	<!-- 재료함량 화면에서 상품 목록 -->
 	<select id="list" resultType="com.hongsi.item.vo.ItemVO">
 	SELECT 
 		CNO,

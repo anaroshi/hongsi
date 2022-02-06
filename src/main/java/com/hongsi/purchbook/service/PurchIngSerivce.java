@@ -26,8 +26,6 @@ public interface PurchIngSerivce {
 	public int updateIng(PurchIngVO vo);
 	public int updateIngTrace(PurchIngVO vo);
 
-//	public PurchIngVO selectStorageInfoByCno(Integer cno);
-
 	public PurchIngVO selectBuyStorageInfoByCno(PurchIngVO vo);
 
 }

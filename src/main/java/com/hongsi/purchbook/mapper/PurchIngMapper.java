@@ -26,8 +26,6 @@ public interface PurchIngMapper {
 	int updateIng(PurchIngVO vo);
 	int updateIngTrace(PurchIngVO vo);
 
-//	PurchIngVO selectStorageInfoByCno(Integer cno);
-
 	PurchIngVO selectBuyStorageInfoByCno(PurchIngVO vo);
 
 }

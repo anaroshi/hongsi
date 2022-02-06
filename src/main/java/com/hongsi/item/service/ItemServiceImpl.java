@@ -19,11 +19,11 @@ public class ItemServiceImpl implements ItemService {
 
 	private ItemMapper mapper;
 	
+	// 재료함량 화면에서 제품 목록 EARLGREY, ORIGINAL, SWEETNSALTY
+	// quantity/list.do	
 	@Override
 	public List<ItemVO> list() {	
 		log.info("------------------- List<ItemVO>");
 		return mapper.list();
 	}
-	
-
 }

@@ -1,5 +1,9 @@
 package com.hongsi.purchbook.controller;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -7,6 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.hongsi.ingredient.service.IngredientService;
@@ -128,4 +135,20 @@ public class PurchIngController {
 		return MODULE + "/storageAllList";
 	}
 
+//	@ResponseBody	
+//	@PostMapping("uploadExcel")
+//	public String uploadExcel(MultipartHttpServletRequest req) {
+//		MultipartFile file = null;
+//		Iterator<String> iterator = req.getFileNames();
+//		if(iterator.hasNext()) {
+//			file = req.getFile(iterator.next());
+//		}
+//		
+//		// 엑셀 헤더 정보 구성
+//		String[] headerInfo = {"number", "text", "data"};
+//		
+//		// 엑셀 파일을 읽어 데이터 가져오기
+//		List<HashMap<String, Object>> list = excelUtil.uploadExcel(file, headerInfo);
+//		return list;
+//	}
 }

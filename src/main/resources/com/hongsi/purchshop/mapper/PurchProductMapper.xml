@@ -8,6 +8,7 @@
 
 <mapper namespace="com.hongsi.purchshop.mapper.PurchProductMapper">
 
+	<!-- 생산 정보 저장 -->
 	<insert id="insertProduct">
 	INSERT INTO PURCH_PRODUCT (
 		CNO,
@@ -48,6 +49,7 @@
 	)
 	</insert>
 
+	<!-- Trace : 생산 정보 저장 -->
 	<insert id="insertProductTrace">
 	INSERT INTO PURCH_PRODUCT_TRACE (
 		UNQ,
@@ -90,6 +92,7 @@
 	)
 	</insert>
 	
+	<!-- 생산 정보 리스트 -->
 	<select id="selectProductList" resultType="com.hongsi.purchshop.vo.PurchProductVO">
 	SELECT 	A.CNO, A.PRODUCTDATE, A.GUBUN, 
 			A.ORI_250, A.ORI_500, A.ORI_1000, 
@@ -149,6 +152,7 @@
 	) A	
 	</select>
 	
+	<!-- 	리스트 하단 합계 -->
 	<select id="selectProductStock" resultType="com.hongsi.purchshop.vo.PurchProductVO">
 	SELECT 	
 	(A.IN_ORI_250_TOTAL-B.OUT_ORI_250_TOTAL) 	ORI_250_SUM,
@@ -283,5 +287,5 @@
 			UDATE = SYSDATE
 	WHERE 	CNO = #{cno}
 	</update>
-	
+
 </mapper>
