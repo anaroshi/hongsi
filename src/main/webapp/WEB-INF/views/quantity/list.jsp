@@ -33,7 +33,7 @@
       </tr>
     </thead>
     <tbody>
-	<c:forEach items="${qtyList}" var="vo">
+	<c:forEach items="${qtyList}" var="vo">	
 	<c:if test="${itemTypeVO.code eq vo.code}">
 		<tr class="dataRow">
 	        <td>${vo.ingredient}</td>

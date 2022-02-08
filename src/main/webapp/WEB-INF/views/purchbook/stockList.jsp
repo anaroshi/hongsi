@@ -92,16 +92,16 @@ function excelDownloadProcess() {
 				</div>
 			</div>
 			
-			<div class="col-md-3">
-				<form id="form1" name="form1" method="post" enctype="multipart/form-data" onsubmit="return false">
-					<input type="file" id="fileInput" name="fileInput">
-					<a href="javascript:void(0);" onclick="excelUploadProcess()">엑셀업로드</a>
-					<a href="javascript:void(0);" onclick="excelDownloadProcess()">엑셀다운로드</a>
-				</form>
-				<iframe width="0" height="0" name="hide_frame"
-					id="hide_frame" style="margin: 0"></iframe>
-				<div id="result"></div>
-			</div>
+<!-- 			<div class="col-md-3"> -->
+<!-- 				<form id="form1" name="form1" method="post" enctype="multipart/form-data" onsubmit="return false"> -->
+<!-- 					<input type="file" id="fileInput" name="fileInput"> -->
+<!-- 					<a href="javascript:void(0);" onclick="excelUploadProcess()">엑셀업로드</a> -->
+<!-- 					<a href="javascript:void(0);" onclick="excelDownloadProcess()">엑셀다운로드</a> -->
+<!-- 				</form> -->
+<!-- 				<iframe width="0" height="0" name="hide_frame" -->
+<!-- 					id="hide_frame" style="margin: 0"></iframe> -->
+<!-- 				<div id="result"></div> -->
+<!-- 			</div> -->
 		</div>
 		
 		
