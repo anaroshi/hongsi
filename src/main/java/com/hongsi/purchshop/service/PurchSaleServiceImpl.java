@@ -31,18 +31,6 @@ public class PurchSaleServiceImpl implements PurchSaleService {
 		return mapper.insertSale(vo);
 	}
 
-	// 판매 정보 등록
-	@Override
-	public int insertSaleTrace(PurchSaleVO vo) {
-		if(vo.getGubun().equals("판매")) vo.setGubunCode("out");
-		else if(vo.getGubun().equals("교환")) vo.setGubunCode("out");
-		else if(vo.getGubun().equals("반품")) vo.setGubunCode("in");
-		else if(vo.getGubun().equals("손실")) vo.setGubunCode("out");
-		else if(vo.getGubun().equals("경비")) vo.setGubunCode("out");
-		log.info("PurchsaleServiceImpl vo:"+vo);
-		return mapper.insertSaleTrace(vo);
-	}
-	
 	@Override
 	public List<PurchSaleVO> selectSaleList() {
 		return mapper.selectSaleList();
@@ -74,12 +62,6 @@ public class PurchSaleServiceImpl implements PurchSaleService {
 	public int deleteSaleInfoByCno(int cno) {
 		log.info("-----------impl-------------deleteSale :"+cno);
 		return mapper.deleteSaleInfoByCno(cno);
-	}
-
-	@Override
-	public int deleteSaleInfoByCnoTrace(int cno) {
-		log.info("-----------impl-------------deleteSaleTrace :"+cno);
-		return mapper.deleteSaleInfoByCnoTrace(cno);
 	}
 
 	@Override

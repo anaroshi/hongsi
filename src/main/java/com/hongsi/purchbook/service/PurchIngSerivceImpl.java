@@ -66,42 +66,6 @@ public class PurchIngSerivceImpl implements PurchIngSerivce {
 		return mapper.insertIng(vo);
 	}
 
-	// 주문 정보 저장 -> 이력 TRACE
-	@Override
-	public int insertIngTrace(PurchIngVO vo) {
-
-		String status 	= vo.getStatus();
-		String gubun 	= vo.getGubun();
-
-		if (status.equals("purch")) {
-		// 재료 주문
-			if(gubun.equals("구매")) vo.setGubunCode("in");
-			else if(gubun.equals("교환")) vo.setGubunCode("out");
-			else if(gubun.equals("반품")) vo.setGubunCode("in");
-			else if(gubun.equals("손실")) vo.setGubunCode("out");
-			else if(gubun.equals("취소")) vo.setGubunCode("out");
-			
-			String inDate = vo.getInDate();
-			vo.setInDate(inDate.replace("/", ""));
-			vo.setInDate(inDate.replace(".", ""));
-			vo.setInDate(inDate.replace("-", ""));
-		}
-		
-		if (status.equals("storage")) {
-		// 재료 입출고		
-			if(gubun.equals("출고")) vo.setGubunCode("out");
-			else if(gubun.equals("입고_office")) vo.setGubunCode("in");
-			else if(gubun.equals("입고_cafe")) vo.setGubunCode("in");
-			else if(gubun.equals("손실")) vo.setGubunCode("out");
-			else if(gubun.equals("취소")) vo.setGubunCode("out");
-			vo.setPurShop("");
-			vo.setInDate(new SimpleDateFormat("yyyyMMdd").format(vo.getBuyDate()));
-		}		
-		log.info("------------------ingTrace impl vo:"+vo);
-		
-		return mapper.insertIngTrace(vo);		
-	}
-
 	@Override
 	public List<PurchIngVO> selectIgdTotalList() {		
 		return mapper.selectIgdTotalList();
@@ -114,12 +78,6 @@ public class PurchIngSerivceImpl implements PurchIngSerivce {
 		return mapper.updateInDate(vo);
 	}
 
-	// TRACE : 입고일 저장
-	@Override
-	public int insertInDateTrace(PurchIngVO vo) {
-		return mapper.insertInDateTrace(vo);		
-	}
-
 	@Override
 	public List<PurchIngVO> selectStorageInOut() {
 		return mapper.selectStorageInOut();
@@ -130,12 +88,6 @@ public class PurchIngSerivceImpl implements PurchIngSerivce {
 	public int deleteIng(PurchIngVO vo) {
 		return mapper.deleteIng(vo);
 	}
-
-	// TRACE : 재료 구매 & 입출고 정보 삭제
-	@Override
-	public int deleteIngTrace(PurchIngVO vo) {
-		return mapper.deleteIngTrace(vo);
-	}	
 	
 	// 재료 구입 / 입출고 수정
 	@Override
@@ -172,40 +124,6 @@ public class PurchIngSerivceImpl implements PurchIngSerivce {
 		return mapper.updateIng(vo);
 	}
 	
-	// TRACE : 재료 구입 / 입출고 수정에 대한 저장
-	@Override
-	public int updateIngTrace(PurchIngVO vo) {
-		log.info("------------------updateIngTrace impl vo:"+vo);
-		String status 	= vo.getStatus();
-		String gubun 	= vo.getGubun();
-
-		if (status.equals("purch")) {
-		// 재료 주문
-			if(gubun.equals("구매")) vo.setGubunCode("in");
-			else if(gubun.equals("교환")) vo.setGubunCode("out");
-			else if(gubun.equals("반품")) vo.setGubunCode("in");
-			else if(gubun.equals("손실")) vo.setGubunCode("out");
-			else if(gubun.equals("취소")) vo.setGubunCode("out");
-			
-			String inDate = vo.getInDate();
-			vo.setInDate(inDate.replace("/", ""));
-			vo.setInDate(inDate.replace(".", ""));
-			vo.setInDate(inDate.replace("-", ""));
-		}
-		
-		if (status.equals("storage")) {
-		// 재료 입출고		
-			if(gubun.equals("출고")) vo.setGubunCode("out");
-			else if(gubun.equals("입고_office")) vo.setGubunCode("in");
-			else if(gubun.equals("입고_cafe")) vo.setGubunCode("in");
-			else if(gubun.equals("손실")) vo.setGubunCode("out");
-			else if(gubun.equals("취소")) vo.setGubunCode("out");
-			vo.setPurShop("");
-			vo.setInDate(new SimpleDateFormat("yyyyMMdd").format(vo.getBuyDate()));
-		}		
-		log.info("------------------updateIngTrace impl vo:"+vo);
-		return mapper.updateIngTrace(vo);
-	}	
 
 	// 재료 입출고 수정을 위한 cno에 해당하는 정보 가져오기
 	@Override

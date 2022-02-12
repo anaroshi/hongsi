@@ -155,6 +155,7 @@ article {
 						<li><a href="${path }/quantity/list.do">재료함량</a></li>
 						<li><a href="${path }/purchbook/stockList.do">재료재고</a></li>
 						<li><a href="${path }/quantity/product.do">제품생산</a></li>									
+						<li><a href="${path }/report/report.do">엑셀출력</a></li>									
 						<!-- &amp; - &, &lt; -> <, &gt; -> >, &nbsp; blank -->						
 						<c:if test="${!empty login }">
 							<!-- 로그인되어 있는 경우의 메뉴 -->

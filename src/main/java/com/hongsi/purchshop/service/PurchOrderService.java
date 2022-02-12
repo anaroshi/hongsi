@@ -7,10 +7,8 @@ import com.hongsi.purchshop.vo.PurchOrderVO;
 public interface PurchOrderService {
 	
 	public int insertPurchshopOrder(PurchOrderVO vo);
-	public int insertPurchshopOrderTrace(PurchOrderVO vo);
 
 	public int deleteOrderInfoByCno(int cno);
-	public int deleteOrderInfoByCnoTrace(int cno);
 
 	public int updateOrderInfoByCno(PurchOrderVO vo);
 	

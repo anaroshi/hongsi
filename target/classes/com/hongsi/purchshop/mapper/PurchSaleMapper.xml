@@ -65,65 +65,6 @@
 	)
 	</insert>
 	
-	<!-- Trace : 판매 정보 저장 -->
-	<insert id="insertSaleTrace">
-	INSERT INTO PURCH_SALE_TRACE (
-		UNQ,
-		CNO,
-		ORDER_CNO,
-		SALEDATE,
-		ORI_250,
-		ORI_500,
-		ORI_1000,
-		ERL_250,		
-		ERL_500,		
-		ERL_1000,	
-		SNS_250,		
-		SNS_500,
-		SNS_1000,
-		GUBUN,
-		PRICE,
-		PAYMENTPATH,
-		SALEPATH,
-		DELEVERYDATE,
-		DELEVERYPATH,
-		ORDERER,
-		ORDERDATE,
-		COMM,
-		MANAGER,
-		GUBUNCODE,
-		STATUS,
-		FLAG
-	) VALUES (
-		PURCHSALE_TRACE_PK.NEXTVAL,
-		#{cno},
-		#{order_cno},
-		#{saleDate},
-		#{ori_250},
-		#{ori_500},
-		#{ori_1000},
-		#{erl_250},
-		#{erl_500},
-		#{erl_1000},
-		#{sns_250},
-		#{sns_500},
-		#{sns_1000},
-		#{gubun},
-		#{price},
-		#{paymentPath},
-		#{salePath},
-		TO_DATE(#{deleveryDate},'YYYY-MM-DD'),
-		#{deleveryPath},
-		#{orderer},
-		TO_DATE(#{orderDate},'YYYY-MM-DD'),
-		#{comm},
-		#{manager},
-		#{gubunCode},
-		#{status},
-		#{flag}
-	)
-	</insert>
-
 	<!-- 판매 정보 리스트 -->
 	<select id="selectSaleList" resultType="com.hongsi.purchshop.vo.PurchSaleVO">
 	SELECT 
@@ -427,21 +368,6 @@
 	WHERE 	CNO  = #{cno}	
 	</update>
 	
-	<!-- Trace : 판매 정보 삭제 정보 저장 -->
-	<insert id="deleteSaleInfoByCnoTrace">
-	INSERT INTO PURCH_SALE_TRACE (
-		UNQ,
-		CNO,
-		STATUS,
-		FLAG
-	) VALUES (
-		PURCHSALE_TRACE_PK.NEXTVAL,
-		#{cno},
-		'sale',
-		4
-	)
-	</insert>
-
 	<!-- 판매 정보 수정 -->
 	<update id="updateSaleInfoByCno">
 	UPDATE 	PURCH_SALE

@@ -8,33 +8,6 @@
 <meta charset="UTF-8">
 <title>Quantity</title>
 
-<script type="text/javascript">
-
-function excelUploadProcess() {
-	
-	let formData = $("form1").serialize();
-	
-	$.ajax({
-		url: "uploadExcel.do",
-		data: formData,
-		processData: false,
-		contentType: false,
-		type: "POST",
-		success: function(data) {
-			console.log(data);
-			$("#result").html = JSON.stringify(data);
-		}
-	});
-}
-
-function excelDownloadProcess() {
-	alert("excelDownloadProcess");
-	//$("#form1").target = "hide_frame";
-	$("#form1").action = "excelDownload";
-	$("#form1").submit();
-}
-</script>
-
 </head>
 <body>
 	<div class="container">
@@ -90,21 +63,7 @@ function excelDownloadProcess() {
 					</div>
 				</div>
 				</div>
-			</div>
-			
-			<div class="col-md-3">
-				<form id="form1" name="form1" method="post" enctype="multipart/form-data" onsubmit="return false">
-					<input type="file" id="fileInput" name="fileInput">
-					<a href="javascript:void(0);" onclick="excelUploadProcess()">엑셀업로드</a>
-<!-- 					<a href="javascript:void(0);" onclick="excelDownloadProcess()">엑셀다운로드</a> -->
-					<a href="excelDownload">엑셀다운로드</a>
-				</form>
-				<iframe width="0" height="0" name="hide_frame"
-					id="hide_frame" style="margin: 0"></iframe>
-				<div id="result"></div>
-			</div>
-		</div>
-		
-		
+			</div>			
+		</div>		
 	</div>
 </html>

@@ -55,9 +55,27 @@
       </tr>
     </thead>
     <tbody>
+	    <c:set var="ori_250_sum" value="0"/>
+	   	<c:set var="ori_500_sum" value="0"/>
+	   	<c:set var="ori_1000_sum" value="0"/>
+		<c:set var="erl_250_sum" value="0"/>
+	   	<c:set var="erl_500_sum" value="0"/>
+	   	<c:set var="erl_1000_sum" value="0"/>
+	    <c:set var="sns_250_sum" value="0"/>
+	   	<c:set var="sns_500_sum" value="0"/>
+	   	<c:set var="sns_1000_sum" value="0"/>
 <c:forEach items="${orderList}" var="vo">
       <tr class="dataRow" onclick="fn_view(${vo.cno}); return false;">
-        <td>${vo.orderDate}</td>
+       	<c:set var="ori_250_sum" value="${ori_250_sum + vo.ori_250}"/>
+    	<c:set var="ori_500_sum" value="${ori_500_sum + vo.ori_500}"/>
+    	<c:set var="ori_1000_sum" value="${ori_1000_sum + vo.ori_1000}"/>
+       	<c:set var="erl_250_sum" value="${erl_250_sum + vo.erl_250}"/>
+    	<c:set var="erl_500_sum" value="${erl_500_sum + vo.erl_500}"/>
+    	<c:set var="erl_1000_sum" value="${erl_1000_sum + vo.erl_1000}"/>
+       	<c:set var="sns_250_sum" value="${sns_250_sum + vo.sns_250}"/>
+    	<c:set var="sns_500_sum" value="${sns_500_sum + vo.sns_500}"/>
+    	<c:set var="sns_1000_sum" value="${sns_1000_sum + vo.sns_1000}"/>
+    	<td>${vo.orderDate}</td>
         <td>${vo.gubun}</td>
         <td class="text-right">${vo.ori_250}</td>
         <td class="text-right">${vo.ori_500}</td>
@@ -77,15 +95,15 @@
       	<tr>
 	        <td></td>
 	        <td></td>
-	        <th class="text-right">${orderStock.ori_250_sum}</th>
-	        <th class="text-right">${orderStock.ori_500_sum}</th>
-	        <th class="text-right">${orderStock.ori_1000_sum}</th>
-	        <th class="text-right">${orderStock.erl_250_sum}</th>
-	        <th class="text-right">${orderStock.erl_500_sum}</th>
-	        <th class="text-right">${orderStock.erl_1000_sum}</th>
-	        <th class="text-right">${orderStock.sns_250_sum}</th>
-	        <th class="text-right">${orderStock.sns_500_sum}</th>
-	        <th class="text-right">${orderStock.sns_1000_sum}</th>
+	        <th class="text-right">${ori_250_sum}</th>
+	        <th class="text-right">${ori_500_sum}</th>
+	        <th class="text-right">${ori_1000_sum}</th>
+	        <th class="text-right">${erl_250_sum}</th>
+	        <th class="text-right">${erl_500_sum}</th>
+	        <th class="text-right">${erl_1000_sum}</th>
+	        <th class="text-right">${sns_250_sum}</th>
+	        <th class="text-right">${sns_500_sum}</th>
+	        <th class="text-right">${sns_1000_sum}</th>
 	        <td></td>
 	        <td></td>
       	</tr>

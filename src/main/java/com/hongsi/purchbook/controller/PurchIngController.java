@@ -1,9 +1,5 @@
 package com.hongsi.purchbook.controller;
 
-import java.util.Map;
-
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -59,7 +55,6 @@ public class PurchIngController {
 		int result = purchIngSerivce.insertIng(vo);
 		if (result == 1) {
 			log.info(".............................저장성공");
-			purchIngSerivce.insertIngTrace(vo);
 			rttr.addFlashAttribute("msg", "입력되었습니다.");
 		}
 		return "redirect:buy.do";
@@ -85,13 +80,12 @@ public class PurchIngController {
 	public String updateInDate(PurchIngVO vo, RedirectAttributes rttr) {
 		log.info(".............................insertInDate..:"+vo);
 		
-	  int result = purchIngSerivce.updateInDate(vo); 
-	  log.info("............updateInDate..result:"+result);
-	  if (result==1) {		  
-		  purchIngSerivce.insertInDateTrace(vo); 
-		  rttr.addFlashAttribute("msg", "입고일 완료"); 
-	  }		 
-	  return "redirect:buy.do";
+		int result = purchIngSerivce.updateInDate(vo); 
+		log.info("............updateInDate..result:"+result);
+		if (result==1) {		  
+			rttr.addFlashAttribute("msg", "입고일 완료"); 
+		}		 
+		return "redirect:buy.do";
 	}
 	
 	// 재료 입출고 화면
@@ -118,7 +112,6 @@ public class PurchIngController {
 		log.info(".............................insertStorage..result:"+result);
 		if (result==1) {
 			log.info(".......................");
-			purchIngSerivce.insertIngTrace(vo);
 			rttr.addFlashAttribute("msg", "입출고 완료"); 
 		}		
 		return "redirect:storage.do";
@@ -132,30 +125,4 @@ public class PurchIngController {
 		return MODULE + "/storageAllList";
 	}
 
-	@GetMapping("excelDownload")
-	public String excelTransform(Map<String, Object> modelMap, HttpServletResponse res) throws Exception {
-		log.info(".............................excelDownload..");
-		res.setHeader("Content-disposition", "attachment; filename= ingredient.xlsx");
-		modelMap. put("IgdTotalList",purchIngSerivce.selectIgdTotalList());
-		return "excelView";
-	}
-	
-//	@ResponseBody	
-//	@PostMapping("uploadExcel")
-//	public String uploadExcel(MultipartHttpServletRequest req) {
-//		MultipartFile file = null;
-//		Iterator<String> iterator = req.getFileNames();
-//		if(iterator.hasNext()) {
-//			file = req.getFile(iterator.next());
-//		}
-//		
-//		// 엑셀 헤더 정보 구성
-//		String[] headerInfo = {"number", "text", "data"};
-//		
-//		// 엑셀 파일을 읽어 데이터 가져오기
-//		List<HashMap<String, Object>> list = excelUtil.uploadExcel(file, headerInfo);
-//		return list;
-//	}
-	
-	
 }

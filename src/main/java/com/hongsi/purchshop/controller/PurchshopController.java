@@ -60,7 +60,6 @@ public class PurchshopController {
 		vo.setFlag(1);
 		int result = purchOrderService.insertPurchshopOrder(vo);
 		if (result == 1) {
-			purchOrderService.insertPurchshopOrderTrace(vo);
 			rttr.addFlashAttribute("msg", "주문 완료");
 		}
 		return "redirect:/purchshop/order.do";
@@ -72,7 +71,7 @@ public class PurchshopController {
 	public String orderAllList(PurchOrderVO vo, Model model) {
 		log.info(".............................orderAllList..");
 		model.addAttribute("orderList", purchOrderService.selectOrderList());
-		model.addAttribute("orderStock", purchOrderService.selectOrderStock());
+		//model.addAttribute("orderStock", purchOrderService.selectOrderStock());
 		return MODULE + "/orderAllList";
 	}
 
@@ -103,7 +102,6 @@ public class PurchshopController {
 		vo.setFlag(1);
 		int result = purchProductService.insertProduct(vo);
 		if (result == 1) {
-			purchProductService.insertProductTrace(vo);
 			rttr.addFlashAttribute("msg", "생산 완료");
 		}
 		return "redirect:/purchshop/product.do";
@@ -113,7 +111,7 @@ public class PurchshopController {
 	@GetMapping("productAllList.do")
 	public String productAllList(Model model) {
 		model.addAttribute("productList", purchProductService.selectProductList());
-		model.addAttribute("productStock", purchProductService.selectProductStock());
+		//model.addAttribute("productStock", purchProductService.selectProductStock());
 		return MODULE + "/productAllList";
 	}
 	
@@ -154,7 +152,6 @@ public class PurchshopController {
 		// 판매 테이블에 주문 정보 저장
 		int result = purchSaleService.insertSale(vo);		
 		if (result == 1) { 
-			purchSaleService.insertSaleTrace(vo);
 			rttr.addFlashAttribute("msg", "판매 완료"); 
 		}
 
@@ -167,7 +164,7 @@ public class PurchshopController {
 		log.info(".............................saleAllList");
 		// 판매 정보 리스트
 		model.addAttribute("saleList", purchSaleService.selectSaleList());	
-		model.addAttribute("saleStock", purchSaleService.selectSaleStock());	
+		//model.addAttribute("saleStock", purchSaleService.selectSaleStock());	
 		return MODULE + "/saleAllList";
 	}
 }

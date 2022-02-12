@@ -71,7 +71,6 @@ public class ViewController {
 		int result = purchIngSerivce.deleteIng(vo);
 		log.info(".............................buyDelete..result:"+result);
 		if (result == 1) {
-			purchIngSerivce.deleteIngTrace(vo);
 			return "ok";
 		}
 		return "";
@@ -88,7 +87,6 @@ public class ViewController {
 		int result = purchIngSerivce.updateIng(vo);
 		log.info("............................result:"+result); 
 		if (result==1) {
-			purchIngSerivce.updateIngTrace(vo);
 			return "ok"; 
 		}
 		return "fail";
@@ -119,7 +117,6 @@ public class ViewController {
 		int result = purchIngSerivce.deleteIng(vo);
 		log.info(".............................storageDelete..result:"+result);
 		if (result == 1) {
-			purchIngSerivce.deleteIngTrace(vo);
 			return "ok";
 		}
 		return "";
@@ -138,7 +135,6 @@ public class ViewController {
 		int result = purchIngSerivce.updateIng(vo);
 		log.info("............................result:"+result); 
 		if (result==1) {
-			purchIngSerivce.updateIngTrace(vo);
 			return "ok"; 
 		}
 		return "fail";
@@ -162,7 +158,6 @@ public class ViewController {
 		log.info(".............................productDelete..");
 		int result = purchProductService.deleteProductInfoByCno(cno);
 		if (result == 1) {
-			purchProductService.deleteProductInfoByCnoTrace(cno);
 			return "ok";
 		}
 		return "";
@@ -181,7 +176,6 @@ public class ViewController {
 		log.info("............................result:"+result); 
 		if (result==1) {
 			log.info(".........................");
-			purchProductService.insertProductTrace(vo); 
 			return "ok"; 
 		}
 		return "fail";
@@ -209,7 +203,6 @@ public class ViewController {
 		
 		log.info(".............................orderDelete..result:" + result);
 		if (result == 1) {
-			purchOrderService.deleteOrderInfoByCnoTrace(cno);
 			return "ok";
 		}
 		return "";
@@ -227,7 +220,6 @@ public class ViewController {
 		 int result = purchOrderService.updateOrderInfoByCno(vo);
 		 log.info("............................result:"+result); 
 		 if (result==1) {
-			 purchOrderService.insertPurchshopOrderTrace(vo); 
 			 return "ok"; 
 		 }
 		 return "fail";
@@ -253,7 +245,6 @@ public class ViewController {
 		log.info(".............................saleDelete..");
 		int result = purchSaleService.deleteSaleInfoByCno(cno);
 		if (result == 1) {
-			purchSaleService.deleteSaleInfoByCnoTrace(cno);
 			return "ok";
 		}
 		return "";
@@ -271,7 +262,6 @@ public class ViewController {
 		int result = purchSaleService.updateSaleInfoByCno(vo);
 		log.info("............................result:"+result); 
 		if (result==1) {
-			purchSaleService.insertSaleTrace(vo); 
 			return "ok"; 
 		}
 		return "fail";

@@ -13,10 +13,6 @@
 </style>
   
 <script>
-$( function() {
-	  
-});
-
 function fn_view(cno) {	
 	
 	//alert(cno);
@@ -46,48 +42,49 @@ function fn_view(cno) {
         <th width="10%">주문일</th>
         <th width="10%">구분</th>
         <th width="10%">주문품</th>
-        <th width="10%">용량</th>
-        <th width="10%">수량</th>
-        <th width="10%">금액</th>
+        <th width="10%">용량(g)</th>
+        <th width="10%">수량(개)</th>
+        <th width="10%">금액(원)</th>
         <th width="10%">거래처</th>
         <th width="10%">입고일</th>
         <th width="20%">비고</th>
       </tr>
     </thead>
     <tbody>
-<c:forEach items="${resultList}" var="vo" varStatus="status">
+    	<c:set var="contentSum" value="0"/>
+    	<c:set var="qtySum" value="0"/>
+    	<c:set var="priceSum" value="0"/>
+<c:forEach items="${resultList}" var="vo" varStatus="status">	
  	<tr class="dataRow" onclick="fn_view(${vo.cno}); return false;"> 		
+ 		<c:set var="contentSum" value="${contentSum + vo.content}"/>
+ 		<c:set var="qtySum" value="${qtySum + vo.qty}"/>
+ 		<c:set var="priceSum" value="${priceSum + vo.price}"/>
  		<td class="cno" style="display:none">${vo.cno}</td>
         <td>${vo.buyDate}</td>
         <td>${vo.gubun}</td>
         <td>${vo.item}</td>
         <td class="text-right"><fmt:formatNumber value="${vo.content}" /></td>
         <td class="text-right"><fmt:formatNumber value="${vo.qty}" /></td>
-        <td class="text-right"><fmt:formatNumber type="currency" value="${vo.price}" /></td>
+        <td class="text-right"><fmt:formatNumber value="${vo.price}" /></td>
         <td>${vo.purShop}</td>
         <td>${vo.inDate}</td>
         <td>${vo.comm}</td>
     </tr>
 </c:forEach>
-    </tbody>
-    <tfoot>
-      	<tr>
-<!-- 	        <td></td> -->
-<!-- 	        <td></td> -->
-<!-- 	        <td></td> -->
-<%-- 	        <th class="text-right">${saleStock.ori_250_sum}</th> --%>
-<%-- 	        <th class="text-right">${saleStock.ori_500_sum}</th> --%>
-<%-- 	        <th class="text-right">${saleStock.ori_1000_sum}</th> --%>
-<%-- 	        <th class="text-right">${saleStock.erl_250_sum}</th> --%>
-<%-- 	        <th class="text-right">${saleStock.erl_500_sum}</th> --%>
-<%-- 	        <th class="text-right">${saleStock.erl_1000_sum}</th> --%>
-<%-- 	        <th class="text-right">${saleStock.sns_250_sum}</th> --%>
-<%-- 	        <th class="text-right">${saleStock.sns_500_sum}</th> --%>
-<%-- 	        <th class="text-right">${saleStock.sns_1000_sum}</th> --%>
-<!-- 	        <td></td> -->
-<!-- 	        <td></td> -->
-<!-- 	        <td></td> -->
-      	</tr>
+	</tbody>
+    <tfoot>    
+  	<tr> 		
+ 		<td class="cno" style="display:none"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td class="text-right"><fmt:formatNumber value="${contentSum}" /></td>
+        <td class="text-right"><fmt:formatNumber value="${qtySum}" /></td>
+        <td class="text-right"><fmt:formatNumber value="${priceSum}" /></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
     </tfoot>
 </table>
 </div>

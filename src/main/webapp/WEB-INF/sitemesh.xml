@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE XML>
-<!-- 작성자 : 이영환 -->
-<!-- 작성일 : 2020-06-30 -->
 <!-- sitemesh 설정에 대한 정의 xml 파일 -->
 <!-- 주의할 점 - 아래 내용을 지키지 않으면 태그 자체가 사라진다.
      1. JSP를 만들 때 반드시 HTML - HEAD- TITLE,  HTML - Body 구조로 만들어야만 인식을 한다. 태그 안에 작성해야만한다.

@@ -7,10 +7,8 @@ import com.hongsi.purchshop.vo.PurchSaleVO;
 public interface PurchSaleMapper {
 
 	int insertSale(PurchSaleVO vo);
-	int insertSaleTrace(PurchSaleVO vo);
 
 	int deleteSaleInfoByCno(int cno);
-	int deleteSaleInfoByCnoTrace(int cno);
 
 	int updateSaleInfoByCno(PurchSaleVO vo);
 	
