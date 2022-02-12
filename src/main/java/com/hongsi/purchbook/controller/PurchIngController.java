@@ -1,8 +1,8 @@
 package com.hongsi.purchbook.controller;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -11,9 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.hongsi.ingredient.service.IngredientService;
@@ -135,6 +132,14 @@ public class PurchIngController {
 		return MODULE + "/storageAllList";
 	}
 
+	@GetMapping("excelDownload")
+	public String excelTransform(Map<String, Object> modelMap, HttpServletResponse res) throws Exception {
+		log.info(".............................excelDownload..");
+		res.setHeader("Content-disposition", "attachment; filename= ingredient.xlsx");
+		modelMap. put("IgdTotalList",purchIngSerivce.selectIgdTotalList());
+		return "excelView";
+	}
+	
 //	@ResponseBody	
 //	@PostMapping("uploadExcel")
 //	public String uploadExcel(MultipartHttpServletRequest req) {
@@ -151,4 +156,6 @@ public class PurchIngController {
 //		List<HashMap<String, Object>> list = excelUtil.uploadExcel(file, headerInfo);
 //		return list;
 //	}
+	
+	
 }

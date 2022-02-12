@@ -138,7 +138,9 @@
         <dependency>
             <groupId>com.oracle.database.jdbc</groupId>
             <artifactId>ojdbc10</artifactId>
-            <version>19.11.0.0</version>                  
+            <version>19.11.0.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/ojdbc10.jar</systemPath>                  
         </dependency>
         <!-- OCI DB 접속시 필요한거 1 -->
         <dependency>
@@ -164,13 +166,13 @@
 
 		<!-- DB관련 | Oracle -->
 		<!-- 오라클 드라이버 : maven.org에 새롭게 등록이 되어 있음 -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>oracle</groupId> -->
-<!-- 			<artifactId>ojdbc6</artifactId> -->
-<!-- 			<version>11.2.0</version> -->
-<!-- 			<scope>system</scope> -->
-<!-- 			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/ojdbc6.jar</systemPath> -->
-<!-- 		</dependency> -->
+		<dependency>
+			<groupId>oracle</groupId>
+			<artifactId>ojdbc6</artifactId>
+			<version>11.2.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/ojdbc6.jar</systemPath>
+		</dependency>
 
 		<!-- HikariCP 커넥션 풀 관련 -->
 		<dependency>
@@ -227,6 +229,19 @@
 		  <groupId>opensymphony</groupId>
 		  <artifactId>sitemesh</artifactId>
 		  <version>2.4.2</version>
+		</dependency>
+
+		<!-- 엑셀 생성과 업,다운로드 -->
+		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi</artifactId>
+		    <version>5.2.0</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi-ooxml</artifactId>
+		    <version>5.2.0</version>
 		</dependency>
 
 		<!-- Test -->

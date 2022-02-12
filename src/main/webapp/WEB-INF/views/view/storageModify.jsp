@@ -42,7 +42,7 @@ $( function() {
 
 function fn_delete(cno) {
 	if(confirm("삭제하시겠습니까")) {
-		alert(cno);		
+		//alert(cno);		
 		$.ajax({
 			type: "POST",
 			url: "storageDelete.do",
@@ -70,7 +70,7 @@ function fn_update() {
 	if(confirm("수정하시겠습니까")) {
 		
 		let formData = $("#frm").serialize();		
-		alert(JSON.stringify(formData));
+		//alert(JSON.stringify(formData));
 		
 		$.ajax({
 			type: "POST",
