@@ -46,12 +46,15 @@
 <div class="row">
   <h4>재료 입출고 입력</h4>
 		<!-- 재고량 보이기 Start -->
-	<div class="col-md-2">
+	<div class="col-md-4">
 		<table class="table">
 			<thead>
 				<tr>
 					<th>재료</th>
 					<th>재고 (g)</th>
+					<th>금주</th>
+					<th>Cafe</th>
+					<th>이동</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -60,6 +63,9 @@
 					<tr class="dataRow">
 						<td class="text-center">${vo.kname}</td>
 						<td class="text-right" id="need_${status.count}"><fmt:formatNumber value="${vo.total}" /></td>
+						<td class="text-right" id="need_${status.count}"><fmt:formatNumber value="${vo.needSum}" /></td>
+						<td class="text-right" id="need_${status.count}"><fmt:formatNumber value="${vo.sumCafe}" /></td>
+						<td class="text-right" id="need_${status.count}"><fmt:formatNumber value="${vo.sumOffice}" /></td>
 					</tr>
 				</c:if>	
 				</c:forEach>
@@ -71,7 +77,7 @@
 <!-- 	<input class="form-control inputDate" id="inDate" name="inDate" type="hidden" value=""> -->
 	<!-- 재료 입출고 입력 Start -->
 	<!-- 1블럭 Start -->
-	<div class="col-sm-4">
+	<div class="col-sm-3">
 		<div class="form-group">
 	      <label for="buyDate" class="col-sm-3 control-label">입출고일</label>
 	      <div class="col-sm-8">
@@ -104,7 +110,7 @@
 	    <div class="form-group">
 			<label for="content" class="col-sm-3 control-label">용량</label>
 			<div class="col-sm-8">
-				<input class="form-control inputNumber" id="content" name="content" type="number" placeholder="content" required="required">		      
+				<input class="form-control inputNumber" id="content" name="content" type="number" required="required">		      
 			</div>
 	    </div>
 
@@ -139,14 +145,14 @@
 	<!-- 재료주문 End -->
 
 	<!-- 재료 입출고  List Start -->
-	<div class="col-md-6">
+	<div class="col-md-5">
 	<table class="table table-striped">
 	   <thead>    
 		<tr>
-	        <th width="15%">입출고일</th>
-	        <th width="15%">구분</th>
-	        <th width="30%">재료</th>	        
-	        <th width="10%">용량</th>
+	        <th width="20%">입출고일</th>
+	        <th width="17%">구분</th>
+	        <th width="21%">재료</th>	        
+	        <th width="12%">용량</th>
 	        <th width="30%">비고</th>
 	      </tr>
 	    </thead>

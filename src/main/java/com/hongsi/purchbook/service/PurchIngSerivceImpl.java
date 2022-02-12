@@ -22,7 +22,7 @@ public class PurchIngSerivceImpl implements PurchIngSerivce {
 	
 	@Override
 	public List<PurchIngVO> list() {
-		log.info("------------------- purchIngSerivceImpl - List<PurchbookVO> ");
+		// log.info("------------------- purchIngSerivceImpl - List<PurchbookVO> ");
 		return mapper.list();
 	}
 
@@ -129,6 +129,12 @@ public class PurchIngSerivceImpl implements PurchIngSerivce {
 	@Override
 	public PurchIngVO selectBuyStorageInfoByCno(PurchIngVO vo) {
 		return mapper.selectBuyStorageInfoByCno(vo);
+	}
+
+	// 재료입출고 수량파악
+	@Override
+	public List<PurchIngVO> selectNeedCafe() {
+		return mapper.selectNeedCafe();
 	}
 
 }

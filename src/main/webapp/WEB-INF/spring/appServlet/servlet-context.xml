@@ -22,8 +22,29 @@
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
+		<beans:property name="order" value="2" />
     </beans:bean>
 
+	<!-- excel builder -->
+	<!-- 뷰이름을 가지고 출력할 뷰를 선택할 수 있는 뷰 리졸버 추가 -->
+	<beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<beans:property name="order" value="1" />
+	</beans:bean>
+
+    <beans:bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver"> 
+        <beans:property name="order" value="0"/> 
+        <beans:property name="defaultErrorView" value="error"/> 
+        <beans:property name="exceptionMappings"> 
+            <beans:props> 
+                <beans:prop key="RuntimeException">error</beans:prop> 
+            </beans:props> 
+        </beans:property>
+    </beans:bean>
+    
+	
+	<!-- Excel로 출력해달라는 요청이 오면 ExcelView로 출력 -->
+	<beans:bean id="excelView" class="com.hongsi.util.ExcelView" />
+	
 	<!-- file upload -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" >
 		<!-- upload를 위한 설정 : 한글 엔코딩 -->
@@ -38,6 +59,7 @@
 		<beans:property name="maxInMemorySize" value="10485756" />		
 	</beans:bean>
 	
+	<!-- 패키지에 설정된 패키지 안에 있는 클래스들 중에서 @Controller, @Service, @Repository가 붙은 클래스들의 bean을 자동 생성해주는 설정 -->
 	<context:component-scan base-package="com.hongsi" />
 	<context:component-scan base-package="com.hongsi.exception" />	
 	

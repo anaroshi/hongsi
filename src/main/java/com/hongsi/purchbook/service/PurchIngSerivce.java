@@ -24,4 +24,6 @@ public interface PurchIngSerivce {
 
 	public PurchIngVO selectBuyStorageInfoByCno(PurchIngVO vo);
 
+	public List<PurchIngVO> selectNeedCafe();
+
 }

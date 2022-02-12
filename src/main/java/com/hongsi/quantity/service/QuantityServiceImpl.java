@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.hongsi.purchbook.vo.PurchIngVO;
 import com.hongsi.quantity.mapper.QuantityMapper;
 import com.hongsi.quantity.vo.QuantityVO;
 
@@ -45,8 +46,6 @@ public class QuantityServiceImpl implements QuantityService {
 	public List<QuantityVO> selectTotalNeedFinal() {
 		// 전체 재료, 전체 재고, 한주 주문된 필요재료량, 최종재고, 최종 주문해야할 2주분 확보량 쿼리
 		return mapper.selectTotalNeedFinal();
-	}
-	
-	
+	}	
 
 }

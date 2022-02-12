@@ -24,4 +24,6 @@ public interface PurchIngMapper {
 
 	PurchIngVO selectBuyStorageInfoByCno(PurchIngVO vo);
 
+	List<PurchIngVO> selectNeedCafe();
+
 }

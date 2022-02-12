@@ -14,6 +14,6 @@ public interface QuantityService {
 
 	public List<QuantityVO> selectAllIngreStock();
 
-	public List<QuantityVO> selectTotalNeedFinal();	
+	public List<QuantityVO> selectTotalNeedFinal();
 
 }

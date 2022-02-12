@@ -26,10 +26,11 @@ public class QuantityVO {
 	private long 	sns_qty_2week;
 	private long 	needSum;
 	private long 	need2week;
+	private long 	sumCafe;
+	private long 	sumOffice;
 	
 	private long 	finalTotal;
 	private long 	finalNeed;
-	
 }
 
 /*
