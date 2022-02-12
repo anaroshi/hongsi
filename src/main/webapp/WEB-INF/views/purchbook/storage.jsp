@@ -65,7 +65,7 @@
 						<td class="text-right" id="need_${status.count}"><fmt:formatNumber value="${vo.total}" /></td>
 						<td class="text-right" id="need_${status.count}"><fmt:formatNumber value="${vo.needSum}" /></td>
 						<td class="text-right" id="need_${status.count}"><fmt:formatNumber value="${vo.sumCafe}" /></td>
-						<td class="text-right" id="need_${status.count}"><fmt:formatNumber value="${vo.sumOffice}" /></td>
+						<td class="text-right" id="need_${status.count}"><c:if test="${vo.sumOffice<0}">0</c:if><c:if test="${vo.sumOffice>=0}"><fmt:formatNumber value="${vo.sumOffice}" /></c:if></td>
 					</tr>
 				</c:if>	
 				</c:forEach>
