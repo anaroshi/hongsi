@@ -20,7 +20,7 @@ public class ItemqtytypeServiceImpl implements ItemqtytypeService {
 	private ItemqtytypeMapper mapper;
 	
 	@Override
-	public List<ItemQtyTypeVO> itemTypeList() {
+	public List<ItemQtyTypeVO> itemTypeList() throws Exception {
 		log.info("------------------- List<ItemQtyTypeVO> ");
 		//log.info(mapper.itemTypeList());
 		return mapper.itemTypeList();

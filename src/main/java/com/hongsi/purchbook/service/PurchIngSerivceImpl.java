@@ -21,19 +21,19 @@ public class PurchIngSerivceImpl implements PurchIngSerivce {
 	private PurchIngMapper mapper;
 	
 	@Override
-	public List<PurchIngVO> list() {
+	public List<PurchIngVO> list() throws Exception {
 		// log.info("------------------- purchIngSerivceImpl - List<PurchbookVO> ");
 		return mapper.list();
 	}
 
 	@Override
-	public List<PurchIngVO> selectNonInDate() {
+	public List<PurchIngVO> selectNonInDate() throws Exception {
 		return mapper.selectNonInDate();
 	}
 
 	// 주문 정보 저장
 	@Override
-	public int insertIng(PurchIngVO vo) {	
+	public int insertIng(PurchIngVO vo) throws Exception {	
 		
 		String status 	= vo.getStatus();
 		String gubun 	= vo.getGubun();
@@ -55,6 +55,8 @@ public class PurchIngSerivceImpl implements PurchIngSerivce {
 		if (status.equals("storage")) {
 		// 재료 입출고		
 			if(gubun.equals("출고")) vo.setGubunCode("out");
+			else if(gubun.equals("출고_office")) vo.setGubunCode("out");
+			else if(gubun.equals("출고_cafe")) vo.setGubunCode("out");
 			else if(gubun.equals("입고_office")) vo.setGubunCode("in");
 			else if(gubun.equals("입고_cafe")) vo.setGubunCode("in");
 			else if(gubun.equals("손실")) vo.setGubunCode("out");
@@ -67,38 +69,38 @@ public class PurchIngSerivceImpl implements PurchIngSerivce {
 	}
 
 	@Override
-	public List<PurchIngVO> selectIgdTotalList() {		
+	public List<PurchIngVO> selectIgdTotalList() throws Exception {		
 		return mapper.selectIgdTotalList();
 	}
 
 	// 입고일 저장
 	@Override
-	public int updateInDate(PurchIngVO vo) {
+	public int updateInDate(PurchIngVO vo) throws Exception {
 		log.info("입고일 저장 ----impl--------vo:"+vo);
 		return mapper.updateInDate(vo);
 	}
 
 	@Override
-	public List<PurchIngVO> selectStorageInOut() {
+	public List<PurchIngVO> selectStorageInOut() throws Exception {
 		return mapper.selectStorageInOut();
 	}
 
 	// 재료 구매 & 입출고 정보 삭제
 	@Override
-	public int deleteIng(PurchIngVO vo) {
+	public int deleteIng(PurchIngVO vo) throws Exception {
 		return mapper.deleteIng(vo);
 	}
 	
 	// 재료 구입 / 입출고 수정
 	@Override
-	public int updateIng(PurchIngVO vo) {
+	public int updateIng(PurchIngVO vo) throws Exception {
 		log.info("------------------updateIng impl vo:"+vo);
 		String status 	= vo.getStatus();
 		String gubun 	= vo.getGubun();
 
 		if (status.equals("purch")) {
 		// 재료 주문
-			if(gubun.equals("구매")) vo.setGubunCode("in");
+			if(gubun.equals("구매")) vo.setGubunCode("in");			
 			else if(gubun.equals("교환")) vo.setGubunCode("out");
 			else if(gubun.equals("반품")) vo.setGubunCode("in");
 			else if(gubun.equals("손실")) vo.setGubunCode("out");
@@ -113,6 +115,8 @@ public class PurchIngSerivceImpl implements PurchIngSerivce {
 		if (status.equals("storage")) {
 		// 재료 입출고		
 			if(gubun.equals("출고")) vo.setGubunCode("out");
+			else if(gubun.equals("출고_office")) vo.setGubunCode("out");
+			else if(gubun.equals("출고_cafe")) vo.setGubunCode("out");
 			else if(gubun.equals("입고_office")) vo.setGubunCode("in");
 			else if(gubun.equals("입고_cafe")) vo.setGubunCode("in");
 			else if(gubun.equals("손실")) vo.setGubunCode("out");
@@ -127,13 +131,13 @@ public class PurchIngSerivceImpl implements PurchIngSerivce {
 
 	// 재료 입출고 수정을 위한 cno에 해당하는 정보 가져오기
 	@Override
-	public PurchIngVO selectBuyStorageInfoByCno(PurchIngVO vo) {
+	public PurchIngVO selectBuyStorageInfoByCno(PurchIngVO vo) throws Exception {
 		return mapper.selectBuyStorageInfoByCno(vo);
 	}
 
 	// 재료입출고 수량파악
 	@Override
-	public List<PurchIngVO> selectNeedCafe() {
+	public List<PurchIngVO> selectNeedCafe() throws Exception {
 		return mapper.selectNeedCafe();
 	}
 

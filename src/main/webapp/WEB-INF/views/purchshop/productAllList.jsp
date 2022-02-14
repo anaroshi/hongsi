@@ -39,18 +39,18 @@
 			<td colspan="15" class="text-center"><h5>생산 LIST</h5></td>    	
 		</tr>
        <tr>
-        <th  style="width: 10%">생산일</th>
-        <th  style="width: 8%">구분</th>
-        <th style="width: 8%">O250</th>
-        <th style="width: 8%">O500</th>
-        <th style="width: 8%">O1000</th>
-        <th style="width: 8%">E250</th>
-        <th style="width: 8%">E500</th>
-        <th style="width: 8%">E1000</th>
-        <th style="width: 8%">S250</th>
-        <th style="width: 8%">S500</th>
-        <th style="width: 8%">S1000</th>
-        <th  style="width: 10%">비고</th>
+        <th style="width: 9%">생산일</th>
+        <th style="width: 6%">구분</th>
+        <th style="width: 6%">O250</th>
+        <th style="width: 6%">O500</th>
+        <th style="width: 6%">O1000</th>
+        <th style="width: 6%">E250</th>
+        <th style="width: 6%">E500</th>
+        <th style="width: 6%">E1000</th>
+        <th style="width: 6%">S250</th>
+        <th style="width: 6%">S500</th>
+        <th style="width: 6%">S1000</th>
+        <th  style="width: 31%">비고</th>
       </tr>
     </thead>
     <tbody>

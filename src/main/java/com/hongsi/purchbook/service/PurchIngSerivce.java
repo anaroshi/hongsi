@@ -6,24 +6,24 @@ import com.hongsi.purchbook.vo.PurchIngVO;
 
 public interface PurchIngSerivce {
 	
-	public List<PurchIngVO> list();
+	public List<PurchIngVO> list() throws Exception;
 
-	public List<PurchIngVO> selectNonInDate();
+	public List<PurchIngVO> selectNonInDate() throws Exception;
 
-	public int insertIng(PurchIngVO vo);
+	public int insertIng(PurchIngVO vo) throws Exception;
 	
-	public int updateInDate(PurchIngVO vo);
+	public int updateInDate(PurchIngVO vo) throws Exception;
 	
-	public List<PurchIngVO> selectIgdTotalList();
+	public List<PurchIngVO> selectIgdTotalList() throws Exception;
 	
-	public List<PurchIngVO> selectStorageInOut();
+	public List<PurchIngVO> selectStorageInOut() throws Exception;
 
-	public int deleteIng(PurchIngVO vo);
+	public int deleteIng(PurchIngVO vo) throws Exception;
 
-	public int updateIng(PurchIngVO vo);
+	public int updateIng(PurchIngVO vo) throws Exception;
 
-	public PurchIngVO selectBuyStorageInfoByCno(PurchIngVO vo);
+	public PurchIngVO selectBuyStorageInfoByCno(PurchIngVO vo) throws Exception;
 
-	public List<PurchIngVO> selectNeedCafe();
+	public List<PurchIngVO> selectNeedCafe() throws Exception;
 
 }

@@ -100,6 +100,8 @@
 	      <div class="col-sm-8">
 			<select id="gubun" name="gubun" class="form-control select" required="required">
 	            <option value="출고">출고</option>
+	            <option value="출고_office">출고_office</option>
+	            <option value="출고_cafe">출고_cafe</option>
 	            <option value="입고_office">입고_office</option>
 	            <option value="입고_cafe">입고_cafe</option>
 	            <option value="손실">손실</option>

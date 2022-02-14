@@ -20,7 +20,7 @@ public class IngredientServiceImpl implements IngredientService {
 	public IngredientMapper mapper;
 	
 	@Override
-	public List<IngredientVO> list() {
+	public List<IngredientVO> list() throws Exception {
 		log.info("--------------------------IngredientServiceImpl");
 		return mapper.list();
 	}

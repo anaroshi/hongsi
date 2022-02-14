@@ -38,7 +38,7 @@
 <!-- 	<a href="excelDownload">엑셀_다운로드</a> -->
 </form>
 
-<iframe width=0 height=0 frameborder=0 scrolling=no name="hide_frame" id="hide_frame" style="margin:0"></iframe>
+<iframe width=0 height=0 name="hide_frame" id="hide_frame" style="margin:0"></iframe>
 <div id="result"></div>
 </body>
 </html>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" 
-"http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd">
+	"http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd">
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
 
 	<!-- Appenders -->
@@ -15,11 +15,11 @@
 	<logger name="com.hongsi">
 		<level value="info" />
 	</logger>
-	
+
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
 		<level value="info" />
-	</logger>
+	</logger>	
 	
 	<logger name="org.springframework.beans">
 		<level value="info" />
@@ -32,32 +32,45 @@
 	<logger name="org.springframework.web">
 		<level value="info" />
 	</logger>
+	<!-- Log4jdbc 로그 출력 정도를 정한다. -->
+<!-- 	<logger name="jdbc.audit"> -->
+<!-- 		<level value="warn" /> -->
+<!-- 	</logger> -->
 	
-	<!-- SQL Logger -->
+<!-- 	<logger name="jdbc.resultset"> -->
+<!-- 		<level value="warn" /> -->
+<!-- 	</logger> -->
+	
+<!-- 	<logger name="jdbc.connection"> -->
+<!-- 		<level value="warn" /> -->
+<!-- 	</logger>	 -->
+
+	<!-- SQL 로그 출력을 위한 설정 추가 시작 -->
 	<logger name="jdbc.sqltiming" additivity="false">
 		<level value="warn" />
-		<appender-ref ref="console"/> 
+		<appender-ref ref="console" />
 	</logger>
 
-	<logger name="jdbc.sqlonly" additivity="false"> 
-		<level value="info"/> 
-		<appender-ref ref="console"/> 
+	<logger name="jdbc.sqlonly" additivity="false">
+		<level value="warn" />
+		<appender-ref ref="console" />
 	</logger>
 
-	<logger name="jdbc.audit" additivity="false"> 
-		<level value="warn"/>  
-		<appender-ref ref="console"/> 
-	</logger> 
+	<logger name="jdbc.audit" additivity="false">
+		<level value="warn" />
+		<appender-ref ref="console" />
+	</logger>
 
 	<logger name="jdbc.resultset" additivity="false">
 		<level value="warn" />
-		<appender-ref ref="console"/> 
+		<appender-ref ref="console" />
 	</logger>
 
-	<logger name="jdbc.resultsettable" additivity="false"> 
-		<level value="info"/>  
-		<appender-ref ref="console"/> 
-	</logger> 
+	<logger name="jdbc.resultsettable" additivity="false">
+		<level value="warn" />
+		<appender-ref ref="console" />
+	</logger>
+	<!-- SQL 로그 출력을 위한 설정 추가 끝 -->
 
 	<!-- Root Logger -->
 	<root>

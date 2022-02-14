@@ -34,7 +34,7 @@ public class MainController {
 	
 	// 전체 재료, original 재료량, earlgrey 재료량, sweet&salty 재료량, 전체 재고 보기
 	@GetMapping("main.do")
-	public String selectAllIngreStock(Model model) {
+	public String selectAllIngreStock(Model model) throws Exception {
 		log.info(".............................selectAllIngreStock..");		
 		
 		// 재료 (ori 필요 & erl 필요 & sns 필요 & 현재재고 & 금주필요 & 최종재고 & 주문필요)

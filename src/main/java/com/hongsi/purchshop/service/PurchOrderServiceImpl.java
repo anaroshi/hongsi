@@ -20,7 +20,7 @@ public class PurchOrderServiceImpl implements PurchOrderService {
 	public PurchOrderMapper mapper;
 
 	@Override
-	public int insertPurchshopOrder(PurchOrderVO vo) {
+	public int insertPurchshopOrder(PurchOrderVO vo) throws Exception {
 		log.info("Impl vo : "+vo);
 		// 주문 들어온 상품에 대한 생산 준비
 //		vo.setOrderDate(vo.getOrderDate().replace("/", ""));
@@ -34,68 +34,68 @@ public class PurchOrderServiceImpl implements PurchOrderService {
 	}
 
 	@Override
-	public PurchOrderVO selectItemTotSum() {
+	public PurchOrderVO selectItemTotSum() throws Exception {
 		return mapper.selectItemTotSum();
 	}
 	
 	@Override
-	public PurchOrderVO selectOrderSum() {
+	public PurchOrderVO selectOrderSum() throws Exception {
 		return mapper.selectOrderSum();
 	}
 
 	@Override
-	public List<PurchOrderVO> selectOrderList() {
+	public List<PurchOrderVO> selectOrderList() throws Exception {
 		// 주문 리스트
 		return mapper.selectOrderList();
 	}
 	
 	@Override
-	public List<PurchOrderVO> selectOrderListSuntSat() {
+	public List<PurchOrderVO> selectOrderListSuntSat() throws Exception {
 		// 주문 리스트 일요일 ~ 토요일
 		return mapper.selectOrderListSuntSat();
 	}
 
 	// 완제품 재고 현황
 	@Override
-	public PurchOrderVO selectProductStock() {		
+	public PurchOrderVO selectProductStock() throws Exception {		
 		return  mapper.selectProductStock();
 	}
 
 	// 주문 화면에서 주문 리스트에서 주문을 선택
 	// 판매 정보에 넘겨주기 위함.
 	@Override
-	public PurchOrderVO selectOrderByCno(int cno) {
+	public PurchOrderVO selectOrderByCno(int cno) throws Exception {
 		return mapper.selectOrderByCno(cno);
 	}
 
 	@Override
-	public int updatePurchshopOrder(long cno) {		
+	public int updatePurchshopOrder(long cno) throws Exception {		
 		return mapper.updatePurchshopOrder(cno);
 	}
 
 	@Override
-	public PurchOrderVO selectOrderStock() {
+	public PurchOrderVO selectOrderStock() throws Exception {
 		return mapper.selectOrderStock();
 	}
 
 	@Override
-	public List<PurchOrderVO> selectOrderListWaitSale() {
+	public List<PurchOrderVO> selectOrderListWaitSale() throws Exception {
 		return mapper.selectOrderListWaitSale();
 	}
 
 	@Override
-	public PurchOrderVO selectOrderInfoByCno(int cno) {		
+	public PurchOrderVO selectOrderInfoByCno(int cno) throws Exception {		
 		return mapper.selectOrderInfoByCno(cno);
 	}
 
 	@Override
-	public int deleteOrderInfoByCno(int cno) {
+	public int deleteOrderInfoByCno(int cno) throws Exception {
 		log.info("-----------impl-------------deleteOrderInfoByCno :"+cno);
 		return mapper.deleteOrderInfoByCno(cno);
 	}
 	
 	@Override
-	public int updateOrderInfoByCno(PurchOrderVO vo) {
+	public int updateOrderInfoByCno(PurchOrderVO vo) throws Exception {
 		if(vo.getGubun().equals("주문")) vo.setGubunCode("out");
 //		else if(vo.getGubun().equals("교환")) vo.setGubunCode("out");
 //		else if(vo.getGubun().equals("반품")) vo.setGubunCode("in");

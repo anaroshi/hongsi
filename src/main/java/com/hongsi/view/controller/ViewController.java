@@ -49,7 +49,7 @@ public class ViewController {
 	
 	// 재료 구매 정보 보기
 	@GetMapping("view/buyModify.do")
-	public String buyModify(PurchIngVO vo, Model model) {
+	public String buyModify(PurchIngVO vo, Model model) throws Exception {
 		log.info(".............................buyModify..");
 
 		// 재료 list
@@ -64,7 +64,7 @@ public class ViewController {
 	// 재료 구매 삭제 처리
 	@ResponseBody
 	@PostMapping("view/buyDelete.do")
-	public String buyDelete(PurchIngVO vo) {
+	public String buyDelete(PurchIngVO vo) throws Exception {
 		log.info(".............................buyDelete..");
 		vo.setStatus("purch");
 		
@@ -80,7 +80,7 @@ public class ViewController {
 	@Nullable  // null 허용
 	@ResponseBody
 	@PostMapping("view/buyUpdate.do")
-	public String buyUpdate(PurchIngVO vo) {
+	public String buyUpdate(PurchIngVO vo) throws Exception {
 		log.info(".............................buyUpdate..vo:" + vo);
 		vo.setFlag(2);
 		vo.setStatus("purch");
@@ -96,7 +96,7 @@ public class ViewController {
 	// --------------------------------------- 재료 입출고 -----------------------------------------------
 	
 	@GetMapping("view/storageModify.do")
-	public String storageModify(PurchIngVO vo, Model model) {
+	public String storageModify(PurchIngVO vo, Model model) throws Exception {
 		log.info(".............................storageModify..cno:"+vo);
 		
 		// 재료 list
@@ -111,7 +111,7 @@ public class ViewController {
 	// 재료 입출고 삭제 처리
 	@ResponseBody
 	@PostMapping("view/storageDelete.do")
-	public String storageDelete(PurchIngVO vo) {
+	public String storageDelete(PurchIngVO vo) throws Exception {
 		vo.setStatus("storage");
 		log.info(".............................storageDelete..vo:"+vo);
 		int result = purchIngSerivce.deleteIng(vo);
@@ -126,7 +126,7 @@ public class ViewController {
 	@Nullable  // null 허용
 	@ResponseBody
 	@PostMapping("view/storageUpdate.do")
-	public String storageUpdate(PurchIngVO vo) {
+	public String storageUpdate(PurchIngVO vo) throws Exception {
 		log.info(".............................storageUpdate..vo:" + vo);
 		vo.setQty(1);
 		vo.setStatus("storage");
@@ -145,7 +145,7 @@ public class ViewController {
 	
 	// 생산 정보
 	@GetMapping("view/productModify.do")
-	public String productModify(int cno, Model model) {
+	public String productModify(int cno, Model model) throws Exception {
 		log.info(".............................productModify..");
 		model.addAttribute("productInfo", purchProductService.selectProductInfoByCno(cno));
 		return "view/productModify";
@@ -154,7 +154,7 @@ public class ViewController {
 	// 생산 삭제 처리
 	@ResponseBody
 	@PostMapping("view/productDelete.do")
-	public String productDelete(int cno) {
+	public String productDelete(int cno) throws Exception {
 		log.info(".............................productDelete..");
 		int result = purchProductService.deleteProductInfoByCno(cno);
 		if (result == 1) {
@@ -167,7 +167,7 @@ public class ViewController {
 	@Nullable  // null 허용
 	@ResponseBody
 	@PostMapping("view/productUpdate.do")
-	public String productUpdate(PurchProductVO vo) {
+	public String productUpdate(PurchProductVO vo) throws Exception {
 		log.info(".............................productUpdate..vo:" + vo);
 		vo.setStatus("product");
 		vo.setFlag(2);
@@ -185,7 +185,7 @@ public class ViewController {
 	// --------------------------------------- 주문 -----------------------------------------------
 	
 	@GetMapping("view/orderModify.do")
-	public String orderModify(int cno, Model model) {
+	public String orderModify(int cno, Model model) throws Exception {
 		log.info(".............................orderModify..");
 		// 재료 list
 		model.addAttribute("ingreList", ingredientService.list());
@@ -197,7 +197,7 @@ public class ViewController {
 	// 주문 삭제 처리
 	@ResponseBody
 	@PostMapping("view/orderDelete.do")
-	public String orderDelete(int cno) {
+	public String orderDelete(int cno) throws Exception {
 		log.info(".............................orderDelete..");
 		int result = purchOrderService.deleteOrderInfoByCno(cno);
 		
@@ -212,7 +212,7 @@ public class ViewController {
 	@Nullable  // null 허용
 	@ResponseBody
 	@PostMapping("view/orderUpdate.do")
-	public String orderUpdate(PurchOrderVO vo) {
+	public String orderUpdate(PurchOrderVO vo) throws Exception {
 		log.info(".............................orderUpdate..vo:" + vo);
 		vo.setStatus("product");
 		vo.setFlag(2);
@@ -229,7 +229,7 @@ public class ViewController {
 	// --------------------------------------- 판매 -----------------------------------------------
 	
 	@GetMapping("view/saleModify.do")
-	public String saleModify(int cno, Model model) {
+	public String saleModify(int cno, Model model) throws Exception {
 		log.info(".............................saleModify..");
 		// 재료 list
 		model.addAttribute("ingreList", ingredientService.list());
@@ -241,7 +241,7 @@ public class ViewController {
 	// 주문 삭제 처리
 	@ResponseBody
 	@PostMapping("view/saleDelete.do")
-	public String saleDelete(int cno) {
+	public String saleDelete(int cno) throws Exception {
 		log.info(".............................saleDelete..");
 		int result = purchSaleService.deleteSaleInfoByCno(cno);
 		if (result == 1) {
@@ -254,7 +254,7 @@ public class ViewController {
 	@Nullable  // null 허용
 	@ResponseBody
 	@PostMapping("view/saleUpdate.do")
-	public String saleUpdate(PurchSaleVO vo) {
+	public String saleUpdate(PurchSaleVO vo) throws Exception {
 		log.info(".............................saleUpdate..vo:" + vo);
 		vo.setStatus("sale");
 		vo.setFlag(2);

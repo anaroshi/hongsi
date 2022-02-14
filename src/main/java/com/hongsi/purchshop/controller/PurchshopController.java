@@ -46,7 +46,7 @@ public class PurchshopController {
 
 	// 주문 입력 화면 (정보 일요일 ~ 토요일 주문 내역)
 	@GetMapping("order.do")
-	public String order(PurchOrderVO vo, Model model) {
+	public String order(PurchOrderVO vo, Model model) throws Exception {
 		log.info(".............................orderList..");
 		model.addAttribute("orderList", purchOrderService.selectOrderListSuntSat());
 		return MODULE + "/order";
@@ -54,7 +54,7 @@ public class PurchshopController {
 
 	// 주문 정보 저장
 	@PostMapping("order.do")
-	public String insertPurchshopOrder(PurchOrderVO vo, RedirectAttributes rttr) {
+	public String insertPurchshopOrder(PurchOrderVO vo, RedirectAttributes rttr) throws Exception {
 		log.info("insertOrder vo :" + vo);
 		vo.setStatus("order");
 		vo.setFlag(1);
@@ -68,7 +68,7 @@ public class PurchshopController {
 
 	// 주문 내역
 	@GetMapping("orderAllList.do")
-	public String orderAllList(PurchOrderVO vo, Model model) {
+	public String orderAllList(PurchOrderVO vo, Model model) throws Exception {
 		log.info(".............................orderAllList..");
 		model.addAttribute("orderList", purchOrderService.selectOrderList());
 		//model.addAttribute("orderStock", purchOrderService.selectOrderStock());
@@ -79,7 +79,7 @@ public class PurchshopController {
 	
 	// 생산 정보 입력 화면
 	@GetMapping("product.do")
-	public String product(PurchProductVO vo, Model model) {
+	public String product(PurchProductVO vo, Model model) throws Exception {
 		log.info(".............................product..vo:"+vo);
 		// 생산 정보 리스트
 		model.addAttribute("productList", purchProductService.selectProductList());
@@ -96,7 +96,7 @@ public class PurchshopController {
 
 	// 생산 정보 저장
 	@PostMapping("product.do")
-	public String insertProduct(PurchProductVO vo, RedirectAttributes rttr) {
+	public String insertProduct(PurchProductVO vo, RedirectAttributes rttr) throws Exception {
 		log.info("insertProduct vo :" + vo);
 		vo.setStatus("product");
 		vo.setFlag(1);
@@ -109,7 +109,7 @@ public class PurchshopController {
 
 	// 생산 정보 리스트 화면
 	@GetMapping("productAllList.do")
-	public String productAllList(Model model) {
+	public String productAllList(Model model) throws Exception {
 		model.addAttribute("productList", purchProductService.selectProductList());
 		//model.addAttribute("productStock", purchProductService.selectProductStock());
 		return MODULE + "/productAllList";
@@ -119,7 +119,7 @@ public class PurchshopController {
 	
 	// 판매 정보 입력 화면
 	@GetMapping("sale.do")
-	public String sale(PurchOrderVO vo, Model model, @RequestParam(required = false, defaultValue = "0") int order_cno) {
+	public String sale(PurchOrderVO vo, Model model, @RequestParam(required = false, defaultValue = "0") int order_cno) throws Exception {
 		log.info(".............................sale..cno:"+order_cno);
 		
 		// 주문 정보(주문게시판에서 주문 클릭시 주문에 대한 정보를 가져와 판매 정보에 넣어준다.)
@@ -136,7 +136,7 @@ public class PurchshopController {
 
 	// 판매 정보 저장
 	@PostMapping("sale.do")
-	public String insertSale(PurchSaleVO vo, RedirectAttributes rttr) {
+	public String insertSale(PurchSaleVO vo, RedirectAttributes rttr) throws Exception {
 		log.info("insertPurchsale vo :" + vo);
 		vo.setStatus("sale");
 		vo.setFlag(1);
@@ -160,7 +160,7 @@ public class PurchshopController {
 	
 	// 판매 정보 리스트 화면
 	@GetMapping("saleAllList.do")
-	public String saleAllList(Model model) {
+	public String saleAllList(Model model) throws Exception {
 		log.info(".............................saleAllList");
 		// 판매 정보 리스트
 		model.addAttribute("saleList", purchSaleService.selectSaleList());	

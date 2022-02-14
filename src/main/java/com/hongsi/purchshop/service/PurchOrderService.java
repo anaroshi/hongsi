@@ -6,29 +6,29 @@ import com.hongsi.purchshop.vo.PurchOrderVO;
 
 public interface PurchOrderService {
 	
-	public int insertPurchshopOrder(PurchOrderVO vo);
+	public int insertPurchshopOrder(PurchOrderVO vo) throws Exception;
 
-	public int deleteOrderInfoByCno(int cno);
+	public int deleteOrderInfoByCno(int cno) throws Exception;
 
-	public int updateOrderInfoByCno(PurchOrderVO vo);
+	public int updateOrderInfoByCno(PurchOrderVO vo) throws Exception;
 	
-	public PurchOrderVO selectItemTotSum();	
-	public PurchOrderVO selectOrderSum();
+	public PurchOrderVO selectItemTotSum() throws Exception;	
+	public PurchOrderVO selectOrderSum() throws Exception;
 
-	public List<PurchOrderVO> selectOrderListSuntSat();
+	public List<PurchOrderVO> selectOrderListSuntSat() throws Exception;
 	
-	public List<PurchOrderVO> selectOrderList();	
-	public PurchOrderVO selectProductStock();
+	public List<PurchOrderVO> selectOrderList() throws Exception;	
+	public PurchOrderVO selectProductStock() throws Exception;
 
-	public PurchOrderVO selectOrderByCno(int cno);
+	public PurchOrderVO selectOrderByCno(int cno) throws Exception;
 
-	public int updatePurchshopOrder(long cno);
+	public int updatePurchshopOrder(long cno) throws Exception;
 
-	public PurchOrderVO selectOrderStock();
+	public PurchOrderVO selectOrderStock() throws Exception;
 
-	public List<PurchOrderVO> selectOrderListWaitSale();
+	public List<PurchOrderVO> selectOrderListWaitSale() throws Exception;
 
-	public PurchOrderVO selectOrderInfoByCno(int cno);
+	public PurchOrderVO selectOrderInfoByCno(int cno) throws Exception;
 
 	
 }

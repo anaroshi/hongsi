@@ -36,7 +36,7 @@ public class PurchIngController {
 	private QuantityService quantityService;
 	
 	@GetMapping("buy.do")
-	public String buy(Model model) {
+	public String buy(Model model) throws Exception {
 		log.info(".............................purchbookController..buy");
 		model.addAttribute("ingreList", ingredientService.list());
 		model.addAttribute("resultList", quantityService.selectTotalNeedFinal());
@@ -57,7 +57,7 @@ public class PurchIngController {
 	( SELECT ITEM, SUM( NVL(CONTENT,0)) SUMOUTCONTENT FROM PURCH_ING
 	WHERE  STATUS = 'storage'
 	AND GUBUNCODE = 'out' 
-	AND GUBUN = '입고_cafe'
+	AND GUBUN = '출고_cafe'
 	GROUP BY ITEM) B
 	ON A.ITEM = B.ITEM ;
 	
@@ -249,7 +249,7 @@ LEFT JOIN
 	( SELECT ITEM, SUM( NVL(CONTENT,0)) SUMOUTCONTENT FROM PURCH_ING
 	WHERE  STATUS = 'storage'
 	AND GUBUNCODE = 'out' 
-	AND GUBUN = '입고_cafe'
+	AND GUBUN = '출고_cafe'
 	GROUP BY ITEM) B
 	ON A.ITEM = B.ITEM
 ) CAFE
@@ -260,7 +260,7 @@ ON NEED.CODE = CAFE.ITEM
 	
 	// 재료구매 저장
 	@PostMapping("buy.do")
-	public String insertIng(PurchIngVO vo, RedirectAttributes rttr) {
+	public String insertIng(PurchIngVO vo, RedirectAttributes rttr) throws Exception {
 		log.info(".............................buyProcess.vo:"+vo);
 
 		vo.setStatus("purch");
@@ -276,14 +276,14 @@ ON NEED.CODE = CAFE.ITEM
 
 	// 재료구매 리스트 화면
 	@GetMapping("buyAllList.do")
-	public String buyAllList(Model model) {
+	public String buyAllList(Model model) throws Exception {
 		log.info(".............................buyList..buy");
 		model.addAttribute("resultList", purchIngSerivce.list());
 		return MODULE + "/buyAllList";
 	}
 
 	@GetMapping("stockList.do")
-	public String selectIgdTotalList(Model model) {
+	public String selectIgdTotalList(Model model) throws Exception {
 		log.info(".............................purchbookController..buy");
 		model.addAttribute("ingreTotalList", purchIngSerivce.selectIgdTotalList());
 		return MODULE + "/stockList";
@@ -291,7 +291,7 @@ ON NEED.CODE = CAFE.ITEM
 	
 	// 입고일 저장
 	@PostMapping("inDateSave.do")
-	public String updateInDate(PurchIngVO vo, RedirectAttributes rttr) {
+	public String updateInDate(PurchIngVO vo, RedirectAttributes rttr) throws Exception {
 		log.info(".............................insertInDate..:"+vo);
 		
 		int result = purchIngSerivce.updateInDate(vo); 
@@ -304,7 +304,7 @@ ON NEED.CODE = CAFE.ITEM
 	
 	// 재료 입출고 화면
 	@GetMapping("storage.do")
-	public String storage(Model model) {
+	public String storage(Model model) throws Exception {
 		log.info(".............................buyList..buy");
 		// 재료 리스트 (select)
 		model.addAttribute("ingreList", ingredientService.list());
@@ -319,7 +319,7 @@ ON NEED.CODE = CAFE.ITEM
 	
 	// 재료 입출고 저장
 	@PostMapping("storage.do")
-	public String insertStorage(PurchIngVO vo, RedirectAttributes rttr) {		
+	public String insertStorage(PurchIngVO vo, RedirectAttributes rttr) throws Exception {		
 		vo.setQty(1);
 		vo.setStatus("storage");
 		vo.setFlag(1);
@@ -334,7 +334,7 @@ ON NEED.CODE = CAFE.ITEM
 	}
 	
 	@GetMapping("storageAllList.do")
-	public String storageAllList(Model model) {
+	public String storageAllList(Model model) throws Exception {
 		log.info(".............................storageAllList..");
 		// 재료 입출고 리스트
 		model.addAttribute("resultList", purchIngSerivce.selectStorageInOut());

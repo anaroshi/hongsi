@@ -6,6 +6,6 @@ import com.hongsi.item.vo.ItemVO;
 
 public interface ItemService {	
 	
-	public List<ItemVO> list();
+	public List<ItemVO> list() throws Exception;
 	
 }

@@ -6,6 +6,6 @@ import com.hongsi.itemqtytype.vo.ItemQtyTypeVO;
 
 public interface ItemqtytypeService {	
 	
-	public List<ItemQtyTypeVO> itemTypeList();
+	public List<ItemQtyTypeVO> itemTypeList() throws Exception;
 	
 }

@@ -6,6 +6,6 @@ import com.hongsi.ingredient.vo.IngredientVO;
 
 public interface IngredientService {
 	
-	public List<IngredientVO> list();
+	public List<IngredientVO> list() throws Exception;
 
 }

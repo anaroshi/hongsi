@@ -38,7 +38,7 @@ public class QuantityController {
 	private ItemqtytypeService itemqtytypeService;
 	
 	@GetMapping("list.do")
-	public String list(Model model) {
+	public String list(Model model) throws Exception {
 		log.info("hongsi...............................");
 		
 		// 재료함량 화면에서 제품 목록 EARLGREY, ORIGINAL, SWEETNSALTY
@@ -53,7 +53,7 @@ public class QuantityController {
 	
 	// 제품생산 화면 - 제품 100g당 재료량과 로스팅 1회당 재료량 구하기
 	@GetMapping("product.do")
-	public String product(Model model) {
+	public String product(Model model) throws Exception {
 		log.info(".............................product..");
 		
 		model.addAttribute("itemList", itemService.list());			
@@ -63,7 +63,7 @@ public class QuantityController {
 	// 제품생산에서 item 선택시 재고값과 item의 함류량 값 가져오기
 	@ResponseBody
 	@PostMapping("productProcess.do")
-	public List<QuantityVO> productProcess(String code) {
+	public List<QuantityVO> productProcess(String code) throws Exception {
 		log.info(".............................productProcess..");
 		List<QuantityVO> result = quantityService.selectTotalByItem(code);
 		//log.info(".............................productProcess..result : "+ result);

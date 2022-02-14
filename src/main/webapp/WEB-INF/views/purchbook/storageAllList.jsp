@@ -42,11 +42,11 @@
 		<tr>
 	        <th width="15%">입출고일</th>
 	        <th width="15%">구분</th>
-	        <th width="30%">재료</th>
+	        <th width="15%">재료</th>
 	        <th style="display:none">재료</th>
-	        <th width="15%">용량</th>
-	        <th width="15%">비고</th>
-	        <th width="10%">담당자</th>
+	        <th width="8%">용량</th>
+	        <th width="34%">비고</th>
+	        <th width="8%">담당자</th>
 	      </tr>
 	</thead>
 	<tbody>
