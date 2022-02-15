@@ -40,7 +40,7 @@
 			<td colspan="15" class="text-center"><h5>판매 LIST</h5></td>    	
 		</tr>
        	<tr>
-	        <th  style="width: 10%">판매일</th>
+	        <th  style="width: 9%">판매일</th>
 	        <th  style="width: 5%">구분</th>
 	        <th  style="width: 10%">주문</th>
 	        <th style="width: 5%; font-size: 9px">O250</th>
@@ -52,9 +52,10 @@
 	        <th style="width: 5%; font-size: 9px">S250</th>
 	        <th style="width: 5%; font-size: 9px">S500</th>
 	        <th style="width: 5%; font-size: 9px">S1000</th>
+	        <th style="width: 5%; font-size: 9px">총갯수</th>
 	        <th style="width: 10%">금액</th>
-	        <th style="width: 10%">지불방식</th>
-	        <th style="width: 10%">배송</th>
+	        <th style="width: 8%">지불방식</th>
+	        <th style="width: 8%">배송</th>
       	</tr>
     </thead>
     <tbody>
@@ -64,9 +65,11 @@
        	<c:set var="erl_250_sum" value="0"/>
     	<c:set var="erl_500_sum" value="0"/>
     	<c:set var="erl_1000_sum" value="0"/>
-       	<c:set var="sns_250_sum" value="0"/>
-    	<c:set var="sns_500_sum" value="0"/>
-    	<c:set var="sns_1000_sum" value="0"/>
+       	<c:set var="stc_250_sum" value="0"/>
+    	<c:set var="stc_500_sum" value="0"/>
+    	<c:set var="stc_1000_sum" value="0"/>
+    	<c:set var="totalSale" value="0"/>
+    	<c:set var="totalSale_sum" value="0"/>
 <c:forEach items="${saleList}" var="vo">
       <tr class="dataRow" onclick="fn_view(${vo.cno}); return false;">
        	<c:set var="ori_250_sum" value="${ori_250_sum + vo.ori_250}"/>
@@ -75,9 +78,12 @@
        	<c:set var="erl_250_sum" value="${erl_250_sum + vo.erl_250}"/>
     	<c:set var="erl_500_sum" value="${erl_500_sum + vo.erl_500}"/>
     	<c:set var="erl_1000_sum" value="${erl_1000_sum + vo.erl_1000}"/>
-       	<c:set var="sns_250_sum" value="${sns_250_sum + vo.sns_250}"/>
-    	<c:set var="sns_500_sum" value="${sns_500_sum + vo.sns_500}"/>
-    	<c:set var="sns_1000_sum" value="${sns_1000_sum + vo.sns_1000}"/>
+       	<c:set var="stc_250_sum" value="${stc_250_sum + vo.stc_250}"/>
+    	<c:set var="stc_500_sum" value="${stc_500_sum + vo.stc_500}"/>
+    	<c:set var="stc_1000_sum" value="${stc_1000_sum + vo.stc_1000}"/>
+    	<c:set var="totalSale" 
+    		value="${ori_250 + vo.ori_500 + vo.ori_1000 + vo.erl_250 + vo.erl_500 + vo.erl_1000 + vo.stc_250 + vo.stc_500 + vo.stc_1000}"/>
+    	<c:set var="totalSale_sum" value="${totalSale_sum + totalSale}"/>
         <td>${vo.saleDate}</td>
         <td>${vo.gubun}</td>
         <td>${vo.salePath}</td>
@@ -87,9 +93,10 @@
         <td class="text-right">${vo.erl_250}</td>
         <td class="text-right">${vo.erl_500}</td>
         <td class="text-right">${vo.erl_1000}</td>
-        <td class="text-right">${vo.sns_250}</td>
-        <td class="text-right">${vo.sns_500}</td>
-        <td class="text-right">${vo.sns_1000}</td>
+        <td class="text-right">${vo.stc_250}</td>
+        <td class="text-right">${vo.stc_500}</td>
+        <td class="text-right">${vo.stc_1000}</td>
+        <td class="text-right"><fmt:formatNumber value="${totalSale}" /></td>
         <td class="text-right"><fmt:formatNumber value="${vo.price}" /></td>
         <td>${vo.paymentPath}</td>
         <td>${vo.deleveryPath}</td>
@@ -107,9 +114,10 @@
 	        <th class="text-right">${erl_250_sum}</th>
 	        <th class="text-right">${erl_500_sum}</th>
 	        <th class="text-right">${erl_1000_sum}</th>
-	        <th class="text-right">${sns_250_sum}</th>
-	        <th class="text-right">${sns_500_sum}</th>
-	        <th class="text-right">${sns_1000_sum}</th>
+	        <th class="text-right">${stc_250_sum}</th>
+	        <th class="text-right">${stc_500_sum}</th>
+	        <th class="text-right">${stc_1000_sum}</th>
+	        <th class="text-right">${totalSale_sum}</th>
 	        <td></td>
 	        <td></td>
 	        <td></td>

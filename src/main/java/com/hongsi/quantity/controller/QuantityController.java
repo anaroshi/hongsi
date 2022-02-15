@@ -41,7 +41,7 @@ public class QuantityController {
 	public String list(Model model) throws Exception {
 		log.info("hongsi...............................");
 		
-		// 재료함량 화면에서 제품 목록 EARLGREY, ORIGINAL, SWEETNSALTY
+		// 재료함량 화면에서 제품 목록 EARLGREY, ORIGINAL, SALTCARAMEL
 		model.addAttribute("itemList", itemService.list());
 		// 제품별 목록 구성 비교 근거 & 제품 g
 		model.addAttribute("itemTypeList", itemqtytypeService.itemTypeList());

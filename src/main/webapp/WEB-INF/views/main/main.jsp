@@ -48,6 +48,7 @@ td {
 #itemTotSum {
 	background-color: #F5F5F5;
 }
+
 </style>
 
 <script type="text/javascript">
@@ -61,15 +62,15 @@ $(function() {
 <div class="container">
 	
 	<!-- 주 생산량 start -->
-<div class="col-md-6">
+<div class="col-md-4">
 <table class="table table-condensed">
    <thead>
     <tr>
-    	<td colspan="5">${weekDay.toDate}</td>
-    </tr>
- 	<tr>
     	<td colspan="3" class="text-center">Week 생산량</td>
-    	<td colspan="2">${weekDay.startDate} ~ ${weekDay.endDate}</td>
+    	<td colspan="2">${weekDay.toDate}</td>
+    </tr>
+ 	<tr>    	
+    	<td colspan="5">${weekDay.startDate} ~ ${weekDay.endDate}</td>
     </tr>
 	<tr>
         <th colspan="2" class="text-center">제품명</th>
@@ -124,26 +125,26 @@ $(function() {
     	<td id="itemTotSum" colspan="5"><fmt:formatNumber value="${itemTotSum.erl_sum}"/> g</td>
     </tr>
     <tr>
-        <td rowspan="3" class="text-center">Sweet &amp; Salty</td>
+        <td rowspan="3" class="text-center">SaltCaramel</td>
         <td>250g</td>
-        <td>${itemSum.sns_250_sum}개</td>
-        <td>${stockSum.sns_250_sum}개</td>
-        <td>${stockSum.sns_250_sum - itemSum.sns_250_sum}개</td>
+        <td>${itemSum.stc_250_sum}개</td>
+        <td>${stockSum.stc_250_sum}개</td>
+        <td>${stockSum.stc_250_sum - itemSum.stc_250_sum}개</td>
     </tr>
 	<tr>
         <td>500g</td>
-        <td>${itemSum.sns_500_sum}개</td>
-        <td>${stockSum.sns_500_sum}개</td>
-        <td>${stockSum.sns_500_sum - itemSum.sns_500_sum}개</td>
+        <td>${itemSum.stc_500_sum}개</td>
+        <td>${stockSum.stc_500_sum}개</td>
+        <td>${stockSum.stc_500_sum - itemSum.stc_500_sum}개</td>
     </tr>
 	<tr>        
         <td>1,000g</td>
-        <td>${itemSum.sns_1000_sum}개</td>
-        <td>${stockSum.sns_1000_sum}개</td>
-        <td>${stockSum.sns_1000_sum - itemSum.sns_1000_sum}개</td>
+        <td>${itemSum.stc_1000_sum}개</td>
+        <td>${stockSum.stc_1000_sum}개</td>
+        <td>${stockSum.stc_1000_sum - itemSum.stc_1000_sum}개</td>
     </tr>
     <tr>
-    	<td id="itemTotSum" colspan="5"><fmt:formatNumber value="${itemTotSum.sns_sum}"/> g</td>
+    	<td id="itemTotSum" colspan="5"><fmt:formatNumber value="${itemTotSum.stc_sum}"/> g</td>
     </tr>
     </tbody>
   	</table>
@@ -151,20 +152,31 @@ $(function() {
 	<!-- 주 생산량 end -->
 
 	<!-- 재고량 보이기 -->
-	<div class="col-md-6">
+	<div class="col-md-8">
 		<table class="table table-bordered">
 			<thead>
 				<tr>
-					<th>재료 (g)</th>					
+					<th rowspan="2" style="vertical-align:middle; text-align:center;">재료 (g)</th>					
 					<th style="display:none">code</th>
+					<th colspan="3">제품명</th>
+					<th rowspan="2" style="vertical-align:middle; text-align:center;">현재재고</th>
+					<th rowspan="2" style="vertical-align:middle; text-align:center;">금주필요</th>
+					<th colspan="3">최종 재고</th>
+					<th rowspan="2" style="vertical-align:middle; text-align:center;">주문필요</th>
+					<th colspan="4" style="vertical-align:middle; text-align:center;">2주분</th>
+				</tr>
+				<tr>
 					<th>ORI</th>
 					<th>ERL</th>
-					<th>SnS</th>
-					<th>현재재고</th>
-					<th>금주필요</th>
-					<th>최종재고</th>
-					<th>주문필요</th>
-					<th>2주분</th>  <!-- style="display:none" -->
+					<th>STC</th>
+					<th>Office</th>
+					<th>Cafe</th>
+					<th>Total</th>
+					<th>O:2</th>
+					<th>E:1</th>
+					<th>S:1</th>
+					<th>Total</th>
+					
 				</tr>
 			</thead>
 			<tbody>
@@ -175,11 +187,16 @@ $(function() {
 						<td style="display:none" id="code">${vo.code}</td>
 						<td id="ori_${status.count}"><fmt:formatNumber value="${vo.ori_qty_2week}" /></td>
 						<td id="erl_${status.count}"><fmt:formatNumber value="${vo.erl_qty_2week}" /></td>
-						<td id="sns_${status.count}"><fmt:formatNumber value="${vo.sns_qty_2week}" /></td>
+						<td id="stc_${status.count}"><fmt:formatNumber value="${vo.stc_qty_2week}" /></td>
 						<td id="tot_${status.count}"><fmt:formatNumber value="${vo.total}" /></td>
 						<td class="text-right warning" id="need_${status.count}"><fmt:formatNumber value="${vo.needSum}" /></td>						
+						<td id="ftt_${status.count}"><fmt:formatNumber value="${vo.finalTotal-vo.sumCafe}" /></td>
+						<td id="ftt_${status.count}"><fmt:formatNumber value="${vo.sumCafe}" /></td>
 						<td id="ftt_${status.count}"><fmt:formatNumber value="${vo.finalTotal}" /></td>
 						<td class="text-right warning" id="totNeed2week_${status.count}"><fmt:formatNumber value="${vo.finalNeed}" /></td>
+						<td class="text-right" id="need2week_${status.count}"><fmt:formatNumber value="${vo.ori_need2week}" /></td>
+						<td class="text-right" id="need2week_${status.count}"><fmt:formatNumber value="${vo.erl_need2week}" /></td>
+						<td class="text-right" id="need2week_${status.count}"><fmt:formatNumber value="${vo.stc_need2week}" /></td>
 						<td class="text-right" id="need2week_${status.count}"><fmt:formatNumber value="${vo.need2week}" /></td>
 					</tr> <!-- style="display:none"  -->
 					</c:if>

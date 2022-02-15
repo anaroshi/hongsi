@@ -49,9 +49,10 @@
         <th style="width: 6%">E1000</th>
         <th style="width: 6%">S250</th>
         <th style="width: 6%">S500</th>
-        <th style="width: 6%">S1000</th>
+        <th style="width: 6%">S1000</th>        
+        <th style="width: 6%">총주문</th>        
         <th style="width: 8%">주문자</th>
-		<th style="width: 22%">비고</th>
+		<th style="width: 16%">비고</th>
       </tr>
     </thead>
     <tbody>
@@ -61,9 +62,11 @@
 		<c:set var="erl_250_sum" value="0"/>
 	   	<c:set var="erl_500_sum" value="0"/>
 	   	<c:set var="erl_1000_sum" value="0"/>
-	    <c:set var="sns_250_sum" value="0"/>
-	   	<c:set var="sns_500_sum" value="0"/>
-	   	<c:set var="sns_1000_sum" value="0"/>
+	    <c:set var="stc_250_sum" value="0"/>
+	   	<c:set var="stc_500_sum" value="0"/>
+	   	<c:set var="stc_1000_sum" value="0"/>
+	   	<c:set var="totalOrder" value="0"/>
+	   	<c:set var="totalOrder_sum" value="0"/>
 <c:forEach items="${orderList}" var="vo">
       <tr class="dataRow" onclick="fn_view(${vo.cno}); return false;">
        	<c:set var="ori_250_sum" value="${ori_250_sum + vo.ori_250}"/>
@@ -72,9 +75,12 @@
        	<c:set var="erl_250_sum" value="${erl_250_sum + vo.erl_250}"/>
     	<c:set var="erl_500_sum" value="${erl_500_sum + vo.erl_500}"/>
     	<c:set var="erl_1000_sum" value="${erl_1000_sum + vo.erl_1000}"/>
-       	<c:set var="sns_250_sum" value="${sns_250_sum + vo.sns_250}"/>
-    	<c:set var="sns_500_sum" value="${sns_500_sum + vo.sns_500}"/>
-    	<c:set var="sns_1000_sum" value="${sns_1000_sum + vo.sns_1000}"/>
+       	<c:set var="stc_250_sum" value="${stc_250_sum + vo.stc_250}"/>
+    	<c:set var="stc_500_sum" value="${stc_500_sum + vo.stc_500}"/>
+    	<c:set var="stc_1000_sum" value="${stc_1000_sum + vo.stc_1000}"/>
+    	<c:set var="totalOrder" 
+    		value="${vo.ori_250+vo.ori_500+vo.ori_1000+vo.erl_250+vo.erl_500+vo.erl_1000+vo.stc_250+vo.stc_500+vo.stc_1000}"/>
+    	<c:set var="totalOrder_sum" value="${totalOrder_sum + totalOrder}"/>
     	<td>${vo.orderDate}</td>
         <td>${vo.gubun}</td>
         <td class="text-right">${vo.ori_250}</td>
@@ -83,9 +89,10 @@
         <td class="text-right">${vo.erl_250}</td>
         <td class="text-right">${vo.erl_500}</td>
         <td class="text-right">${vo.erl_1000}</td>
-        <td class="text-right">${vo.sns_250}</td>
-        <td class="text-right">${vo.sns_500}</td>
-        <td class="text-right">${vo.sns_1000}</td>
+        <td class="text-right">${vo.stc_250}</td>
+        <td class="text-right">${vo.stc_500}</td>
+        <td class="text-right">${vo.stc_1000}</td>
+        <td class="text-right">${totalOrder}</td>
         <td>${vo.orderer}</td>
 		<td>${vo.comm}</td>
       </tr>
@@ -101,9 +108,10 @@
 	        <th class="text-right">${erl_250_sum}</th>
 	        <th class="text-right">${erl_500_sum}</th>
 	        <th class="text-right">${erl_1000_sum}</th>
-	        <th class="text-right">${sns_250_sum}</th>
-	        <th class="text-right">${sns_500_sum}</th>
-	        <th class="text-right">${sns_1000_sum}</th>
+	        <th class="text-right">${stc_250_sum}</th>
+	        <th class="text-right">${stc_500_sum}</th>
+	        <th class="text-right">${stc_1000_sum}</th>
+	        <th class="text-right">${totalOrder_sum}</th>
 	        <td></td>
 	        <td></td>
       	</tr>

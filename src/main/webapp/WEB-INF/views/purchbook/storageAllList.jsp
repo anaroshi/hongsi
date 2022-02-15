@@ -74,9 +74,9 @@
 <%-- 	        <th class="text-right">${saleStock.erl_250_sum}</th> --%>
 <%-- 	        <th class="text-right">${saleStock.erl_500_sum}</th> --%>
 <%-- 	        <th class="text-right">${saleStock.erl_1000_sum}</th> --%>
-<%-- 	        <th class="text-right">${saleStock.sns_250_sum}</th> --%>
-<%-- 	        <th class="text-right">${saleStock.sns_500_sum}</th> --%>
-<%-- 	        <th class="text-right">${saleStock.sns_1000_sum}</th> --%>
+<%-- 	        <th class="text-right">${saleStock.stc_250_sum}</th> --%>
+<%-- 	        <th class="text-right">${saleStock.stc_500_sum}</th> --%>
+<%-- 	        <th class="text-right">${saleStock.stc_1000_sum}</th> --%>
 <!-- 	        <td></td> -->
 <!-- 	        <td></td> -->
 <!-- 	        <td></td> -->

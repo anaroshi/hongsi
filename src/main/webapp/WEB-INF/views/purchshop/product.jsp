@@ -75,17 +75,17 @@ $( function() {
 		if(erl_1000 == null || erl_1000 =="" || typeof erl_1000 == "undefined" || erl_1000 >= 10000) erl_1000 = 0; 
 		$("#erl_1000").val(erl_1000);
 		
-		let sns_250 = $("#sns_250").val();
-		if(sns_250 == null || sns_250 =="" || typeof sns_250 == "undefined" || sns_250 >= 2000) sns_250 = 0; 
-		$("#sns_250").val(sns_250);
-		let sns_500 = $("#sns_500").val();
-		if(sns_500 == null || sns_500 =="" || typeof sns_500 == "undefined" || sns_500 >= 5000) sns_500 = 0; 
-		$("#sns_500").val(sns_500);
-		let sns_1000 = $("#sns_1000").val();
-		if(sns_1000 == null || sns_1000 =="" || typeof sns_1000 == "undefined" || sns_1000 >= 10000) sns_1000 = 0; 
-		$("#sns_1000").val(sns_1000);
+		let stc_250 = $("#stc_250").val();
+		if(stc_250 == null || stc_250 =="" || typeof stc_250 == "undefined" || stc_250 >= 2000) stc_250 = 0; 
+		$("#stc_250").val(stc_250);
+		let stc_500 = $("#stc_500").val();
+		if(stc_500 == null || stc_500 =="" || typeof stc_500 == "undefined" || stc_500 >= 5000) stc_500 = 0; 
+		$("#stc_500").val(stc_500);
+		let stc_1000 = $("#stc_1000").val();
+		if(stc_1000 == null || stc_1000 =="" || typeof stc_1000 == "undefined" || stc_1000 >= 10000) stc_1000 = 0; 
+		$("#stc_1000").val(stc_1000);
 
-		if((ori_250+ori_500+ori_1000+erl_250+erl_500+erl_1000+sns_250+sns_500+sns_1000)==0) {
+		if((ori_250+ori_500+ori_1000+erl_250+erl_500+erl_1000+stc_250+stc_500+stc_1000)==0) {
 		      alert('주문 제품의 수량을 넣어주세요!');
 		      $("#ori_250").select();
 		      return false;
@@ -165,23 +165,23 @@ $( function() {
         <td class="text-right">${stockSum.erl_1000_sum - orderSum.erl_1000_sum}개</td>
     </tr>
     <tr>
-        <td rowspan="3" class="text-center">Sweet &amp; Salty</td>
+        <td rowspan="3" class="text-center">SaltCaramel</td>
         <td>250g</td>
-        <td class="text-right">${orderSum.sns_250_sum}개</td>
-        <td class="text-right">${stockSum.sns_250_sum}개</td>
-        <td class="text-right">${stockSum.sns_250_sum - orderSum.sns_250_sum}개</td>
+        <td class="text-right">${orderSum.stc_250_sum}개</td>
+        <td class="text-right">${stockSum.stc_250_sum}개</td>
+        <td class="text-right">${stockSum.stc_250_sum - orderSum.stc_250_sum}개</td>
     </tr>
 	<tr>
         <td>500g</td>
-        <td class="text-right">${orderSum.sns_500_sum}개</td>
-        <td class="text-right">${stockSum.sns_500_sum}개</td>
-        <td class="text-right">${stockSum.sns_500_sum - orderSum.sns_500_sum}개</td>
+        <td class="text-right">${orderSum.stc_500_sum}개</td>
+        <td class="text-right">${stockSum.stc_500_sum}개</td>
+        <td class="text-right">${stockSum.stc_500_sum - orderSum.stc_500_sum}개</td>
     </tr>
 	<tr>        
         <td>1,000g</td>
-        <td class="text-right">${orderSum.sns_1000_sum}개</td>
-        <td class="text-right">${stockSum.sns_1000_sum}개</td>
-        <td class="text-right">${stockSum.sns_1000_sum - orderSum.sns_1000_sum}개</td>
+        <td class="text-right">${orderSum.stc_1000_sum}개</td>
+        <td class="text-right">${stockSum.stc_1000_sum}개</td>
+        <td class="text-right">${stockSum.stc_1000_sum - orderSum.stc_1000_sum}개</td>
     </tr>
     </tbody>
   	</table>
@@ -191,7 +191,7 @@ $( function() {
 	
   <div class="col-md-2">
     <div class="panel panel-default" style="border: none;">
-	  <div class="panel-heading">ORIGINAL</div>
+	  <div class="panel-heading">Original</div>
 	  <div class="panel-body">
 	  	<div class="form-group">
 	  	<div class="col-xs-4">
@@ -212,7 +212,7 @@ $( function() {
 <!--   </div> -->
 <!--   <div class="col-md-4"> -->
     <div class="panel panel-default" style="border: none;">
-	  <div class="panel-heading">EARLGREY</div>
+	  <div class="panel-heading">Earlgrey</div>
 	  <div class="panel-body">
 	  	<div class="form-group">
 	  	<div class="col-xs-4">
@@ -233,20 +233,20 @@ $( function() {
 <!--   </div> -->
 <!--   <div class="col-md-4"> -->
     <div class="panel panel-default" style="border: none;">
-	  <div class="panel-heading">SWEET &amp; SALTY</div>
+	  <div class="panel-heading">SaltCaramel</div>
 	  <div class="panel-body">
 	  	<div class="form-group">
 	  	<div class="col-xs-4">
-		    <label for="sns_250">250g</label>
-		    <input class="form-control order_item" id="sns_250" name="sns_250" type="number" pattern="[0-9]{4}">
+		    <label for="stc_250">250g</label>
+		    <input class="form-control order_item" id="stc_250" name="stc_250" type="number" pattern="[0-9]{4}">
 		</div>
 	    <div class="col-xs-4">
-		    <label for="sns_500">500g</label>
-		    <input class="form-control order_item" id="sns_500" name="sns_500" type="number" pattern="[0-9]{4}">
+		    <label for="stc_500">500g</label>
+		    <input class="form-control order_item" id="stc_500" name="stc_500" type="number" pattern="[0-9]{4}">
 		</div>
 		<div class="col-xs-4">
-		    <label for="sns_1000">1,000g</label>
-		    <input class="form-control order_item" id="sns_1000" name="sns_1000" type="number" pattern="[0-9]{4}">
+		    <label for="stc_1000">1,000g</label>
+		    <input class="form-control order_item" id="stc_1000" name="stc_1000" type="number" pattern="[0-9]{4}">
 		</div>
   		</div>
   	  </div>
@@ -313,7 +313,7 @@ $( function() {
       <tr class="dataRow">
         <td>${vo.productDate}</td>
         <td>${vo.gubun}</td>
-        <td>${vo.ori_250_format}${vo.erl_250_format}${vo.sns_250_format}</td>
+        <td>${vo.ori_250_format}${vo.erl_250_format}${vo.stc_250_format}</td>
       </tr>
 </c:forEach>
     </tbody>

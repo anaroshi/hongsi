@@ -143,15 +143,15 @@ input[type=number]::-webkit-outer-spin-button {
 		if(erl_1000 == null || erl_1000 =="" || typeof erl_1000 == "undefined" || erl_1000 >= 10000) erl_1000 = 0; 
 		$("#erl_1000").val(erl_1000);
 		
-		let sns_250 = $("#sns_250").val();
-		if(sns_250 == null || sns_250 =="" || typeof sns_250 == "undefined" || sns_250 >= 2000) sns_250 = 0; 
-		$("#sns_250").val(sns_250);
-		let sns_500 = $("#sns_500").val();
-		if(sns_500 == null || sns_500 =="" || typeof sns_500 == "undefined" || sns_500 >= 5000) sns_500 = 0; 
-		$("#sns_500").val(sns_500);
-		let sns_1000 = $("#sns_1000").val();
-		if(sns_1000 == null || sns_1000 =="" || typeof sns_1000 == "undefined" || sns_1000 >= 10000) sns_1000 = 0; 
-		$("#sns_1000").val(sns_1000);
+		let stc_250 = $("#stc_250").val();
+		if(stc_250 == null || stc_250 =="" || typeof stc_250 == "undefined" || stc_250 >= 2000) stc_250 = 0; 
+		$("#stc_250").val(stc_250);
+		let stc_500 = $("#stc_500").val();
+		if(stc_500 == null || stc_500 =="" || typeof stc_500 == "undefined" || stc_500 >= 5000) stc_500 = 0; 
+		$("#stc_500").val(stc_500);
+		let stc_1000 = $("#stc_1000").val();
+		if(stc_1000 == null || stc_1000 =="" || typeof stc_1000 == "undefined" || stc_1000 >= 10000) stc_1000 = 0; 
+		$("#stc_1000").val(stc_1000);
 		
 		$("#frm").submit();
   	});
@@ -210,20 +210,20 @@ input[type=number]::-webkit-outer-spin-button {
   </div>
   <div class="col-md-4">
     <div class="panel panel-default" style="border: none;">
-	  <div class="panel-heading">SWEET &amp; SALTY</div>
+	  <div class="panel-heading">SaltCaramel</div>
 	  <div class="panel-body">
 	  	<div class="form-group">
 	  	<div class="col-xs-4">
-		    <label for="sns_250">200g</label>
-		    <input class="form-control" id="sns_250" name="sns_250" type="number" pattern="[0-9]{4}">
+		    <label for="stc_250">200g</label>
+		    <input class="form-control" id="stc_250" name="stc_250" type="number" pattern="[0-9]{4}">
 		</div>
 	    <div class="col-xs-4">
-		    <label for="sns_500">500g</label>
-		    <input class="form-control" id="sns_500" name="sns_500" type="number" pattern="[0-9]">
+		    <label for="stc_500">500g</label>
+		    <input class="form-control" id="stc_500" name="stc_500" type="number" pattern="[0-9]">
 		</div>
 		<div class="col-xs-4">
-		    <label for="sns_1000">1,000g</label>
-		    <input class="form-control" id="sns_1000" name="sns_1000" type="number" pattern="[0-9]">
+		    <label for="stc_1000">1,000g</label>
+		    <input class="form-control" id="stc_1000" name="stc_1000" type="number" pattern="[0-9]">
 		</div>
   		</div>
   	  </div>

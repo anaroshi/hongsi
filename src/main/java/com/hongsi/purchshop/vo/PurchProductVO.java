@@ -16,9 +16,9 @@ public class PurchProductVO {
 	private long 	erl_250;	// erl_250 생산 갯수
 	private long 	erl_500;	// erl_500 생산 갯수
 	private long 	erl_1000;	// erl_1000 생산 갯수
-	private long 	sns_250;	// sns_250 생산 갯수
-	private long 	sns_500;	// sns_500 생산 갯수
-	private long 	sns_1000;	// sns_1000 생산 갯수
+	private long 	stc_250;	// stc_250 생산 갯수
+	private long 	stc_500;	// stc_500 생산 갯수
+	private long 	stc_1000;	// stc_1000 생산 갯수
 	private String  gubun;		// 생산 구분 : 생산, 교환, 반품, 손실, 샘플
 	private String 	comm;		// 비고
 	private String 	manager;	// 담당자	
@@ -31,9 +31,9 @@ public class PurchProductVO {
 	private String 	erl_250_format;		// erl_250 생산 갯수 포맷형   ERL_250 : 999,999,999 개,
 	private String 	erl_500_format;		// erl_500 생산 갯수 포맷형   ERL_500 : 999,999,999 개,
 	private String 	erl_1000_format;	// erl_1000 생산 갯수 포맷형   ERL_1000 : 999,999,999 개,
-	private String 	sns_250_format;		// sns_250 생산 갯수 포맷형   SNS_250 : 999,999,999 개,
-	private String 	sns_500_format;		// sns_500 생산 갯수 포맷형   SNS_500 : 999,999,999 개,
-	private String 	sns_1000_format;	// sns_1000 생산 갯수 포맷형   SNS_1000 : 999,999,999 개,
+	private String 	stc_250_format;		// stc_250 생산 갯수 포맷형   STC_250 : 999,999,999 개,
+	private String 	stc_500_format;		// stc_500 생산 갯수 포맷형   STC_500 : 999,999,999 개,
+	private String 	stc_1000_format;	// stc_1000 생산 갯수 포맷형   STC_1000 : 999,999,999 개,
 
 	private long 	ori_250_sum;	// ori_250 생산 갯수
 	private long 	ori_500_sum;	// ori_500 생산 갯수
@@ -41,12 +41,12 @@ public class PurchProductVO {
 	private long 	erl_250_sum;	// erl_250 생산 갯수
 	private long 	erl_500_sum;	// erl_500 생산 갯수
 	private long 	erl_1000_sum;	// erl_1000 생산 갯수
-	private long 	sns_250_sum;	// sns_250 생산 갯수
-	private long 	sns_500_sum;	// sns_500 생산 갯수
-	private long 	sns_1000_sum;	// sns_1000 생산 갯수
+	private long 	stc_250_sum;	// stc_250 생산 갯수
+	private long 	stc_500_sum;	// stc_500 생산 갯수
+	private long 	stc_1000_sum;	// stc_1000 생산 갯수
  	private long 	ori_sum;		
 	private long 	erl_sum;
-	private long 	sns_sum;
+	private long 	stc_sum;
 
 	private long 	flag;		// 재료 입력 1 / 수정 2 / 삭제 4 여부 확인용
 	
@@ -64,9 +64,9 @@ ORI_1000 NUMBER DEFAULT 0,
 ERL_250 NUMBER DEFAULT 0, 
 ERL_500 NUMBER DEFAULT 0, 
 ERL_1000 NUMBER DEFAULT 0, 
-SNS_250 NUMBER DEFAULT 0, 
-SNS_500 NUMBER DEFAULT 0, 
-SNS_1000 NUMBER DEFAULT 0, 
+STC_250 NUMBER DEFAULT 0, 
+STC_500 NUMBER DEFAULT 0, 
+STC_1000 NUMBER DEFAULT 0, 
 GUBUN VARCHAR2(50), 
 COMM VARCHAR2(4000), 
 MANAGER VARCHAR2(30), 

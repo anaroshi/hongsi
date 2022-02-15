@@ -37,7 +37,7 @@ public class QuantityServiceImpl implements QuantityService {
 
 	@Override
 	public List<QuantityVO> selectAllIngreStock() throws Exception {
-		// 전체 재료, original 재료량, earlgrey 재료량, sweet&salty 재료량, 전체 재고 쿼리
+		// 전체 재료, original 재료량, earlgrey 재료량, SaltCaramel 재료량, 전체 재고 쿼리
 		return mapper.selectAllIngreStock();
 	}
 

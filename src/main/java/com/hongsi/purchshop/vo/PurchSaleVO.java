@@ -17,9 +17,9 @@ public class PurchSaleVO {
 	private long 	erl_250;	// erl_250 판매갯수
 	private long 	erl_500;	// erl_500 판매갯수
 	private long 	erl_1000;	// erl_1000 판매갯수
-	private long 	sns_250;	// sns_250 판매갯수
-	private long 	sns_500;	// sns_500 판매갯수
-	private long 	sns_1000;	// sns_1000 판매갯수
+	private long 	stc_250;	// stc_250 판매갯수
+	private long 	stc_500;	// stc_500 판매갯수
+	private long 	stc_1000;	// stc_1000 판매갯수
 	private String  gubun;		// 판매 구분 : 판매, 교환, 반품, 손실, 샘플
 	private long 	price;		// 금액
 	private String 	paymentPath;// 지불방법
@@ -39,12 +39,12 @@ public class PurchSaleVO {
 	private long 	erl_250_sum;	// erl_250 판매 갯수
 	private long 	erl_500_sum;	// erl_500 판매 갯수
 	private long 	erl_1000_sum;	// erl_1000 판매 갯수
-	private long 	sns_250_sum;	// sns_250 판매 갯수
-	private long 	sns_500_sum;	// sns_500 판매 갯수
-	private long 	sns_1000_sum;	// sns_1000 판매 갯수
+	private long 	stc_250_sum;	// stc_250 판매 갯수
+	private long 	stc_500_sum;	// stc_500 판매 갯수
+	private long 	stc_1000_sum;	// stc_1000 판매 갯수
  	private long 	ori_sum;		
 	private long 	erl_sum;
-	private long 	sns_sum;
+	private long 	stc_sum;
 	
 	private String  startDate;		// 기준되는 한주의 시작 일요일 구하기
 	private String  endDate;		// 기준되는 한주의 시작 토요일 구하기
@@ -67,9 +67,9 @@ ORI_1000 NUMBER DEFAULT 0,
 ERL_250 NUMBER DEFAULT 0, 
 ERL_500 NUMBER DEFAULT 0, 
 ERL_1000 NUMBER DEFAULT 0, 
-SNS_250 NUMBER DEFAULT 0, 
-SNS_500 NUMBER DEFAULT 0, 
-SNS_1000 NUMBER DEFAULT 0, 
+STC_250 NUMBER DEFAULT 0, 
+STC_500 NUMBER DEFAULT 0, 
+STC_1000 NUMBER DEFAULT 0, 
 GUBUN VARCHAR2(50), 
 PRICE NUMBER DEFAULT 0, 
 PAYMENTPATH VARCHAR2(50), 

@@ -19,6 +19,7 @@ $( function() {
 		let itemJ =["2300"];
 		let itemK =["500","1000"];
 		let itemL =["500","800","1000"];
+		let itemM =["100","500","1000"];
 		let d = "";
 		switch(selectedVal) {
 			case "in_020":
@@ -53,6 +54,9 @@ $( function() {
 			break;
 			case "in_027":
 				d = itemL;
+			break;
+			case "in_030": case "in_031": case "in_032": case "in_033": case "in_034":
+				d = itemM;
 			break;
 			default:
 				d = "";

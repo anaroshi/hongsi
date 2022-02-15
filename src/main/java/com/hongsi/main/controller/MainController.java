@@ -32,12 +32,12 @@ public class MainController {
 	@Qualifier("purchSaleServiceImpl")
 	private PurchSaleService purchSaleService;
 	
-	// 전체 재료, original 재료량, earlgrey 재료량, sweet&salty 재료량, 전체 재고 보기
+	// 전체 재료, original 재료량, earlgrey 재료량, SaltCaramel 재료량, 전체 재고 보기
 	@GetMapping("main.do")
 	public String selectAllIngreStock(Model model) throws Exception {
 		log.info(".............................selectAllIngreStock..");		
 		
-		// 재료 (ori 필요 & erl 필요 & sns 필요 & 현재재고 & 금주필요 & 최종재고 & 주문필요)
+		// 재료 (ori 필요 & erl 필요 & stc 필요 & 현재재고 & 금주필요 & 최종재고 & 주문필요)
 		model.addAttribute("resultList", quantityService.selectTotalNeedFinal());
 		
 		// 이번주에 생산해야할 필요량 g으로 환산
