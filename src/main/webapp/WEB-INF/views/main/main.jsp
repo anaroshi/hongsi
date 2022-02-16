@@ -183,21 +183,21 @@ $(function() {
 				<c:forEach items="${resultList}" var="vo" varStatus="status">
 				<c:if test="${vo.total != '0' or vo.finalNeed != '0'}">
 					<tr class="dataRow">
-						<td class="text-center">${vo.kname}</td>						
+						<td class="text-center"><strong>${vo.kname}</strong></td>						
 						<td style="display:none" id="code">${vo.code}</td>
 						<td id="ori_${status.count}"><fmt:formatNumber value="${vo.ori_qty_2week}" /></td>
 						<td id="erl_${status.count}"><fmt:formatNumber value="${vo.erl_qty_2week}" /></td>
 						<td id="stc_${status.count}"><fmt:formatNumber value="${vo.stc_qty_2week}" /></td>
-						<td id="tot_${status.count}"><fmt:formatNumber value="${vo.total}" /></td>
+						<td id="tot_${status.count}"><strong><fmt:formatNumber value="${vo.total}" /></strong></td>
 						<td class="text-right warning" id="need_${status.count}"><fmt:formatNumber value="${vo.needSum}" /></td>						
 						<td id="ftt_${status.count}"><fmt:formatNumber value="${vo.finalTotal-vo.sumCafe}" /></td>
 						<td id="ftt_${status.count}"><fmt:formatNumber value="${vo.sumCafe}" /></td>
-						<td id="ftt_${status.count}"><fmt:formatNumber value="${vo.finalTotal}" /></td>
+						<td id="ftt_${status.count}"><strong><fmt:formatNumber value="${vo.finalTotal}" /></strong></td>
 						<td class="text-right warning" id="totNeed2week_${status.count}"><fmt:formatNumber value="${vo.finalNeed}" /></td>
 						<td class="text-right" id="need2week_${status.count}"><fmt:formatNumber value="${vo.ori_need2week}" /></td>
 						<td class="text-right" id="need2week_${status.count}"><fmt:formatNumber value="${vo.erl_need2week}" /></td>
 						<td class="text-right" id="need2week_${status.count}"><fmt:formatNumber value="${vo.stc_need2week}" /></td>
-						<td class="text-right" id="need2week_${status.count}"><fmt:formatNumber value="${vo.need2week}" /></td>
+						<td class="text-right" id="need2week_${status.count}"><strong><fmt:formatNumber value="${vo.need2week}" /></strong></td>
 					</tr> <!-- style="display:none"  -->
 					</c:if>
 				</c:forEach>

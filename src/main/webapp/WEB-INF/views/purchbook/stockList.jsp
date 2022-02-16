@@ -51,19 +51,19 @@ th {
 						<c:forEach items="${ingreTotalList}" var="vo">
 						<c:if test="${vo.inTotal != '0' or vo.total != '0'}">
 							<tr class="dataRow">
-								<td>${vo.kname}</td>
+								<td><strong>${vo.kname}</strong></td>
 								<td class="text-right"><fmt:formatNumber>${vo.inTotal - vo.inCafeTotal}</fmt:formatNumber></td>
 								<td class="text-right"><fmt:formatNumber>${vo.inCafeTotal}</fmt:formatNumber></td>
-								<td class="text-right"><fmt:formatNumber>${vo.inTotal}</fmt:formatNumber></td>
+								<td class="text-right"><strong><fmt:formatNumber>${vo.inTotal}</fmt:formatNumber></strong></td>
 								<td class="text-right"> </td>
 								<td class="text-right"><fmt:formatNumber>${vo.outTotal - vo.outCafeTotal}</fmt:formatNumber></td>
 								<td class="text-right"><fmt:formatNumber>${vo.outCafeTotal}</fmt:formatNumber></td>
-								<td class="text-right"><fmt:formatNumber>${vo.outTotal}</fmt:formatNumber></td>
+								<td class="text-right"><strong><fmt:formatNumber>${vo.outTotal}</fmt:formatNumber></strong></td>
 								<td class="text-right"> </td>
 								<td class="text-right"><fmt:formatNumber>${vo.disTotal - vo.disCafeTotal}</fmt:formatNumber></td>
 								<td class="text-right"><fmt:formatNumber>${vo.disCafeTotal}</fmt:formatNumber></td>
-								<td class="text-right"><fmt:formatNumber>${vo.disTotal}</fmt:formatNumber></td>
-								<td class="text-right"><fmt:formatNumber>${vo.total}</fmt:formatNumber></td>
+								<td class="text-right"><strong><fmt:formatNumber>${vo.disTotal}</fmt:formatNumber></strong></td>
+								<td class="text-right"><strong><fmt:formatNumber>${vo.total}</fmt:formatNumber></strong></td>
 							</tr>
 						</c:if>	
 						</c:forEach>

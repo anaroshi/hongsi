@@ -275,7 +275,7 @@ $( function() {
      <div class="form-group">
       <label for="comm" class="col-sm-3 control-label">내역</label>
       <div class="col-sm-8">
-      	<textarea class="form-control" rows="5" id="comm" name="comm"></textarea>
+      	<textarea class="form-control" rows="6" id="comm" name="comm"></textarea>
       </div>
     </div>
     <div class="form-group">
