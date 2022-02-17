@@ -11,5 +11,11 @@
 <body>
 <h1>예외 처리 페이지</h1>
 <h4>${exception.message}</h4>
+<h4>${exception}</h4>
+<ul>
+	<c:forEach items="${exception.stackTrace}" var="stack">
+		<li>${stack}</li>
+	</c:forEach>
+</ul>
 </body>
 </html>
