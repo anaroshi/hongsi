@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -13,6 +14,7 @@ import com.hongsi.ingredient.service.IngredientService;
 import com.hongsi.purchbook.service.PurchIngSerivce;
 import com.hongsi.purchbook.vo.PurchIngVO;
 import com.hongsi.quantity.service.QuantityService;
+import com.hongsi.util.PageObject;
 
 import lombok.extern.log4j.Log4j;
 
@@ -62,9 +64,9 @@ public class PurchIngController {
 
 	// 재료구매 리스트 화면
 	@GetMapping("buyAllList.do")
-	public String buyAllList(Model model) throws Exception {
+	public String buyAllList(Model model, @ModelAttribute PageObject pageObject) throws Exception {
 		log.info(".............................buyList..buy");
-		model.addAttribute("resultList", purchIngSerivce.list());
+		model.addAttribute("resultList", purchIngSerivce.list(pageObject));
 		return MODULE + "/buyAllList";
 	}
 
@@ -90,7 +92,7 @@ public class PurchIngController {
 	
 	// 재료 입출고 화면
 	@GetMapping("storage.do")
-	public String storage(Model model) throws Exception {
+	public String storage(Model model, @ModelAttribute PageObject pageObject) throws Exception {
 		log.info(".............................buyList..buy");
 		// 재료 리스트 (select)
 		model.addAttribute("ingreList", ingredientService.list());
@@ -98,8 +100,8 @@ public class PurchIngController {
 		//model.addAttribute("ingreTotalList", purchIngSerivce.selectIgdTotalList());
 		model.addAttribute("ingreTotalList", purchIngSerivce.selectNeedCafe());
 		// 재료 입출고 리스트
-		model.addAttribute("resultList", purchIngSerivce.selectStorageInOut());
-		//
+		model.addAttribute("resultList", purchIngSerivce.selectStorageInOut(pageObject));
+		
 		return MODULE + "/storage";
 	}
 	
@@ -120,10 +122,10 @@ public class PurchIngController {
 	}
 	
 	@GetMapping("storageAllList.do")
-	public String storageAllList(Model model) throws Exception {
+	public String storageAllList(Model model, @ModelAttribute PageObject pageObject) throws Exception {
 		log.info(".............................storageAllList..");
 		// 재료 입출고 리스트
-		model.addAttribute("resultList", purchIngSerivce.selectStorageInOut());
+		model.addAttribute("resultList", purchIngSerivce.selectStorageInOut(pageObject));
 		return MODULE + "/storageAllList";
 	}
 

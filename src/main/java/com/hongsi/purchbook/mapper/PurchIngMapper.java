@@ -3,10 +3,13 @@ package com.hongsi.purchbook.mapper;
 import java.util.List;
 
 import com.hongsi.purchbook.vo.PurchIngVO;
+import com.hongsi.util.PageObject;
 
 public interface PurchIngMapper {
 
-	List<PurchIngVO> list();
+	List<PurchIngVO> list(PageObject pageObject);
+
+	int getBuyTotalRow();
 
 	List<PurchIngVO> selectNonInDate();
 
@@ -16,8 +19,10 @@ public interface PurchIngMapper {
 	
 	List<PurchIngVO> selectIgdTotalList();
 
-	List<PurchIngVO> selectStorageInOut();
+	List<PurchIngVO> selectStorageInOut(PageObject pageObject);
 
+	int getStorageInOutTotalRow();
+	
 	int deleteIng(PurchIngVO vo);
 
 	int updateIng(PurchIngVO vo);
@@ -25,5 +30,6 @@ public interface PurchIngMapper {
 	PurchIngVO selectBuyStorageInfoByCno(PurchIngVO vo);
 
 	List<PurchIngVO> selectNeedCafe();
+
 
 }

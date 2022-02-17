@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@ taglib tagdir="/WEB-INF/tags" prefix="pageObject" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -394,6 +394,11 @@ div.panel-body {
 </c:forEach>
     </tbody>
   </table>
+<div class="text-center">
+	<c:if test="${pageObject.totalPage>1}" >		
+		<pageObject:pageNav listURI="sale.do" pageObject="${pageObject}" />
+	</c:if>
+</div>  
 </div>
 <!-- 	</div> 3블럭 End -->
 </div>

@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="pageObject" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -142,7 +143,7 @@
 	    </div>
 	    </div>
     </div>
-    
+    </form>    
 	<!-- 2블럭 End -->
 	<!-- 재료주문 End -->
 
@@ -171,9 +172,14 @@
 	</c:forEach>
 	    </tbody>
 	</table>
+	<div class="text-center">
+		<c:if test="${pageObject.totalPage>1}" >		
+			<pageObject:pageNav listURI="storage.do" pageObject="${pageObject}" />
+		</c:if>
+	</div>
 	</div> 
 	<!-- 재료 입출고 List End  -->
-    </form>
+
 	</div>
 </div>
 </body>

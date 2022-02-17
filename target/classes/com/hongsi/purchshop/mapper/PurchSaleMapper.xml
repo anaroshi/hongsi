@@ -188,8 +188,17 @@
 		) F
 	)
 	WHERE 1=1
-<!-- 	AND RNUM BETWEEN 1 AND 10	 -->
+	AND 	RNUM BETWEEN #{startRow} AND #{endRow}	
 	</select>
+
+	<!-- 총 판매 건수 -->
+	<select id="getSaleTotalRow" resultType="java.lang.Integer">
+	SELECT 	COUNT(*)
+	FROM 	PURCH_SALE
+	WHERE 	1 = 1
+	AND 	FLAG != 4
+	</select>
+
 	
 	<!-- 판매 정보 리스트 하단의 합계 -->
 	<select id="selectStock" resultType="com.hongsi.purchshop.vo.PurchSaleVO">

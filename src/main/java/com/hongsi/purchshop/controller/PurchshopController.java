@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +16,7 @@ import com.hongsi.purchshop.service.PurchSaleService;
 import com.hongsi.purchshop.service.PurchOrderService;
 import com.hongsi.purchshop.vo.PurchProductVO;
 import com.hongsi.purchshop.vo.PurchSaleVO;
+import com.hongsi.util.PageObject;
 import com.hongsi.purchshop.vo.PurchOrderVO;
 
 import lombok.extern.log4j.Log4j;
@@ -68,9 +70,9 @@ public class PurchshopController {
 
 	// 주문 내역
 	@GetMapping("orderAllList.do")
-	public String orderAllList(PurchOrderVO vo, Model model) throws Exception {
+	public String orderAllList(PurchOrderVO vo, Model model, @ModelAttribute PageObject pageObject) throws Exception {
 		log.info(".............................orderAllList..");
-		model.addAttribute("orderList", purchOrderService.selectOrderList());
+		model.addAttribute("orderList", purchOrderService.selectOrderList(pageObject));
 		//model.addAttribute("orderStock", purchOrderService.selectOrderStock());
 		return MODULE + "/orderAllList";
 	}
@@ -79,10 +81,10 @@ public class PurchshopController {
 	
 	// 생산 정보 입력 화면
 	@GetMapping("product.do")
-	public String product(PurchProductVO vo, Model model) throws Exception {
+	public String product(PurchProductVO vo, Model model, @ModelAttribute PageObject pageObject) throws Exception {
 		log.info(".............................product..vo:"+vo);
 		// 생산 정보 리스트
-		model.addAttribute("productList", purchProductService.selectProductList());
+		model.addAttribute("productList", purchProductService.selectProductList(pageObject));
 		// 이번주 주문량
 		model.addAttribute("orderSum", purchOrderService.selectOrderSum());
 				
@@ -109,8 +111,8 @@ public class PurchshopController {
 
 	// 생산 정보 리스트 화면
 	@GetMapping("productAllList.do")
-	public String productAllList(Model model) throws Exception {
-		model.addAttribute("productList", purchProductService.selectProductList());
+	public String productAllList(Model model, @ModelAttribute PageObject pageObject) throws Exception {
+		model.addAttribute("productList", purchProductService.selectProductList(pageObject));
 		//model.addAttribute("productStock", purchProductService.selectProductStock());
 		return MODULE + "/productAllList";
 	}
@@ -119,7 +121,7 @@ public class PurchshopController {
 	
 	// 판매 정보 입력 화면
 	@GetMapping("sale.do")
-	public String sale(PurchOrderVO vo, Model model, @RequestParam(required = false, defaultValue = "0") int order_cno) throws Exception {
+	public String sale(PurchOrderVO vo, Model model, @ModelAttribute PageObject pageObject, @RequestParam(required = false, defaultValue = "0") int order_cno) throws Exception {
 		log.info(".............................sale..cno:"+order_cno);
 		
 		// 주문 정보(주문게시판에서 주문 클릭시 주문에 대한 정보를 가져와 판매 정보에 넣어준다.)
@@ -130,7 +132,7 @@ public class PurchshopController {
 		model.addAttribute("orderList", purchOrderService.selectOrderListWaitSale());
 		
 		// 판매 정보 리스트
-		model.addAttribute("saleList", purchSaleService.selectSaleList());
+		model.addAttribute("saleList", purchSaleService.selectSaleList(pageObject));
 		return MODULE + "/sale";
 	}
 
@@ -160,10 +162,10 @@ public class PurchshopController {
 	
 	// 판매 정보 리스트 화면
 	@GetMapping("saleAllList.do")
-	public String saleAllList(Model model) throws Exception {
+	public String saleAllList(Model model, @ModelAttribute PageObject pageObject) throws Exception {
 		log.info(".............................saleAllList");
 		// 판매 정보 리스트
-		model.addAttribute("saleList", purchSaleService.selectSaleList());	
+		model.addAttribute("saleList", purchSaleService.selectSaleList(pageObject));	
 		//model.addAttribute("saleStock", purchSaleService.selectSaleStock());	
 		return MODULE + "/saleAllList";
 	}

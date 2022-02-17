@@ -3,6 +3,7 @@ package com.hongsi.purchshop.service;
 import java.util.List;
 
 import com.hongsi.purchshop.vo.PurchSaleVO;
+import com.hongsi.util.PageObject;
 
 public interface PurchSaleService {
 
@@ -12,7 +13,7 @@ public interface PurchSaleService {
 
 	public int updateSaleInfoByCno(PurchSaleVO vo);
 
-	public List<PurchSaleVO> selectSaleList();	
+	public List<PurchSaleVO> selectSaleList(PageObject pageObject);	
 	
 	public PurchSaleVO getWeekDay();
 

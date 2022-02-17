@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.hongsi.purchshop.mapper.PurchSaleMapper;
 import com.hongsi.purchshop.vo.PurchSaleVO;
+import com.hongsi.util.PageObject;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -31,9 +32,11 @@ public class PurchSaleServiceImpl implements PurchSaleService {
 		return mapper.insertSale(vo);
 	}
 
+	// 판매 정보 리스트
 	@Override
-	public List<PurchSaleVO> selectSaleList() {
-		return mapper.selectSaleList();
+	public List<PurchSaleVO> selectSaleList(PageObject pageObject) {
+		pageObject.setTotalRow(mapper.getSaleTotalRow());	
+		return mapper.selectSaleList(pageObject);
 	}
 	
 	@Override

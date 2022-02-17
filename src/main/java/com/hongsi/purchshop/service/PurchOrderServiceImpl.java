@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.hongsi.purchshop.mapper.PurchOrderMapper;
 import com.hongsi.purchshop.vo.PurchOrderVO;
+import com.hongsi.util.PageObject;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -43,10 +44,11 @@ public class PurchOrderServiceImpl implements PurchOrderService {
 		return mapper.selectOrderSum();
 	}
 
+	// 주문 리스트
 	@Override
-	public List<PurchOrderVO> selectOrderList() throws Exception {
-		// 주문 리스트
-		return mapper.selectOrderList();
+	public List<PurchOrderVO> selectOrderList(PageObject pageObject) throws Exception {
+		pageObject.setTotalRow(mapper.getOrderTotalRow());				
+		return mapper.selectOrderList(pageObject);
 	}
 	
 	@Override

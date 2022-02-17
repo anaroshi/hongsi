@@ -63,7 +63,15 @@
 <!-- 	AND GUBUNCODE = #{gubuncode}	 -->
 <!-- 	AND GUBUN = #{gubun}	 -->
 <!-- 	AND ITEM = #{item}	 -->
-<!-- 	AND RNUM BETWEEN 1 AND 10	 -->
+	AND RNUM BETWEEN #{startRow} AND #{endRow}		
+	</select>
+
+	<!-- 총 재료 주문 건수 -->
+	<select id="getBuyTotalRow" resultType="java.lang.Integer">
+	SELECT 	COUNT(*)
+	FROM 	PURCH_ING
+	WHERE	STATUS = 'purch'
+	AND 	FLAG != 4	
 	</select>
 
 	<!-- 	주문번호에 의한 재료 구매 or 입출고 정보 가져오기 -->
@@ -280,36 +288,61 @@
 
 	<!-- 	재료 입출고 List -->
 	<select id="selectStorageInOut" resultType="com.hongsi.purchbook.vo.PurchIngVO">		
-	SELECT 	
-		P.CNO,		
-		P.BUYDATE, 
-		P.ITEM, 
-		I.KNAME, 
-		P.GUBUN,
-		P.CONTENT,		
-		P.QTY,		
-		P.BUYER,
-		P.COMM
+	SELECT
+		RNUM,
+		CNO,		
+		BUYDATE, 
+		ITEM, 
+		KNAME, 
+		GUBUN,
+		CONTENT,		
+		QTY,		
+		BUYER,
+		COMM
 	FROM 
-	(
-		SELECT 
-			CNO,
-			TO_CHAR(BUYDATE, 'yyyy-MM-dd') BUYDATE,
-			ITEM,
-			GUBUN,
-			CONTENT,		
-			QTY,		
-			BUYER,
-			COMM
-		FROM PURCH_ING
-		WHERE STATUS = 'storage'
-		AND FLAG != 4		
-	) P,
-	(
-		SELECT KNAME, CODE FROM INGREDIENT
-	) I
-	WHERE P.ITEM = I.CODE
-	ORDER BY P.BUYDATE DESC
+	(	
+		SELECT
+			ROWNUM RNUM,
+			P.CNO,		
+			P.BUYDATE, 
+			P.ITEM, 
+			I.KNAME, 
+			P.GUBUN,
+			P.CONTENT,		
+			P.QTY,		
+			P.BUYER,
+			P.COMM
+		FROM 
+		(
+			SELECT 
+				CNO,
+				TO_CHAR(BUYDATE, 'yyyy-MM-dd') BUYDATE,
+				ITEM,
+				GUBUN,
+				CONTENT,		
+				QTY,		
+				BUYER,
+				COMM
+			FROM PURCH_ING
+			WHERE STATUS = 'storage'
+			AND FLAG != 4		
+		) P,
+		(
+			SELECT KNAME, CODE FROM INGREDIENT
+		) I
+		WHERE P.ITEM = I.CODE
+		ORDER BY P.BUYDATE DESC
+	)
+	WHERE 	1 = 1
+	AND 	RNUM BETWEEN #{startRow} AND #{endRow}	
+	</select>
+
+	<!-- 총 재료 입출고 건수 -->
+	<select id="getStorageInOutTotalRow" resultType="java.lang.Integer">
+	SELECT 	COUNT(*)
+	FROM 	PURCH_ING
+	WHERE	STATUS = 'storage'
+	AND 	FLAG != 4	
 	</select>
 
 	<!-- 재료 구매 정보 수정 처리 -->

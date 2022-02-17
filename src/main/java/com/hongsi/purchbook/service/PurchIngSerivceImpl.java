@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.hongsi.purchbook.mapper.PurchIngMapper;
 import com.hongsi.purchbook.vo.PurchIngVO;
+import com.hongsi.util.PageObject;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -21,9 +22,10 @@ public class PurchIngSerivceImpl implements PurchIngSerivce {
 	private PurchIngMapper mapper;
 	
 	@Override
-	public List<PurchIngVO> list() throws Exception {
+	public List<PurchIngVO> list(PageObject pageObject) throws Exception {
 		// log.info("------------------- purchIngSerivceImpl - List<PurchbookVO> ");
-		return mapper.list();
+		pageObject.setTotalRow(mapper.getBuyTotalRow());
+		return mapper.list(pageObject);
 	}
 
 	@Override
@@ -81,8 +83,9 @@ public class PurchIngSerivceImpl implements PurchIngSerivce {
 	}
 
 	@Override
-	public List<PurchIngVO> selectStorageInOut() throws Exception {
-		return mapper.selectStorageInOut();
+	public List<PurchIngVO> selectStorageInOut(PageObject pageObject) throws Exception {
+		pageObject.setTotalRow(mapper.getStorageInOutTotalRow());
+		return mapper.selectStorageInOut(pageObject);
 	}
 
 	// 재료 구매 & 입출고 정보 삭제

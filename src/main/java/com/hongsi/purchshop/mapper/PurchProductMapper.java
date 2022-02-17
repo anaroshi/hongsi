@@ -3,6 +3,7 @@ package com.hongsi.purchshop.mapper;
 import java.util.List;
 
 import com.hongsi.purchshop.vo.PurchProductVO;
+import com.hongsi.util.PageObject;
 
 
 public interface PurchProductMapper {
@@ -13,10 +14,13 @@ public interface PurchProductMapper {
 
 	int updateProductInfoByCno(PurchProductVO vo);
 	
-	List<PurchProductVO> selectProductList();
+	List<PurchProductVO> selectProductList(PageObject pageObject);
+	
+	int getProductTotalRow();
 	
 	PurchProductVO selectProductStock();
 	
 	PurchProductVO selectProductInfoByCno(int cno);
+
 	
 }

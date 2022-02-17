@@ -3,6 +3,7 @@ package com.hongsi.purchshop.service;
 import java.util.List;
 
 import com.hongsi.purchshop.vo.PurchOrderVO;
+import com.hongsi.util.PageObject;
 
 public interface PurchOrderService {
 	
@@ -17,7 +18,7 @@ public interface PurchOrderService {
 
 	public List<PurchOrderVO> selectOrderListSuntSat() throws Exception;
 	
-	public List<PurchOrderVO> selectOrderList() throws Exception;	
+	public List<PurchOrderVO> selectOrderList(PageObject pageObject) throws Exception;	
 	public PurchOrderVO selectProductStock() throws Exception;
 
 	public PurchOrderVO selectOrderByCno(int cno) throws Exception;
