@@ -18,12 +18,12 @@ div.modal-body {
 <script>
   $( function() {
 
-		startWith();
+//		startWith();
 		  
-		function startWith() {
-			// 화면 로드시 커서가 위치하게
-			$("#buyDate").focus();	  
-		};
+// 		function startWith() {
+// 			// 화면 로드시 커서가 위치하게
+// 			$("#buyDate").focus();	  
+// 		};
 	
 	  // 입력 메세지 처리	
 	  //${(empty msg)? "":"alert('"+=msg+="');"};	
@@ -104,8 +104,9 @@ div.modal-body {
 	    <div class="form-group">
 	      <label for="gubun" class="col-sm-3 control-label">구분</label>
 	      <div class="col-sm-8">
-			<select id="gubun" name="gubun" class="form-control select" required="required">
-	            <option value="구매">구매</option>
+			<select id="gubun" name="gubun" class="form-control select" required="required">	            
+	            <option value="구매_office">구매_office</option>
+	            <option value="구매_cafe">구매_cafe</option>
 <!-- 	            <option value="교환">교환</option> -->
 <!-- 	            <option value="반품">반품</option> -->
 <!-- 	            <option value="손실">손실</option> -->
@@ -115,9 +116,10 @@ div.modal-body {
 	    <div class="form-group">
 	      <label for="content" class="col-sm-3 control-label">용량</label>
 	      <div class="col-sm-8">
-		      <select id="content" name="content" class="form-control select" required="required">
-				<option value="">수량 1개당 용량</option>	            
-			  </select>
+	      	<input class="form-control inputNumber" id="content" name="content" type="number" placeholder="용량" required="required">
+<!-- 		      <select id="content" name="content" class="form-control select" required="required"> -->
+<!-- 				<option value="">수량 1개당 용량</option>	             -->
+<!-- 			  </select> -->
 	      </div>
 	    </div>
 	    <div class="form-group">
@@ -188,11 +190,10 @@ div.modal-body {
 <div class="col-md-5">
 <table class="table table-striped">
    <thead>    
-	<tr>
-        <th width="2%"></th>
+	<tr>        
         <th width="17%">주문일</th>
-        <th width="8%">구분</th>
-        <th width="22%">주문품</th>
+        <th width="12%">구분</th>
+        <th width="20%">주문품</th>
         <th width="22%" style="display:none">주문품</th>
         <th width="9%">용량</th>
         <th width="9%">수량</th>
@@ -201,11 +202,10 @@ div.modal-body {
     </thead>
     <tbody>
 <c:forEach items="${buyList}" var="vo" varStatus="status">
- 	<tr class="dataRow orderRow">
- 		<td>${status.count}</td>
+ 	<tr class="dataRow orderRow"> 		
  		<td class="cno" style="display:none">${vo.cno}</td>
         <td class="buyDate">${vo.buyDate}</td>
-        <td class="gubun">${vo.gubun}</td>
+        <td class="gubun" style="font-size: 11px;">${vo.gubun}</td>
         <td class="item" style="display:none">${vo.item}</td>
         <td class="kname">${vo.kname}</td>
         <td class="content text-right">${vo.content}</td>
@@ -215,6 +215,37 @@ div.modal-body {
 </c:forEach>
     </tbody>
 </table>
+
+<table class="table table-striped">
+   <thead>    
+	<tr>
+        <th width="16%">주문일</th>
+        <th width="16%">구분</th>
+        <th width="19%">주문품</th>
+        <th style="display:none">주문품</th>
+        <th width="9%">용량</th>
+        <th width="9%">수량</th>
+        <th width="15%">거래처</th>
+        <th width="16%">입고일</th>
+      </tr>
+    </thead>
+    <tbody>
+<c:forEach items="${buyInList}" var="vo" varStatus="status">
+ 	<tr class="dataRow orderRow">
+ 		<td class="cno" style="display:none">${vo.cno}</td>
+        <td class="buyDate" style="font-size: 11px;">${vo.buyDate}</td>
+        <td class="gubun" style="font-size: 11px;">${vo.gubun}</td>
+        <td class="item" style="display:none">${vo.item}</td>
+        <td class="kname">${vo.kname}</td>
+        <td class="content text-right">${vo.content}</td>
+        <td class="qty text-right">${vo.qty}</td>
+        <td class="purShop" style="font-size: 11px;">${vo.purShop}</td>
+        <td class="purShop" style="font-size: 11px;">${vo.inDate}</td>
+    </tr>
+</c:forEach>
+    </tbody>
+</table>
+
 <div class="text-center">
 	<c:if test="${pageObject.totalPage>1}" >		
 		<pageObject:pageNav listURI="buy.do" pageObject="${pageObject}" />

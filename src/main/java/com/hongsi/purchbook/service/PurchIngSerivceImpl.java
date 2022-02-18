@@ -28,9 +28,17 @@ public class PurchIngSerivceImpl implements PurchIngSerivce {
 		return mapper.list(pageObject);
 	}
 
+	// 주문리스트(입고일 미입력)
 	@Override
 	public List<PurchIngVO> selectNonInDate() throws Exception {
 		return mapper.selectNonInDate();
+	}
+
+	// 주문리스트(입고일 입력)
+	@Override
+	public List<PurchIngVO> selectInDate(PageObject pageObject) {
+		pageObject.setTotalRow(mapper.getInTotalRow());
+		return mapper.selectInDate(pageObject);
 	}
 
 	// 주문 정보 저장
@@ -43,6 +51,8 @@ public class PurchIngSerivceImpl implements PurchIngSerivce {
 		if (status.equals("purch")) {
 		// 재료 주문
 			if(gubun.equals("구매")) vo.setGubunCode("in");
+			else if(gubun.equals("구매_office")) vo.setGubunCode("in");
+			else if(gubun.equals("구매_cafe")) vo.setGubunCode("in");
 			else if(gubun.equals("교환")) vo.setGubunCode("out");
 			else if(gubun.equals("반품")) vo.setGubunCode("in");
 			else if(gubun.equals("손실")) vo.setGubunCode("out");
@@ -103,7 +113,9 @@ public class PurchIngSerivceImpl implements PurchIngSerivce {
 
 		if (status.equals("purch")) {
 		// 재료 주문
-			if(gubun.equals("구매")) vo.setGubunCode("in");			
+			if(gubun.equals("구매")) vo.setGubunCode("in");
+			else if(gubun.equals("구매_office")) vo.setGubunCode("in");
+			else if(gubun.equals("구매_cafe")) vo.setGubunCode("in");
 			else if(gubun.equals("교환")) vo.setGubunCode("out");
 			else if(gubun.equals("반품")) vo.setGubunCode("in");
 			else if(gubun.equals("손실")) vo.setGubunCode("out");
@@ -143,5 +155,4 @@ public class PurchIngSerivceImpl implements PurchIngSerivce {
 	public List<PurchIngVO> selectNeedCafe() throws Exception {
 		return mapper.selectNeedCafe();
 	}
-
 }

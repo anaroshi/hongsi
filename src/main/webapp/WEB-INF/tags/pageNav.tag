@@ -13,7 +13,7 @@
 <% request.setAttribute("noMove", " title=\"no move page!\" "); %>
 
 <!-- 기본 페이지당 행수 -->
-<c:set var="defaultPerPageNum" value="15"/>
+<c:set var="defaultPerPageNum" value="13"/>
 
 <ul class="pagination">
   	<li data-page=1>

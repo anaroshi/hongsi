@@ -11,6 +11,8 @@ public interface PurchIngSerivce {
 
 	public List<PurchIngVO> selectNonInDate() throws Exception;
 
+	public List<PurchIngVO> selectInDate(PageObject pageObject);
+
 	public int insertIng(PurchIngVO vo) throws Exception;
 	
 	public int updateInDate(PurchIngVO vo) throws Exception;
@@ -26,5 +28,6 @@ public interface PurchIngSerivce {
 	public PurchIngVO selectBuyStorageInfoByCno(PurchIngVO vo) throws Exception;
 
 	public List<PurchIngVO> selectNeedCafe() throws Exception;
+
 
 }

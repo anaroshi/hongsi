@@ -52,7 +52,7 @@
 	</logger>
 
 	<logger name="jdbc.sqlonly" additivity="false">
-		<level value="warn" />
+		<level value="info" />
 		<appender-ref ref="console" />
 	</logger>
 
@@ -67,7 +67,7 @@
 	</logger>
 
 	<logger name="jdbc.resultsettable" additivity="false">
-		<level value="warn" />
+		<level value="info" />
 		<appender-ref ref="console" />
 	</logger>
 	<!-- SQL 로그 출력을 위한 설정 추가 끝 -->

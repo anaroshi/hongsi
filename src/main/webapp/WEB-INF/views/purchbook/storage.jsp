@@ -16,12 +16,12 @@
 <script>
   $( function() {	  
 	  
-	startWith();
+// 	startWith();
 	  
-	function startWith() {
-		// 화면 로드시 커서가 위치하게
-		$("#buyDate").focus();	  
-	};
+// 	function startWith() {
+// 		// 화면 로드시 커서가 위치하게
+// 		$("#buyDate").focus();	  
+// 	};
 });
   </script>
 </head>

@@ -37,7 +37,7 @@ request.setAttribute("path", request.getContextPath());
 <script type="text/javascript" src="/resources/js/flatpickr.js"></script>
 
 <!-- 재료 용량 등록 -->
-<script type="text/javascript" src="/resources/js/item.js"></script>
+<!-- <script type="text/javascript" src="/resources/js/item.js"></script> -->
 
 <link rel="stylesheet" href="/resources/css/style.css">
 <style type="text/css">

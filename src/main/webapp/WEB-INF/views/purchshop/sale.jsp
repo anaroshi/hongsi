@@ -336,7 +336,7 @@ div.panel-body {
       <tr class="dataRow">
         <td>${vo.saleDate}</td>
         <td>${vo.gubun}</td>
-        <td>${vo.salePath}</td>
+        <td style="font-size: 11px;">${vo.salePath}</td>
         <td>${vo.ori_250}</td>
         <td>${vo.ori_500}</td>
         <td>${vo.ori_1000}</td>

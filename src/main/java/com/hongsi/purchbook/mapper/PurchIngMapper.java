@@ -12,7 +12,11 @@ public interface PurchIngMapper {
 	int getBuyTotalRow();
 
 	List<PurchIngVO> selectNonInDate();
+	
+	List<PurchIngVO> selectInDate(PageObject pageObject);
 
+	int getInTotalRow();
+	
 	int insertIng(PurchIngVO vo);
 
 	int updateInDate(PurchIngVO vo);	
@@ -30,6 +34,5 @@ public interface PurchIngMapper {
 	PurchIngVO selectBuyStorageInfoByCno(PurchIngVO vo);
 
 	List<PurchIngVO> selectNeedCafe();
-
 
 }

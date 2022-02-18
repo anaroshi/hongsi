@@ -52,7 +52,7 @@ public class PageObject {
 		// 처음 리스트로 들어올 때는 데이터가 안 넘어 오므로 초기값을 1페이지에
 		// 한페이당 10개의 글을 보이도록 셋팅한다.
 		this.page = 1;
-		this.perPageNum = 15;
+		this.perPageNum = 13;
 		// JSP 하단 부분에 몇개의 페이지를 표시할지 정한다.
 		perGroupPageNum = 10;
 		

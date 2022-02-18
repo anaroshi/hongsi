@@ -56,7 +56,7 @@ $( function() {
 			case "in_027":
 				d = itemL;
 			break;
-			case "in_030": case "in_031": case "in_032": case "in_033": case "in_034":
+			case "in_030": case "in_031": case "in_032": case "in_033": case "in_034": case "in_035":
 				d = itemM;
 			break;
 			default:

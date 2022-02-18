@@ -18,7 +18,7 @@
 			CONTENT,		
 			QTY,		
 			PRICE,
-			PURSHOP,			
+			PURSHOP,
 			INDATE,
 			COMM
 	FROM
@@ -52,12 +52,12 @@
 			FROM PURCH_ING
 			WHERE	STATUS = 'purch'
 			AND FLAG != 4
+			ORDER BY BUYDATE DESC
 		) P,
 		(
 			SELECT KNAME, CODE FROM INGREDIENT
 		) I
-		WHERE 	P.ITEM = I.CODE	
-		ORDER BY P.BUYDATE DESC
+		WHERE 	P.ITEM = I.CODE		
 	)
 	WHERE 1=1
 <!-- 	AND GUBUNCODE = #{gubuncode}	 -->
@@ -141,7 +141,7 @@
 		P.PURSHOP
 	FROM 
 	(
-	SELECT 
+		SELECT 
 			CNO,
 			TO_CHAR(BUYDATE, 'yyyy-MM-dd') BUYDATE,
 			ITEM,
@@ -162,6 +162,84 @@
 	ORDER BY P.BUYDATE DESC
 	</select>
 	
+	<!-- 	구매한 재료중에 입력일이 있는 재료들만 구하기 -->
+	<select id="selectInDate" resultType="com.hongsi.purchbook.vo.PurchIngVO">		
+	SELECT
+			RNUM,
+			CNO,		
+			BUYDATE, 
+			ITEM, 
+			KNAME, 
+			GUBUN,
+			CONTENT,		
+			QTY,		
+			PRICE,
+			PURSHOP,
+			INDATE
+	FROM
+	(
+		SELECT
+			ROWNUM RNUM,
+				CNO,		
+				BUYDATE, 
+				ITEM, 
+				KNAME, 
+				GUBUN,
+				CONTENT,		
+				QTY,		
+				PRICE,
+				PURSHOP,
+				INDATE
+		FROM
+		(
+			SELECT 	
+				P.CNO,		
+				P.BUYDATE, 
+				P.ITEM, 
+				I.KNAME, 
+				P.GUBUN,
+				P.CONTENT,		
+				P.QTY,		
+				P.PRICE,
+				P.PURSHOP,
+				P.INDATE
+			FROM 
+			(
+				SELECT 
+					CNO,
+					TO_CHAR(BUYDATE, 'yyyy-MM-dd') BUYDATE,
+					ITEM,
+					GUBUN,
+					CONTENT,		
+					QTY,		
+					PRICE,
+					PURSHOP,
+					TO_CHAR(INDATE, 'yyyy-MM-dd') INDATE	
+				FROM PURCH_ING
+				WHERE 	INDATE IS NOT NULL
+				AND		STATUS = 'purch'
+				AND FLAG != 4				
+			) P,
+			(
+				SELECT KNAME, CODE FROM INGREDIENT
+			) I
+			WHERE P.ITEM = I.CODE
+			ORDER BY P.BUYDATE DESC
+		)
+	)
+	WHERE 	1 = 1	
+	AND 	RNUM BETWEEN #{startRow} AND #{endRow}	
+	</select>
+
+	<!-- 구매한 재료중에 입력일이 있는 재료들 총 갯수 -->
+	<select id="getInTotalRow" resultType="java.lang.Integer">
+	SELECT	COUNT(*) 
+	FROM PURCH_ING
+	WHERE 	INDATE IS NOT NULL
+	AND		STATUS = 'purch'
+	AND 	FLAG != 4		
+	</select>
+
 	<!-- 	재료 구매 정보 저장 -->
 	<insert id="insertIng">
 	INSERT INTO PURCH_ING (
@@ -208,7 +286,7 @@
 	(	
 		SELECT 	A.ITEM ITEM,
 				B.KNAME KNAME,
-				(A.INT_1 + A.INT_2 + A.INT_3 + A.INT_4 + A.INT_5) INTOTAL,
+				(A.INT_1 + A.INT_2 + A.INT_3 + A.INT_4 + A.INT_5 + A.INT_6 + A.INT_7) INTOTAL,
 				(A.OUT_1 + A.OUT_2 + A.OUT_3 + A.OUT_4) OUTTOTAL,
 				(A.DIS_1 + A.DIS_2) DISTOTAL,
 				(A.IN_TOTAL - A.OUT_TOTAL) TOTAL
@@ -216,9 +294,11 @@
 		(	SELECT 	ITEM,
 					SUM(CASE WHEN GUBUN = '신규' THEN SUMQTY ELSE 0 END) INT_1,
 					SUM(CASE WHEN GUBUN = '구매' THEN SUMQTY ELSE 0 END) INT_2,
-					SUM(CASE WHEN GUBUN = '반품' THEN SUMQTY ELSE 0 END) INT_3,				
-					SUM(CASE WHEN GUBUN = '입고_office' THEN SUMQTY ELSE 0 END) INT_4,
-					SUM(CASE WHEN GUBUN = '입고_cafe' THEN SUMQTY ELSE 0 END) INT_5,
+					SUM(CASE WHEN GUBUN = '반품' THEN SUMQTY ELSE 0 END) INT_3,
+					SUM(CASE WHEN GUBUN = '구매_office' THEN SUMQTY ELSE 0 END) INT_4,
+					SUM(CASE WHEN GUBUN = '구매_cafe' THEN SUMQTY ELSE 0 END) INT_5,				
+					SUM(CASE WHEN GUBUN = '입고_office' THEN SUMQTY ELSE 0 END) INT_6,
+					SUM(CASE WHEN GUBUN = '입고_cafe' THEN SUMQTY ELSE 0 END) INT_7,
 					SUM(CASE WHEN GUBUN = '출고' THEN SUMQTY ELSE 0 END) OUT_1,
 					SUM(CASE WHEN GUBUN = '교환' THEN SUMQTY ELSE 0 END) OUT_2,
 					SUM(CASE WHEN GUBUN = '출고_office' THEN SUMQTY ELSE 0 END) OUT_3,
@@ -245,7 +325,8 @@
 				SELECT ITEM, SUM( NVL(CONTENT,0)) INCAFETOTAL FROM PURCH_ING
 				WHERE STATUS = 'storage'
 				AND GUBUNCODE = 'in' 
-				AND GUBUN = '입고_cafe'
+				OR GUBUN = '입고_cafe'
+				OR GUBUN = '구매_cafe'
 				AND FLAG != 4
 				GROUP BY ITEM
 			) A
@@ -278,7 +359,7 @@
 	ON AT.ITEM = CT.ITEM	
 	ORDER BY AT.KNAME
 	</select>
-	
+		
 	<!-- 	재료구매 화면에서 입력일 입력 -->
 	<update id="updateInDate">
 	UPDATE PURCH_ING 
@@ -325,16 +406,16 @@
 				COMM
 			FROM PURCH_ING
 			WHERE STATUS = 'storage'
-			AND FLAG != 4		
+			AND FLAG != 4
+			ORDER BY BUYDATE DESC		
 		) P,
 		(
 			SELECT KNAME, CODE FROM INGREDIENT
 		) I
-		WHERE P.ITEM = I.CODE
-		ORDER BY P.BUYDATE DESC
+		WHERE P.ITEM = I.CODE		
 	)
-	WHERE 	1 = 1
-	AND 	RNUM BETWEEN #{startRow} AND #{endRow}	
+	WHERE 	1 = 1	
+	AND 	RNUM BETWEEN #{startRow} AND #{endRow}
 	</select>
 
 	<!-- 총 재료 입출고 건수 -->
@@ -376,7 +457,7 @@
 	(	<!-- 재료 재고 -->
 		SELECT 	A.ITEM ITEM,
 				B.KNAME KNAME,
-				(A.INT_1 + A.INT_2 + A.INT_3 + A.INT_4 + A.INT_5) INTOTAL,
+				(A.INT_1 + A.INT_2 + A.INT_3 + A.INT_4 + A.INT_5 + A.INT_6 + A.INT_7) INTOTAL,
 				(A.OUT_1 + A.OUT_2 + A.OUT_3 + A.OUT_4) OUTTOTAL,
 				(A.DIS_1 + A.DIS_2) DISTOTAL,
 				(A.IN_TOTAL - A.OUT_TOTAL) TOTAL
@@ -385,8 +466,10 @@
 					SUM(CASE WHEN GUBUN = '신규' THEN SUMQTY ELSE 0 END) INT_1,
 					SUM(CASE WHEN GUBUN = '구매' THEN SUMQTY ELSE 0 END) INT_2,
 					SUM(CASE WHEN GUBUN = '반품' THEN SUMQTY ELSE 0 END) INT_3,					
-					SUM(CASE WHEN GUBUN = '입고_office' THEN SUMQTY ELSE 0 END) INT_4,
-					SUM(CASE WHEN GUBUN = '입고_cafe' THEN SUMQTY ELSE 0 END) INT_5,
+					SUM(CASE WHEN GUBUN = '구매_office' THEN SUMQTY ELSE 0 END) INT_4,
+					SUM(CASE WHEN GUBUN = '구매_cafe' THEN SUMQTY ELSE 0 END) INT_5,				
+					SUM(CASE WHEN GUBUN = '입고_office' THEN SUMQTY ELSE 0 END) INT_6,
+					SUM(CASE WHEN GUBUN = '입고_cafe' THEN SUMQTY ELSE 0 END) INT_7,
 					SUM(CASE WHEN GUBUN = '출고' THEN SUMQTY ELSE 0 END) OUT_1,
 					SUM(CASE WHEN GUBUN = '교환' THEN SUMQTY ELSE 0 END) OUT_2,
 					SUM(CASE WHEN GUBUN = '출고_office' THEN SUMQTY ELSE 0 END) OUT_3,
@@ -499,7 +582,8 @@
 			(SELECT ITEM, SUM( NVL(CONTENT,0)) SUMINCONTENT FROM PURCH_ING
 			WHERE STATUS = 'storage'
 			AND GUBUNCODE = 'in' 
-			AND GUBUN = '입고_cafe'
+			OR GUBUN = '입고_cafe'
+			OR GUBUN = '구매_cafe'
 			AND FLAG != 4
 			GROUP BY ITEM) A
 			FULL OUTER JOIN ( SELECT ITEM, SUM( NVL(CONTENT,0)) SUMOUTCONTENT FROM PURCH_ING

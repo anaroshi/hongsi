@@ -129,6 +129,8 @@ function fn_update() {
 	      <label for="gubun" class="col-sm-3 control-label">구분</label>
 	      <div class="col-sm-8">
 			<select id="gubun" name="gubun" class="form-control select" required="required">
+				<option value="구매_office" <c:if test="${buyInfo.gubun=='구매_office'}">selected</c:if>>구매_office</option>
+	            <option value="구매_cafe" <c:if test="${buyInfo.gubun=='구매_cafe'}">selected</c:if>>구매_cafe</option>
 	            <option value="구매" <c:if test="${buyInfo.gubun=='구매'}">selected</c:if>>구매</option>
 <%-- 	            <option value="교환" <c:if test="${buyInfo.gubun=='교환'}">selected</c:if>>교환</option> --%>
 	            <option value="반품" <c:if test="${buyInfo.gubun=='반품'}">selected</c:if>>반품</option>
@@ -140,9 +142,10 @@ function fn_update() {
 	    <div class="form-group">
 	      <label for="content" class="col-sm-3 control-label">용량</label>
 	      <div class="col-sm-8">
-		      <select id="content" name="content" class="form-control select" required="required">
-				<option value="${buyInfo.content}">${buyInfo.content}</option>	            
-			  </select>
+	      	<input class="form-control inputNumber" id="content" name="content" value="${buyInfo.content}" type="number" placeholder="용량" required="required">
+<!-- 		      <select id="content" name="content" class="form-control select" required="required"> -->
+<%-- 				<option value="${buyInfo.content}">${buyInfo.content}</option>	             --%>
+<!-- 			  </select> -->
 	      </div>
 	    </div>
 	    <div class="form-group">

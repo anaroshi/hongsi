@@ -67,35 +67,93 @@
 	
 	<!-- 판매 정보 리스트 -->
 	<select id="selectSaleList" resultType="com.hongsi.purchshop.vo.PurchSaleVO">
-	SELECT 
-		CNO,
-		ORDER_CNO,
-		SALEDATE,
-		ORI_250,
-		ORI_500,
-		ORI_1000,
-		ERL_250,		
-		ERL_500,		
-		ERL_1000,	
-		STC_250,		
-		STC_500,
-		STC_1000,
-		GUBUN,
-		PRICE,
-		PAYMENTPATH,
-		SALEPATH,
-		TO_CHAR(DELEVERYDATE, 'yyyy-MM-dd') DELEVERYDATE,
-		DELEVERYPATH,
-		ORDERER,
-		TO_CHAR(ORDERDATE, 'yyyy-MM-dd') ORDERDATE,
-		COMM,
-		MANAGER,
-		GUBUNCODE,
-		STATUS
-	FROM 	PURCH_SALE
-	WHERE 	STATUS = 'sale'
-	AND 	FLAG != 4
-	ORDER BY SALEDATE DESC	
+	SELECT 	RNUM, 
+			CNO,
+			ORDER_CNO,
+			SALEDATE,
+			ORI_250,
+			ORI_500,
+			ORI_1000,
+			ERL_250,		
+			ERL_500,		
+			ERL_1000,	
+			STC_250,		
+			STC_500,
+			STC_1000,
+			GUBUN,
+			PRICE,
+			PAYMENTPATH,
+			SALEPATH,
+			DELEVERYDATE,
+			DELEVERYPATH,
+			ORDERER,
+			ORDERDATE,
+			COMM,
+			MANAGER,
+			GUBUNCODE,
+			STATUS
+	FROM
+	(
+		SELECT 	ROWNUM RNUM,	 
+				CNO,
+				ORDER_CNO,
+				SALEDATE,
+				ORI_250,
+				ORI_500,
+				ORI_1000,
+				ERL_250,		
+				ERL_500,		
+				ERL_1000,	
+				STC_250,		
+				STC_500,
+				STC_1000,
+				GUBUN,
+				PRICE,
+				PAYMENTPATH,
+				SALEPATH,
+				DELEVERYDATE,
+				DELEVERYPATH,
+				ORDERER,
+				ORDERDATE,
+				COMM,
+				MANAGER,
+				GUBUNCODE,
+				STATUS
+		FROM
+		(	
+			SELECT 	 
+				CNO,
+				ORDER_CNO,
+				SALEDATE,
+				ORI_250,
+				ORI_500,
+				ORI_1000,
+				ERL_250,		
+				ERL_500,		
+				ERL_1000,	
+				STC_250,		
+				STC_500,
+				STC_1000,
+				GUBUN,
+				PRICE,
+				PAYMENTPATH,
+				SALEPATH,
+				TO_CHAR(DELEVERYDATE, 'yyyy-MM-dd') DELEVERYDATE,
+				DELEVERYPATH,
+				ORDERER,
+				TO_CHAR(ORDERDATE, 'yyyy-MM-dd') ORDERDATE,
+				COMM,
+				MANAGER,
+				GUBUNCODE,
+				STATUS
+			FROM 	PURCH_SALE
+			WHERE 	STATUS = 'sale'
+			AND 	FLAG != 4
+			ORDER BY SALEDATE DESC
+		)			
+	)
+	WHERE 1=1
+	AND 	RNUM BETWEEN #{startRow} AND #{endRow}	
 	</select>
 	
 	<!-- 일~토요일 날짜 구하기 -->
@@ -188,7 +246,8 @@
 		) F
 	)
 	WHERE 1=1
-	AND 	RNUM BETWEEN #{startRow} AND #{endRow}	
+	AND 	RNUM BETWEEN #{startRow} AND #{endRow}
+<!-- 	ORDER BY SALEDATE DESC -->
 	</select>
 
 	<!-- 총 판매 건수 -->

@@ -38,11 +38,12 @@ public class PurchIngController {
 	private QuantityService quantityService;
 	
 	@GetMapping("buy.do")
-	public String buy(Model model) throws Exception {
-		log.info(".............................purchbookController..buy");
+	public String buy(Model model, @ModelAttribute PageObject pageObject) throws Exception {
+		log.info(".............................purchbookController..buy"+pageObject);
 		model.addAttribute("ingreList", ingredientService.list());
 		model.addAttribute("resultList", quantityService.selectTotalNeedFinal());
 		model.addAttribute("buyList", purchIngSerivce.selectNonInDate());
+		model.addAttribute("buyInList", purchIngSerivce.selectInDate(pageObject));
 		return MODULE + "/buy";
 	}	
 	

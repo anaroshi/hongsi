@@ -219,7 +219,8 @@
 						SELECT ITEM, SUM( NVL(CONTENT,0)) SUMINCONTENT FROM PURCH_ING
 						WHERE STATUS = 'storage'
 						AND GUBUNCODE = 'in' 
-						AND GUBUN = '입고_cafe'
+						OR GUBUN = '입고_cafe'
+						OR GUBUN = '구매_cafe'
 						AND FLAG != 4
 						GROUP BY ITEM
 					) A
@@ -369,7 +370,8 @@ SELECT Z.CODE, Z.KNAME, Z.ORINEED ori_qty_2week, Z.ERLNEED erl_qty_2week, Z.STCN
 				(SELECT ITEM, SUM( NVL(CONTENT,0)) SUMINCONTENT FROM PURCH_ING
 				WHERE STATUS = 'storage'
 				AND GUBUNCODE = 'in' 
-				AND GUBUN = '입고_cafe'
+				OR GUBUN = '입고_cafe'
+				OR GUBUN = '구매_cafe'
 				AND FLAG != 4
 				GROUP BY ITEM) A
 				FULL OUTER JOIN ( SELECT ITEM, SUM( NVL(CONTENT,0)) SUMOUTCONTENT FROM PURCH_ING
