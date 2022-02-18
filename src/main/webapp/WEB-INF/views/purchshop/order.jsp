@@ -28,22 +28,6 @@ div.panel-body {
 		  // 화면 로드시 커서가 위치하게
 		  $("#ori_250").focus();	  
 	  };
-	  
-    $( "#orderDate" ).datepicker({
-		changeMonth: true,
-		changeYear: true,
-		mdeleveryDate: '-50y', 
-		nextText: '다음 달', 
-		prevText: '이전 달', 
-		yearRange: 'c-3:c+3', 
-		showButtonPanel: true, 
-		currentText: '오늘 날짜', 
-		closeText: '닫기', 
-		dateFormat: "yy-mm-dd", 
-		showAnim: "slide", 
-		showMonthAfterYear: true, dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], 
-		monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']
-    });
 
   	$("#orderSave").click(function(){
  		let ori_250 = $("#ori_250").val();
@@ -171,7 +155,8 @@ div.panel-body {
 	   <div class="form-group">
 	      <label for="orderDate" class="col-sm-3 control-label">주문일자</label>
 	      <div class="col-sm-8">
-	        <input class="form-control inputDate" id="orderDate" name="orderDate" type="text" required="required">
+			<input class="form-control inputDate flatpickr flatpickr-input" id="orderDate" name="orderDate" type="text" 
+					style="background: #FFFFFF;" required="required" placeholder="일자를 선택해주세요" data-input>
 	      </div>
 	    </div>	    
 	    <div class="form-group">

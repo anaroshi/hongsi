@@ -9,10 +9,6 @@
 <meta charset="UTF-8">
 <title>PurchShop</title>
 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
-<link href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" rel="stylesheet">
-
 <style type="text/css">
 div.panel.panel-default {
 	height: 89px;
@@ -37,23 +33,7 @@ $( function() {
 		// 화면 로드시 커서가 위치하게
 		$("#ori_250").focus();	  
 	};
-	  
-    $( "#productDate" ).datepicker({
-		changeMonth: true,
-		changeYear: true,
-		mdeleveryDate: '-50y', 
-		nextText: '다음 달', 
-		prevText: '이전 달', 
-		yearRange: 'c-3:c+3', 
-		showButtonPanel: true, 
-		currentText: '오늘 날짜', 
-		closeText: '닫기', 
-		dateFormat: "yy-mm-dd", 
-		showAnim: "slide", 
-		showMonthAfterYear: true, dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], 
-		monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']
-    });    
-    
+	
   	$("#orderSave").click(function(){
 
  		let ori_250 = $("#ori_250").val();
@@ -258,9 +238,15 @@ $( function() {
 	   <div class="form-group">
 	      <label for="productDate" class="col-sm-3 control-label">생산일</label>
 	      <div class="col-sm-8">
-	        <input class="form-control inputDate" id="productDate" name="productDate" type="text" required="required">
+		        <input class="form-control inputDate flatpickr flatpickr-input" id="productDate" name="productDate" type="text" 
+		        		style="background: #FFFFFF;" required="required" placeholder="일자를 선택해주세요" data-input>
 	      </div>
-	    </div>	    
+	    </div>
+	    
+<!-- 	    <input type="text" name="buyDate" id="buyDate" class="form-control inputDate flatpickr flatpickr-input"  -->
+<!-- 			    		style="color: #FFFFFF;font-size: 1em;text-align: center;" -->
+<!-- 			    		placeholder="일자를 선택해주세요" value="" readonly="readonly"> -->
+			    			    
 	    <div class="form-group">
 	      <label for="gubun" class="col-sm-3 control-label">구분</label>
 	      <div class="col-sm-8">

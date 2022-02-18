@@ -8,8 +8,6 @@
 <head>
 <meta charset="UTF-8">
 <title>PurchBook</title>
-<!-- 재료 용량 등록 -->
-<script type="text/javascript" src="/resources/js/item.js"></script>
 
 <style type="text/css">
 div.modal-body {
@@ -19,7 +17,7 @@ div.modal-body {
 
 <script>
   $( function() {
-	  
+
 		startWith();
 		  
 		function startWith() {
@@ -27,62 +25,12 @@ div.modal-body {
 			$("#buyDate").focus();	  
 		};
 	
-	  // 입력 메세지 처리		
-//   	<c:if test="${!empty msg}">
-// 		alert("${msg}");
-// 	</c:if>
+	  // 입력 메세지 처리	
+	  //${(empty msg)? "":"alert('"+=msg+="');"};	
+	//	<c:if test="${!empty msg}">
+	// 		alert("${msg}");
+	// 	</c:if>
 	  
-    $( "#buyDate" ).datepicker({
-		changeMonth: true,
-		changeYear: true,
-		minDate: '-50y', 
-		nextText: '다음 달', 
-		prevText: '이전 달', 
-		yearRange: 'c-3:c+3', 
-		showButtonPanel: true, 
-		currentText: '오늘 날짜', 
-		closeText: '닫기', 
-		dateFormat: "yy-mm-dd", 
-		showAnim: "slide", 
-		showMonthAfterYear: true, dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-		monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] 
-      
-    });
-    
-    $( "#inDate" ).datepicker({
-		changeMonth: true,
-		changeYear: true,
-		minDate: '-50y', 
-		nextText: '다음 달', 
-		prevText: '이전 달', 
-		yearRange: 'c-3:c+3', 
-		showButtonPanel: true, 
-		currentText: '오늘 날짜', 
-		closeText: '닫기', 
-		dateFormat: "yy-mm-dd", 
-		showAnim: "slide", 
-		showMonthAfterYear: true, dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-		monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] 
-      
-    });
-    
-    $( "#inDateSave" ).datepicker({
-		changeMonth: true,
-		changeYear: true,
-		minDate: '-50y', 
-		nextText: '다음 달', 
-		prevText: '이전 달', 
-		yearRange: 'c-3:c+3', 
-		showButtonPanel: true, 
-		currentText: '오늘 날짜', 
-		closeText: '닫기', 
-		dateFormat: "yy-mm-dd", 
-		showAnim: "slide", 
-		showMonthAfterYear: true, dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-		monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] 
-      
-    });
-   
     // 주문 리스트에서 입고일자 등록하기
 	$(".orderRow").click(function(){
 		let cno 	= $(this).find(".cno").text();		
@@ -97,10 +45,11 @@ div.modal-body {
 		$(".cno").val(cno);		
 		$(".buyInfo").css("font-size","16px").text(buyDate+"  "+gubun+"  "+kname+"  "+content+"g  "+qty+"개  "+purShop);		
 		$("#myModal").modal("show");
-	});	
-	
+	});
 });
+  
 </script>
+
 </head>
 <body>
 <div class="container">
@@ -137,7 +86,8 @@ div.modal-body {
 	   <div class="form-group">
 	      <label for="buyDate" class="col-sm-3 control-label">주문일</label>
 	      <div class="col-sm-8">
-	        <input class="form-control inputDate" id="buyDate" name="buyDate" type="text" required="required">
+			<input class="form-control inputDate flatpickr flatpickr-input" id="buyDate" name="buyDate" type="text" 
+					style="background: #FFFFFF;" required="required" placeholder="일자를 선택해주세요" data-input>
 	      </div>
 	    </div>
 	    <div class="form-group">
@@ -202,7 +152,8 @@ div.modal-body {
     <div class="form-group">
       <label for="inDate" class="col-sm-3 control-label">입고일자</label>
       <div class="col-sm-8">
-       	<input class="form-control inputDate" type="text" id="inDate" name="inDate">
+		<input class="form-control inputDate flatpickr flatpickr-input" id="inDate" name="inDate" type="text" 
+				style="background: #FFFFFF;" required="required" placeholder="일자를 선택해주세요" data-input>
       </div>
     </div>
      <div class="form-group">
@@ -287,17 +238,18 @@ div.modal-body {
       </div>
       <form method="post" id="inDateSaveForm"  name="inDateSaveForm" action="/purchbook/inDateSave.do">
       <div class="modal-body">
-      		<input style="display:none" class="cno" name="cno"/>
+ 		<input style="display:none" class="cno" name="cno"/>
       		<div class="form-group">
 	      		<div>
 	      			<p class="buyInfo"></p>
 	      		</div>
       		</div>
 	      	<label for="inDateSave" class="col-sm-3 text-center control-label" style="font-size: 15px">입고일</label>
-	      	<div class="col-sm-4">
-	        <input class="form-control inputDate" id="inDateSave" name="inDate" type="text" required="required">
-	      	</div>         
-      </div>
+		      <div class="col-sm-4">
+				<input class="form-control inputDate flatpickr flatpickr-input" id="inDateSave" name="inDate" type="text" 
+						style="background: #FFFFFF;" required="required" placeholder="일자를 선택해주세요" data-input>
+		      </div>
+     </div>
       <div class="modal-footer">
         <button type="submit" class="btn btn-default" id="inDateSaveBtn">저장</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>

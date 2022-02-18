@@ -8,7 +8,9 @@
 </head>
 <body>
 <div class = "container">
+<div class="text-center">
 <h3>해당 URL은 존재하지 않습니다.</h3>
+</div>
 </div>
 </body>
 </html>

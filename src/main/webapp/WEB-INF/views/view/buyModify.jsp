@@ -16,6 +16,14 @@
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 <link href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" rel="stylesheet">
 
+<!-- flatpickr -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://npmcdn.com/flatpickr/dist/flatpickr.min.js"></script>
+<script src="https://npmcdn.com/flatpickr/dist/l10n/ko.js"></script>
+
+<!-- flatpickr 날짜 입력 -->
+<script type="text/javascript" src="/resources/js/flatpickr.js"></script>
+
 <link rel="stylesheet" href="/resources/css/style.css">
 <!-- 재료 용량 등록 -->
 <script type="text/javascript" src="/resources/js/item.js"></script>
@@ -23,46 +31,12 @@
 <style type="text/css">
 </style>  
 <script>
-  $( function() {
+$( function() {
 	
 	//  입력 메세지 처리		
-  	<c:if test="${!empty msg}">
+	<c:if test="${!empty msg}">
 		alert("${msg}");
 	</c:if>
-	  
-    $( "#buyDate" ).datepicker({
-		changeMonth: true,
-		changeYear: true,
-		minDate: '-50y', 
-		nextText: '다음 달', 
-		prevText: '이전 달', 
-		yearRange: 'c-3:c+3', 
-		showButtonPanel: true, 
-		currentText: '오늘 날짜', 
-		closeText: '닫기', 
-		dateFormat: "yy-mm-dd", 
-		showAnim: "slide", 
-		showMonthAfterYear: true, dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-		monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] 
-      
-    });
-    
-    $( "#inDate" ).datepicker({
-		changeMonth: true,
-		changeYear: true,
-		minDate: '-50y', 
-		nextText: '다음 달', 
-		prevText: '이전 달', 
-		yearRange: 'c-3:c+3', 
-		showButtonPanel: true, 
-		currentText: '오늘 날짜', 
-		closeText: '닫기', 
-		dateFormat: "yy-mm-dd", 
-		showAnim: "slide", 
-		showMonthAfterYear: true, dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-		monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] 
-      
-    }); 
 });
   
 function fn_delete(cno) {
@@ -136,7 +110,8 @@ function fn_update() {
 	   <div class="form-group">
 	      <label for="buyDate" class="col-sm-3 control-label">주문일</label>
 	      <div class="col-sm-8">
-	        <input class="form-control inputDate" id="buyDate" name="buyDate" type="text" required="required" value="${buyInfo.buyDate}">
+			<input class="form-control inputDate flatpickr flatpickr-input" id="buyDate" name="buyDate" 
+					style="background: #FFFFFF;" type="text" value="${buyInfo.buyDate}" required="required" placeholder="일자를 선택해주세요" data-input>
 	      </div>
 	    </div>
 	    <div class="form-group">
@@ -204,7 +179,8 @@ function fn_update() {
     <div class="form-group">
       <label for="inDate" class="col-sm-3 control-label">입고일자</label>
       <div class="col-sm-8">
-       	<input class="form-control inputDate" type="text" id="inDate" name="inDate" value="${buyInfo.inDate}">
+		<input class="form-control inputDate flatpickr flatpickr-input" id="inDate" name="inDate" 
+				style="background: #FFFFFF;" type="text" value="${buyInfo.inDate}" placeholder="일자를 선택해주세요" data-input>
       </div>
     </div>
      <div class="form-group">

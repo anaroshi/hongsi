@@ -25,57 +25,11 @@ div.panel-body {
 
 	  startWith();
 	  
-	  function startWith() {
-		  // 화면 로드시 커서가 위치하게
-		  $("#ori_250").focus();	  
-	  };
+	function startWith() {
+		// 화면 로드시 커서가 위치하게
+		$("#ori_250").focus();	  
+	};
 	  
-    $( "#orderDate" ).datepicker({
-		changeMonth: true,
-		changeYear: true,
-		mdeleveryDate: '-50y', 
-		nextText: '다음 달', 
-		prevText: '이전 달', 
-		yearRange: 'c-3:c+3', 
-		showButtonPanel: true, 
-		currentText: '오늘 날짜', 
-		closeText: '닫기', 
-		dateFormat: "yy-mm-dd", 
-		showAnim: "slide", 
-		showMonthAfterYear: true, dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], 
-		monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']
-    });
-    $( "#saleDate" ).datepicker({
-		changeMonth: true,
-		changeYear: true,
-		mdeleveryDate: '-50y', 
-		nextText: '다음 달', 
-		prevText: '이전 달', 
-		yearRange: 'c-3:c+3', 
-		showButtonPanel: true, 
-		currentText: '오늘 날짜', 
-		closeText: '닫기', 
-		dateFormat: "yy-mm-dd", 
-		showAnim: "slide", 
-		showMonthAfterYear: true, dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], 
-		monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']
-    });
-    $( "#deleveryDate" ).datepicker({
-		changeMonth: true,
-		changeYear: true,
-		mdeleveryDate: '-50y', 
-		nextText: '다음 달', 
-		prevText: '이전 달', 
-		yearRange: 'c-3:c+3', 
-		showButtonPanel: true, 
-		currentText: '오늘 날짜', 
-		closeText: '닫기', 
-		dateFormat: "yy-mm-dd", 
-		showAnim: "slide", 
-		showMonthAfterYear: true, dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], 
-		monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']
-    });
-
   	$("#orderReset").click(function() {  		
   		location = "sale.do";
   	});
@@ -220,7 +174,8 @@ div.panel-body {
 	<div class="form-group">
 		<label for="orderDate" class="col-sm-4 control-label">주문일</label>
 	    <div class="col-sm-7">
-        	<input class="form-control inputDate" id="orderDate" name="orderDate" type="text" value="${vo.orderDate}">
+			<input class="form-control inputDate flatpickr flatpickr-input" id="orderDate" name="orderDate" 
+					style="background: #FFFFFF;" type="text" value="${vo.orderDate}" data-input>
       	</div>
 	</div>
 	<div class="form-group">
@@ -242,7 +197,8 @@ div.panel-body {
 	   <div class="form-group">
 	      <label for="saleDate" class="col-sm-3 control-label">판매일</label>
 	      <div class="col-sm-8">
-	        <input class="form-control inputDate" id="saleDate" name="saleDate" type="text" required="required">
+			<input class="form-control inputDate flatpickr flatpickr-input" id="saleDate" name="saleDate" type="text" 
+						style="background: #FFFFFF;" required="required" placeholder="일자를 선택해주세요" data-input>
 	      </div>
 	    </div>
 	    	    
@@ -289,7 +245,8 @@ div.panel-body {
 	   	<div class="form-group">
 	      <label for="deleveryDate" class="col-sm-3 control-label">수령일</label>
 	      <div class="col-sm-8">
-	        <input class="form-control inputDate" id="deleveryDate" name="deleveryDate" type="text">
+			<input class="form-control inputDate flatpickr flatpickr-input" id="deleveryDate" name="deleveryDate" 
+					style="background: #FFFFFF;" type="text" placeholder="일자를 선택해주세요" data-input>
 	      </div>
 	    </div>	    
 	    <div class="form-group">

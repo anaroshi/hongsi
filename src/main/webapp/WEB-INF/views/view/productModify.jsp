@@ -8,18 +8,21 @@
 <meta charset="UTF-8">
 <title>생산 수정</title>
 
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
-<link href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
-	rel="stylesheet">
+<link href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" rel="stylesheet">
+
+<!-- flatpickr -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://npmcdn.com/flatpickr/dist/flatpickr.min.js"></script>
+<script src="https://npmcdn.com/flatpickr/dist/l10n/ko.js"></script>
+
+<!-- flatpickr 날짜 입력 -->
+<script type="text/javascript" src="/resources/js/flatpickr.js"></script>
 
 <link rel="stylesheet" href="/resources/css/style.css">
 
@@ -40,27 +43,6 @@ div.panel-body {
 }
 </style>
 <script>
-
-$( function() {
-
-    $( "#productDate" ).datepicker({
-		changeMonth: true,
-		changeYear: true,
-		minDate: '-50y', 
-		nextText: '다음 달', 
-		prevText: '이전 달', 
-		yearRange: 'c-3:c+3', 
-		showButtonPanel: true, 
-		currentText: '오늘 날짜', 
-		closeText: '닫기', 
-		dateFormat: "yy-mm-dd", 
-		showAnim: "slide", 
-		showMonthAfterYear: true, dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-		monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] 
-      
-    });
-});
-  
 function fn_delete(cno) {
 	
 	if(confirm("삭제하시겠습니까")) {
@@ -243,7 +225,8 @@ function fn_update(cno) {
 					<div class="form-group">
 						<label for="productDate" class="col-sm-3 control-label">생산일</label>
 						<div class="col-sm-8">
-							<input class="form-control inputDate" id="productDate" name="productDate" type="text" required="required" value="${productInfo.productDate}">
+							<input class="form-control inputDate flatpickr flatpickr-input" id="productDate" name="productDate" type="text" 
+									style="background: #FFFFFF;" value="${productInfo.productDate}" required="required" placeholder="일자를 선택해주세요" data-input>
 						</div>
 					</div>
 					<div class="form-group">

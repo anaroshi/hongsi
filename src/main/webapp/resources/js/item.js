@@ -3,6 +3,7 @@
  * 재료 구매시 구매 단위 나열 
  */
 $( function() {
+
 	 $("#item").change(function() {
 		let selectedVal = $(this).val();
 		//alert(selectedVal);

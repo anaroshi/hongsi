@@ -28,6 +28,17 @@ request.setAttribute("path", request.getContextPath());
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 <link href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" rel="stylesheet">
 
+<!-- flatpickr -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://npmcdn.com/flatpickr/dist/flatpickr.min.js"></script>
+<script src="https://npmcdn.com/flatpickr/dist/l10n/ko.js"></script>
+
+<!-- flatpickr 날짜 입력 -->
+<script type="text/javascript" src="/resources/js/flatpickr.js"></script>
+
+<!-- 재료 용량 등록 -->
+<script type="text/javascript" src="/resources/js/item.js"></script>
+
 <link rel="stylesheet" href="/resources/css/style.css">
 <style type="text/css">
 header, footer {
