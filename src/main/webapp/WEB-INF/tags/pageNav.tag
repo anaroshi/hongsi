@@ -14,11 +14,10 @@
 
 <!-- 기본 페이지당 행수 -->
 <c:set var="defaultPerPageNum" value="13"/>
-
 <ul class="pagination">
   	<li data-page=1>
 		<c:if test="${pageObject.page > 1 }">
-	  		<a href="${listURI }?page=1&perPageNum=${defaultPerPageNum}&key=${pageObject.key }&word=${pageObject.word}"
+	  		<a href="${listURI}?page=1&perPageNum=${defaultPerPageNum}&key=${pageObject.key}&word=${pageObject.word}&buyDate=${pageObject.buyDate}&gubun=${pageObject.gubun}&item=${pageObject.item}&purShop=${pageObject.purShop}&inDate=${pageObject.inDate}&notIn=${pageObject.notIn}"
 	  		  title="click to move first page!" ${tooltip } >
 	  			<i class="glyphicon glyphicon-fast-backward"></i>
 	  		</a>
@@ -34,7 +33,7 @@
 	
 	<li data-page=${pageObject.startPage -1 }>
 		<c:if test="${pageObject.startPage > 1 }">
-	  		<a href="${listURI }?page=${pageObject.startPage - 1 }&perPageNum=${defaultPerPageNum}&key=${pageObject.key }&word=${pageObject.word}"
+	  		<a href="${listURI }?page=${pageObject.startPage - 1 }&perPageNum=${defaultPerPageNum}&key=${pageObject.key }&word=${pageObject.word}&buyDate=${pageObject.buyDate}&gubun=${pageObject.gubun}&item=${pageObject.item}&purShop=${pageObject.purShop}&inDate=${pageObject.inDate}&notIn=${pageObject.notIn}"
 	  		  title="click to move previous page group!" ${tooltip } >
 	  			<i class="glyphicon glyphicon-step-backward"></i>
 	  		</a>
@@ -56,14 +55,14 @@
   	 	</c:if>
   	 	<!-- 페이지와 cnt가 같지 않으면 링크가 있음 -->
   	 	<c:if test="${pageObject.page != cnt }">
-  			<a href="${listURI }?page=${cnt }&perPageNum=${defaultPerPageNum}&key=${pageObject.key }&word=${pageObject.word}"
+  			<a href="${listURI }?page=${cnt }&perPageNum=${defaultPerPageNum}&key=${pageObject.key }&word=${pageObject.word}&buyDate=${pageObject.buyDate}&gubun=${pageObject.gubun}&item=${pageObject.item}&purShop=${pageObject.purShop}&inDate=${pageObject.inDate}&notIn=${pageObject.notIn}"
 	  		 title="click to move ${cnt } page" ${tooltip }>${cnt}</a>
   		</c:if>
   	</li>
 	</c:forEach>
 	<c:if test="${pageObject.endPage < pageObject.totalPage }">
 	  	<li data-page=${pageObject.endPage + 1 }>
-	  		<a href="${listURI }?page=${pageObject.endPage + 1 }&perPageNum=${pageObject.perPageNum}&key=${pageObject.key }&word=${pageObject.word}"
+	  		<a href="${listURI }?page=${pageObject.endPage + 1 }&perPageNum=${pageObject.perPageNum}&key=${pageObject.key }&word=${pageObject.word}&buyDate=${pageObject.buyDate}&gubun=${pageObject.gubun}&item=${pageObject.item}&purShop=${pageObject.purShop}&inDate=${pageObject.inDate}&notIn=${pageObject.notIn}"
 	  		  title="click to move next page group!" ${tooltip } >
 	  			<i class="glyphicon glyphicon-step-forward"></i>
 	  		</a>
@@ -79,7 +78,7 @@
   	</c:if>
 	<c:if test="${pageObject.page < pageObject.totalPage }">
 	  	<li data-page=${pageObject.totalPage }>
-	  		<a href="${listURI }?page=${pageObject.totalPage }&perPageNum=${pageObject.perPageNum}&key=${pageObject.key }&word=${pageObject.word}"
+	  		<a href="${listURI }?page=${pageObject.totalPage }&perPageNum=${pageObject.perPageNum}&key=${pageObject.key }&word=${pageObject.word}&buyDate=${pageObject.buyDate}&gubun=${pageObject.gubun}&item=${pageObject.item}&purShop=${pageObject.purShop}&inDate=${pageObject.inDate}&notIn=${pageObject.notIn}"
 	  		  title="click to move last page!" ${tooltip } >
 		  		<i class="glyphicon glyphicon-fast-forward"></i>
 	  		</a>

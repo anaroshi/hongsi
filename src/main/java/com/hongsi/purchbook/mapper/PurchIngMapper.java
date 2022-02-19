@@ -9,7 +9,7 @@ public interface PurchIngMapper {
 
 	List<PurchIngVO> list(PageObject pageObject);
 
-	int getBuyTotalRow();
+	int getBuyTotalRow(PageObject pageObject);
 
 	List<PurchIngVO> selectNonInDate();
 	
@@ -25,7 +25,7 @@ public interface PurchIngMapper {
 
 	List<PurchIngVO> selectStorageInOut(PageObject pageObject);
 
-	int getStorageInOutTotalRow();
+	int getStorageInOutTotalRow(PageObject pageObject);
 	
 	int deleteIng(PurchIngVO vo);
 

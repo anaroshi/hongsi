@@ -24,7 +24,8 @@ public class PurchIngSerivceImpl implements PurchIngSerivce {
 	@Override
 	public List<PurchIngVO> list(PageObject pageObject) throws Exception {
 		// log.info("------------------- purchIngSerivceImpl - List<PurchbookVO> ");
-		pageObject.setTotalRow(mapper.getBuyTotalRow());
+		pageObject.setTotalRow(mapper.getBuyTotalRow(pageObject));
+		log.info("------------------- purchIngSerivceImpl - pageObject :"+pageObject);
 		return mapper.list(pageObject);
 	}
 
@@ -34,7 +35,7 @@ public class PurchIngSerivceImpl implements PurchIngSerivce {
 		return mapper.selectNonInDate();
 	}
 
-	// 주문리스트(입고일 입력)
+	// 주문리스트(입고일 입력된 주문 리스트)
 	@Override
 	public List<PurchIngVO> selectInDate(PageObject pageObject) {
 		pageObject.setTotalRow(mapper.getInTotalRow());
@@ -92,9 +93,10 @@ public class PurchIngSerivceImpl implements PurchIngSerivce {
 		return mapper.updateInDate(vo);
 	}
 
+	// 재료 입출고 리스트
 	@Override
 	public List<PurchIngVO> selectStorageInOut(PageObject pageObject) throws Exception {
-		pageObject.setTotalRow(mapper.getStorageInOutTotalRow());
+		pageObject.setTotalRow(mapper.getStorageInOutTotalRow(pageObject));
 		return mapper.selectStorageInOut(pageObject);
 	}
 

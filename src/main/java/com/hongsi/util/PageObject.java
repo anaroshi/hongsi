@@ -26,6 +26,14 @@ public class PageObject {
 	private String key;
 	private String word;
 	
+	// 검색에 필요한 변수 추가 선언
+	private String buyDate;
+	private String gubun;
+	private String item;
+	private String purShop;
+	private String inDate;
+	private String notIn;
+	
 	// 공지 분류 (기간) 를 적용시키는 변수 - period
 	// pre : 현재공지, old : 지난공지 , res : 예약공지, all : 전체공지 
 	private String period;
@@ -156,11 +164,63 @@ public class PageObject {
 		this.accepter = accepter;
 	}
 
+	// 검색에 필요한 변수 추가 선언
+	public String getBuyDate() {
+		return buyDate;
+	}
+
+	public void setBuyDate(String buyDate) {
+		this.buyDate = buyDate;
+	}
+
+	public String getGubun() {
+		return gubun;
+	}
+
+	public void setGubun(String gubun) {
+		this.gubun = gubun;
+	}
+
+	public String getItem() {
+		return item;
+	}
+
+	public void setItem(String item) {
+		this.item = item;
+	}
+	
+	public String getPurShop() {
+		return purShop;
+	}
+
+	public void setPurShop(String purShop) {
+		this.purShop = purShop;
+	}
+	
+	public String getInDate() {
+		return inDate;
+	}
+
+	public void setInDate(String inDate) {
+		this.inDate = inDate;
+	}
+		
+	public String getNotIn() {
+		return notIn;
+	}
+
+	public void setNotIn(String notIn) {
+		this.notIn = notIn;
+	}
+
+	
 	@Override
 	public String toString() {
 		return "PageObject [page=" + page + ", perPageNum=" + perPageNum + ", startRow=" + startRow + ", endRow="
 				+ endRow + ", perGroupPageNum=" + perGroupPageNum + ", startPage=" + startPage + ", endPage=" + endPage
 				+ ", totalPage=" + totalPage + ", totalRow=" + totalRow + ", key=" + key + ", word=" + word
+				+ ", buyDate=" + buyDate + ", gubun=" + gubun + ", item=" + item
+				+ ", purShop=" + purShop + ", inDate=" + inDate + ", notIn=" + notIn
 				+ ", period=" + period + ", accepter=" + accepter + "]";
 	}
 }

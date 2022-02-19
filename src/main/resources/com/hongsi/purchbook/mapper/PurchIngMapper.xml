@@ -8,6 +8,66 @@
 
 <mapper namespace="com.hongsi.purchbook.mapper.PurchIngMapper">
 	
+	<!-- 재료 구매 리스트 검색 조건 -->
+	<sql id="buySelect">
+		<if test="buyDate != null and buyDate != ''.toString()">
+			<if test="buyDate.length == 10">	
+				AND BUYDATE = to_date(#{buyDate},'YYYY-MM-DD')
+			</if>
+			<if test="buyDate.length() > 10">
+				AND BUYDATE BETWEEN to_date(SUBSTR(#{buyDate},0,10),'YYYY-MM-DD') AND to_date(SUBSTR(#{buyDate},13,23),'YYYY-MM-DD')
+			</if>
+		</if>
+		<if test="gubun != null and gubun != ''.toString()">
+				AND GUBUN = #{gubun}
+		</if>
+		<if test="item != null and item != ''.toString()">
+				AND ITEM = #{item}
+		</if>
+		<if test="purShop != null and purShop != ''.toString()">
+				AND PURSHOP = #{purShop}
+		</if>
+		<if test="inDate != null and inDate != ''.toString()">
+			<if test="inDate.length == 10">	
+				AND INDATE = to_date(#{inDate},'YYYY-MM-DD')
+			</if>
+			<if test="inDate.length() > 10">
+				AND INDATE BETWEEN to_date(SUBSTR(#{inDate},0,10),'YYYY-MM-DD') AND to_date(SUBSTR(#{inDate},13,23),'YYYY-MM-DD')
+			</if>
+		</if>
+		<if test="notIn != null and notIn != ''.toString()">
+				AND INDATE IS NULL
+		</if>
+	</sql>
+	
+	
+	<!-- 재료 입출고 리스트 검색 조건 -->
+	<sql id="storageSelect">
+		<if test="buyDate != null and buyDate != ''.toString()">
+			<if test="buyDate.length == 10">	
+				AND BUYDATE = to_date(#{buyDate},'YYYY-MM-DD')
+			</if>
+			<if test="buyDate.length() > 10">
+				AND BUYDATE BETWEEN to_date(SUBSTR(#{buyDate},0,10),'YYYY-MM-DD') AND to_date(SUBSTR(#{buyDate},13,23),'YYYY-MM-DD')
+			</if>
+		</if>
+		<if test="gubun != null and gubun != ''.toString()">
+			<if test="gubun == '출고'">
+				AND GUBUN LIKE '%' || #{gubun} || '%'
+			</if>
+			<if test="gubun == '입고'">
+				AND GUBUN LIKE '%' || #{gubun} || '%'
+			</if>
+			<if test="gubun != '출고' and gubun != '입고'">
+				AND GUBUN = #{gubun}
+			</if>	
+		</if>
+		<if test="item != null and item != ''.toString()">
+				AND ITEM = #{item}
+		</if>
+	</sql>
+	
+	
 	<!-- 	재료 구매한 리스트 -->
 	<select id="list" resultType="com.hongsi.purchbook.vo.PurchIngVO">
 	SELECT 	RNUM, 
@@ -52,6 +112,7 @@
 			FROM PURCH_ING
 			WHERE	STATUS = 'purch'
 			AND FLAG != 4
+			<include refid="buySelect" />
 			ORDER BY BUYDATE DESC
 		) P,
 		(
@@ -60,9 +121,6 @@
 		WHERE 	P.ITEM = I.CODE		
 	)
 	WHERE 1=1
-<!-- 	AND GUBUNCODE = #{gubuncode}	 -->
-<!-- 	AND GUBUN = #{gubun}	 -->
-<!-- 	AND ITEM = #{item}	 -->
 	AND RNUM BETWEEN #{startRow} AND #{endRow}		
 	</select>
 
@@ -71,7 +129,8 @@
 	SELECT 	COUNT(*)
 	FROM 	PURCH_ING
 	WHERE	STATUS = 'purch'
-	AND 	FLAG != 4	
+	AND 	FLAG != 4
+	<include refid="buySelect" />
 	</select>
 
 	<!-- 	주문번호에 의한 재료 구매 or 입출고 정보 가져오기 -->
@@ -407,6 +466,7 @@
 			FROM PURCH_ING
 			WHERE STATUS = 'storage'
 			AND FLAG != 4
+			<include refid="storageSelect" />	
 			ORDER BY BUYDATE DESC		
 		) P,
 		(
@@ -420,10 +480,11 @@
 
 	<!-- 총 재료 입출고 건수 -->
 	<select id="getStorageInOutTotalRow" resultType="java.lang.Integer">
-	SELECT 	COUNT(*)
-	FROM 	PURCH_ING
-	WHERE	STATUS = 'storage'
-	AND 	FLAG != 4	
+		SELECT 	COUNT(*)
+		FROM 	PURCH_ING
+		WHERE	STATUS = 'storage'
+		AND 	FLAG != 4
+		<include refid="storageSelect" />
 	</select>
 
 	<!-- 재료 구매 정보 수정 처리 -->

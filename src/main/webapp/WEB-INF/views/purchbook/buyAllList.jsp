@@ -13,6 +13,23 @@
 </style>
   
 <script>
+$( function() {
+	$(".flatpickr").flatpickr({	
+		mode: "range",
+		dateFormat: 'Y-m-d',
+		locale: 'ko',
+		allowInput: false  
+	});
+	
+	$("#reset").click(function(){
+		$("#buyDate").val("");
+		$("#gubun").val("");
+		$("#item").val("");
+		$("#purShop").val("");
+		$("#inDate").val("");
+	});
+});
+
 function fn_view(cno) {	
 	
 	//alert(cno);
@@ -33,6 +50,71 @@ function fn_view(cno) {
 <body>
 <div class="container">
 <div class="col-md-12">
+
+<form>
+	<input type="hidden" name="page" value="1">
+	<input type="hidden" name="perPageNum" value="${pageObject.perPageNum}">
+	<div class="form-group row">
+	 	<div class="col-md-2">	 		
+			<div class="input-group">			
+			    <span class="input-group-addon">구입일</span>			    
+			    <input type="text" name="buyDate" id="buyDate" class="form-control inputDate flatpickr flatpickr-input" value="${pageObject.buyDate}"
+			    		style="background: #FFFFFF; text-align: center; font-size:10px; padding-left: 0px; padding-right: 0px;" placeholder="일자를 선택해주세요">
+			    		<!-- onchange="if(this.value.indexOf('~') > -1) location.href='hotel.php?category=&amp;date=' + this.value;" > -->
+		  	</div>					
+		</div>
+	  	<div class="col-md-2">
+			<div class="input-group">
+			    <span class="input-group-addon">구분</span>
+				<select id="gubun" name="gubun" class="form-control select">
+					<option value=""></option>
+		            <option value="구매_office" <c:if test="${pageObject.gubun=='구매_office'}">selected</c:if> >구매_office</option>
+		            <option value="구매_cafe" <c:if test="${pageObject.gubun=='구매_cafe'}">selected</c:if> >구매_cafe</option>
+				</select>
+			</div>
+		</div>  	
+	  	<div class="col-md-2">
+			<div class="input-group">
+			    <span class="input-group-addon">재료</span>
+			      <select id="item" name="item" class="form-control select">
+			      	<option value=""></option>
+			      <c:forEach items="${ingreList}" var="vo">
+			      	<option value="${vo.code}" <c:if test="${pageObject.item==vo.code}">selected</c:if> >${vo.kname}</option>
+			      </c:forEach>
+			      </select>	        
+	  		</div>
+		</div>  	
+	  	<div class="col-md-2">
+			<div class="input-group">
+			    <span class="input-group-addon">거래처</span>
+				<select id="purShop" name="purShop" class="form-control select">
+					<option value=""></option>
+		            <option value="넛츠베리" <c:if test="${pageObject.purShop=='넛츠베리'}">selected</c:if> >넛츠베리</option>
+		            <option value="네이버쇼핑" <c:if test="${pageObject.purShop=='네이버쇼핑'}">selected</c:if> >네이버쇼핑</option>
+		            <option value="쿠팡" <c:if test="${pageObject.purShop=='쿠팡'}">selected</c:if> >쿠팡</option>
+				</select>
+			</div>
+		</div>  	
+	 	<div class="col-md-2">
+			<div class="input-group">			
+			    <span class="input-group-addon">입고일</span>			    
+			    <input type="text" name="inDate" id="inDate" class="form-control inputDate flatpickr flatpickr-input" 
+			    		value="${pageObject.inDate}" style="background: #FFFFFF; text-align: center; font-size:10px; padding-left: 0px; padding-right: 0px;" placeholder="일자를 선택해주세요">
+			    		<!-- onchange="if(this.value.indexOf('~') > -1) location.href='hotel.php?category=&amp;date=' + this.value;" > -->
+		  	</div>					
+		</div>
+		<div class="col-md-1">
+			<div class="checkbox">
+				<label class="checkbox-inline" style="font-size:14px;"><input type="checkbox" name="notIn" id="notIn" value="${pageObject.notIn}">미입고</label>
+			</div>	
+		</div>	
+	  	<div class="col-md-1">			
+	    	<button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+	    	<button class="btn btn-default" id="reset"><i class="glyphicon glyphicon-remove-circle"></i></button>
+		</div>	  	
+	</div>
+</form>
+
   <table class="table table-striped">
    <thead>
    	<tr>

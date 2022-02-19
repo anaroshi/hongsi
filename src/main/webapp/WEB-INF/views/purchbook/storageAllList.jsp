@@ -17,6 +17,12 @@ $( function() {
 		locale: 'ko',
 		allowInput: false  
 	});
+	
+	$("#reset").click(function(){
+		$("#buyDate").val("");
+		$("#gubun").val("");
+		$("#item").val("");
+	});
 });
   
   function fn_view(cno) {	
@@ -41,46 +47,51 @@ $( function() {
 <form>
 	<input type="hidden" name="page" value="1">
 	<input type="hidden" name="perPageNum" value="${pageObject.perPageNum}">
+<%-- 	<input type="hidden" name="buyDate" value="${pageObject.buyDate}"> --%>
+<%-- 	<input type="hidden" name="gubun" value="${pageObject.gubun}"> --%>
+<%-- 	<input type="hidden" name="item" value="${pageObject.item}"> --%>
 	<div class="form-group row">
 	 	<div class="col-md-3">	 		
 			<div class="input-group">			
 			    <span class="input-group-addon">입출고일</span>			    
 			    <input type="text" name="buyDate" id="buyDate" class="form-control inputDate flatpickr flatpickr-input" 
-			    		style="background: #FFFFFF; text-align: center;" placeholder="일자를 선택해주세요">
+			    		value="${pageObject.buyDate}" style="background: #FFFFFF; text-align: center;" placeholder="일자를 선택해주세요">
 			    		<!-- onchange="if(this.value.indexOf('~') > -1) location.href='hotel.php?category=&amp;date=' + this.value;" > -->
 		  	</div>					
 		</div>
 	  	<div class="col-md-2">
 			<div class="input-group">
 			    <span class="input-group-addon">구분</span>
-				<select id="gubun" name="gubun" class="form-control select" required="required">
+				<select id="gubun" name="gubun" class="form-control select">
 					<option value=""></option>
-		            <option value="출고">출고</option>
-		            <option value="출고_office">출고_office</option>
-		            <option value="출고_cafe">출고_cafe</option>
-		            <option value="입고_office">입고_office</option>
-		            <option value="입고_cafe">입고_cafe</option>
-		            <option value="손실">손실</option>
+		            <option value="출고" <c:if test="${pageObject.gubun=='출고'}">selected</c:if> >출고</option>
+		            <option value="출고_office" <c:if test="${pageObject.gubun=='출고_office'}">selected</c:if> >출고_office</option>
+		            <option value="출고_cafe" <c:if test="${pageObject.gubun=='출고_cafe'}">selected</c:if> >출고_cafe</option>
+		            <option value="입고" <c:if test="${pageObject.gubun=='입고'}">selected</c:if> >입고</option>
+		            <option value="입고_office" <c:if test="${pageObject.gubun=='입고_office'}">selected</c:if> >입고_office</option>
+		            <option value="입고_cafe" <c:if test="${pageObject.gubun=='입고_cafe'}">selected</c:if> >입고_cafe</option>
+		            <option value="손실" <c:if test="${pageObject.gubun=='손실'}">selected</c:if> >손실</option>
 				</select>
 			</div>
 		</div>  	
 	  	<div class="col-md-2">
 			<div class="input-group">
 			    <span class="input-group-addon">재료</span>
-			      <select id="item" name="item" class="form-control select" required="required">
+			      <select id="item" name="item" class="form-control select">
 			      	<option value=""></option>
 			      <c:forEach items="${ingreList}" var="vo">
-			      	<option value="${vo.code}">${vo.kname}</option>
+			      	<option value="${vo.code}" <c:if test="${pageObject.item==vo.code}">selected</c:if> >${vo.kname}</option>
 			      </c:forEach>
 			      </select>	        
 	  		</div>
 		</div>  	
 	  	<div class="col-md-1">			
 	    	<button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+	    	<button class="btn btn-default" id="reset"><i class="glyphicon glyphicon-remove-circle"></i></button>
 		</div>	  	
 	</div>
-</form>		
-	
+</form>
+
   <table class="table table-striped">
 	<thead>    
 	 	<tr>
