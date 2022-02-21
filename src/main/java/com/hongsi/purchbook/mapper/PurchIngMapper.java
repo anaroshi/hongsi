@@ -35,4 +35,8 @@ public interface PurchIngMapper {
 
 	List<PurchIngVO> selectNeedCafe();
 
+	List<PurchIngVO> getIngAllList(PageObject pageObject);
+
+	int getIngTotalRow(PageObject pageObject);
+
 }

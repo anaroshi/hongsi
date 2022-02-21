@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>재료 구매 리스트</title>
+<title>재료 구매 & 입출고 리스트</title>
 
 <style type="text/css">
 </style>
@@ -57,7 +57,7 @@ function fn_view(cno) {
 	<div class="form-group row">
 	 	<div class="col-md-2">	 		
 			<div class="input-group">			
-			    <span class="input-group-addon">구입일</span>			    
+			    <span class="input-group-addon">일자</span>			    
 			    <input type="text" name="buyDate" id="buyDate" class="form-control inputDate flatpickr flatpickr-input" value="${pageObject.buyDate}"
 			    		style="background: #FFFFFF; text-align: center; font-size:10px; padding-left: 0px; padding-right: 0px;" placeholder="일자를 선택해주세요">
 			    		<!-- onchange="if(this.value.indexOf('~') > -1) location.href='hotel.php?category=&amp;date=' + this.value;" > -->
@@ -68,8 +68,16 @@ function fn_view(cno) {
 			    <span class="input-group-addon">구분</span>
 				<select id="gubun" name="gubun" class="form-control select">
 					<option value=""></option>
+					<option value="구매" <c:if test="${pageObject.gubun=='구매'}">selected</c:if> >구매</option>
 		            <option value="구매_office" <c:if test="${pageObject.gubun=='구매_office'}">selected</c:if> >구매_office</option>
 		            <option value="구매_cafe" <c:if test="${pageObject.gubun=='구매_cafe'}">selected</c:if> >구매_cafe</option>
+		            <option value="출고" <c:if test="${pageObject.gubun=='출고'}">selected</c:if> >출고</option>
+		            <option value="출고_office" <c:if test="${pageObject.gubun=='출고_office'}">selected</c:if> >출고_office</option>
+		            <option value="출고_cafe" <c:if test="${pageObject.gubun=='출고_cafe'}">selected</c:if> >출고_cafe</option>
+		            <option value="입고" <c:if test="${pageObject.gubun=='입고'}">selected</c:if> >입고</option>
+		            <option value="입고_office" <c:if test="${pageObject.gubun=='입고_office'}">selected</c:if> >입고_office</option>
+		            <option value="입고_cafe" <c:if test="${pageObject.gubun=='입고_cafe'}">selected</c:if> >입고_cafe</option>
+		            <option value="손실" <c:if test="${pageObject.gubun=='손실'}">selected</c:if> >손실</option>
 				</select>
 			</div>
 		</div>  	
@@ -118,40 +126,28 @@ function fn_view(cno) {
   <table class="table table-striped">
    <thead>
    	<tr>
-		<td colspan="9" class="text-center"><h5>재료 구매 LIST</h5></td>    	
+		<td colspan="9" class="text-center"><h5>재료 구매 & 입출고 LIST</h5></td>    	
 	</tr>
 	<tr>
-        <th width="10%">주문일</th>
+        <th width="10%">일자</th>
         <th width="10%">구분</th>
-        <th width="10%">주문품</th>
+        <th width="10%">재료</th>
         <th width="7%">용량(g)</th>
-        <th width="5%">수량(개)</th>
-        <th width="8%">총량(g)</th>
-        <th width="10%">금액(원)</th>
         <th width="10%">거래처</th>
         <th width="10%">입고일</th>
         <th width="20%">비고</th>
       </tr>
     </thead>
     <tbody>
-    	<c:set var="contentSum" value="0"/>
-    	<c:set var="qtySum" value="0"/>
     	<c:set var="sumqtySum" value="0"/>
-    	<c:set var="priceSum" value="0"/>
 <c:forEach items="${resultList}" var="vo" varStatus="status">	
  	<tr class="dataRow" onclick="fn_view(${vo.cno}); return false;"> 		
- 		<c:set var="contentSum" value="${contentSum + vo.content}"/>
- 		<c:set var="qtySum" value="${qtySum + vo.qty}"/>
  		<c:set var="sumqtySum" value="${sumqtySum + vo.sumQty}"/>
- 		<c:set var="priceSum" value="${priceSum + vo.price}"/>
  		<td class="cno" style="display:none">${vo.cno}</td>
         <td>${vo.buyDate}</td>
         <td>${vo.gubun}</td>
         <td>${vo.item}</td>
-        <td class="text-right"><fmt:formatNumber value="${vo.content}" /></td>
-        <td class="text-right"><fmt:formatNumber value="${vo.qty}" /></td>
         <td class="text-right"><fmt:formatNumber value="${vo.sumQty}" /></td>
-        <td class="text-right"><fmt:formatNumber value="${vo.price}" /></td>
         <td>${vo.purShop}</td>
         <td>${vo.inDate}</td>
         <td>${vo.comm}</td>
@@ -164,10 +160,7 @@ function fn_view(cno) {
         <td></td>
         <td></td>
         <td></td>
-        <td class="text-right"><fmt:formatNumber value="${contentSum}" /></td>
-        <td class="text-right"><fmt:formatNumber value="${qtySum}" /></td>
         <td class="text-right"><fmt:formatNumber value="${sumqtySum}" /></td>
-        <td class="text-right"><fmt:formatNumber value="${priceSum}" /></td>
         <td></td>
         <td></td>
         <td></td>
@@ -176,7 +169,7 @@ function fn_view(cno) {
 </table>
 <div class="text-center">
 	<c:if test="${pageObject.totalPage>1}" >		
-		<pageObject:pageNav listURI="buyAllList.do" pageObject="${pageObject}" />
+		<pageObject:pageNav listURI="ingAllList.do" pageObject="${pageObject}" />
 	</c:if>
 </div>
 </div>

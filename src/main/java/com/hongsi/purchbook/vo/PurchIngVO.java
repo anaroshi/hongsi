@@ -13,6 +13,7 @@ public class PurchIngVO {
 	private String 	gubun;			// 입출고구분
 	private long 	content;		// 구매단위양
 	private long 	qty;			// 구매갯수 / 수량
+	private long 	sumQty;			// 구매갯수 / 수량
 	private long 	price;			// 구매금액
 	private String 	purShop; 		// 구매 / 거래처	
 	private String 	inDate;			// 입고일자

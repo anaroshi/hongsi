@@ -1,8 +1,5 @@
 package com.hongsi.purchbook.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -77,7 +74,7 @@ public class PurchIngController {
 		model.addAttribute("resultList", purchIngSerivce.list(pageObject));
 		return MODULE + "/buyAllList";
 	}
-
+	
 	@GetMapping("stockList.do")
 	public String selectIgdTotalList(Model model) throws Exception {
 		log.info(".............................purchbookController..buy");
@@ -138,5 +135,18 @@ public class PurchIngController {
 		model.addAttribute("resultList", purchIngSerivce.selectStorageInOut(pageObject));
 		return MODULE + "/storageAllList";
 	}
+	
+	// 재료구매+입출고 리스트 화면
+	@GetMapping("ingAllList.do")
+	public String ingAllList(Model model, @ModelAttribute PageObject pageObject) throws Exception {
+		log.info(".............................buyList..buy");
+		log.info(".............................pageObject..:"+pageObject);
+		// 재료 리스트 (select)
+		model.addAttribute("ingreList", ingredientService.list());
+		// 재료 구매+입출고 리스트
+		model.addAttribute("resultList", purchIngSerivce.getIngAllList(pageObject));
+		return MODULE + "/ingAllList";
+	}
+	
 
 }

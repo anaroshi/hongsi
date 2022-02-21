@@ -157,4 +157,11 @@ public class PurchIngSerivceImpl implements PurchIngSerivce {
 	public List<PurchIngVO> selectNeedCafe() throws Exception {
 		return mapper.selectNeedCafe();
 	}
+
+	// 재료 구매 & 입출고 리스트
+	@Override
+	public List<PurchIngVO> getIngAllList(PageObject pageObject) {
+		pageObject.setTotalRow(mapper.getIngTotalRow(pageObject));
+		return mapper.getIngAllList(pageObject);
+	}
 }

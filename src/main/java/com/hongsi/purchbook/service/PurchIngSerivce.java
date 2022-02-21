@@ -29,5 +29,7 @@ public interface PurchIngSerivce {
 
 	public List<PurchIngVO> selectNeedCafe() throws Exception;
 
+	public List<PurchIngVO> getIngAllList(PageObject pageObject);
+
 
 }

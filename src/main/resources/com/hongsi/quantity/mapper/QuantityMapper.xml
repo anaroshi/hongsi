@@ -213,21 +213,20 @@
 				) S
 				LEFT JOIN
 				(	/* 카페에 있는 재고량 */		
-					SELECT A.ITEM, (NVL(A.SUMINCONTENT,0) - NVL(B.SUMOUTCONTENT,0) ) SUMCAFE
+					SELECT A.ITEM, (NVL(A.SUMINSUMQTY,0) - NVL(B.SUMOUTSUMQTY,0) ) SUMCAFE
 					FROM 
 					(
-						SELECT ITEM, SUM( NVL(CONTENT,0)) SUMINCONTENT FROM PURCH_ING
-						WHERE STATUS = 'storage'
+						SELECT ITEM, SUM( NVL(SUMQTY,0)) SUMINSUMQTY FROM PURCH_ING
+						WHERE 1=1
 						AND GUBUNCODE = 'in' 
-						OR GUBUN = '입고_cafe'
-						OR GUBUN = '구매_cafe'
+						AND ( GUBUN = '입고_cafe' OR GUBUN = '구매_cafe' )
 						AND FLAG != 4
 						GROUP BY ITEM
 					) A
 					FULL OUTER JOIN 
 					( 
-						SELECT ITEM, SUM( NVL(CONTENT,0)) SUMOUTCONTENT FROM PURCH_ING
-						WHERE  STATUS = 'storage'
+						SELECT ITEM, SUM( NVL(SUMQTY,0)) SUMOUTSUMQTY FROM PURCH_ING
+						WHERE  1=1
 						AND GUBUNCODE = 'out' 
 						AND GUBUN = '출고_cafe'
 						AND FLAG != 4
@@ -370,8 +369,7 @@ SELECT Z.CODE, Z.KNAME, Z.ORINEED ori_qty_2week, Z.ERLNEED erl_qty_2week, Z.STCN
 				(SELECT ITEM, SUM( NVL(CONTENT,0)) SUMINCONTENT FROM PURCH_ING
 				WHERE STATUS = 'storage'
 				AND GUBUNCODE = 'in' 
-				OR GUBUN = '입고_cafe'
-				OR GUBUN = '구매_cafe'
+				AND ( GUBUN = '입고_cafe' OR GUBUN = '구매_cafe' )
 				AND FLAG != 4
 				GROUP BY ITEM) A
 				FULL OUTER JOIN ( SELECT ITEM, SUM( NVL(CONTENT,0)) SUMOUTCONTENT FROM PURCH_ING

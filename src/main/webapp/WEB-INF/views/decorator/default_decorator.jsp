@@ -156,6 +156,7 @@ article {
 							<a class="dropdown-toggle" data-toggle="dropdown" href="#">리스트
 							<span class="caret"></span></a>
 							<ul class="dropdown-menu">
+								<li><a href="${path }/purchbook/ingAllList.do">재료</a></li>
 								<li><a href="${path }/purchbook/buyAllList.do">재료구매</a></li>
 								<li><a href="${path }/purchbook/storageAllList.do">재료입출고</a></li>
 								<li><a href="${path }/purchshop/productAllList.do">생산</a></li>

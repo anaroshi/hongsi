@@ -41,8 +41,8 @@
 	</sql>
 	
 	
-	<!-- 재료 입출고 리스트 검색 조건 -->
-	<sql id="storageSelect">
+	<!-- 재료 구매 & 입출고 리스트 검색 조건 -->
+	<sql id="ingSelect">
 		<if test="buyDate != null and buyDate != ''.toString()">
 			<if test="buyDate.length == 10">	
 				AND BUYDATE = to_date(#{buyDate},'YYYY-MM-DD')
@@ -65,7 +65,50 @@
 		<if test="item != null and item != ''.toString()">
 				AND ITEM = #{item}
 		</if>
+		<if test="purShop != null and purShop != ''.toString()">
+				AND PURSHOP = #{purShop}
+		</if>
+		<if test="inDate != null and inDate != ''.toString()">
+			<if test="inDate.length == 10">	
+				AND INDATE = to_date(#{inDate},'YYYY-MM-DD')
+			</if>
+			<if test="inDate.length() > 10">
+				AND INDATE BETWEEN to_date(SUBSTR(#{inDate},0,10),'YYYY-MM-DD') AND to_date(SUBSTR(#{inDate},13,23),'YYYY-MM-DD')
+			</if>
+		</if>
+		<if test="notIn != null and notIn != ''.toString()">
+				AND INDATE IS NULL
+		</if>
 	</sql>
+
+	<!-- 재료 입출고 리스트 검색 조건 -->
+	<sql id="storageSelect">
+		<if test="buyDate != null and buyDate != ''.toString()">
+			<if test="buyDate.length == 10">	
+				AND BUYDATE = to_date(#{buyDate},'YYYY-MM-DD')
+			</if>
+			<if test="buyDate.length() > 10">
+				AND BUYDATE BETWEEN to_date(SUBSTR(#{buyDate},0,10),'YYYY-MM-DD') AND to_date(SUBSTR(#{buyDate},13,23),'YYYY-MM-DD')
+			</if>
+		</if>
+		<if test="gubun != null and gubun != ''.toString()">
+			<if test="gubun == '구매'">
+				AND GUBUN LIKE '%' || #{gubun} || '%'
+			</if>
+			<if test="gubun == '출고'">
+				AND GUBUN LIKE '%' || #{gubun} || '%'
+			</if>
+			<if test="gubun == '입고'">
+				AND GUBUN LIKE '%' || #{gubun} || '%'
+			</if>
+			<if test="gubun != '구매' and gubun != '출고' and gubun != '입고'">
+				AND GUBUN = #{gubun}
+			</if>	
+		</if>
+		<if test="item != null and item != ''.toString()">
+				AND ITEM = #{item}
+		</if>
+	</sql>	
 	
 	
 	<!-- 	재료 구매한 리스트 -->
@@ -76,7 +119,8 @@
 			GUBUN,
 			ITEM,		
 			CONTENT,		
-			QTY,		
+			QTY,
+			SUMQTY,	
 			PRICE,
 			PURSHOP,
 			INDATE,
@@ -90,6 +134,7 @@
 			I.KNAME ITEM,		
 			P.CONTENT,		
 			P.QTY,		
+			P.SUMQTY,		
 			P.PRICE,
 			P.PURSHOP,			
 			P.INDATE,
@@ -102,7 +147,7 @@
 				ITEM,
 				GUBUN,
 				CONTENT,		
-				QTY,		
+				QTY,					
 				PRICE,
 				PURSHOP,			
 				TO_CHAR(INDATE, 'yyyy-MM-dd')  INDATE,
@@ -336,6 +381,7 @@
 	)
 	</insert>
 
+	<!-- 재료재고 화면 -->
 	<select id="selectIgdTotalList" resultType="com.hongsi.purchbook.vo.PurchIngVO">
 	SELECT	
 		AT.ITEM, AT.KNAME, AT.INTOTAL, AT.OUTTOTAL, AT.DISTOTAL, AT.TOTAL, 
@@ -381,17 +427,16 @@
 			SELECT A.ITEM, NVL(A.INCAFETOTAL,0) INCAFETOTAL, NVL(B.OUTCAFETOTAL,0) OUTCAFETOTAL, (NVL(A.INCAFETOTAL,0) - NVL(B.OUTCAFETOTAL,0) ) SUMCAFE
 			FROM 
 			(
-				SELECT ITEM, SUM( NVL(CONTENT,0)) INCAFETOTAL FROM PURCH_ING
-				WHERE STATUS = 'storage'
-				AND GUBUNCODE = 'in' 
-				OR GUBUN = '입고_cafe'
-				OR GUBUN = '구매_cafe'
+				SELECT ITEM, SUM( NVL(SUMQTY,0)) INCAFETOTAL FROM PURCH_ING
+				WHERE 1=1
+				AND GUBUNCODE = 'in'
+				AND ( GUBUN = '입고_cafe' OR GUBUN = '구매_cafe' )
 				AND FLAG != 4
 				GROUP BY ITEM
 			) A
 			FULL OUTER JOIN 
 			( 
-				SELECT ITEM, SUM( NVL(CONTENT,0)) OUTCAFETOTAL FROM PURCH_ING
+				SELECT ITEM, SUM( NVL(SUMQTY,0)) OUTCAFETOTAL FROM PURCH_ING
 				WHERE  STATUS = 'storage'
 				AND GUBUNCODE = 'out' 
 				AND GUBUN = '출고_cafe'
@@ -405,7 +450,7 @@
 		) IO
 		FULL OUTER JOIN 
 		( 
-			SELECT ITEM, SUM( NVL(CONTENT,0)) DISCAFETOTAL FROM PURCH_ING
+			SELECT ITEM, SUM( NVL(SUMQTY,0)) DISCAFETOTAL FROM PURCH_ING
 			WHERE  STATUS = 'storage'
 			AND GUBUNCODE = 'out' 
 			AND GUBUN = '출고_cafe'
@@ -460,7 +505,7 @@
 				ITEM,
 				GUBUN,
 				CONTENT,		
-				QTY,		
+				QTY,						
 				BUYER,
 				COMM
 			FROM PURCH_ING
@@ -638,21 +683,24 @@
 		) NEED
 		LEFT JOIN
 		(	<!-- 카페에 있는 재고량 -->		
-			SELECT A.ITEM, (NVL(A.SUMINCONTENT,0) - NVL(B.SUMOUTCONTENT,0) ) SUMCAFECONTENT
+			SELECT A.ITEM, (NVL(A.SUMINSUMQTY,0) - NVL(B.SUMOUTSUMQTY,0) ) SUMCAFECONTENT
 			FROM 
-			(SELECT ITEM, SUM( NVL(CONTENT,0)) SUMINCONTENT FROM PURCH_ING
-			WHERE STATUS = 'storage'
-			AND GUBUNCODE = 'in' 
-			OR GUBUN = '입고_cafe'
-			OR GUBUN = '구매_cafe'
-			AND FLAG != 4
-			GROUP BY ITEM) A
-			FULL OUTER JOIN ( SELECT ITEM, SUM( NVL(CONTENT,0)) SUMOUTCONTENT FROM PURCH_ING
-			WHERE  STATUS = 'storage'
-			AND GUBUNCODE = 'out' 
-			AND GUBUN = '출고_cafe'
-			AND FLAG != 4
-			GROUP BY ITEM) B
+			(
+				SELECT ITEM, SUM( NVL(SUMQTY,0)) SUMINSUMQTY FROM PURCH_ING
+				WHERE 1=1
+				AND GUBUNCODE = 'in' 
+				AND ( GUBUN = '입고_cafe' OR GUBUN = '구매_cafe' )
+				AND FLAG != 4
+				GROUP BY ITEM
+			) A
+			FULL OUTER JOIN ( 
+				SELECT ITEM, SUM( NVL(SUMQTY,0)) SUMOUTSUMQTY FROM PURCH_ING
+				WHERE  1=1
+				AND GUBUNCODE = 'out' 
+				AND GUBUN = '출고_cafe'
+				AND FLAG != 4
+				GROUP BY ITEM
+			) B
 			ON A.ITEM = B.ITEM
 		) CAFE
 		ON NEED.CODE = CAFE.ITEM		
@@ -660,4 +708,62 @@
 	ON STOCK.ITEM = NZ.CODE
 	ORDER BY STOCK.KNAME
 	</select>
+
+	<!-- 	재료 구매 & 입출고 리스트 -->
+	<select id="getIngAllList" resultType="com.hongsi.purchbook.vo.PurchIngVO">
+	SELECT 	RNUM, 
+			CNO,
+			BUYDATE, 
+			GUBUN,
+			ITEM,
+			SUMQTY,
+			PURSHOP,
+			INDATE,
+			COMM
+	FROM
+	(	
+		SELECT ROWNUM RNUM, 	
+			P.CNO,
+			P.BUYDATE, 
+			P.GUBUN,
+			I.KNAME ITEM,
+			P.SUMQTY,
+			P.PURSHOP,
+			P.INDATE,
+			P.COMM
+		FROM 
+		(
+		SELECT 
+				CNO,
+				TO_CHAR(BUYDATE, 'yyyy-MM-dd') BUYDATE,
+				ITEM,
+				GUBUN,
+				SUMQTY,
+				PURSHOP,			
+				TO_CHAR(INDATE, 'yyyy-MM-dd')  INDATE,
+				COMM,		
+				RDATE	
+			FROM PURCH_ING
+			WHERE 1=1
+			AND FLAG != 4
+			<include refid="ingSelect" />
+			ORDER BY BUYDATE DESC
+		) P,
+		(
+			SELECT KNAME, CODE FROM INGREDIENT
+		) I
+		WHERE 	P.ITEM = I.CODE		
+	)
+	WHERE 1=1
+	AND RNUM BETWEEN #{startRow} AND #{endRow}		
+	</select>
+
+	<!-- 총 재료 주문 & 입출고 건수 -->
+	<select id="getIngTotalRow" resultType="java.lang.Integer">
+	SELECT 	COUNT(*)
+	FROM 	PURCH_ING
+	WHERE	1=1
+	AND 	FLAG != 4
+	<include refid="ingSelect" />
+	</select>	
 </mapper>
