@@ -33,6 +33,7 @@ public class PurchIngVO {
 	private String  gubunCode;		// 재료 재고에 더할 값인지 뺄 값인지 구하기 위함 (더할 값: in/ 뺄 값: out )
 	private String  status;			// 재료 구매(purch)에서 입력되는지. 재료 입출고(storage)에서 입력되는지 구분을 위한 값 (purch/storage)
 	private long 	flag;			// 재료 입력 1 / 수정 2 / 삭제 4 여부 확인용
+	
 }
 
 /*

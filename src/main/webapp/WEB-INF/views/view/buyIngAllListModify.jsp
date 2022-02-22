@@ -53,9 +53,9 @@ function fn_delete(cno) {
 			console.log("result:"+result+" -> xhr: "+xhr);
 	        if(result=="ok") {
 	        	alert("삭제완료");
-		        	// 부모창 reload	        	
-	        	//let query = "?page=${param.page}&perPageNum=${param.perPageNum}";	 	
-				opener.parent.location ="/purchbook/buy.do";				
+	        	 	// 부모창 reload
+	        	let query = "?buyDate=${param.buyDate}&gubun=${param.gubun}&item=${param.item}&purShop=${param.purShop}&inDate=${param.inDate}";	 	
+				opener.parent.location ="/purchbook/ingAllList.do"+query;				
 	        	self.close();
 			}
 		})
@@ -86,7 +86,7 @@ function fn_update() {
 	        	 	// 부모창 reload
 	        	// page=${param.page}&perPageNum=${param.perPageNum}& 	
 	        	let query = "?buyDate=${param.buyDate}&gubun=${param.gubun}&item=${param.item}&purShop=${param.purShop}&inDate=${param.inDate}";	        	
-				opener.parent.location ="/purchbook/buy.do"+query; 	
+				opener.parent.location ="/purchbook/ingAllList.do"+query; 	
 	        	self.close();
 			} else {
 				alert("수정 실패");	

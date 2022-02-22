@@ -30,13 +30,17 @@ $( function() {
 	});
 });
 
-function fn_view(cno) {	
-	
+function fn_view(cno, gubun) {	
 	//alert(cno);
 	var w = 1000;
 	var h = 470;
-	var url = "../view/buyModify.do?cno="+cno;
-	
+	// buyDate=${param.buyDate}&
+	let query = "&page=${param.page}&perPageNum=${param.perPageNum}&gubun=${param.gubun}&item=${param.item}&purShop=${param.purShop}&inDate=${param.inDate}";
+// 	if (${param.buyDate}) 
+// 		query += "&buyDate=${param.buyDate}";
+	let	url = "../view/storageIngAllListModify.do?cno="+cno+query;	
+	if (gubun == "구매" || gubun == "구매_office" || gubun == "구매_cafe") 
+		url = "../view/buyIngAllListModify.do?cno="+cno+query;
 	var xPos = (document.body.offsetWidth/2) - (w/2); // 가운데 정렬
 	xPos += window.screenLeft; // 듀얼 모니터일 때
 	var yPos = (document.body.offsetHeight/2) - (h/2) - 200;
@@ -141,8 +145,9 @@ function fn_view(cno) {
     <tbody>
     	<c:set var="sumqtySum" value="0"/>
 <c:forEach items="${resultList}" var="vo" varStatus="status">	
- 	<tr class="dataRow" onclick="fn_view(${vo.cno}); return false;"> 		
- 		<c:set var="sumqtySum" value="${sumqtySum + vo.sumQty}"/>
+ 	<tr class="dataRow" onclick="fn_view(${vo.cno}, '${vo.gubun}'); return false;">
+ 		<c:if test="${vo.gubun ne '출고' && vo.gubun ne '출고_office' && vo.gubun ne '출고_cafe' && vo.gubun ne '손실'}"><c:set var="sumqtySum" value="${sumqtySum + vo.sumQty}"/></c:if>
+ 		<c:if test="${vo.gubun eq '출고' || vo.gubun eq '출고_office' || vo.gubun eq '출고_cafe' || vo.gubun eq '손실'}"><c:set var="sumqtySum" value="${sumqtySum - vo.sumQty}"/></c:if>
  		<td class="cno" style="display:none">${vo.cno}</td>
         <td>${vo.buyDate}</td>
         <td>${vo.gubun}</td>

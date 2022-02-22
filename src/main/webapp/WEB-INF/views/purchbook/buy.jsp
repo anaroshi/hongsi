@@ -48,6 +48,22 @@ div.modal-body {
 	});
 });
   
+function fn_view(cno) {	
+	
+	//alert(cno);
+	var w = 1000;
+	var h = 470;
+	//&buyDate=${param.buyDate}
+	//let query = "&page=${param.page}&perPageNum=${param.perPageNum}";	
+	var url = "../view/buyModify.do?cno="+cno;
+	
+	var xPos = (document.body.offsetWidth/2) - (w/2); // 가운데 정렬
+	xPos += window.screenLeft; // 듀얼 모니터일 때
+	var yPos = (document.body.offsetHeight/2) - (h/2) - 200;
+
+	window.open(url, "pop_name", "width="+w+", height="+h+", left="+xPos+", top="+yPos+", menubar=no, status=no, titlebar=no, resizable=no");
+};    
+  
 </script>
 
 </head>
@@ -231,7 +247,7 @@ div.modal-body {
     </thead>
     <tbody>
 <c:forEach items="${buyInList}" var="vo" varStatus="status">
- 	<tr class="dataRow orderRow">
+	<tr class="dataRow" onclick="fn_view(${vo.cno}); return false;"> 	
  		<td class="cno" style="display:none">${vo.cno}</td>
         <td class="buyDate" style="font-size: 11px;">${vo.buyDate}</td>
         <td class="gubun" style="font-size: 11px;">${vo.gubun}</td>

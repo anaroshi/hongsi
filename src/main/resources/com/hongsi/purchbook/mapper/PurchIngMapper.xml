@@ -52,13 +52,16 @@
 			</if>
 		</if>
 		<if test="gubun != null and gubun != ''.toString()">
+			<if test="gubun == '구매'">
+				AND GUBUN LIKE '%' || #{gubun} || '%'
+			</if>
 			<if test="gubun == '출고'">
 				AND GUBUN LIKE '%' || #{gubun} || '%'
 			</if>
 			<if test="gubun == '입고'">
 				AND GUBUN LIKE '%' || #{gubun} || '%'
 			</if>
-			<if test="gubun != '출고' and gubun != '입고'">
+			<if test="gubun != '구매' and gubun != '출고' and gubun != '입고'">
 				AND GUBUN = #{gubun}
 			</if>	
 		</if>
@@ -91,17 +94,14 @@
 				AND BUYDATE BETWEEN to_date(SUBSTR(#{buyDate},0,10),'YYYY-MM-DD') AND to_date(SUBSTR(#{buyDate},13,23),'YYYY-MM-DD')
 			</if>
 		</if>
-		<if test="gubun != null and gubun != ''.toString()">
-			<if test="gubun == '구매'">
-				AND GUBUN LIKE '%' || #{gubun} || '%'
-			</if>
+		<if test="gubun != null and gubun != ''.toString()">			
 			<if test="gubun == '출고'">
 				AND GUBUN LIKE '%' || #{gubun} || '%'
 			</if>
 			<if test="gubun == '입고'">
 				AND GUBUN LIKE '%' || #{gubun} || '%'
 			</if>
-			<if test="gubun != '구매' and gubun != '출고' and gubun != '입고'">
+			<if test="gubun != '출고' and gubun != '입고'">
 				AND GUBUN = #{gubun}
 			</if>	
 		</if>
@@ -128,42 +128,58 @@
 	FROM
 	(	
 		SELECT ROWNUM RNUM, 	
-			P.CNO,
-			P.BUYDATE, 
-			P.GUBUN,
-			I.KNAME ITEM,		
-			P.CONTENT,		
-			P.QTY,		
-			P.SUMQTY,		
-			P.PRICE,
-			P.PURSHOP,			
-			P.INDATE,
-			P.COMM
+			CNO,
+			BUYDATE, 
+			GUBUN,
+			ITEM,		
+			CONTENT,		
+			QTY,		
+			SUMQTY,		
+			PRICE,
+			PURSHOP,			
+			INDATE,
+			COMM
 		FROM 
 		(
-		SELECT 
-				CNO,
-				TO_CHAR(BUYDATE, 'yyyy-MM-dd') BUYDATE,
-				ITEM,
-				GUBUN,
-				CONTENT,		
-				QTY,					
-				PRICE,
-				PURSHOP,			
-				TO_CHAR(INDATE, 'yyyy-MM-dd')  INDATE,
-				COMM,		
-				RDATE,
-				SUMQTY		
-			FROM PURCH_ING
-			WHERE	STATUS = 'purch'
-			AND FLAG != 4
-			<include refid="buySelect" />
-			ORDER BY BUYDATE DESC
-		) P,
-		(
-			SELECT KNAME, CODE FROM INGREDIENT
-		) I
-		WHERE 	P.ITEM = I.CODE		
+			SELECT  	
+				P.CNO,
+				P.BUYDATE, 
+				P.GUBUN,
+				I.KNAME ITEM,		
+				P.CONTENT,		
+				P.QTY,		
+				P.SUMQTY,		
+				P.PRICE,
+				P.PURSHOP,			
+				P.INDATE,
+				P.COMM,
+				P.RDATE
+			FROM 
+			(
+			SELECT 
+					CNO,
+					TO_CHAR(BUYDATE, 'yyyy-MM-dd') BUYDATE,
+					ITEM,
+					GUBUN,
+					CONTENT,		
+					QTY,					
+					PRICE,
+					PURSHOP,			
+					TO_CHAR(INDATE, 'yyyy-MM-dd')  INDATE,
+					COMM,		
+					RDATE,
+					SUMQTY		
+				FROM PURCH_ING
+				WHERE	STATUS = 'purch'
+				AND FLAG != 4
+				<include refid="buySelect" />				
+			) P,
+			(
+				SELECT KNAME, CODE FROM INGREDIENT
+			) I
+			WHERE 	P.ITEM = I.CODE
+			ORDER BY P.BUYDATE DESC, P.RDATE DESC
+		)			
 	)
 	WHERE 1=1
 	AND RNUM BETWEEN #{startRow} AND #{endRow}		
@@ -193,8 +209,7 @@
 		P.INDATE,
 		P.COMM,
 		P.BUYER,
-		P.SUMQTY,
-		P.RDATE
+		P.SUMQTY
 	FROM 
 	(
 	SELECT 
@@ -209,8 +224,7 @@
 			TO_CHAR(INDATE, 'yyyy-MM-dd')  INDATE,
 			COMM,
 			BUYER,
-			SUMQTY,
-			RDATE		
+			SUMQTY		
 		FROM PURCH_ING
 		WHERE	STATUS = #{status}
 		AND FLAG != 4
@@ -219,8 +233,7 @@
 	(
 		SELECT KNAME, CODE FROM INGREDIENT
 	) I
-	WHERE P.ITEM = I.CODE
-	ORDER BY P.BUYDATE DESC 
+	WHERE P.ITEM = I.CODE	
 	</select>
 
 	<!-- 	재료 구매 or 입출고 정보삭제 처리		 -->
@@ -242,7 +255,8 @@
 		P.CONTENT,		
 		P.QTY,		
 		P.PRICE,
-		P.PURSHOP
+		P.PURSHOP,
+		P.RDATE
 	FROM 
 	(
 		SELECT 
@@ -253,7 +267,8 @@
 			CONTENT,		
 			QTY,		
 			PRICE,
-			PURSHOP	
+			PURSHOP,
+			RDATE	
 		FROM PURCH_ING
 		WHERE 	INDATE IS NULL
 		AND		STATUS = 'purch'
@@ -263,7 +278,7 @@
 		SELECT KNAME, CODE FROM INGREDIENT
 	) I
 	WHERE P.ITEM = I.CODE
-	ORDER BY P.BUYDATE DESC
+	ORDER BY P.BUYDATE DESC, RDATE DESC
 	</select>
 	
 	<!-- 	구매한 재료중에 입력일이 있는 재료들만 구하기 -->
@@ -306,7 +321,8 @@
 				P.QTY,		
 				P.PRICE,
 				P.PURSHOP,
-				P.INDATE
+				P.INDATE,
+				P.RDATE
 			FROM 
 			(
 				SELECT 
@@ -318,7 +334,8 @@
 					QTY,		
 					PRICE,
 					PURSHOP,
-					TO_CHAR(INDATE, 'yyyy-MM-dd') INDATE	
+					TO_CHAR(INDATE, 'yyyy-MM-dd') INDATE,
+					RDATE	
 				FROM PURCH_ING
 				WHERE 	INDATE IS NOT NULL
 				AND		STATUS = 'purch'
@@ -328,7 +345,7 @@
 				SELECT KNAME, CODE FROM INGREDIENT
 			) I
 			WHERE P.ITEM = I.CODE
-			ORDER BY P.BUYDATE DESC
+			ORDER BY P.BUYDATE DESC, RDATE DESC
 		)
 	)
 	WHERE 	1 = 1	
@@ -488,36 +505,51 @@
 	(	
 		SELECT
 			ROWNUM RNUM,
-			P.CNO,		
-			P.BUYDATE, 
-			P.ITEM, 
-			I.KNAME, 
-			P.GUBUN,
-			P.CONTENT,		
-			P.QTY,		
-			P.BUYER,
-			P.COMM
+			CNO,		
+			BUYDATE, 
+			ITEM, 
+			KNAME, 
+			GUBUN,
+			CONTENT,		
+			QTY,		
+			BUYER,
+			COMM
 		FROM 
 		(
-			SELECT 
-				CNO,
-				TO_CHAR(BUYDATE, 'yyyy-MM-dd') BUYDATE,
-				ITEM,
-				GUBUN,
-				CONTENT,		
-				QTY,						
-				BUYER,
-				COMM
-			FROM PURCH_ING
-			WHERE STATUS = 'storage'
-			AND FLAG != 4
-			<include refid="storageSelect" />	
-			ORDER BY BUYDATE DESC		
-		) P,
-		(
-			SELECT KNAME, CODE FROM INGREDIENT
-		) I
-		WHERE P.ITEM = I.CODE		
+			SELECT
+				P.CNO,		
+				P.BUYDATE, 
+				P.ITEM, 
+				I.KNAME, 
+				P.GUBUN,
+				P.CONTENT,		
+				P.QTY,		
+				P.BUYER,
+				P.COMM,
+				P.RDATE
+			FROM 
+			(
+				SELECT 
+					CNO,
+					TO_CHAR(BUYDATE, 'yyyy-MM-dd') BUYDATE,
+					ITEM,
+					GUBUN,
+					CONTENT,		
+					QTY,						
+					BUYER,
+					COMM,
+					RDATE
+				FROM PURCH_ING
+				WHERE STATUS = 'storage'
+				AND FLAG != 4
+				<include refid="storageSelect" />						
+			) P,
+			(
+				SELECT KNAME, CODE FROM INGREDIENT
+			) I
+			WHERE P.ITEM = I.CODE
+			ORDER BY P.BUYDATE DESC, P.RDATE DESC
+		)		
 	)
 	WHERE 	1 = 1	
 	AND 	RNUM BETWEEN #{startRow} AND #{endRow}
@@ -723,36 +755,49 @@
 	FROM
 	(	
 		SELECT ROWNUM RNUM, 	
-			P.CNO,
-			P.BUYDATE, 
-			P.GUBUN,
-			I.KNAME ITEM,
-			P.SUMQTY,
-			P.PURSHOP,
-			P.INDATE,
-			P.COMM
+			CNO,
+			BUYDATE, 
+			GUBUN,
+			ITEM,
+			SUMQTY,
+			PURSHOP,
+			INDATE,
+			COMM
 		FROM 
 		(
-		SELECT 
-				CNO,
-				TO_CHAR(BUYDATE, 'yyyy-MM-dd') BUYDATE,
-				ITEM,
-				GUBUN,
-				SUMQTY,
-				PURSHOP,			
-				TO_CHAR(INDATE, 'yyyy-MM-dd')  INDATE,
-				COMM,		
-				RDATE	
-			FROM PURCH_ING
-			WHERE 1=1
-			AND FLAG != 4
-			<include refid="ingSelect" />
-			ORDER BY BUYDATE DESC
-		) P,
-		(
-			SELECT KNAME, CODE FROM INGREDIENT
-		) I
-		WHERE 	P.ITEM = I.CODE		
+			SELECT 
+				P.CNO,
+				P.BUYDATE, 
+				P.GUBUN,
+				I.KNAME ITEM,
+				P.SUMQTY,
+				P.PURSHOP,
+				P.INDATE,
+				P.COMM,
+				P.RDATE
+			FROM 
+			(
+			SELECT 
+					CNO,
+					TO_CHAR(BUYDATE, 'yyyy-MM-dd') BUYDATE,
+					ITEM,
+					GUBUN,
+					SUMQTY,
+					PURSHOP,			
+					TO_CHAR(INDATE, 'yyyy-MM-dd')  INDATE,
+					COMM,		
+					RDATE	
+				FROM PURCH_ING
+				WHERE 1=1
+				AND FLAG != 4
+				<include refid="ingSelect" />
+			) P,
+			(
+				SELECT KNAME, CODE FROM INGREDIENT
+			) I
+			WHERE 	P.ITEM = I.CODE
+			ORDER BY P.BUYDATE DESC, P.RDATE DESC
+		)			
 	)
 	WHERE 1=1
 	AND RNUM BETWEEN #{startRow} AND #{endRow}		

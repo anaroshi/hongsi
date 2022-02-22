@@ -47,7 +47,7 @@ public class ViewController {
 	
 	// --------------------------------------- 재료 구매 -----------------------------------------------
 	
-	// 재료 구매 정보 보기
+	// 재료 구매 정보 보기 (재료구매에서)
 	@GetMapping("view/buyModify.do")
 	public String buyModify(PurchIngVO vo, Model model) throws Exception {
 		log.info(".............................buyModify..");
@@ -59,6 +59,34 @@ public class ViewController {
 		vo.setStatus("purch");
 		model.addAttribute("buyInfo", purchIngSerivce.selectBuyStorageInfoByCno(vo));
 		return "view/buyModify";
+	}
+
+	// 재료 구매 정보 보기 (구매 리스트에서)
+	@GetMapping("view/buyIngAllListModify.do")
+	public String buyIngAllListModify(PurchIngVO vo, Model model) throws Exception {
+		log.info(".............................buyModify..");
+
+		// 재료 list
+		model.addAttribute("ingreList", ingredientService.list());
+
+		// 재료 구매한 정보
+		vo.setStatus("purch");
+		model.addAttribute("buyInfo", purchIngSerivce.selectBuyStorageInfoByCno(vo));
+		return "view/buyIngAllListModify";
+	}
+
+	// 재료 구매 정보 보기 (재료구매 리스트에서)
+	@GetMapping("view/buyAllListModify.do")
+	public String buyAllListModify(PurchIngVO vo, Model model) throws Exception {
+		log.info(".............................buyModify..");
+
+		// 재료 list
+		model.addAttribute("ingreList", ingredientService.list());
+
+		// 재료 구매한 정보
+		vo.setStatus("purch");
+		model.addAttribute("buyInfo", purchIngSerivce.selectBuyStorageInfoByCno(vo));
+		return "view/buyAllListModify";
 	}
 
 	// 재료 구매 삭제 처리
@@ -95,7 +123,8 @@ public class ViewController {
 	
 	// --------------------------------------- 재료 입출고 -----------------------------------------------
 	
-	@GetMapping("view/storageModify.do")
+	// 재료 입출고 정보 보기 (재료 입출고에서)
+	@GetMapping("view/storageModify.do") 
 	public String storageModify(PurchIngVO vo, Model model) throws Exception {
 		log.info(".............................storageModify..cno:"+vo);
 		
@@ -106,6 +135,34 @@ public class ViewController {
 		vo.setStatus("storage");
 		model.addAttribute("storageInfo", purchIngSerivce.selectBuyStorageInfoByCno(vo));
 		return "view/storageModify";
+	}
+
+	// 재료 입출고 정보 보기 (재료 리스트에서)
+	@GetMapping("view/storageIngAllListModify.do")
+	public String storageIngAllListModify(PurchIngVO vo, Model model) throws Exception {
+		log.info(".............................storageModify..cno:"+vo);
+		
+		// 재료 list
+		model.addAttribute("ingreList", ingredientService.list());
+		
+		// 재료 입출고한 정보
+		vo.setStatus("storage");
+		model.addAttribute("storageInfo", purchIngSerivce.selectBuyStorageInfoByCno(vo));
+		return "view/storageIngAllListModify";
+	}
+
+	// 재료 입출고 정보 보기 (재료입출고 리스트에서)
+	@GetMapping("view/storageAllListModify.do")
+	public String storageAllListModify(PurchIngVO vo, Model model) throws Exception {
+		log.info(".............................storageModify..cno:"+vo);
+		
+		// 재료 list
+		model.addAttribute("ingreList", ingredientService.list());
+		
+		// 재료 입출고한 정보
+		vo.setStatus("storage");
+		model.addAttribute("storageInfo", purchIngSerivce.selectBuyStorageInfoByCno(vo));
+		return "view/storageAllListModify";
 	}
 
 	// 재료 입출고 삭제 처리

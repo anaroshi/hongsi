@@ -25,19 +25,21 @@ $( function() {
 	});
 });
   
-  function fn_view(cno) {	
-		
-		//alert(cno);
-		var w = 1000;
-		var h = 470;
-		var url = "../view/storageModify.do?cno="+cno;
-		
-		var xPos = (document.body.offsetWidth/2) - (w/2); // 가운데 정렬
-		xPos += window.screenLeft; // 듀얼 모니터일 때
-		var yPos = (document.body.offsetHeight/2) - (h/2) - 200;
+ function fn_view(cno) {	
+	
+	//alert(cno);
+	var w = 1000;
+	var h = 470;
+	// &buyDate=${param.buyDate}
+	let query = "&page=${param.page}&perPageNum=${param.perPageNum}&gubun=${param.gubun}&item=${param.item}&purShop=${param.purShop}&inDate=${param.inDate}";	
+	var url = "../view/storageAllListModify.do?cno="+cno+query;
+	
+	var xPos = (document.body.offsetWidth/2) - (w/2); // 가운데 정렬
+	xPos += window.screenLeft; // 듀얼 모니터일 때
+	var yPos = (document.body.offsetHeight/2) - (h/2) - 200;
 
-		window.open(url, "pop_name", "width="+w+", height="+h+", left="+xPos+", top="+yPos+", menubar=no, status=no, titlebar=no, resizable=no");
-	};   
+	window.open(url, "pop_name", "width="+w+", height="+h+", left="+xPos+", top="+yPos+", menubar=no, status=no, titlebar=no, resizable=no");
+};   
 </script>
 </head>
 
@@ -108,8 +110,11 @@ $( function() {
 	      </tr>
 	</thead>
 	<tbody>
+	<c:set var="sumqtySum" value="0"/>
 	<c:forEach items="${resultList}" var="vo" varStatus="status">
 	 	<tr class="dataRow" onclick="fn_view(${vo.cno}); return false;">
+	 		<c:if test="${vo.gubun ne '출고' && vo.gubun ne '출고_office' && vo.gubun ne '출고_cafe' && vo.gubun ne '손실'}"><c:set var="sumqtySum" value="${sumqtySum + vo.content}"/></c:if>
+	 		<c:if test="${vo.gubun eq '출고' || vo.gubun eq '출고_office' || vo.gubun eq '출고_cafe' || vo.gubun eq '손실'}"><c:set var="sumqtySum" value="${sumqtySum - vo.content}"/></c:if>
 	 		<td class="cno" style="display:none">${vo.cno}</td>
 	        <td class="buyDate">${vo.buyDate}</td>
 	        <td class="gubun">${vo.gubun}</td>
@@ -123,21 +128,12 @@ $( function() {
 	</tbody>
     <tfoot>
       	<tr>
-<!-- 	        <td></td> -->
-<!-- 	        <td></td> -->
-<!-- 	        <td></td> -->
-<%-- 	        <th class="text-right">${saleStock.ori_250_sum}</th> --%>
-<%-- 	        <th class="text-right">${saleStock.ori_500_sum}</th> --%>
-<%-- 	        <th class="text-right">${saleStock.ori_1000_sum}</th> --%>
-<%-- 	        <th class="text-right">${saleStock.erl_250_sum}</th> --%>
-<%-- 	        <th class="text-right">${saleStock.erl_500_sum}</th> --%>
-<%-- 	        <th class="text-right">${saleStock.erl_1000_sum}</th> --%>
-<%-- 	        <th class="text-right">${saleStock.stc_250_sum}</th> --%>
-<%-- 	        <th class="text-right">${saleStock.stc_500_sum}</th> --%>
-<%-- 	        <th class="text-right">${saleStock.stc_1000_sum}</th> --%>
-<!-- 	        <td></td> -->
-<!-- 	        <td></td> -->
-<!-- 	        <td></td> -->
+	        <td></td>
+	        <td></td>
+	        <td></td>
+	        <td class="text-right"><fmt:formatNumber value="${sumqtySum}" /> g</td>
+	        <td></td>
+	        <td></td>
       	</tr>
     </tfoot>
 </table>
