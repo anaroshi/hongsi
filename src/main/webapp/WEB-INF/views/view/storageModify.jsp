@@ -113,7 +113,7 @@ function fn_update() {
 	      <label for="item" class="col-sm-3 control-label">재료</label>
 	      <div class="col-sm-8">
 	      <select id="item" name="item" class="form-control select" required="required">
-	      	<option value="*"></option>
+	      	<option value=""></option>
 		      <c:forEach items="${ingreList}" var="vo">
 		      	<option value="${vo.code}" <c:if test="${storageInfo.item ==vo.code}">selected</c:if> >${vo.kname}</option>
 		      </c:forEach>

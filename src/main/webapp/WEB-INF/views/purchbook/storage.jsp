@@ -24,6 +24,18 @@ $( function() {
 // 	};
 });
 
+// 유효성 검사
+function formCheck() {
+	let buyDate = $("#buyDate").val();		
+	if( buyDate== null || buyDate ==""  || buyDate.length<10)  {
+		alert('주문일을 입력해주세요!');
+		$("#buyDate").select();
+	      return false;
+    }
+
+    return true;
+};
+
 function fn_view(cno) {	
 	
 	//alert(cno);
@@ -38,7 +50,23 @@ function fn_view(cno) {
 	var yPos = (document.body.offsetHeight/2) - (h/2) - 200;
 
 	window.open(url, "pop_name", "width="+w+", height="+h+", left="+xPos+", top="+yPos+", menubar=no, status=no, titlebar=no, resizable=no");
-}; 
+};
+
+//좌측 재료 리스트에서 재료를 선택하면 주문품이 선택된 재료로 셋팅된다.
+function fn_item(kname) {	
+	let itemOption = new Array();
+//	console.log("--------------------"+kname);
+	itemOption.push(`<option value=""></option>`);
+	<c:forEach items="${ingreList}" var="vo">
+		if('${vo.kname}' == kname) {
+			itemOption.push(`<option value="${vo.code}" selected >${vo.kname}</option>`);
+		} else {
+			itemOption.push(`<option value="${vo.code}" >${vo.kname}</option>`);
+		}
+  	</c:forEach>
+  	
+  	$("#item").html(itemOption);
+};
 </script>
 </head>
 <body>
@@ -60,7 +88,7 @@ function fn_view(cno) {
 			<tbody>
  				<c:forEach items="${ingreTotalList}" var="vo" varStatus="status">
  				<c:if test="${vo.total ne '0'}">
-					<tr class="dataRow">
+					<tr class="dataRow" onclick="fn_item('${vo.kname}'); return false;">
 						<td class="text-center">${vo.kname}</td>
 						<td class="text-right" id="need_${status.count}"><fmt:formatNumber value="${vo.total}" /></td>
 						<td class="text-right" id="need_${status.count}"><fmt:formatNumber value="${vo.needSum}" /></td>
@@ -73,7 +101,7 @@ function fn_view(cno) {
 		</table>
 	</div>
 	<!-- 재고량 보이기 End -->
-	<form class="form-horizontal" method="post">	
+	<form class="form-horizontal" method="post" id="frm" onsubmit="return formCheck()">	
 <!-- 	<input class="form-control inputDate" id="inDate" name="inDate" type="hidden" value=""> -->
 	<!-- 재료 입출고 입력 Start -->
 	<!-- 1블럭 Start -->
@@ -89,7 +117,7 @@ function fn_view(cno) {
 	      <label for="item" class="col-sm-3 control-label">재료</label>
 	      <div class="col-sm-8">
 	      <select id="item" name="item" class="form-control select" required="required">
-	      	<option value="*"></option>
+	      	<option value=""></option>
 		      <c:forEach items="${ingreList}" var="vo">
 		      	<option value="${vo.code}">${vo.kname}</option>
 		      </c:forEach>
@@ -135,12 +163,18 @@ function fn_view(cno) {
  		</div>
 
 		<div class="row">
-	    <div class="form-group">
-		    <div class="col-sm-2"></div>
-		    <div class="col-sm-9">
-		    	<button type="submit" class="btn btn-block">저장</button>
-		    </div>	
-	    </div>
+		    <div class="form-group">
+			    <div class="col-sm-2"></div>
+			    <div class="col-sm-3">
+					<button type="reset" class="btn btn-block">초기화</button>
+			    </div>
+			    <div class="col-sm-3">
+			    	<button type="submit" class="btn btn-block">저장</button>
+			    </div>	
+			    <div class="col-sm-3">
+			    	<button type="button" onclick="location.href='storageAllList.do'" class="btn btn-block">리스트</button>
+			    </div>
+			</div>
 	    </div>
     </div>
     </form>    
@@ -152,10 +186,10 @@ function fn_view(cno) {
 	<table class="table table-striped">
 	   <thead>    
 		<tr>
-	        <th width="20%">입출고일</th>
-	        <th width="17%">구분</th>
+	        <th width="19%">입출고일</th>
+	        <th width="16%">구분</th>
 	        <th width="21%">재료</th>	        
-	        <th width="12%">용량</th>
+	        <th width="14%">용량</th>
 	        <th width="30%">비고</th>
 	      </tr>
 	    </thead>
@@ -166,7 +200,7 @@ function fn_view(cno) {
 	        <td class="buyDate">${vo.buyDate}</td>
 	        <td class="gubun">${vo.gubun}</td>	        
 	        <td class="kname">${vo.kname}</td>
-	        <td class="content text-right">${vo.content} g</td>
+	        <td class="content text-right"><fmt:formatNumber value="${vo.content}" /> g</td>
 	        <td class="kname">${vo.comm}</td>
 	    </tr>
 	</c:forEach>
@@ -177,10 +211,10 @@ function fn_view(cno) {
 			<pageObject:pageNav listURI="storage.do" pageObject="${pageObject}" />
 		</c:if>
 	</div>
-	</div> 
 	<!-- 재료 입출고 List End  -->
 
 	</div>
+</div>
 </div>
 </body>
 </html>

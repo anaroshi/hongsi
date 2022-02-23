@@ -30,7 +30,7 @@ div.panel-body {
 		$("#ori_250").focus();	  
 	};
 	  
-  	$("#orderReset").click(function() {  		
+  	$("#saleReset").click(function() {  		
   		location = "sale.do";
   	});
   	
@@ -39,9 +39,10 @@ div.panel-body {
   		//alert(order_cno);
   		location = "sale.do?order_cno="+order_cno;
   	});
-  	
-  	$("#orderSave").click(function(){
- 		let ori_250 = $("#ori_250").val();
+});
+
+function formCheck() {
+		let ori_250 = $("#ori_250").val();
   		if(ori_250 == null || ori_250 =="" || typeof ori_250 == "undefined" || ori_250 >= 10000) ori_250 = 0; 
   		$("#ori_250").val(ori_250);
   		let ori_500 = $("#ori_500").val();
@@ -90,26 +91,16 @@ div.panel-body {
 			$("#price").val("0");
 			$("#price").select();
 		      return false;
-		}		
+		}
 		
-// 		let deleveryDate = $("#deleveryDate").val();		
-// 		if( deleveryDate== null || deleveryDate ==""  || deleveryDate.length<10)  {
-// 			alert('수령일을 입력해주세요!');
-// 			$("#deleveryDate").select();
-// 		      return false;
-// 	    }
-		
-		$("#frm").submit();
-  	});
-    
-});
-
+		return true;	
+};  
 </script>
 </head>
 
 <body>
 <div class="container">
-<form class="form-horizontal" method="post" id="frm">
+<form class="form-horizontal" method="post" onsubmit=" return formCheck()">
 	<%-- <input id="order_cno" name="order_cno" type="hidden" value="${vo.cno}"> --%>
   <h4>판매 입력</h4>
   <div class="col-md-2">
@@ -268,12 +259,15 @@ div.panel-body {
     </div>
     <div class="form-group">
       <div class="col-sm-1"></div>
-      <div class="col-sm-5">
-		<button type="button" class="btn btn-block" id="orderReset">초기화</button>
+      <div class="col-sm-3">
+		<button type="button" class="btn btn-block" id="saleReset">초기화</button>
       </div>      
-      <div class="col-sm-5">
-      	<button type="button" class="btn btn-block" id="orderSave">저장</button>
+      <div class="col-sm-4">
+      	<button type="submit" class="btn btn-block">저장</button>
       </div>
+      <div class="col-sm-3">
+	  	<button type="button" onclick="location.href='saleAllList.do'" class="btn btn-block">리스트</button>
+	  </div>
       <div class="col-sm-1"></div>
  	</div> 
 </div>

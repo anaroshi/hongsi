@@ -121,7 +121,7 @@ function fn_update() {
 	      <label for="item" class="col-sm-3 control-label">주문품</label>
 	      <div class="col-sm-8">
 	      <select id="item" name="item" class="form-control select" required="required">
-	      	<option value="*"></option>
+	      	<option value=""></option>
 	      <c:forEach items="${ingreList}" var="vo">
 	      	<option value="${vo.code}" <c:if test="${buyInfo.item==vo.code}">selected</c:if> >${vo.kname}</option>
 	      </c:forEach>
@@ -175,7 +175,7 @@ function fn_update() {
       <label for="purShop" class="col-sm-3 control-label">거래처</label>
       <div class="col-sm-8">
 		<select id="purShop" name="purShop" class="form-control select" required="required">
-			<option value="*"> </option>
+			<option value=""> </option>
             <option value="넛츠베리" <c:if test="${buyInfo.purShop=='넛츠베리'}">selected</c:if>>넛츠베리</option>
             <option value="네이버쇼핑" <c:if test="${buyInfo.purShop=='네이버쇼핑'}">selected</c:if>>네이버쇼핑</option>
             <option value="쿠팡" <c:if test="${buyInfo.purShop=='쿠팡'}">selected</c:if>>쿠팡</option>

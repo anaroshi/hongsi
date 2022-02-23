@@ -120,7 +120,7 @@ $( function() {
 	        <td class="gubun">${vo.gubun}</td>
 	        <td class="item" style="display:none">${vo.item}</td>
 	        <td class="kname">${vo.kname}</td>
-	        <td class="content text-right">${vo.content} g</td>
+	        <td class="content text-right"><fmt:formatNumber value="${vo.content}" /> g</td>
 	        <td class="comm">${vo.comm}</td>
 	        <td class="buyer">${vo.buyer}</td>
 	    </tr>

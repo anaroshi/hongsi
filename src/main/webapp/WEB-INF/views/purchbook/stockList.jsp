@@ -28,12 +28,13 @@ th {
 					<thead>
 						<tr>
 							<th rowspan="2" style="vertical-align:middle; text-align:center;">Ingredient</th>
+							<th rowspan="2" style="vertical-align:middle; text-align:center;">잔고량 (g)</th>
+							<th rowspan="2"> </th>
 							<th colspan="3">입고량 (g)</th>
 							<th rowspan="2"> </th>
 							<th colspan="3">출고량 (g)</th>
 							<th rowspan="2"> </th>
 							<th colspan="3">폐기량 (g)</th>
-							<th rowspan="2" style="vertical-align:middle; text-align:center;">잔고량 (g)</th>
 						</tr>
 						<tr>
 							<th>Office</th>
@@ -52,6 +53,8 @@ th {
 						<c:if test="${vo.inTotal != '0' or vo.total != '0'}">
 							<tr class="dataRow">
 								<td><strong>${vo.kname}</strong></td>
+								<td class="text-right"><strong><fmt:formatNumber>${vo.total}</fmt:formatNumber></strong></td>
+								<td class="text-right"> </td>
 								<td class="text-right"><fmt:formatNumber>${vo.inTotal - vo.inCafeTotal}</fmt:formatNumber></td>
 								<td class="text-right"><fmt:formatNumber>${vo.inCafeTotal}</fmt:formatNumber></td>
 								<td class="text-right"><strong><fmt:formatNumber>${vo.inTotal}</fmt:formatNumber></strong></td>
@@ -63,7 +66,6 @@ th {
 								<td class="text-right"><fmt:formatNumber>${vo.disTotal - vo.disCafeTotal}</fmt:formatNumber></td>
 								<td class="text-right"><fmt:formatNumber>${vo.disCafeTotal}</fmt:formatNumber></td>
 								<td class="text-right"><strong><fmt:formatNumber>${vo.disTotal}</fmt:formatNumber></strong></td>
-								<td class="text-right"><strong><fmt:formatNumber>${vo.total}</fmt:formatNumber></strong></td>
 							</tr>
 						</c:if>	
 						</c:forEach>

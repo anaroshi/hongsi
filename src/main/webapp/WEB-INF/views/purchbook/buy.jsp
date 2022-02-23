@@ -46,14 +46,27 @@ div.modal-body {
 		$(".buyInfo").css("font-size","16px").text(buyDate+"  "+gubun+"  "+kname+"  "+content+"g  "+qty+"개  "+purShop);		
 		$("#myModal").modal("show");
 	});
+
 });
+
+  // 유효성 검사
+function formCheck() {
+	let buyDate = $("#buyDate").val();		
+	if( buyDate== null || buyDate ==""  || buyDate.length<10)  {
+		alert('주문일을 입력해주세요!');
+		$("#buyDate").select();
+	      return false;
+    }
+
+    return true;
+};
   
 function fn_view(cno) {	
 	
 	//alert(cno);
 	var w = 1000;
 	var h = 470;
-	//&buyDate=${param.buyDate}
+	// &buyDate=${param.buyDate}
 	//let query = "&page=${param.page}&perPageNum=${param.perPageNum}";	
 	var url = "../view/buyModify.do?cno="+cno;
 	
@@ -63,13 +76,28 @@ function fn_view(cno) {
 
 	window.open(url, "pop_name", "width="+w+", height="+h+", left="+xPos+", top="+yPos+", menubar=no, status=no, titlebar=no, resizable=no");
 };    
-  
+
+// 좌측 재료 리스트에서 재료를 선택하면 주문품이 선택된 재료로 셋팅된다.
+function fn_item(kname) {	
+	let itemOption = new Array();
+//	console.log("--------------------"+kname);
+	itemOption.push(`<option value=""></option>`);
+	<c:forEach items="${ingreList}" var="vo">
+		if('${vo.kname}' == kname) {
+			itemOption.push(`<option value="${vo.code}" selected >${vo.kname}</option>`);
+		} else {
+			itemOption.push(`<option value="${vo.code}" >${vo.kname}</option>`);
+		}
+  	</c:forEach>
+  	
+  	$("#item").html(itemOption);
+};
 </script>
 
 </head>
 <body>
 <div class="container">
-<form class="form-horizontal" method="post">
+<form class="form-horizontal" method="post" onsubmit="return formCheck()">
 <div class="row">
   <h4>재료구매 입력</h4>  
 
@@ -85,7 +113,7 @@ function fn_view(cno) {
 			<tbody>
 				<c:forEach items="${resultList}" var="vo" varStatus="status">
 						<c:if test="${vo.finalNeed ne '0'}">
-					<tr class="dataRow">
+					<tr class="dataRow" onclick="fn_item('${vo.kname}'); return false;">
 						<td class="text-center">${vo.kname}</td>
 						<td class="text-right" id="need_${status.count}"><fmt:formatNumber value="${vo.finalNeed}" /></td>
 					</tr>
@@ -110,10 +138,10 @@ function fn_view(cno) {
 	      <label for="item" class="col-sm-3 control-label">주문품</label>
 	      <div class="col-sm-8">
 	      <select id="item" name="item" class="form-control select" required="required">
-	      	<option value="*"></option>
-	      <c:forEach items="${ingreList}" var="vo">
-	      	<option value="${vo.code}">${vo.kname}</option>
-	      </c:forEach>
+	      	<option value=""></option>
+			<c:forEach items="${ingreList}" var="vo">
+				<option value="${vo.code}">${vo.kname}</option>
+		 	</c:forEach>
 	      </select>	        
 	      </div>
 	    </div>
@@ -132,7 +160,7 @@ function fn_view(cno) {
 	    <div class="form-group">
 	      <label for="content" class="col-sm-3 control-label">용량</label>
 	      <div class="col-sm-8">
-	      	<input class="form-control inputNumber" id="content" name="content" type="number" placeholder="용량" required="required">
+	      	<input class="form-control inputNumber" id="content" name="content" type="number" placeholder="용량" required="required"  placeholder="용량을 입력해주세요" >
 <!-- 		      <select id="content" name="content" class="form-control select" required="required"> -->
 <!-- 				<option value="">수량 1개당 용량</option>	             -->
 <!-- 			  </select> -->
@@ -191,12 +219,19 @@ function fn_view(cno) {
     </div>
 
 	<div class="row">
-    <div class="form-group">
-    <div class="col-sm-2"></div>
-    <div class="col-sm-9">
-    	<button type="submit" class="btn btn-block">저장</button>
-    </div>	
-    </div>
+	    <div class="form-group">
+		    <div class="col-sm-2"></div>
+		    <div class="col-sm-3">
+				<button type="reset" class="btn btn-block">초기화</button>
+		    </div>  
+		    <div class="col-sm-3">
+		    	<button type="submit" class="btn btn-block">저장</button>
+		    </div>	
+		    <div class="col-sm-3">
+		    	<button type="button" onclick="location.href='buyAllList.do'" class="btn btn-block">리스트</button>
+		    </div>
+		    <div class="col-sm-1"></div>
+	    </div>
     </div>
 	</div> 
 	<!-- 2블럭 End -->
@@ -224,7 +259,7 @@ function fn_view(cno) {
         <td class="gubun" style="font-size: 11px;">${vo.gubun}</td>
         <td class="item" style="display:none">${vo.item}</td>
         <td class="kname">${vo.kname}</td>
-        <td class="content text-right">${vo.content}</td>
+        <td class="content text-right"><fmt:formatNumber value="${vo.content}" /></td>
         <td class="qty text-right">${vo.qty}</td>
         <td class="purShop">${vo.purShop}</td>
     </tr>
@@ -253,7 +288,7 @@ function fn_view(cno) {
         <td class="gubun" style="font-size: 11px;">${vo.gubun}</td>
         <td class="item" style="display:none">${vo.item}</td>
         <td class="kname">${vo.kname}</td>
-        <td class="content text-right">${vo.content}</td>
+        <td class="content text-right"><fmt:formatNumber value="${vo.content}" /></td>
         <td class="qty text-right">${vo.qty}</td>
         <td class="purShop" style="font-size: 11px;">${vo.purShop}</td>
         <td class="purShop" style="font-size: 11px;">${vo.inDate}</td>
@@ -265,7 +300,7 @@ function fn_view(cno) {
 <div class="text-center">
 	<c:if test="${pageObject.totalPage>1}" >		
 		<pageObject:pageNav listURI="buy.do" pageObject="${pageObject}" />
-	</c:if>
+	</c:if>	
 </div>
 <!-- 주문 List End  -->
 

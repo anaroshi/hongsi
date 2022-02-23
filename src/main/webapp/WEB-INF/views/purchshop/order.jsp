@@ -20,76 +20,76 @@ div.panel-body {
 </style>
   
 <script>
-  $( function() {
+$( function() {
 
 	  startWith();
 	  
 	  function startWith() {
 		  // 화면 로드시 커서가 위치하게
 		  $("#ori_250").focus();	  
-	  };
+	  }; 	
+});
 
-  	$("#orderSave").click(function(){
- 		let ori_250 = $("#ori_250").val();
-  		if(ori_250 == null || ori_250 =="" || typeof ori_250 == "undefined" || ori_250 >= 10000) ori_250 = 0; 
-  		$("#ori_250").val(ori_250);
-  		let ori_500 = $("#ori_500").val();
-		if(ori_500 == null || ori_500 =="" || typeof ori_500 == "undefined" || ori_500 >= 10000) ori_500 = 0; 
-		$("#ori_500").val(ori_500);
-		let ori_1000 = $("#ori_1000").val();
-		if(ori_1000 == null || ori_1000 =="" || typeof ori_1000 == "undefined" || ori_1000 >= 10000) ori_1000 = 0; 
-		$("#ori_1000").val(ori_1000);
-		
-		let erl_250 = $("#erl_250").val();
-		if(erl_250 == null || erl_250 =="" || typeof erl_250 == "undefined" || erl_250 >= 2000) erl_250 = 0; 
-		$("#erl_250").val(erl_250);
-		let erl_500 = $("#erl_500").val();
-		if(erl_500 == null || erl_500 =="" || typeof erl_500 == "undefined" || erl_500 >= 5000) erl_500 = 0; 
-		$("#erl_500").val(erl_500);
-		let erl_1000 = $("#erl_1000").val();
-		if(erl_1000 == null || erl_1000 =="" || typeof erl_1000 == "undefined" || erl_1000 >= 10000) erl_1000 = 0; 
-		$("#erl_1000").val(erl_1000);
-		
-		let stc_250 = $("#stc_250").val();
-		if(stc_250 == null || stc_250 =="" || typeof stc_250 == "undefined" || stc_250 >= 2000) stc_250 = 0; 
-		$("#stc_250").val(stc_250);
-		let stc_500 = $("#stc_500").val();
-		if(stc_500 == null || stc_500 =="" || typeof stc_500 == "undefined" || stc_500 >= 5000) stc_500 = 0; 
-		$("#stc_500").val(stc_500);
-		let stc_1000 = $("#stc_1000").val();
-		if(stc_1000 == null || stc_1000 =="" || typeof stc_1000 == "undefined" || stc_1000 >= 10000) stc_1000 = 0; 
-		$("#stc_1000").val(stc_1000);
+function formCheck() {
+	
+	let ori_250 = $("#ori_250").val();
+	if(ori_250 == null || ori_250 =="" || typeof ori_250 == "undefined" || ori_250 >= 10000) ori_250 = 0; 
+	$("#ori_250").val(ori_250);
+	let ori_500 = $("#ori_500").val();
+	if(ori_500 == null || ori_500 =="" || typeof ori_500 == "undefined" || ori_500 >= 10000) ori_500 = 0; 
+	$("#ori_500").val(ori_500);
+	let ori_1000 = $("#ori_1000").val();
+	if(ori_1000 == null || ori_1000 =="" || typeof ori_1000 == "undefined" || ori_1000 >= 10000) ori_1000 = 0; 
+	$("#ori_1000").val(ori_1000);
+	
+	let erl_250 = $("#erl_250").val();
+	if(erl_250 == null || erl_250 =="" || typeof erl_250 == "undefined" || erl_250 >= 2000) erl_250 = 0; 
+	$("#erl_250").val(erl_250);
+	let erl_500 = $("#erl_500").val();
+	if(erl_500 == null || erl_500 =="" || typeof erl_500 == "undefined" || erl_500 >= 5000) erl_500 = 0; 
+	$("#erl_500").val(erl_500);
+	let erl_1000 = $("#erl_1000").val();
+	if(erl_1000 == null || erl_1000 =="" || typeof erl_1000 == "undefined" || erl_1000 >= 10000) erl_1000 = 0; 
+	$("#erl_1000").val(erl_1000);
+	
+	let stc_250 = $("#stc_250").val();
+	if(stc_250 == null || stc_250 =="" || typeof stc_250 == "undefined" || stc_250 >= 2000) stc_250 = 0; 
+	$("#stc_250").val(stc_250);
+	let stc_500 = $("#stc_500").val();
+	if(stc_500 == null || stc_500 =="" || typeof stc_500 == "undefined" || stc_500 >= 5000) stc_500 = 0; 
+	$("#stc_500").val(stc_500);
+	let stc_1000 = $("#stc_1000").val();
+	if(stc_1000 == null || stc_1000 =="" || typeof stc_1000 == "undefined" || stc_1000 >= 10000) stc_1000 = 0; 
+	$("#stc_1000").val(stc_1000);
 
-		if((ori_250+ori_500+ori_1000+erl_250+erl_500+erl_1000+stc_250+stc_500+stc_1000)==0) {
-		      alert('주문 제품의 수량을 넣어주세요!');
-		      $("#ori_250").select();
-		      return false;
-	    }
-		
-		let orderDate = $("#orderDate").val();		
-		if( orderDate== null || orderDate ==""  || orderDate.length<10)  {
-			alert('주문일을 입력해주세요!');
-			$("#orderDate").select();
-		      return false;
-	    }
-		
-		let orderer = $("#orderer").val();		
-		if( orderer== null || orderer =="")  {
-			alert('주문자를 입력해주세요!');
-			$("#orderer").select();
-		      return false;
-	    }
-		
-		$("#frm").submit();
-  	});
- 	
-});  	
-  </script>
+	if((ori_250+ori_500+ori_1000+erl_250+erl_500+erl_1000+stc_250+stc_500+stc_1000)==0) {
+	      alert('주문 제품의 수량을 넣어주세요!');
+	      $("#ori_250").select();
+	      return false;
+    }
+	
+	let orderDate = $("#orderDate").val();		
+	if( orderDate== null || orderDate ==""  || orderDate.length<10)  {
+		alert('주문일을 입력해주세요!');
+		$("#orderDate").select();
+	      return false;
+    }
+	
+	let orderer = $("#orderer").val();		
+	if( orderer== null || orderer =="")  {
+		alert('주문자를 입력해주세요!');
+		$("#orderer").select();
+	      return false;
+    }
+	
+	return true;
+};
+</script>
 </head>
 
 <body>
 <div class="container">
-<form class="form-horizontal" method="post" id="frm">
+<form class="form-horizontal" method="post" onsubmit="return formCheck()">
   <h4>주문 입력</h4>
   <div class="col-md-2">
     <div class="panel panel-default" style="border: none;">
@@ -162,7 +162,7 @@ div.panel-body {
 	    <div class="form-group">
 	      <label for="gubun" class="col-sm-3 control-label">구분</label>
 	      <div class="col-sm-8">
-			<select id="gubun" name="gubun" class="form-control select">
+			<select id="gubun" name="gubun" class="form-control select" required="required">
 	            <option value="주문">주문</option>
 <!-- 	            <option value="교환">교환</option> -->
 <!-- 	            <option value="교환">반품</option> -->
@@ -173,7 +173,7 @@ div.panel-body {
 	    <div class="form-group">
 	      <label for="salePath" class="col-sm-3 control-label">주문경로</label>
 	      <div class="col-sm-8">
-			<select id="gubun" name="salePath" class="form-control select">
+			<select id="gubun" name="salePath" class="form-control select" required="required">
 	            <option value="개별구매">개별구매</option>
 	            <option value="NAVER쇼핑">NAVER쇼핑</option>
 	            <option value="Homepage">Homepage</option>
@@ -184,7 +184,7 @@ div.panel-body {
 	    <div class="form-group">
 	      <label for="orderer" class="col-sm-3 control-label">주문자</label>
 	      <div class="col-sm-8">
-			<input class="form-control" type="text" id="orderer" name="orderer">
+			<input class="form-control" type="text" id="orderer" name="orderer" required="required">
 	      </div>
 	    </div>
 <!-- 	</div> 1블럭 End -->
@@ -204,12 +204,15 @@ div.panel-body {
  	</div> 
     <div class="form-group">
       <div class="col-sm-1"></div>
-      <div class="col-sm-5">
+      <div class="col-sm-3">
 		<button type="reset" class="btn btn-block">초기화</button>
       </div>      
-      <div class="col-sm-5">
-      	<button type="button" class="btn btn-block" id="orderSave">저장</button>
+      <div class="col-sm-4">
+      	<button type="submit" class="btn btn-block">저장</button>
       </div>
+      <div class="col-sm-3">
+	  	<button type="button" onclick="location.href='orderAllList.do'" class="btn btn-block">리스트</button>
+	  </div>
       <div class="col-sm-1"></div>
  	</div> 
 </div>

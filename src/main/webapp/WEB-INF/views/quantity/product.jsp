@@ -193,7 +193,7 @@ $(function() {
 					<div class="col-sm-7">
 						<select id="roast" name="roast" class="form-control"
 							required="required">
-							<option value="*"></option>
+							<option value=""></option>
 							<c:forEach items="${itemList}" var="vo">
 								<option value="${vo.code}_ROAST_001">${vo.name}</option>
 							</c:forEach>
@@ -219,7 +219,7 @@ $(function() {
 					<div class="col-sm-7">
 						<select id="item" name="item" class="form-control"
 							required="required">
-							<option value="*"></option>
+							<option value=""></option>
 							<c:forEach items="${itemList}" var="vo">
 								<option value="${vo.code}_100_001">${vo.name}</option>
 							</c:forEach>
