@@ -9,7 +9,7 @@ public interface PurchProductService {
 
 	public int insertProduct(PurchProductVO vo);
 	
-	public int deleteProductInfoByCno(int cno);
+	public int deleteProductInfoByCno(long cno);
 	
 	public int updateProductInfoByCno(PurchProductVO vo);
 	

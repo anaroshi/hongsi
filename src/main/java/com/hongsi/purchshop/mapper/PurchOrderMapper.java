@@ -9,7 +9,7 @@ public interface PurchOrderMapper {
 
 	int insertPurchshopOrder(PurchOrderVO vo);
 	
-	int deleteOrderInfoByCno(int cno);
+	int deleteOrderInfoByCno(long cno);
 	
 	int updateOrderInfoByCno(PurchOrderVO vo);
 

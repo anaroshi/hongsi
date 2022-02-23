@@ -9,7 +9,7 @@ public interface PurchSaleMapper {
 
 	int insertSale(PurchSaleVO vo);
 
-	int deleteSaleInfoByCno(int cno);
+	int deleteSaleInfoByCno(long cno);
 
 	int updateSaleInfoByCno(PurchSaleVO vo);
 	

@@ -82,6 +82,22 @@ function formCheck() {
 	return true;
 	
 };
+
+function fn_view(cno) {	
+	
+	//alert(cno);
+	var w = 1000;
+	var h = 470;
+	// &buyDate=${param.buyDate}
+	//let query = "&page=${param.page}&perPageNum=${param.perPageNum}";	
+	var url = "../view/productModify.do?cno="+cno+"&locate=1";
+	
+	var xPos = (document.body.offsetWidth/2) - (w/2); // 가운데 정렬
+	xPos += window.screenLeft; // 듀얼 모니터일 때
+	var yPos = (document.body.offsetHeight/2) - (h/2) - 200;
+
+	window.open(url, "pop_name", "width="+w+", height="+h+", left="+xPos+", top="+yPos+", menubar=no, status=no, titlebar=no, resizable=no");
+};
 </script>
 </head>
 
@@ -278,7 +294,7 @@ function formCheck() {
       	<button type="submit" class="btn btn-block">저장</button>
       </div>
       <div class="col-sm-3">
-		<button type="button" onclick="location.href='orderAllList.do'" class="btn btn-block"  style="padding-left:3px;">리스트</button>
+		<button type="button" onclick="location.href='productAllList.do'" class="btn btn-block"  style="padding-left:3px;">리스트</button>
 	  </div>
 	  <div class="col-sm-1"></div>
  	</div> 
@@ -298,7 +314,7 @@ function formCheck() {
     </thead>
     <tbody>
 <c:forEach items="${productList}" var="vo">
-      <tr class="dataRow">
+      <tr class="dataRow" onclick="fn_view(${vo.cno}); return false;">
         <td>${vo.productDate}</td>
         <td>${vo.gubun}</td>
         <td>${vo.ori_250_format}${vo.erl_250_format}${vo.stc_250_format}</td>

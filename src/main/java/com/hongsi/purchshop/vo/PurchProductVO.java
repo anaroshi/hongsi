@@ -48,7 +48,8 @@ public class PurchProductVO {
 	private long 	erl_sum;
 	private long 	stc_sum;
 
-	private long 	flag;		// 재료 입력 1 / 수정 2 / 삭제 4 여부 확인용
+	private long 	flag;			// 재료 입력 1 / 수정 2 / 삭제 4 여부 확인용
+	private long 	locate;			// Modify 수정 or 삭제 처리 후 콜한 곳으로 가기 위한 값(1 :product.jsp / 2:productAllList.jsp)
 	
 }
 

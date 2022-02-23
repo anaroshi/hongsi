@@ -39,9 +39,9 @@ $( function() {
 	</c:if>
 });
   
-function fn_delete(cno) {
+function fn_delete(cno, locate) {
 	if(confirm("삭제하시겠습니까")) {
-		//alert(cno);		
+		//alert(cno+":"+locate);		
 		$.ajax({
 			type: "POST",
 			url: "buyDelete.do",
@@ -53,9 +53,17 @@ function fn_delete(cno) {
 			console.log("result:"+result+" -> xhr: "+xhr);
 	        if(result=="ok") {
 	        	alert("삭제완료");
-		        	// 부모창 reload	        	
-	        	//let query = "?page=${param.page}&perPageNum=${param.perPageNum}";	 	
-				opener.parent.location ="/purchbook/buy.do";				
+	        	if (locate == 1 ) {
+	        			// 부모창 reload	        	
+		        	//let query = "?page=${param.page}&perPageNum=${param.perPageNum}";	 	
+					opener.parent.location ="/purchbook/buy.do";
+	        	} else if (locate == 2 ) {
+		        	let query = "?buyDate=${param.buyDate}&gubun=${param.gubun}&item=${param.item}&purShop=${param.purShop}&inDate=${param.inDate}";	 	
+					opener.parent.location ="/purchbook/buyAllList.do"+query;				
+	        	} else if (locate == 3 ) {
+	        		let query = "?buyDate=${param.buyDate}&gubun=${param.gubun}&item=${param.item}&purShop=${param.purShop}&inDate=${param.inDate}";	 	
+					opener.parent.location ="/purchbook/ingAllList.do"+query;				
+	        	}		        					
 	        	self.close();
 			}
 		})
@@ -81,15 +89,29 @@ function fn_update() {
 		})
 		.done(function (result, textStatus, xhr) {
 			console.log("result:"+JSON.stringify(result)+" -> xhr: "+ JSON.stringify(xhr));
-	        if(result=="ok") {
+	        if(result=="ok1") {
 	        	alert("수정 완료");
 	        	 	// 부모창 reload
 	        	// page=${param.page}&perPageNum=${param.perPageNum}& 	
 	        	let query = "?buyDate=${param.buyDate}&gubun=${param.gubun}&item=${param.item}&purShop=${param.purShop}&inDate=${param.inDate}";	        	
 				opener.parent.location ="/purchbook/buy.do"+query; 	
 	        	self.close();
+			} else if(result=="ok2") {
+	        	alert("수정 완료");
+	        	 	// 부모창 reload
+	        	// page=${param.page}&perPageNum=${param.perPageNum}& 	
+	        	let query = "?buyDate=${param.buyDate}&gubun=${param.gubun}&item=${param.item}&purShop=${param.purShop}&inDate=${param.inDate}";	        	
+				opener.parent.location ="/purchbook/buyAllList.do"+query; 	
+	        	self.close();
+			} else if(result=="ok3") {
+	        	alert("수정 완료");
+	        	 	// 부모창 reload
+	        	// page=${param.page}&perPageNum=${param.perPageNum}& 	
+				let query = "?buyDate=${param.buyDate}&gubun=${param.gubun}&item=${param.item}&purShop=${param.purShop}&inDate=${param.inDate}";	
+	        	opener.parent.location ="/purchbook/ingAllList.do"+query;
+	        	self.close();
 			} else {
-				alert("수정 실패");	
+					alert("수정 실패");	
 			}
 		})
 		.fail(function(data, textStatus, errorThrown) {
@@ -103,7 +125,8 @@ function fn_update() {
 <body>
 <div class="container">
 <form class="form-horizontal" method="post" id="frm" action="buyUpdate.do">
-<input name = "cno" type="hidden" value="${buyInfo.cno}" />
+<input name = "cno" 	type="hidden" value="${buyInfo.cno}" />
+<input name = "locate" 	type="hidden" value="${locate}" />
 <div class="row">
   <h4>재료구매 수정</h4>  	
 	<!-- 재료주문 Start -->
@@ -207,7 +230,7 @@ function fn_update() {
     <div class="form-group">
     	<div class="col-sm-1"></div>
     	<div class="col-sm-3"><button type="button" class="btn btn-block" id="orderUpdate" onclick="fn_update(); return false;">수정</button></div>
-    	<div class="col-sm-3"><button type="button" class="btn btn-block" id="orderDelete" onclick="fn_delete(${buyInfo.cno}); return false;">삭제</button></div>
+    	<div class="col-sm-3"><button type="button" class="btn btn-block" id="orderDelete" onclick="fn_delete(${buyInfo.cno},${locate}); return false;">삭제</button></div>
     	<div class="col-sm-4"><button type="button" class="btn btn-block" onclick="javascript:self.close();" >닫기</button></div> 
     </div>
 	</div> 

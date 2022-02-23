@@ -34,7 +34,7 @@ public class PurchProductServiceImpl implements PurchProductService {
 
 	// 리스트 화면에서 선택하여 실제 삭제가 아닌 UPDATE 처리함 FLAG = 4
 	@Override
-	public int deleteProductInfoByCno(int cno) {
+	public int deleteProductInfoByCno(long cno) {
 		log.info("impl deleteProduct cno:"+cno);
 		return mapper.deleteProductInfoByCno(cno);
 	}

@@ -91,7 +91,7 @@ public class PurchOrderServiceImpl implements PurchOrderService {
 	}
 
 	@Override
-	public int deleteOrderInfoByCno(int cno) throws Exception {
+	public int deleteOrderInfoByCno(long cno) throws Exception {
 		log.info("-----------impl-------------deleteOrderInfoByCno :"+cno);
 		return mapper.deleteOrderInfoByCno(cno);
 	}

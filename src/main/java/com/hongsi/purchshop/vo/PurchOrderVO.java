@@ -52,6 +52,7 @@ public class PurchOrderVO {
 	private String  status;			// 제품 판매(shop)에서 입력되는지. 생산 입출고(product)에서 입력되는지 구분을 위한 값 (shop/product)
 	private long 	flag;			// 재료 입력 1 / 수정 2 / 삭제 4 여부 확인용
 	
+	private long 	locate;			// Modify 수정 or 삭제 처리 후 콜한 곳으로 가기 위한 값(1 :order.jsp / 2:orderAllList.jsp)
 }
 
 

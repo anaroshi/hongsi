@@ -34,6 +34,7 @@ public class PurchIngVO {
 	private String  status;			// 재료 구매(purch)에서 입력되는지. 재료 입출고(storage)에서 입력되는지 구분을 위한 값 (purch/storage)
 	private long 	flag;			// 재료 입력 1 / 수정 2 / 삭제 4 여부 확인용
 	
+	private long 	locate;			// Modify 수정 or 삭제 처리 후 콜한 곳으로 가기 위한 값(1 :buy.jsp / 2:buyAllList.jsp / 3:ingAllList.jsp)
 }
 
 /*

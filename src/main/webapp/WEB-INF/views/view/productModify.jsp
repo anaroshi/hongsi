@@ -43,7 +43,7 @@ div.panel-body {
 }
 </style>
 <script>
-function fn_delete(cno) {
+function fn_delete(cno, locate) {
 	
 	if(confirm("삭제하시겠습니까")) {
 		// alert(cno);		
@@ -51,16 +51,23 @@ function fn_delete(cno) {
 			type: "POST",
 			url: "productDelete.do",
 			async: false,
-			data: "cno="+cno, // json(전송) 타입
+			data: "cno="+cno+"&locate="+locate, // json(전송) 타입
 			dtatType: "text"				
 		})
 		.done(function (result, textStatus, xhr) {
 			console.log("result:"+result+" -> xhr: "+xhr);
-	        if(result=="ok") {
-	        	alert("삭제완료");
+			if(result=="ok1") {
+	        	alert("삭제 완료");
+	        	 	// 부모창 reload
+				opener.parent.location ="/purchshop/product.do";				
+	        	self.close();
+			} else if(result=="ok2") {
+	        	alert("삭제 완료");
 	        	 	// 부모창 reload
 				opener.parent.location ="/purchshop/productAllList.do";				
 	        	self.close();
+			} else {
+					alert("삭제 실패");	
 			}
 		})
 		.fail(function(data, textStatus, errorThrown) {
@@ -131,13 +138,18 @@ function fn_update(cno) {
 		})
 		.done(function (result, textStatus, xhr) {
 			console.log("result:"+JSON.stringify(result)+" -> xhr: "+ JSON.stringify(xhr));
-	        if(result=="ok") {
+	        if(result=="ok1") {
+	        	alert("수정 완료");
+	        	 	// 부모창 reload
+				opener.parent.location ="/purchshop/product.do";				
+	        	self.close();
+			} else if(result=="ok2") {
 	        	alert("수정 완료");
 	        	 	// 부모창 reload
 				opener.parent.location ="/purchshop/productAllList.do";				
 	        	self.close();
 			} else {
-				alert("수정 실패");	
+					alert("수정 실패");	
 			}
 		})
 		.fail(function(data, textStatus, errorThrown) {
@@ -152,7 +164,8 @@ function fn_update(cno) {
 <body>
 	<div class="container">
 		<form class="form-horizontal" method="post" id="frm">
-			<input name="cno" type="hidden" value="${productInfo.cno}" />
+			<input name="cno" 		type="hidden" 	value="${productInfo.cno}" />
+			<input name="locate"	type="hidden" 	value="${locate}" />
 			<div class="row">
 				<h4>생산 수정</h4>
 				<!-- 생산 Start -->
@@ -261,7 +274,7 @@ function fn_update(cno) {
 						</div>
 						<div class="col-sm-3">
 							<button type="button" class="btn btn-block" id="orderDelete"
-								onclick="fn_delete(${productInfo.cno}); return false;">삭제</button>
+								onclick="fn_delete(${productInfo.cno},${locate}); return false;">삭제</button>
 						</div>
 						<div class="col-sm-4">
 							<button type="button" class="btn btn-block"

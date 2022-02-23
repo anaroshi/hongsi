@@ -50,7 +50,8 @@ public class ViewController {
 	// 재료 구매 정보 보기 (재료구매에서)
 	@GetMapping("view/buyModify.do")
 	public String buyModify(PurchIngVO vo, Model model) throws Exception {
-		log.info(".............................buyModify..");
+		log.info(".............................buyModify..vo:"+vo);
+		log.info(".............................buyModify..locate:"+vo.getLocate());
 
 		// 재료 list
 		model.addAttribute("ingreList", ingredientService.list());
@@ -58,35 +59,8 @@ public class ViewController {
 		// 재료 구매한 정보
 		vo.setStatus("purch");
 		model.addAttribute("buyInfo", purchIngSerivce.selectBuyStorageInfoByCno(vo));
+		model.addAttribute("locate", vo.getLocate()); // 1 : buy.jsp, 2:buyAllList.jsp, 3:ingAllList.jsp
 		return "view/buyModify";
-	}
-
-	// 재료 구매 정보 보기 (구매 리스트에서)
-	@GetMapping("view/buyIngAllListModify.do")
-	public String buyIngAllListModify(PurchIngVO vo, Model model) throws Exception {
-		log.info(".............................buyModify..");
-
-		// 재료 list
-		model.addAttribute("ingreList", ingredientService.list());
-
-		// 재료 구매한 정보
-		vo.setStatus("purch");
-		model.addAttribute("buyInfo", purchIngSerivce.selectBuyStorageInfoByCno(vo));
-		return "view/buyIngAllListModify";
-	}
-
-	// 재료 구매 정보 보기 (재료구매 리스트에서)
-	@GetMapping("view/buyAllListModify.do")
-	public String buyAllListModify(PurchIngVO vo, Model model) throws Exception {
-		log.info(".............................buyModify..");
-
-		// 재료 list
-		model.addAttribute("ingreList", ingredientService.list());
-
-		// 재료 구매한 정보
-		vo.setStatus("purch");
-		model.addAttribute("buyInfo", purchIngSerivce.selectBuyStorageInfoByCno(vo));
-		return "view/buyAllListModify";
 	}
 
 	// 재료 구매 삭제 처리
@@ -115,7 +89,13 @@ public class ViewController {
 		int result = purchIngSerivce.updateIng(vo);
 		log.info("............................result:"+result); 
 		if (result==1) {
-			return "ok"; 
+			 if (vo.getLocate()==1) {
+				 return "ok1";
+			 } else if (vo.getLocate()==2) {
+				 return "ok2";
+			 } else {
+				 return "ok3";
+			 }
 		}
 		return "fail";
 	}
@@ -134,35 +114,8 @@ public class ViewController {
 		// 재료 입출고한 정보
 		vo.setStatus("storage");
 		model.addAttribute("storageInfo", purchIngSerivce.selectBuyStorageInfoByCno(vo));
+		model.addAttribute("locate", vo.getLocate()); // 1 : storage.jsp, 2:storageAllList.jsp, 3:ingAllList.jsp
 		return "view/storageModify";
-	}
-
-	// 재료 입출고 정보 보기 (재료 리스트에서)
-	@GetMapping("view/storageIngAllListModify.do")
-	public String storageIngAllListModify(PurchIngVO vo, Model model) throws Exception {
-		log.info(".............................storageModify..cno:"+vo);
-		
-		// 재료 list
-		model.addAttribute("ingreList", ingredientService.list());
-		
-		// 재료 입출고한 정보
-		vo.setStatus("storage");
-		model.addAttribute("storageInfo", purchIngSerivce.selectBuyStorageInfoByCno(vo));
-		return "view/storageIngAllListModify";
-	}
-
-	// 재료 입출고 정보 보기 (재료입출고 리스트에서)
-	@GetMapping("view/storageAllListModify.do")
-	public String storageAllListModify(PurchIngVO vo, Model model) throws Exception {
-		log.info(".............................storageModify..cno:"+vo);
-		
-		// 재료 list
-		model.addAttribute("ingreList", ingredientService.list());
-		
-		// 재료 입출고한 정보
-		vo.setStatus("storage");
-		model.addAttribute("storageInfo", purchIngSerivce.selectBuyStorageInfoByCno(vo));
-		return "view/storageAllListModify";
 	}
 
 	// 재료 입출고 삭제 처리
@@ -192,7 +145,13 @@ public class ViewController {
 		int result = purchIngSerivce.updateIng(vo);
 		log.info("............................result:"+result); 
 		if (result==1) {
-			return "ok"; 
+			 if (vo.getLocate()==1) {
+				 return "ok1";
+			 } else if (vo.getLocate()==2) {
+				 return "ok2";
+			 } else {
+				 return "ok3";
+			 }
 		}
 		return "fail";
 	}
@@ -202,20 +161,25 @@ public class ViewController {
 	
 	// 생산 정보
 	@GetMapping("view/productModify.do")
-	public String productModify(int cno, Model model) throws Exception {
+	public String productModify(int cno, int locate, Model model) throws Exception {
 		log.info(".............................productModify..");
 		model.addAttribute("productInfo", purchProductService.selectProductInfoByCno(cno));
+		model.addAttribute("locate", locate);
 		return "view/productModify";
 	}
 
 	// 생산 삭제 처리
 	@ResponseBody
 	@PostMapping("view/productDelete.do")
-	public String productDelete(int cno) throws Exception {
+	public String productDelete(PurchProductVO vo) throws Exception {
 		log.info(".............................productDelete..");
-		int result = purchProductService.deleteProductInfoByCno(cno);
+		int result = purchProductService.deleteProductInfoByCno(vo.getCno());
 		if (result == 1) {
-			return "ok";
+			if (vo.getLocate()==1) {
+				return "ok1";
+			} else {
+				return "ok2";
+			}			
 		}
 		return "";
 	}
@@ -230,10 +194,13 @@ public class ViewController {
 		vo.setFlag(2);
 
 		int result = purchProductService.updateProductInfoByCno(vo);
-		log.info("............................result:"+result); 
+		log.info(".........................productUpdate...result:"+result); 
 		if (result==1) {
-			log.info(".........................");
-			return "ok"; 
+			 if (vo.getLocate()==1) {
+				 return "ok1";
+			 } else {
+				 return "ok2";
+			 }
 		}
 		return "fail";
 	}
@@ -242,27 +209,32 @@ public class ViewController {
 	// --------------------------------------- 주문 -----------------------------------------------
 	
 	@GetMapping("view/orderModify.do")
-	public String orderModify(int cno, Model model) throws Exception {
-		log.info(".............................orderModify..");
+	public String orderModify(int cno, int locate, Model model) throws Exception {
+		log.info(".............................orderModify..locate : "+locate);
 		// 재료 list
 		model.addAttribute("ingreList", ingredientService.list());
 		// 재료 구매한 정보
 		model.addAttribute("orderInfo", purchOrderService.selectOrderInfoByCno(cno));
+		model.addAttribute("locate", locate);
 		return "view/orderModify";
 	}
 
 	// 주문 삭제 처리
 	@ResponseBody
 	@PostMapping("view/orderDelete.do")
-	public String orderDelete(int cno) throws Exception {
-		log.info(".............................orderDelete..");
-		int result = purchOrderService.deleteOrderInfoByCno(cno);
+	public String orderDelete(PurchOrderVO vo) throws Exception {
+		log.info(".............................orderDelete..vo:"+vo);
+		int result = purchOrderService.deleteOrderInfoByCno(vo.getCno());
 		
 		log.info(".............................orderDelete..result:" + result);
-		if (result == 1) {
-			return "ok";
+		if (result==1) {			 
+			if (vo.getLocate()==1) {
+				return "ok1";
+			} else {
+				return "ok2";
+			}			
 		}
-		return "";
+		return "fail";
 	}
 
 	// 주문 수정 처리
@@ -277,7 +249,11 @@ public class ViewController {
 		 int result = purchOrderService.updateOrderInfoByCno(vo);
 		 log.info("............................result:"+result); 
 		 if (result==1) {
-			 return "ok"; 
+			 if (vo.getLocate()==1) {
+				 return "ok1";
+			 } else {
+				 return "ok2";
+			 }
 		 }
 		 return "fail";
 	}
@@ -286,25 +262,30 @@ public class ViewController {
 	// --------------------------------------- 판매 -----------------------------------------------
 	
 	@GetMapping("view/saleModify.do")
-	public String saleModify(int cno, Model model) throws Exception {
+	public String saleModify(int cno, int locate, Model model) throws Exception {
 		log.info(".............................saleModify..");
 		// 재료 list
 		model.addAttribute("ingreList", ingredientService.list());
 		// 재료 구매한 정보
 		model.addAttribute("saleInfo", purchSaleService.selectSaleInfoByCno(cno));
+		model.addAttribute("locate", locate);
 		return "view/saleModify";
 	}
 
 	// 주문 삭제 처리
 	@ResponseBody
 	@PostMapping("view/saleDelete.do")
-	public String saleDelete(int cno) throws Exception {
+	public String saleDelete(PurchSaleVO vo) throws Exception {
 		log.info(".............................saleDelete..");
-		int result = purchSaleService.deleteSaleInfoByCno(cno);
-		if (result == 1) {
-			return "ok";
-		}
-		return "";
+		int result = purchSaleService.deleteSaleInfoByCno(vo.getCno());
+		if (result==1) {
+			 if (vo.getLocate()==1) {
+				 return "ok1";
+			 } else {
+				 return "ok2";
+			 }
+		 }
+		 return "fail";
 	}
 
 	// 주문 수정 처리
@@ -319,10 +300,13 @@ public class ViewController {
 		int result = purchSaleService.updateSaleInfoByCno(vo);
 		log.info("............................result:"+result); 
 		if (result==1) {
-			return "ok"; 
-		}
-		return "fail";
-	}	
-	
+			 if (vo.getLocate()==1) {
+				 return "ok1";
+			 } else {
+				 return "ok2";
+			 }
+		 }
+		 return "fail";
+	}		
 
 }

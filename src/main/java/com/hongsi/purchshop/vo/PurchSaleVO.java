@@ -51,7 +51,7 @@ public class PurchSaleVO {
 	private String  toDate;			// 기준되는 한주의 시작 토요일 구하기
 
 	private long 	flag;			// 재료 입력 1 / 수정 2 / 삭제 4 여부 확인용
-
+	private long 	locate;			// Modify 수정 or 삭제 처리 후 콜한 곳으로 가기 위한 값(1 :sale.jsp / 2:saleAllList.jsp)
 }
 
 

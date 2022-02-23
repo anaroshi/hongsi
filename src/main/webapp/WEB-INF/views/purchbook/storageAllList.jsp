@@ -32,7 +32,7 @@ $( function() {
 	var h = 470;
 	// &buyDate=${param.buyDate}
 	let query = "&page=${param.page}&perPageNum=${param.perPageNum}&gubun=${param.gubun}&item=${param.item}&purShop=${param.purShop}&inDate=${param.inDate}";	
-	var url = "../view/storageAllListModify.do?cno="+cno+query;
+	var url = "../view/storageModify.do?cno="+cno+"&locate=2"+query;
 	
 	var xPos = (document.body.offsetWidth/2) - (w/2); // 가운데 정렬
 	xPos += window.screenLeft; // 듀얼 모니터일 때

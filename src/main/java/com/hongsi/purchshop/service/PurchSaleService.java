@@ -9,7 +9,7 @@ public interface PurchSaleService {
 
 	public int insertSale(PurchSaleVO vo);
 	
-	public int deleteSaleInfoByCno(int cno);
+	public int deleteSaleInfoByCno(long cno);
 
 	public int updateSaleInfoByCno(PurchSaleVO vo);
 

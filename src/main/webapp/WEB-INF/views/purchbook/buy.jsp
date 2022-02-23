@@ -68,7 +68,7 @@ function fn_view(cno) {
 	var h = 470;
 	// &buyDate=${param.buyDate}
 	//let query = "&page=${param.page}&perPageNum=${param.perPageNum}";	
-	var url = "../view/buyModify.do?cno="+cno;
+	var url = "../view/buyModify.do?cno="+cno+"&locate=1";
 	
 	var xPos = (document.body.offsetWidth/2) - (w/2); // 가운데 정렬
 	xPos += window.screenLeft; // 듀얼 모니터일 때

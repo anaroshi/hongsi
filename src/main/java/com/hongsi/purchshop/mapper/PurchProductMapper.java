@@ -10,7 +10,7 @@ public interface PurchProductMapper {
 
 	int insertProduct(PurchProductVO vo);
 
-	int deleteProductInfoByCno(int cno);
+	int deleteProductInfoByCno(long cno);
 
 	int updateProductInfoByCno(PurchProductVO vo);
 	

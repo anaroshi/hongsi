@@ -62,7 +62,7 @@ public class PurchSaleServiceImpl implements PurchSaleService {
 	}
 
 	@Override
-	public int deleteSaleInfoByCno(int cno) {
+	public int deleteSaleInfoByCno(long cno) {
 		log.info("-----------impl-------------deleteSale :"+cno);
 		return mapper.deleteSaleInfoByCno(cno);
 	}

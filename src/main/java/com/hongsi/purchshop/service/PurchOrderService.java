@@ -9,7 +9,7 @@ public interface PurchOrderService {
 	
 	public int insertPurchshopOrder(PurchOrderVO vo) throws Exception;
 
-	public int deleteOrderInfoByCno(int cno) throws Exception;
+	public int deleteOrderInfoByCno(long cno) throws Exception;
 
 	public int updateOrderInfoByCno(PurchOrderVO vo) throws Exception;
 	

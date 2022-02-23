@@ -94,7 +94,23 @@ function formCheck() {
 		}
 		
 		return true;	
-};  
+};
+
+function fn_view(cno) {	
+	
+	//alert(cno);
+	var w = 1000;
+	var h = 470;
+	// &buyDate=${param.buyDate}
+	//let query = "&page=${param.page}&perPageNum=${param.perPageNum}";	
+	var url = "../view/saleModify.do?cno="+cno+"&locate=1";
+	
+	var xPos = (document.body.offsetWidth/2) - (w/2); // 가운데 정렬
+	xPos += window.screenLeft; // 듀얼 모니터일 때
+	var yPos = (document.body.offsetHeight/2) - (h/2) - 200;
+
+	window.open(url, "pop_name", "width="+w+", height="+h+", left="+xPos+", top="+yPos+", menubar=no, status=no, titlebar=no, resizable=no");
+};
 </script>
 </head>
 
@@ -327,7 +343,7 @@ function formCheck() {
     </thead>
     <tbody>
 <c:forEach items="${saleList}" var="vo">
-      <tr class="dataRow">
+      <tr class="dataRow" onclick="fn_view(${vo.cno}); return false;">
         <td>${vo.saleDate}</td>
         <td>${vo.gubun}</td>
         <td style="font-size: 11px;">${vo.salePath}</td>

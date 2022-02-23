@@ -21,7 +21,7 @@
 		//alert(cno);
 		var w = 1000;
 		var h = 470;
-		var url = "../view/saleModify.do?cno="+cno;
+		var url = "../view/saleModify.do?cno="+cno+"&locate=2";
 		
 		var xPos = (document.body.offsetWidth/2) - (w/2); // 가운데 정렬
 		xPos += window.screenLeft; // 듀얼 모니터일 때
