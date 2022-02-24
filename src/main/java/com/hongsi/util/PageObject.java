@@ -34,6 +34,8 @@ public class PageObject {
 	private String inDate;
 	private String notIn;
 	
+	private int		locate;			// Modify 수정 or 삭제 처리 후 콜한 곳으로 가기 위한 값(1 :order.jsp / 2:orderAllList.jsp / 3:ingAllList.jsp)
+	
 	// 공지 분류 (기간) 를 적용시키는 변수 - period
 	// pre : 현재공지, old : 지난공지 , res : 예약공지, all : 전체공지 
 	private String period;
@@ -213,6 +215,14 @@ public class PageObject {
 		this.notIn = notIn;
 	}
 
+	public int getLocate() {
+		return locate;
+	}
+	
+	public void setLocate(int locate) {
+		this.locate = locate;
+	}
+
 	
 	@Override
 	public String toString() {
@@ -220,7 +230,7 @@ public class PageObject {
 				+ endRow + ", perGroupPageNum=" + perGroupPageNum + ", startPage=" + startPage + ", endPage=" + endPage
 				+ ", totalPage=" + totalPage + ", totalRow=" + totalRow + ", key=" + key + ", word=" + word
 				+ ", buyDate=" + buyDate + ", gubun=" + gubun + ", item=" + item
-				+ ", purShop=" + purShop + ", inDate=" + inDate + ", notIn=" + notIn
+				+ ", purShop=" + purShop + ", inDate=" + inDate + ", notIn=" + notIn + ", locate=" + locate
 				+ ", period=" + period + ", accepter=" + accepter + "]";
 	}
 }

@@ -30,7 +30,7 @@
 </style>
 
 <script>
-function fn_delete(cno, locate) {
+function fn_delete(cno) {
 	if(confirm("삭제하시겠습니까")) {
 		//alert(cno);		
 		$.ajax({
@@ -42,24 +42,12 @@ function fn_delete(cno, locate) {
 		})
 		.done(function (result, textStatus, xhr) {
 			console.log("result:"+result+" -> xhr: "+xhr);
-
-			let query = "?page="+${pageObject.page}+"&perPageNum="+${pageObject.perPageNum};
-			query += ${(empty pageObject.buyDate)? 	"''" : "'&buyDate=" +=(pageObject.buyDate).substring(0, 10)+= "'"};
-			query += ${(empty pageObject.gubun)? 	"''" : "'&gubun=" +=pageObject.gubun+= "'"};
-			query += ${(empty pageObject.item)? 	"''" : "'&item=" +=pageObject.item+= "'"};
-			query += ${(empty pageObject.purShop)? 	"''" : "'&purShop=" +=pageObject.purShop+= "'"};
-			query += ${(empty pageObject.inDate)? 	"''" : "'&inDate=" +=(pageObject.inDate).substring(0, 10)+= "'"};	
-			
-			if(result=="ok") {
+	        if(result=="ok") {
 	        	alert("삭제완료");
-	        	if (locate == 1 ) {
-	        			// 부모창 reload	        	
-	        		query = "?page="+${pageObject.page}+"&perPageNum="+${pageObject.perPageNum};			 	
-					opener.parent.location ="/purchbook/storage.do"+query;
-	        	} else if (locate == 2 ) {		        			        	 	
-					
-	        		opener.parent.location ="/purchbook/storageAllList.do"+query;				
-	        	}		        					
+	        	 	// 부모창 reload
+	        	// page=${param.page}&perPageNum=${param.perPageNum}&
+	        	let query = "?buyDate=${param.buyDate}&gubun=${param.gubun}&item=${param.item}&purShop=${param.purShop}&inDate=${param.inDate}"; 	
+				opener.parent.location ="/purchbook/ingAllList.do"+query;				
 	        	self.close();
 			}
 		})
@@ -85,33 +73,16 @@ function fn_update() {
 		})
 		.done(function (result, textStatus, xhr) {
 			console.log("result:"+JSON.stringify(result)+" -> xhr: "+ JSON.stringify(xhr));
-
-			let query = "?page="+${pageObject.page}+"&perPageNum="+${pageObject.perPageNum};
-			query += ${(empty pageObject.buyDate)? 	"''" : "'&buyDate=" +=(pageObject.buyDate).substring(0, 10)+= "'"};
-			query += ${(empty pageObject.gubun)? 	"''" : "'&gubun=" +=pageObject.gubun+= "'"};
-			query += ${(empty pageObject.item)? 	"''" : "'&item=" +=pageObject.item+= "'"};
-			query += ${(empty pageObject.purShop)? 	"''" : "'&purShop=" +=pageObject.purShop+= "'"};
-			query += ${(empty pageObject.inDate)? 	"''" : "'&inDate=" +=(pageObject.inDate).substring(0, 10)+= "'"};	
-			
-			if(result=="ok1") {
+	        if(result=="ok") {
 	        	alert("수정 완료");
 	        	 	// 부모창 reload
-	        	query = "?page="+${pageObject.page}+"&perPageNum="+${pageObject.perPageNum};	        	
-				opener.parent.location ="/purchbook/storage.do"+query; 	
-	        	self.close();
-			} else if(result=="ok2") {
-	        	alert("수정 완료");
-	        	 	// 부모창 reload	        		
-	        	opener.parent.location ="/purchbook/storageAllList.do"+query;
-	        	self.close();
-			} else if(result=="ok3") {
-	        	alert("수정 완료");
-	        	 	// 부모창 reload	        		
-//				let query = "?buyDate=${param.buyDate}&gubun=${param.gubun}&item=${param.item}&purShop=${param.purShop}&inDate=${param.inDate}";	
+	        	// page=${param.page}&perPageNum=${param.perPageNum}& 	
+				let query = "?buyDate=${param.buyDate}&gubun=${param.gubun}&item=${param.item}&purShop=${param.purShop}&inDate=${param.inDate}";	
 	        	opener.parent.location ="/purchbook/ingAllList.do"+query;
+				
 	        	self.close();
 			} else {
-					alert("수정 실패");	
+				alert("수정 실패");	
 			}
 		})
 		.fail(function(data, textStatus, errorThrown) {
@@ -126,8 +97,7 @@ function fn_update() {
 <body>
 <div class="container">
 <form class="form-horizontal" method="post" id="frm" action="storageUpdate.do">
-<input name = "cno" 	type="hidden" value="${storageInfo.cno}" />
-<input name = "locate" 	type="hidden" value="${locate}" />
+<input name = "cno" type="hidden" value="${storageInfo.cno}" />
 <div class="row">
   <h4>재료 입출고 수정</h4>  	
 	<!-- 재료 입출고 수정 Start --> 	
@@ -195,7 +165,7 @@ function fn_update() {
 	    <div class="form-group">
     	<div class="col-sm-1"></div>
     	<div class="col-sm-3"><button type="button" class="btn btn-block" id="orderUpdate" onclick="fn_update(); return false;">수정</button></div>
-    	<div class="col-sm-3"><button type="button" class="btn btn-block" id="orderDelete" onclick="fn_delete(${storageInfo.cno},${locate}); return false;">삭제</button></div>
+    	<div class="col-sm-3"><button type="button" class="btn btn-block" id="orderDelete" onclick="fn_delete(${storageInfo.cno}); return false;">삭제</button></div>
     	<div class="col-sm-4"><button type="button" class="btn btn-block" onclick="javascript:self.close();" >닫기</button></div> 
     	</div>
 

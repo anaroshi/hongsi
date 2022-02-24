@@ -51,15 +51,17 @@ function fn_delete(cno, locate) {
 		})
 		.done(function (result, textStatus, xhr) {
 			console.log("result:"+result+" -> xhr: "+xhr);
+			let query = "?page=${param.page}&perPageNum=${param.perPageNum}";
 			if(result=="ok1") {
 	        	alert("삭제 완료");
-	        	 	// 부모창 reload
-				opener.parent.location ="/purchshop/sale.do";				
+	        	 	// 부모창 reload	        	 	
+				opener.parent.location ="/purchshop/sale.do"+query;				
 	        	self.close();
 			} else if(result=="ok2") {
 	        	alert("삭제 완료");
 	        	 	// 부모창 reload
-				opener.parent.location ="/purchshop/saleAllList.do";				
+	        	 	
+				opener.parent.location ="/purchshop/saleAllList.do"+query;				
 	        	self.close();
 			} else {
 					alert("삭제 실패");	
@@ -133,15 +135,16 @@ function fn_update() {
 		})
 		.done(function (result, textStatus, xhr) {
 			console.log("result:"+JSON.stringify(result)+" -> xhr: "+ JSON.stringify(xhr));
+			let query = "?page=${param.page}&perPageNum=${param.perPageNum}";
 	        if(result=="ok1") {
 	        	alert("수정 완료");
 	        	 	// 부모창 reload
-				opener.parent.location ="/purchshop/sale.do";				
+				opener.parent.location ="/purchshop/sale.do"+query;				
 	        	self.close();
 			} else if(result=="ok2") {
 	        	alert("수정 완료");
 	        	 	// 부모창 reload
-				opener.parent.location ="/purchshop/saleAllList.do";				
+				opener.parent.location ="/purchshop/saleAllList.do"+query;				
 	        	self.close();
 			} else {
 					alert("수정 실패");	

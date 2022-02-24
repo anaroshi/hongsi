@@ -41,9 +41,8 @@ function fn_view(cno) {
 	//alert(cno);
 	var w = 1000;
 	var h = 470;
-	// &buyDate=${param.buyDate}
-	//let query = "&page=${param.page}&perPageNum=${param.perPageNum}";	
-	var url = "../view/storageModify.do?cno="+cno+"&locate=1";
+	let query = "&page="+${pageObject.page}+"&perPageNum="+${pageObject.perPageNum};
+	var url = "../view/storageModify.do?cno="+cno+"&locate=1"+query;
 	
 	var xPos = (document.body.offsetWidth/2) - (w/2); // 가운데 정렬
 	xPos += window.screenLeft; // 듀얼 모니터일 때

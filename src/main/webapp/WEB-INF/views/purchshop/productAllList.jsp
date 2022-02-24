@@ -20,7 +20,8 @@
 		//alert(cno);
 		var w = 1000;
 		var h = 470;
-		var url = "../view/productModify.do?cno="+cno+"&locate=2";
+		let query = "&page="+${pageObject.page}+"&perPageNum="+${pageObject.perPageNum};
+		var url = "../view/productModify.do?cno="+cno+"&locate=2"+query;
 		
 		var xPos = (document.body.offsetWidth/2) - (w/2); // 가운데 정렬
 		xPos += window.screenLeft; // 듀얼 모니터일 때

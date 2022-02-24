@@ -70,7 +70,8 @@ public class PurchshopController {
 
 	// 주문 내역
 	@GetMapping("orderAllList.do")
-	public String orderAllList(PurchOrderVO vo, Model model, @ModelAttribute PageObject pageObject) throws Exception {
+//	public String orderAllList(PurchOrderVO vo, Model model, @ModelAttribute PageObject pageObject) throws Exception {
+	public String orderAllList(Model model, @ModelAttribute PageObject pageObject) throws Exception {
 		log.info(".............................orderAllList..");
 		model.addAttribute("orderList", purchOrderService.selectOrderList(pageObject));
 		//model.addAttribute("orderStock", purchOrderService.selectOrderStock());
@@ -133,6 +134,7 @@ public class PurchshopController {
 		
 		// 판매 정보 리스트
 		model.addAttribute("saleList", purchSaleService.selectSaleList(pageObject));
+//			return "redirect:/purchshop/sale.do?page="+pageObject.getPage()+"&perPageNum="+pageObject.getPerPageNum();
 		return MODULE + "/sale";
 	}
 

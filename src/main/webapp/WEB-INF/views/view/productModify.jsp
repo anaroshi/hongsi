@@ -56,15 +56,16 @@ function fn_delete(cno, locate) {
 		})
 		.done(function (result, textStatus, xhr) {
 			console.log("result:"+result+" -> xhr: "+xhr);
+			let query = "?page=${param.page}&perPageNum=${param.perPageNum}";
 			if(result=="ok1") {
 	        	alert("삭제 완료");
 	        	 	// 부모창 reload
-				opener.parent.location ="/purchshop/product.do";				
+				opener.parent.location ="/purchshop/product.do"+query;				
 	        	self.close();
 			} else if(result=="ok2") {
 	        	alert("삭제 완료");
 	        	 	// 부모창 reload
-				opener.parent.location ="/purchshop/productAllList.do";				
+				opener.parent.location ="/purchshop/productAllList.do"+query;				
 	        	self.close();
 			} else {
 					alert("삭제 실패");	

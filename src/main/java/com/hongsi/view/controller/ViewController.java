@@ -6,6 +6,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -18,6 +19,7 @@ import com.hongsi.purchshop.service.PurchSaleService;
 import com.hongsi.purchshop.vo.PurchOrderVO;
 import com.hongsi.purchshop.vo.PurchProductVO;
 import com.hongsi.purchshop.vo.PurchSaleVO;
+import com.hongsi.util.PageObject;
 
 import lombok.extern.log4j.Log4j;
 
@@ -49,8 +51,9 @@ public class ViewController {
 	
 	// 재료 구매 정보 보기 (재료구매에서)
 	@GetMapping("view/buyModify.do")
-	public String buyModify(PurchIngVO vo, Model model) throws Exception {
+	public String buyModify(PurchIngVO vo, Model model, @ModelAttribute PageObject object) throws Exception {
 		log.info(".............................buyModify..vo:"+vo);
+		log.info(".............................buyModify..object:"+object);
 		log.info(".............................buyModify..locate:"+vo.getLocate());
 
 		// 재료 list
@@ -82,8 +85,8 @@ public class ViewController {
 	@Nullable  // null 허용
 	@ResponseBody
 	@PostMapping("view/buyUpdate.do")
-	public String buyUpdate(PurchIngVO vo) throws Exception {
-		log.info(".............................buyUpdate..vo:" + vo);
+	public String buyUpdate(PurchIngVO vo, PageObject object) throws Exception {
+		log.info(".............................buyUpdate..vo:" + object);
 		vo.setFlag(2);
 		vo.setStatus("purch");
 		int result = purchIngSerivce.updateIng(vo);
@@ -105,7 +108,7 @@ public class ViewController {
 	
 	// 재료 입출고 정보 보기 (재료 입출고에서)
 	@GetMapping("view/storageModify.do") 
-	public String storageModify(PurchIngVO vo, Model model) throws Exception {
+	public String storageModify(PurchIngVO vo, Model model, @ModelAttribute PageObject object) throws Exception {
 		log.info(".............................storageModify..cno:"+vo);
 		
 		// 재료 list
@@ -136,7 +139,7 @@ public class ViewController {
 	@Nullable  // null 허용
 	@ResponseBody
 	@PostMapping("view/storageUpdate.do")
-	public String storageUpdate(PurchIngVO vo) throws Exception {
+	public String storageUpdate(PurchIngVO vo, PageObject object) throws Exception {
 		log.info(".............................storageUpdate..vo:" + vo);
 		vo.setQty(1);
 		vo.setStatus("storage");
@@ -188,7 +191,7 @@ public class ViewController {
 	@Nullable  // null 허용
 	@ResponseBody
 	@PostMapping("view/productUpdate.do")
-	public String productUpdate(PurchProductVO vo) throws Exception {
+	public String productUpdate(PurchProductVO vo, PageObject object) throws Exception {
 		log.info(".............................productUpdate..vo:" + vo);
 		vo.setStatus("product");
 		vo.setFlag(2);
@@ -241,7 +244,7 @@ public class ViewController {
 	@Nullable  // null 허용
 	@ResponseBody
 	@PostMapping("view/orderUpdate.do")
-	public String orderUpdate(PurchOrderVO vo) throws Exception {
+	public String orderUpdate(PurchOrderVO vo, PageObject object) throws Exception {
 		log.info(".............................orderUpdate..vo:" + vo);
 		vo.setStatus("product");
 		vo.setFlag(2);
@@ -292,7 +295,7 @@ public class ViewController {
 	@Nullable  // null 허용
 	@ResponseBody
 	@PostMapping("view/saleUpdate.do")
-	public String saleUpdate(PurchSaleVO vo) throws Exception {
+	public String saleUpdate(PurchSaleVO vo, PageObject object) throws Exception {
 		log.info(".............................saleUpdate..vo:" + vo);
 		vo.setStatus("sale");
 		vo.setFlag(2);

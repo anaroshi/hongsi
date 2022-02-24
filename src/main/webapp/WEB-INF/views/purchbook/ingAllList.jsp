@@ -34,11 +34,16 @@ function fn_view(cno, gubun) {
 	//alert(cno);
 	var w = 1000;
 	var h = 470;
-	// buyDate=${param.buyDate}&
-	let query = "&page=${param.page}&perPageNum=${param.perPageNum}&gubun=${param.gubun}&item=${param.item}&purShop=${param.purShop}&inDate=${param.inDate}";
-// 	if (${param.buyDate}) 
-// 		query += "&buyDate=${param.buyDate}";
+
+	let query = "&page="+${pageObject.page}+"&perPageNum="+${pageObject.perPageNum};
+	query += ${(empty pageObject.buyDate)? 	"''" : "'&buyDate=" +=(pageObject.buyDate).substring(0, 10)+= "'"};
+	query += ${(empty pageObject.gubun)? 	"''" : "'&gubun=" +=pageObject.gubun+= "'"};
+	query += ${(empty pageObject.item)? 	"''" : "'&item=" +=pageObject.item+= "'"};
+	query += ${(empty pageObject.purShop)? 	"''" : "'&purShop=" +=pageObject.purShop+= "'"};
+	query += ${(empty pageObject.inDate)? 	"''" : "'&inDate=" +=(pageObject.inDate).substring(0, 10)+= "'"};
+
 	let	url = "../view/storageModify.do?cno="+cno+"&locate=3"+query;	
+
 	if (gubun == "구매" || gubun == "구매_office" || gubun == "구매_cafe") 
 		url = "../view/buyModify.do?cno="+cno+"&locate=3"+query;
 	var xPos = (document.body.offsetWidth/2) - (w/2); // 가운데 정렬

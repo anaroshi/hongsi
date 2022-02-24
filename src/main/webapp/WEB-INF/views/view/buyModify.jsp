@@ -51,17 +51,26 @@ function fn_delete(cno, locate) {
 		})
 		.done(function (result, textStatus, xhr) {
 			console.log("result:"+result+" -> xhr: "+xhr);
-	        if(result=="ok") {
+
+			let query = "?page="+${pageObject.page}+"&perPageNum="+${pageObject.perPageNum};
+			query += ${(empty pageObject.buyDate)? 	"''" : "'&buyDate=" +=(pageObject.buyDate).substring(0, 10)+= "'"};
+			query += ${(empty pageObject.gubun)? 	"''" : "'&gubun=" +=pageObject.gubun+= "'"};
+			query += ${(empty pageObject.item)? 	"''" : "'&item=" +=pageObject.item+= "'"};
+			query += ${(empty pageObject.purShop)? 	"''" : "'&purShop=" +=pageObject.purShop+= "'"};
+			query += ${(empty pageObject.inDate)? 	"''" : "'&inDate=" +=(pageObject.inDate).substring(0, 10)+= "'"};	
+			
+			if(result=="ok") {
 	        	alert("삭제완료");
 	        	if (locate == 1 ) {
 	        			// 부모창 reload	        	
-		        	//let query = "?page=${param.page}&perPageNum=${param.perPageNum}";	 	
-					opener.parent.location ="/purchbook/buy.do";
+		        	query = "?page="+${pageObject.page}+"&perPageNum="+${pageObject.perPageNum};	
+		        	
+					opener.parent.location ="/purchbook/buy.do"+query;
 	        	} else if (locate == 2 ) {
-		        	let query = "?buyDate=${param.buyDate}&gubun=${param.gubun}&item=${param.item}&purShop=${param.purShop}&inDate=${param.inDate}";	 	
+// 		        	let query = "?page=${param.page}&perPageNum=${param.perPageNum}&buyDate=${param.buyDate}&gubun=${param.gubun}&item=${param.item}&purShop=${param.purShop}&inDate=${param.inDate}";	 	
 					opener.parent.location ="/purchbook/buyAllList.do"+query;				
 	        	} else if (locate == 3 ) {
-	        		let query = "?buyDate=${param.buyDate}&gubun=${param.gubun}&item=${param.item}&purShop=${param.purShop}&inDate=${param.inDate}";	 	
+// 	        		let query = "?page=${param.page}&perPageNum=${param.perPageNum}&buyDate=${param.buyDate}&gubun=${param.gubun}&item=${param.item}&purShop=${param.purShop}&inDate=${param.inDate}";	 	
 					opener.parent.location ="/purchbook/ingAllList.do"+query;				
 	        	}		        					
 	        	self.close();
@@ -88,26 +97,32 @@ function fn_update() {
 			dataType: "text"					
 		})
 		.done(function (result, textStatus, xhr) {
+			
 			console.log("result:"+JSON.stringify(result)+" -> xhr: "+ JSON.stringify(xhr));
-	        if(result=="ok1") {
+			
+			let query = "?page="+${pageObject.page}+"&perPageNum="+${pageObject.perPageNum};
+			query += ${(empty pageObject.buyDate)? 	"''" : "'&buyDate=" +=(pageObject.buyDate).substring(0, 10)+= "'"};
+			query += ${(empty pageObject.gubun)? 	"''" : "'&gubun=" +=pageObject.gubun+= "'"};
+			query += ${(empty pageObject.item)? 	"''" : "'&item=" +=pageObject.item+= "'"};
+			query += ${(empty pageObject.purShop)? 	"''" : "'&purShop=" +=pageObject.purShop+= "'"};
+			query += ${(empty pageObject.inDate)? 	"''" : "'&inDate=" +=(pageObject.inDate).substring(0, 10)+= "'"};	
+			
+			if(result=="ok1") {
 	        	alert("수정 완료");
 	        	 	// 부모창 reload
-	        	// page=${param.page}&perPageNum=${param.perPageNum}& 	
-	        	let query = "?buyDate=${param.buyDate}&gubun=${param.gubun}&item=${param.item}&purShop=${param.purShop}&inDate=${param.inDate}";	        	
+	        	query = "?page="+${pageObject.page}+"&perPageNum="+${pageObject.perPageNum};	        	
 				opener.parent.location ="/purchbook/buy.do"+query; 	
 	        	self.close();
 			} else if(result=="ok2") {
 	        	alert("수정 완료");
-	        	 	// 부모창 reload
-	        	// page=${param.page}&perPageNum=${param.perPageNum}& 	
-	        	let query = "?buyDate=${param.buyDate}&gubun=${param.gubun}&item=${param.item}&purShop=${param.purShop}&inDate=${param.inDate}";	        	
+	        	 	// 부모창 reload	        	
+//	        	let query = "?page=${param.page}&perPageNum=${param.perPageNum}&buyDate=${param.buyDate}&gubun=${param.gubun}&item=${param.item}&purShop=${param.purShop}&inDate=${param.inDate}";	        	
 				opener.parent.location ="/purchbook/buyAllList.do"+query; 	
 	        	self.close();
 			} else if(result=="ok3") {
 	        	alert("수정 완료");
-	        	 	// 부모창 reload
-	        	// page=${param.page}&perPageNum=${param.perPageNum}& 	
-				let query = "?buyDate=${param.buyDate}&gubun=${param.gubun}&item=${param.item}&purShop=${param.purShop}&inDate=${param.inDate}";	
+	        	 	// 부모창 reload	        	
+//				let query = "?page=${param.page}&perPageNum=${param.perPageNum}&buyDate=${param.buyDate}&gubun=${param.gubun}&item=${param.item}&purShop=${param.purShop}&inDate=${param.inDate}";	
 	        	opener.parent.location ="/purchbook/ingAllList.do"+query;
 	        	self.close();
 			} else {
@@ -123,6 +138,7 @@ function fn_update() {
 </script>
 </head>
 <body>
+
 <div class="container">
 <form class="form-horizontal" method="post" id="frm" action="buyUpdate.do">
 <input name = "cno" 	type="hidden" value="${buyInfo.cno}" />

@@ -35,10 +35,15 @@ function fn_view(cno) {
 	//alert(cno);
 	var w = 1000;
 	var h = 470;
-	//&buyDate=${param.buyDate}
-	let query = "&page=${param.page}&perPageNum=${param.perPageNum}&gubun=${param.gubun}&item=${param.item}&purShop=${param.purShop}&inDate=${param.inDate}";	
+
+	let query = "&page="+${pageObject.page}+"&perPageNum="+${pageObject.perPageNum};
+	query += ${(empty pageObject.buyDate)? 	"''" : "'&buyDate=" +=(pageObject.buyDate).substring(0, 10)+= "'"};
+	query += ${(empty pageObject.gubun)? 	"''" : "'&gubun=" +=pageObject.gubun+= "'"};
+	query += ${(empty pageObject.item)? 	"''" : "'&item=" +=pageObject.item+= "'"};
+	query += ${(empty pageObject.purShop)? 	"''" : "'&purShop=" +=pageObject.purShop+= "'"};
+	query += ${(empty pageObject.inDate)? 	"''" : "'&inDate=" +=(pageObject.inDate).substring(0, 10)+= "'"};	
 	var url = "../view/buyModify.do?cno="+cno+"&locate=2"+query;
-	
+
 	var xPos = (document.body.offsetWidth/2) - (w/2); // 가운데 정렬
 	xPos += window.screenLeft; // 듀얼 모니터일 때
 	var yPos = (document.body.offsetHeight/2) - (h/2) - 200;
@@ -48,17 +53,18 @@ function fn_view(cno) {
 
 </script>
 </head>
+<!-- 	let query = "&page="+${pageObject.page}+"&perPageNum="+${pageObject.perPageNum}+"&gubun=${param.gubun}&item=${param.item}&purShop=${param.purShop}&inDate=${param.inDate}"; -->
 
 <body>
 <div class="container">
 <div class="col-md-12">
 
 <form>
-	<input type="hidden" name="page" value="1">
-	<input type="hidden" name="perPageNum" value="${pageObject.perPageNum}">
+	<input type="hidden" name="page" id="page" value="1">
+	<input type="hidden" name="perPageNum" id="perPageNum" value="${pageObject.perPageNum}">	
 	<div class="form-group row">
 	 	<div class="col-md-2">	 		
-			<div class="input-group">			
+			<div class="input-group">
 			    <span class="input-group-addon">구입일</span>			    
 			    <input type="text" name="buyDate" id="buyDate" class="form-control inputDate flatpickr flatpickr-input" value="${pageObject.buyDate}"
 			    		style="background: #FFFFFF; text-align: center; font-size:10px; padding-left: 0px; padding-right: 0px;" placeholder="일자를 선택해주세요">

@@ -72,6 +72,7 @@ public class PurchIngController {
 		model.addAttribute("ingreList", ingredientService.list());
 		// 재료 구매 리스트
 		model.addAttribute("resultList", purchIngSerivce.list(pageObject));
+		model.addAttribute("pageObject", pageObject);
 		return MODULE + "/buyAllList";
 	}
 	
