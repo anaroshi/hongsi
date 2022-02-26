@@ -2,6 +2,7 @@ package com.hongsi.purchshop.service;
 
 import java.util.List;
 
+import org.apache.ibatis.io.ResolverUtil.IsA;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
@@ -106,6 +107,13 @@ public class PurchOrderServiceImpl implements PurchOrderService {
 		log.info("Impl vo : "+vo);
 
 		return mapper.updateOrderInfoByCno(vo);
+	}
+
+	@Override
+	public List<PurchOrderVO> selectProductOrderSaleAllInfo(PageObject pageObject) {
+		if(pageObject.getKey()==null) pageObject.setKey("pos");
+		pageObject.setTotalRow(mapper.getProductOrderSaleAllTotalRow(pageObject));
+		return mapper.selectProductOrderSaleAllInfo(pageObject);
 	}
 
 

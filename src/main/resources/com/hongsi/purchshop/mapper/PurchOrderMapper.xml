@@ -378,6 +378,7 @@
 			STC_250,
 			STC_500,
 			STC_1000,
+			SALEPATH,
 			ORDERER			
 		FROM PURCH_ORDER
 		WHERE 1=1
@@ -449,5 +450,119 @@
 			UDATE = SYSDATE
 	WHERE 	CNO  = #{cno}
 	</update>
+	
+	<!-- 	생산/주문/판매 합한 정보  -->
+	<select id="selectProductOrderSaleAllInfo" resultType="com.hongsi.purchshop.vo.PurchOrderVO">
+	SELECT  RNUM, CNO, GUBUN, ORDERDATE, ORI_250,ORI_500,ORI_1000,ERL_250,ERL_500,ERL_1000,STC_250,STC_500,STC_1000, SALEPATH, ORDERER, COMM, GUBUNCODE
+	FROM (
+		SELECT  ROWNUM RNUM, CNO, GUBUN, ORDERDATE, ORI_250,ORI_500,ORI_1000,ERL_250,ERL_500,ERL_1000,STC_250,STC_500,STC_1000,SALEPATH,ORDERER,COMM, GUBUNCODE
+		FROM (
+			SELECT  CNO, GUBUN, PDATE ORDERDATE, ORI_250,ORI_500,ORI_1000,ERL_250,ERL_500,ERL_1000,STC_250,STC_500,STC_1000,SALEPATH,ORDERER,COMM, GUBUNCODE
+			FROM (
+				<if test="key == null">	
+					<include refid="optionAllGubun" />
+				</if>
+				<if test="key != null">
+					<include refid="optionGubun" />
+				</if>					
+			) 
+			ORDER BY PDATE DESC
+		)	
+	)
+	WHERE 	1=1
+	AND 	RNUM BETWEEN #{startRow} AND #{endRow}
+	</select>
+	
+	<!-- 생산/주문/판매 합한 총 주문 건수 -->
+	<select id="getProductOrderSaleAllTotalRow" resultType="java.lang.Integer">
+	SELECT 	COUNT(*)
+	FROM (			
+		<if test="key == null">	
+			<include refid="optionAllGubun" />
+		</if>
+		<if test="key != null">
+			<include refid="optionGubun" />
+		</if>
+	)
+	</select>	
+
+	<sql id="optionAllGubun">
+		SELECT CNO, GUBUN, TO_CHAR(ORDERDATE, 'yyyy-MM-dd') PDATE, 
+			ORI_250,ORI_500,ORI_1000,ERL_250,ERL_500,ERL_1000,STC_250,STC_500,STC_1000,
+			SALEPATH, ORDERER, COMM, GUBUNCODE
+		FROM PURCH_ORDER
+		WHERE 	1=1
+		AND 	FLAG != 4
+		UNION		
+		SELECT CNO, GUBUN, TO_CHAR(PRODUCTDATE, 'yyyy-MM-dd') PDATE, 
+			ORI_250,ORI_500,ORI_1000,ERL_250,ERL_500,ERL_1000,STC_250,STC_500,STC_1000,
+			'','', COMM, GUBUNCODE
+		FROM PURCH_PRODUCT
+		WHERE 	1=1
+		AND 	FLAG != 4
+		UNION	
+		SELECT CNO, GUBUN, TO_CHAR(SALEDATE, 'yyyy-MM-dd') PDATE, 
+			ORI_250,ORI_500,ORI_1000,ERL_250,ERL_500,ERL_1000,STC_250,STC_500,STC_1000,
+			SALEPATH,ORDERER,COMM, GUBUNCODE
+		FROM	PURCH_SALE
+		WHERE 	1=1
+		AND 	FLAG != 4
+	</sql>
+
+
+	<sql id="optionGubun">		
+		<if test="key == 'pos'">  	<!-- 생산/주문/판매 -->
+			<include refid="optionAllGubun" />
+		</if>
+		<if test="key == 'p'.toString()">  	<!-- 생산 -->
+			<include refid="optionProductGubun" />
+		</if>
+		<if test="key == 'o'.toString()">  	<!-- 주문 -->
+			<include refid="optionOrderGubun" />
+		</if>
+		<if test="key == 's'.toString()">  	<!-- 판매 -->
+			<include refid="optionSaleGubun" />
+		</if>
+		<if test="key == 'po'">  			<!-- 생산/주문 -->
+			<include refid="optionProductGubun" />
+			UNION
+			<include refid="optionOrderGubun" />
+		</if>
+		<if test="key == 'ps'">  			<!-- 생산/판매 -->
+			<include refid="optionProductGubun" />
+			UNION
+			<include refid="optionSaleGubun" />
+		</if>
+		<if test="key == 'os'">  			<!-- 주문/판매 -->
+			<include refid="optionOrderGubun" />
+			UNION
+			<include refid="optionSaleGubun" />
+		</if>
+	</sql>
+
+	<sql id="optionOrderGubun">
+		SELECT CNO, GUBUN, TO_CHAR(ORDERDATE, 'yyyy-MM-dd') PDATE, 
+			ORI_250,ORI_500,ORI_1000,ERL_250,ERL_500,ERL_1000,STC_250,STC_500,STC_1000,
+			SALEPATH, ORDERER, COMM, GUBUNCODE
+		FROM PURCH_ORDER
+		WHERE 	1=1
+		AND 	FLAG != 4
+	</sql>
+	<sql id="optionProductGubun">	
+		SELECT CNO, GUBUN, TO_CHAR(PRODUCTDATE, 'yyyy-MM-dd') PDATE, 
+			ORI_250,ORI_500,ORI_1000,ERL_250,ERL_500,ERL_1000,STC_250,STC_500,STC_1000,
+			'' SALEPATH,'' ORDERER, COMM, GUBUNCODE
+		FROM PURCH_PRODUCT
+		WHERE 	1=1
+		AND 	FLAG != 4
+	</sql>
+	<sql id="optionSaleGubun">	
+		SELECT CNO, GUBUN, TO_CHAR(SALEDATE, 'yyyy-MM-dd') PDATE, 
+			ORI_250,ORI_500,ORI_1000,ERL_250,ERL_500,ERL_1000,STC_250,STC_500,STC_1000,
+			SALEPATH, ORDERER, COMM, GUBUNCODE
+		FROM	PURCH_SALE
+		WHERE 	1=1
+		AND 	FLAG != 4
+	</sql>
 	
 </mapper>

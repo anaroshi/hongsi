@@ -162,7 +162,7 @@ function fn_update() {
 	      <select id="item" name="item" class="form-control select" required="required">
 	      	<option value=""></option>
 	      <c:forEach items="${ingreList}" var="vo">
-	      	<option value="${vo.code}" <c:if test="${buyInfo.item==vo.code}">selected</c:if> >${vo.kname}</option>
+	      	<option value="${vo.code}" ${(buyInfo.item==vo.code)?"selected":""}>${vo.kname}</option>
 	      </c:forEach>
 	      </select>	        
 	      </div>
@@ -171,13 +171,13 @@ function fn_update() {
 	      <label for="gubun" class="col-sm-3 control-label">구분</label>
 	      <div class="col-sm-8">
 			<select id="gubun" name="gubun" class="form-control select" required="required">
-				<option value="구매_office" <c:if test="${buyInfo.gubun=='구매_office'}">selected</c:if>>구매_office</option>
-	            <option value="구매_cafe" <c:if test="${buyInfo.gubun=='구매_cafe'}">selected</c:if>>구매_cafe</option>
-	            <option value="구매" <c:if test="${buyInfo.gubun=='구매'}">selected</c:if>>구매</option>
-<%-- 	            <option value="교환" <c:if test="${buyInfo.gubun=='교환'}">selected</c:if>>교환</option> --%>
-	            <option value="반품" <c:if test="${buyInfo.gubun=='반품'}">selected</c:if>>반품</option>
-	            <option value="손실" <c:if test="${buyInfo.gubun=='손실'}">selected</c:if>>손실</option>
-	            <option value="취소" <c:if test="${buyInfo.gubun=='취소'}">selected</c:if>>취소</option>
+				<option value="구매_office" ${(buyInfo.gubun=='구매_office')?"selected":""}>구매_office</option>
+	            <option value="구매_cafe" ${(buyInfo.gubun=='구매_cafe')?"selected":""}>구매_cafe</option>
+	            <option value="구매" ${(buyInfo.gubun=='구매')?"selected":""}>구매</option>
+<%-- 	            <option value="교환" ${(buyInfo.gubun=='교환')?"selected":""}>교환</option> --%>
+	            <option value="반품" ${(buyInfo.gubun=='반품')?"selected":""}>반품</option>
+	            <option value="손실" ${(buyInfo.gubun=='손실')?"selected":""}>손실</option>
+	            <option value="취소" ${(buyInfo.gubun=='취소')?"selected":""}>취소</option>
 			</select>
 	      </div>
 	    </div>	    
@@ -202,7 +202,7 @@ function fn_update() {
 	      <div class="col-sm-8"> 
 	      <div class="input-group">
 	      	<span class="input-group-addon"><i class="fas fa-won-sign"></i></span>
-			<input class="form-control inputNumber" type="number" id="price" name="price" required="required" value="${buyInfo.price}">
+			<input class="form-control inputNumber" type="number" id="price" name="price" required="required" value="${buyInfo.price}" >
 		  </div></div>
 	    </div>
 	</div> 
@@ -215,9 +215,9 @@ function fn_update() {
       <div class="col-sm-8">
 		<select id="purShop" name="purShop" class="form-control select" required="required">
 			<option value=""> </option>
-            <option value="넛츠베리" <c:if test="${buyInfo.purShop=='넛츠베리'}">selected</c:if>>넛츠베리</option>
-            <option value="네이버쇼핑" <c:if test="${buyInfo.purShop=='네이버쇼핑'}">selected</c:if>>네이버쇼핑</option>
-            <option value="쿠팡" <c:if test="${buyInfo.purShop=='쿠팡'}">selected</c:if>>쿠팡</option>
+            <option value="넛츠베리" ${(buyInfo.purShop=='넛츠베리')?"selected":""}>넛츠베리</option>
+            <option value="네이버쇼핑" ${(buyInfo.purShop=='네이버쇼핑')?"selected":""}>네이버쇼핑</option>
+            <option value="쿠팡" ${(buyInfo.purShop=='쿠팡')?"selected":""}>쿠팡</option>
 		</select>
       </div>
     </div>
@@ -238,8 +238,8 @@ function fn_update() {
       <label for="buyer" class="col-sm-3 control-label">구매자</label>
       <div class="col-sm-8">
       	<select id="buyer" name="buyer" class="form-control select">
-            <option value="홍동호" <c:if test="${buyInfo.buyer=='홍동호'}">selected</c:if>>홍동호</option>
-            <option value="대행인" <c:if test="${buyInfo.buyer=='대행인'}">selected</c:if>>대행인</option>
+            <option value="홍동호" ${(buyInfo.buyer=='홍동호')?"selected":""}>홍동호</option>
+            <option value="대행인" ${(buyInfo.buyer=='대행인')?"selected":""}>대행인</option>
 		</select>
       </div>
     </div>

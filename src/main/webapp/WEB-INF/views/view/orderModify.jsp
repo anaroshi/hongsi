@@ -159,8 +159,7 @@ function fn_update() {
 
 <body>
 	<div class="container">
-		<form class="form-horizontal" method="post" id="frm"
-			action="buyUpdate.do">
+		<form class="form-horizontal" method="post" id="frm" action="buyUpdate.do">
 			<input name="cno" type="hidden" value="${orderInfo.cno}" />
 			<input name="locate" type="hidden" value="${locate}" />
 			<div class="row">
@@ -252,11 +251,11 @@ function fn_update() {
 						<label for="gubun" class="col-sm-3 control-label">구분</label>
 						<div class="col-sm-8">
 							<select id="gubun" name="gubun" class="form-control select">
-								<option value="주문" <c:if test="${orderInfo.gubun=='주문'}">selected</c:if> >주문</option>
+								<option value="주문" ${(orderInfo.gubun=='주문')?"selected":""}>주문</option>
 <%-- 								<option value="교환" <c:if test="${orderInfo.gubun=='교환'}">selected</c:if> >교환</option> --%>
 <%-- 								<option value="반품" <c:if test="${orderInfo.gubun=='반품'}">selected</c:if> >반품</option> --%>
 <%-- 								<option value="손실" <c:if test="${orderInfo.gubun=='손실'}">selected</c:if> >손실</option> --%>
-								<option value="주문취소" <c:if test="${orderInfo.gubun=='주문취소'}">selected</c:if> >주문취소</option>
+								<option value="주문취소" ${(orderInfo.gubun=='주문취소')?"selected":""}>주문취소</option>
 							</select>
 						</div>
 					</div>
@@ -264,10 +263,10 @@ function fn_update() {
 						<label for="salePath" class="col-sm-3 control-label">주문경로</label>
 						<div class="col-sm-8">
 							<select id="gubun" name="salePath" class="form-control select">
-								<option value="개별구매" <c:if test="${orderInfo.salePath=='개별구매'}">selected</c:if> >개별구매</option>
-								<option value="NAVER쇼핑" <c:if test="${orderInfo.salePath=='NAVER'}">selected</c:if> >NAVER쇼핑</option>
-								<option value="Homepage" <c:if test="${orderInfo.salePath=='Homepage'}">selected</c:if> >Homepage</option>
-								<option value="쎈인생블로거" <c:if test="${orderInfo.salePath=='쎈인생블로거'}">selected</c:if> >쎈인생블로거</option>
+								<option value="개별구매" ${(orderInfo.salePath=='개별구매')?"selected":""}>개별구매</option>
+								<option value="NAVER쇼핑" ${(orderInfo.salePath=='NAVER쇼핑')?"selected":""}>NAVER쇼핑</option>
+								<option value="Homepage" ${(orderInfo.salePath=='Homepage')?"selected":""}>Homepage</option>
+								<option value="쎈인생블로거" ${(orderInfo.salePath=='쎈인생블로거')?"selected":""}>쎈인생블로거</option>
 							</select>
 						</div>
 					</div>

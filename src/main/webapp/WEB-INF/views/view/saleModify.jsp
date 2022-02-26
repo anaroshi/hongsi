@@ -245,14 +245,14 @@ function fn_update() {
 						<label for="gubun" class="col-sm-3 control-label">구분</label>
 						<div class="col-sm-8">
 							<select id="gubun" name="gubun" class="form-control select">
-								<option value="판매" <c:if test="${saleInfo.gubun=='주문'}">selected</c:if>>판매</option>
-								<option value="교환출고" <c:if test="${saleInfo.gubun=='교환출고'}">selected</c:if>>교환_출고</option>
-								<option value="교환입고" <c:if test="${saleInfo.gubun=='교환입고'}">selected</c:if>>교환_입고</option>
-								<option value="교환손실" <c:if test="${saleInfo.gubun=='교환손실'}">selected</c:if>>교환_손실</option>
-								<option value="반품" <c:if test="${saleInfo.gubun=='반품'}">selected</c:if>>반품</option>
-								<option value="손실" <c:if test="${saleInfo.gubun=='손실'}">selected</c:if>>손실</option>
-								<option value="경비" <c:if test="${saleInfo.gubun=='경비'}">selected</c:if>>경비</option>
-								<option value="취소" <c:if test="${saleInfo.gubun=='취소'}">selected</c:if>>취소</option>
+								<option value="판매" ${(saleInfo.gubun=='주문')?"selected":""}>판매</option>
+								<option value="교환출고" ${(saleInfo.gubun=='교환출고')?"selected":""}>교환_출고</option>
+								<option value="교환입고" ${(saleInfo.gubun=='교환입고')?"selected":""}>교환_입고</option>
+								<option value="교환손실" ${(saleInfo.gubun=='교환손실')?"selected":""}>교환_손실</option>
+								<option value="반품" ${(saleInfo.gubun=='반품')?"selected":""}>반품</option>
+								<option value="손실" ${(saleInfo.gubun=='손실')?"selected":""}>손실</option>
+								<option value="경비" ${(saleInfo.gubun=='경비')?"selected":""}>경비</option>
+								<option value="취소" ${(saleInfo.gubun=='취소')?"selected":""}>취소</option>
 							</select>
 						</div>
 					</div>
@@ -267,10 +267,10 @@ function fn_update() {
 						<div class="col-sm-8">
 							<select id="paymentPath" name="paymentPath"
 								class="form-control select">
-								<option value="계좌이체" <c:if test="${saleInfo.paymentPath == '계좌이체'}">selected</c:if> >계좌이체</option>
-								<option value="현금" <c:if test="${saleInfo.paymentPath == '현금'}">selected</c:if> >현금</option>
-								<option value="신용카드" <c:if test="${saleInfo.paymentPath == '신용카드'}">selected</c:if> >신용카드</option>
-								<option value="경비" <c:if test="${saleInfo.paymentPath == '경비'}">selected</c:if> >경비</option>
+								<option value="계좌이체" ${(saleInfo.paymentPath == '계좌이체')?"selected":""}>계좌이체</option>
+								<option value="현금" ${(saleInfo.paymentPath == '현금')?"selected":""}>현금</option>
+								<option value="신용카드" ${(saleInfo.paymentPath == '신용카드')?"selected":""}>신용카드</option>
+								<option value="경비" ${(saleInfo.paymentPath == '경비')?"selected":""}>경비</option>
 							</select>
 						</div>
 					</div>
@@ -278,10 +278,10 @@ function fn_update() {
 						<label for="salePath" class="col-sm-3 control-label">주문경로</label>
 						<div class="col-sm-8">
 							<select id="salePath" name="salePath" class="form-control select">
-								<option value="개별구매" <c:if test="${saleInfo.salePath == '개별구매'}">selected</c:if> >개별구매</option>
-								<option value="NAVER쇼핑" <c:if test="${saleInfo.salePath == 'NAVER쇼핑'}">selected</c:if> >NAVER쇼핑</option>
-								<option value="Homepage" <c:if test="${saleInfo.salePath == 'Homepage'}">selected</c:if> >Homepage</option>
-								<option value="쎈인생블로거" <c:if test="${saleInfo.salePath == '쎈인생블로거'}">selected</c:if> >쎈인생블로거</option>
+								<option value="개별구매" ${(saleInfo.salePath == '개별구매')?"selected":""}>개별구매</option>
+								<option value="NAVER쇼핑" ${(saleInfo.salePath == 'NAVER쇼핑')?"selected":""}>NAVER쇼핑</option>
+								<option value="Homepage" ${(saleInfo.salePath == 'Homepage')?"selected":""}>Homepage</option>
+								<option value="쎈인생블로거" ${(saleInfo.salePath == '쎈인생블로거')?"selected":""}>쎈인생블로거</option>
 							</select>
 						</div>
 					</div>
@@ -296,9 +296,9 @@ function fn_update() {
 						<label for="deleveryPath" class="col-sm-3 control-label">배송방법</label>
 						<div class="col-sm-8">
 							<select id="deleveryPath" name="deleveryPath" class="form-control select">
-								<option value="택배" <c:if test="${saleInfo.deleveryPath == '택배'}">selected</c:if> >택배</option>
-								<option value="고객수령" <c:if test="${saleInfo.deleveryPath == '고객수령'}">selected</c:if> >고객수령</option>
-								<option value="직접배송" <c:if test="${saleInfo.deleveryPath == '직접배송'}">selected</c:if> >직접배송</option>
+								<option value="택배" ${(saleInfo.deleveryPath == '택배')?"selected":""}>택배</option>
+								<option value="고객수령" ${(saleInfo.deleveryPath == '고객수령')?"selected":""}>고객수령</option>
+								<option value="직접배송" ${(saleInfo.deleveryPath == '직접배송')?"selected":""}>직접배송</option>
 							</select>
 						</div>
 					</div>

@@ -35,5 +35,9 @@ public interface PurchOrderMapper {
 
 	PurchOrderVO selectOrderInfoByCno(int cno);
 
+	List<PurchOrderVO> selectProductOrderSaleAllInfo(PageObject pageObject);
+
+	int getProductOrderSaleAllTotalRow(PageObject pageObject);
+
 
 }

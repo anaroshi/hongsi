@@ -171,4 +171,15 @@ public class PurchshopController {
 		//model.addAttribute("saleStock", purchSaleService.selectSaleStock());	
 		return MODULE + "/saleAllList";
 	}
+
+	// ----------------------------------------------------- 생산/주문/판매 -----------------------------------------------------	
+	@GetMapping("posAllList.do")
+	public String posAllList(Model model, @ModelAttribute PageObject pageObject) throws Exception {
+		log.info(".............................saleAllList pageObject:"+pageObject);
+		// 생산/주문/판매 정보 리스트
+		model.addAttribute("list", purchOrderService.selectProductOrderSaleAllInfo(pageObject));	
+			
+		return MODULE + "/posAllList";
+	}
+	
 }

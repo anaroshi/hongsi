@@ -76,8 +76,8 @@ function fn_view(cno) {
 			    <span class="input-group-addon">구분</span>
 				<select id="gubun" name="gubun" class="form-control select">
 					<option value=""></option>
-		            <option value="구매_office" <c:if test="${pageObject.gubun=='구매_office'}">selected</c:if> >구매_office</option>
-		            <option value="구매_cafe" <c:if test="${pageObject.gubun=='구매_cafe'}">selected</c:if> >구매_cafe</option>
+		            <option value="구매_office" ${(pageObject.gubun=='구매_office')?"selected":""}>구매_office</option>
+		            <option value="구매_cafe" ${(pageObject.gubun=='구매_cafe')?"selected":""}>구매_cafe</option>
 				</select>
 			</div>
 		</div>  	
@@ -87,7 +87,7 @@ function fn_view(cno) {
 			      <select id="item" name="item" class="form-control select">
 			      	<option value=""></option>
 			      <c:forEach items="${ingreList}" var="vo">
-			      	<option value="${vo.code}" <c:if test="${pageObject.item==vo.code}">selected</c:if> >${vo.kname}</option>
+			      	<option value="${vo.code}" ${(pageObject.item==vo.code)?"selected":""}>${vo.kname}</option>
 			      </c:forEach>
 			      </select>	        
 	  		</div>
@@ -97,9 +97,9 @@ function fn_view(cno) {
 			    <span class="input-group-addon">거래처</span>
 				<select id="purShop" name="purShop" class="form-control select">
 					<option value=""></option>
-		            <option value="넛츠베리" <c:if test="${pageObject.purShop=='넛츠베리'}">selected</c:if> >넛츠베리</option>
-		            <option value="네이버쇼핑" <c:if test="${pageObject.purShop=='네이버쇼핑'}">selected</c:if> >네이버쇼핑</option>
-		            <option value="쿠팡" <c:if test="${pageObject.purShop=='쿠팡'}">selected</c:if> >쿠팡</option>
+		            <option value="넛츠베리" ${(pageObject.purShop=='넛츠베리')?"selected":""}>넛츠베리</option>
+		            <option value="네이버쇼핑" ${(pageObject.purShop=='네이버쇼핑')?"selected":""}>네이버쇼핑</option>
+		            <option value="쿠팡" ${(pageObject.purShop=='쿠팡')?"selected":""}>쿠팡</option>
 				</select>
 			</div>
 		</div>  	

@@ -117,7 +117,7 @@ function fn_update() {
 	      <select id="item" name="item" class="form-control select" required="required">
 	      	<option value=""></option>
 		      <c:forEach items="${ingreList}" var="vo">
-		      	<option value="${vo.code}" <c:if test="${storageInfo.item ==vo.code}">selected</c:if> >${vo.kname}</option>
+		      	<option value="${vo.code}" ${(storageInfo.item ==vo.code)?"selected":""}>${vo.kname}</option>
 		      </c:forEach>
 	      </select>	        
 	      </div>
@@ -126,12 +126,12 @@ function fn_update() {
 	      <label for="gubun" class="col-sm-3 control-label">구분</label>
 	      <div class="col-sm-8">
 			<select id="gubun" name="gubun" class="form-control select" required="required">
-	            <option value="출고" <c:if test="${storageInfo.gubun =='출고'}">selected</c:if> >출고</option>
-	            <option value="출고_office" <c:if test="${storageInfo.gubun=='출고_office'}">selected</c:if> >출고_office</option>
-	            <option value="출고_cafe" <c:if test="${storageInfo.gubun=='출고_cafe'}">selected</c:if> >출고_cafe</option>
-	            <option value="입고_office" <c:if test="${storageInfo.gubun=='입고_office'}">selected</c:if> >입고_office</option>
-	            <option value="입고_cafe" <c:if test="${storageInfo.gubun=='입고_cafe'}">selected</c:if> >입고_cafe</option>
-	            <option value="손실" <c:if test="${storageInfo.gubun=='손실'}">selected</c:if> >손실</option>
+	            <option value="출고" ${(storageInfo.gubun =='출고')?"selected":""}>출고</option>
+	            <option value="출고_office" ${(storageInfo.gubun=='출고_office')?"selected":""}>출고_office</option>
+	            <option value="출고_cafe" ${(storageInfo.gubun=='출고_cafe')?"selected":""}>출고_cafe</option>
+	            <option value="입고_office" ${(storageInfo.gubun=='입고_office')?"selected":""}>입고_office</option>
+	            <option value="입고_cafe" ${(storageInfo.gubun=='입고_cafe')?"selected":""}>입고_cafe</option>
+	            <option value="손실" ${(storageInfo.gubun=='손실')?"selected":""}>손실</option>
 			</select>
 	      </div>
 		</div>	    
@@ -157,8 +157,8 @@ function fn_update() {
 	      <label for="buyer" class="col-sm-3 control-label">담당자</label>
 	      <div class="col-sm-8">
 	      	<select id="buyer" name="buyer" class="form-control select">
-	            <option value="홍동호" <c:if test="${storageInfo.buyer=='홍동호'}">selected</c:if> >홍동호</option>
-	            <option value="대행인" <c:if test="${storageInfo.buyer=='대행인'}">selected</c:if> >대행인</option>
+	            <option value="홍동호" ${(storageInfo.buyer=='홍동호')?"selected":""}>홍동호</option>
+	            <option value="대행인" ${(storageInfo.buyer=='대행인')?"selected":""}>대행인</option>
 			</select>
 	      </div>
  		</div>	    

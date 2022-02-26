@@ -162,6 +162,7 @@ article {
 								<li><a href="${path }/purchshop/productAllList.do">생산</a></li>
 								<li><a href="${path }/purchshop/orderAllList.do">주문</a></li>
 								<li><a href="${path }/purchshop/saleAllList.do">판매</a></li>
+								<li><a href="${path }/purchshop/posAllList.do">생산/주문/판매</a></li>
 							</ul>
 						</li>
 						<li><a href="${path }/quantity/list.do">재료함량</a></li>

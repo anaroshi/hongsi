@@ -31,5 +31,7 @@ public interface PurchOrderService {
 
 	public PurchOrderVO selectOrderInfoByCno(int cno) throws Exception;
 
+	public List<PurchOrderVO> selectProductOrderSaleAllInfo(PageObject pageObject);
+
 	
 }

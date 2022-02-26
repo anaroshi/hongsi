@@ -71,13 +71,13 @@ $( function() {
 			    <span class="input-group-addon">구분</span>
 				<select id="gubun" name="gubun" class="form-control select">
 					<option value=""></option>
-		            <option value="출고" <c:if test="${pageObject.gubun=='출고'}">selected</c:if> >출고</option>
-		            <option value="출고_office" <c:if test="${pageObject.gubun=='출고_office'}">selected</c:if> >출고_office</option>
-		            <option value="출고_cafe" <c:if test="${pageObject.gubun=='출고_cafe'}">selected</c:if> >출고_cafe</option>
-		            <option value="입고" <c:if test="${pageObject.gubun=='입고'}">selected</c:if> >입고</option>
-		            <option value="입고_office" <c:if test="${pageObject.gubun=='입고_office'}">selected</c:if> >입고_office</option>
-		            <option value="입고_cafe" <c:if test="${pageObject.gubun=='입고_cafe'}">selected</c:if> >입고_cafe</option>
-		            <option value="손실" <c:if test="${pageObject.gubun=='손실'}">selected</c:if> >손실</option>
+		            <option value="출고" ${(pageObject.gubun=='출고')?"selected":""}>출고</option>
+		            <option value="출고_office" ${(pageObject.gubun=='출고_office')?"selected":""}>출고_office</option>
+		            <option value="출고_cafe" ${(pageObject.gubun=='출고_cafe')?"selected":""}>출고_cafe</option>
+		            <option value="입고" ${(pageObject.gubun=='입고')?"selected":""}>입고</option>
+		            <option value="입고_office" ${(pageObject.gubun=='입고_office')?"selected":""}>입고_office</option>
+		            <option value="입고_cafe" ${(pageObject.gubun=='입고_cafe')?"selected":""}>입고_cafe</option>
+		            <option value="손실" ${(pageObject.gubun=='손실')?"selected":""}>손실</option>
 				</select>
 			</div>
 		</div>  	
@@ -87,7 +87,7 @@ $( function() {
 			      <select id="item" name="item" class="form-control select">
 			      	<option value=""></option>
 			      <c:forEach items="${ingreList}" var="vo">
-			      	<option value="${vo.code}" <c:if test="${pageObject.item==vo.code}">selected</c:if> >${vo.kname}</option>
+			      	<option value="${vo.code}" ${(pageObject.item==vo.code)?"selected":""}>${vo.kname}</option>
 			      </c:forEach>
 			      </select>	        
 	  		</div>

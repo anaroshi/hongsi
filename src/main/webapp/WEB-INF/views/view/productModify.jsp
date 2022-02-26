@@ -247,10 +247,10 @@ function fn_update(cno) {
 						<label for="gubun" class="col-sm-3 control-label">구분</label>
 						<div class="col-sm-8">
 							<select id="gubun" name="gubun" class="form-control select">
-								<option value="생산" <c:if test="${productInfo.comm == '생산'}">selected</c:if> >생산</option>
-<%-- 								<option value="교환"<c:if test="${productInfo.comm == '교환'}">selected</c:if> >교환</option> --%>
-<%-- 								<option value="반품"<c:if test="${productInfo.comm == '반품'}">selected</c:if> >반품</option> --%>
-<%-- 								<option value="손실"<c:if test="${productInfo.comm == '손실'}">selected</c:if> >손실</option> --%>
+								<option value="생산" ${(productInfo.gubun=='생산')?"selected":""}>생산</option>
+<%-- 								<option value="교환"<c:if test="${productInfo.gubun == '교환'}">selected</c:if> >교환</option> --%>
+<%-- 								<option value="반품"<c:if test="${productInfo.gubun == '반품'}">selected</c:if> >반품</option> --%>
+<%-- 								<option value="손실"<c:if test="${productInfo.gubun == '손실'}">selected</c:if> >손실</option> --%>
 							</select>
 						</div>
 					</div>

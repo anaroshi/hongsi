@@ -217,11 +217,11 @@ function fn_view(cno) {
 	      <label for="gubun" class="col-sm-3 control-label">구분</label>
 	      <div class="col-sm-8">
 			<select id="gubun" name="gubun" class="form-control select">
-	            <option value="판매" <c:if test="${vo.gubun=='판매'}">selected</c:if> >판매</option>
-<%-- 	            <option value="교환" <c:if test="${vo.gubun=='교환'}">selected</c:if> >교환</option> --%>
-<%-- 	            <option value="반품" <c:if test="${vo.gubun=='반품'}">selected</c:if> >반품</option> --%>
-	            <option value="손실" <c:if test="${vo.gubun=='손실'}">selected</c:if> >손실</option>
-	            <option value="경비" <c:if test="${vo.gubun=='경비'}">selected</c:if> >경비</option>
+	            <option value="판매" ${(vo.gubun=='판매')?"selected":""}>판매</option>
+<%-- 	            <option value="교환" ${(vo.gubun=='교환')?"selected":""}>교환</option> --%>
+<%-- 	            <option value="반품" ${(vo.gubun=='반품')?"selected":""}>반품</option> --%>
+	            <option value="손실" ${(vo.gubun=='손실')?"selected":""}>손실</option>
+	            <option value="경비" ${(vo.gubun=='경비')?"selected":""}>경비</option>
 			</select>
 	      </div>
 	    </div>	    
@@ -246,10 +246,10 @@ function fn_view(cno) {
 	      <label for="salePath" class="col-sm-3 control-label">주문경로</label>
 	      <div class="col-sm-8">
 			<select id="salePath" name="salePath" class="form-control select">
-	            <option value="개별구매">개별구매</option>
-	            <option value="NAVER쇼핑">NAVER쇼핑</option>
-	            <option value="Homepage">Homepage</option>
-	            <option value="Homepage">쎈인생블로거</option>
+	            <option value="개별구매" ${(vo.salePath=='개별구매')?"selected":""}>개별구매</option>
+	            <option value="NAVER쇼핑" ${(vo.salePath=='NAVER쇼핑')?"selected":""}>NAVER쇼핑</option>
+	            <option value="Homepage" ${(vo.salePath=='Homepage')?"selected":""}>Homepage</option>
+	            <option value="Homepage" ${(vo.salePath=='쎈인생블로거')?"selected":""}>쎈인생블로거</option>
 			</select>
 	      </div>
 	    </div>	    
