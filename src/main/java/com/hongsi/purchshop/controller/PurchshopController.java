@@ -146,7 +146,7 @@ public class PurchshopController {
 		vo.setFlag(1);
 		
 		// 주문 정보에서 값을 가져와 판매 처리할 경우
-		// PURCHORDER 테이블에 STATUS에 'done' 입력하여 주문완료 처리를 해준다. 		
+		// PURCHORDER 테이블에 ADMIT에 'done' 입력하여 주문완료 처리를 해준다. 		
 		if (vo.getOrder_cno() > 0 ) {
 			long cno = vo.getOrder_cno();
 			int resuleUpdate = purchOrderService.updatePurchshopOrder(cno);

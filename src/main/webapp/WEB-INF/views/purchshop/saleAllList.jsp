@@ -57,7 +57,7 @@
 	        <th style="width: 5%; font-size: 9px">S1000</th>
 	        <th style="width: 5%; font-size: 9px">총갯수</th>
 	        <th style="width: 10%">금액</th>
-	        <th style="width: 8%">지불방식</th>
+	        <th style="width: 8%">주문자</th>
 	        <th style="width: 8%">배송</th>
       	</tr>
     </thead>
@@ -73,6 +73,7 @@
     	<c:set var="stc_1000_sum" value="0"/>
     	<c:set var="totalSale" value="0"/>
     	<c:set var="totalSale_sum" value="0"/>
+    	<c:set var="totalSalePrice_sum" value="0"/>
 <c:forEach items="${saleList}" var="vo">
       <tr class="dataRow" onclick="fn_view(${vo.cno}); return false;">
        	<c:set var="ori_250_sum" value="${ori_250_sum + vo.ori_250}"/>
@@ -87,6 +88,7 @@
     	<c:set var="totalSale" 
     		value="${ori_250 + vo.ori_500 + vo.ori_1000 + vo.erl_250 + vo.erl_500 + vo.erl_1000 + vo.stc_250 + vo.stc_500 + vo.stc_1000}"/>
     	<c:set var="totalSale_sum" value="${totalSale_sum + totalSale}"/>
+    	<c:set var="totalSalePrice_sum" value="${totalSalePrice_sum + vo.price}"/>
         <td>${vo.saleDate}</td>
         <td>${vo.gubun}</td>
         <td>${vo.salePath}</td>
@@ -101,7 +103,7 @@
         <td class="text-right">${vo.stc_1000}</td>
         <td class="text-right"><fmt:formatNumber value="${totalSale}" /></td>
         <td class="text-right"><fmt:formatNumber value="${vo.price}" /></td>
-        <td>${vo.paymentPath}</td>
+        <td>${vo.orderer}</td>
         <td>${vo.deleveryPath}</td>
       </tr>
 </c:forEach>
@@ -111,17 +113,17 @@
 	        <td></td>
 	        <td></td>
 	        <td></td>
-	        <th class="text-right">${ori_250_sum}</th>
-	        <th class="text-right">${ori_500_sum}</th>
-	        <th class="text-right">${ori_1000_sum}</th>
-	        <th class="text-right">${erl_250_sum}</th>
-	        <th class="text-right">${erl_500_sum}</th>
-	        <th class="text-right">${erl_1000_sum}</th>
-	        <th class="text-right">${stc_250_sum}</th>
-	        <th class="text-right">${stc_500_sum}</th>
-	        <th class="text-right">${stc_1000_sum}</th>
-	        <th class="text-right">${totalSale_sum}</th>
-	        <td></td>
+	        <th class="text-right"><fmt:formatNumber value="${ori_250_sum}" /></th>
+	        <th class="text-right"><fmt:formatNumber value="${ori_500_sum}" /></th>
+	        <th class="text-right"><fmt:formatNumber value="${ori_1000_sum}" /></th>
+	        <th class="text-right"><fmt:formatNumber value="${erl_250_sum}" /></th>
+	        <th class="text-right"><fmt:formatNumber value="${erl_500_sum}" /></th>
+	        <th class="text-right"><fmt:formatNumber value="${erl_1000_sum}" /></th>
+	        <th class="text-right"><fmt:formatNumber value="${stc_250_sum}" /></th>
+	        <th class="text-right"><fmt:formatNumber value="${stc_500_sum}" /></th>
+	        <th class="text-right"><fmt:formatNumber value="${stc_1000_sum}" /></th>
+	        <th class="text-right"><fmt:formatNumber value="${totalSale_sum}" /></th>
+	        <th class="text-right"><fmt:formatNumber value="${totalSalePrice_sum}" /></th>
 	        <td></td>
 	        <td></td>
       	</tr>

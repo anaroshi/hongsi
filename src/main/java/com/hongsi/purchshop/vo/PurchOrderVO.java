@@ -24,6 +24,7 @@ public class PurchOrderVO {
 	private String 	orderer;	// 주문자
 	private String 	comm;		// 비고
 	private String 	manager;	// 담당자
+	private String 	admit;		// 판매처리 여부
 	
 	private long 	ori_250_sum;	// ori_250 주단위 주문갯수
 	private long 	ori_500_sum;	// ori_500 주단위 주문갯수

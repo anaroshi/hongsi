@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="pageObject" %>
 <!DOCTYPE html>
 <html>
@@ -41,20 +42,20 @@
 			<td colspan="15" class="text-center"><h5>생산 LIST</h5></td>    	
 		</tr>
        <tr>
-        <th style="width: 9%">생산일</th>
-        <th style="width: 6%">구분</th>
-        <th style="width: 6%">O250</th>
-        <th style="width: 6%">O500</th>
-        <th style="width: 6%">O1000</th>
-        <th style="width: 6%">E250</th>
-        <th style="width: 6%">E500</th>
-        <th style="width: 6%">E1000</th>
-        <th style="width: 6%">S250</th>
-        <th style="width: 6%">S500</th>
-        <th style="width: 6%">S1000</th>
+        <th style="width: 8%">생산일</th>
+        <th style="width: 5%">구분</th>
+        <th style="width: 5%">O250</th>
+        <th style="width: 5%">O500</th>
+        <th style="width: 5%">O1000</th>
+        <th style="width: 5%">E250</th>
+        <th style="width: 5%">E500</th>
+        <th style="width: 5%">E1000</th>
+        <th style="width: 5%">S250</th>
+        <th style="width: 5%">S500</th>
+        <th style="width: 5%">S1000</th>
         <th style="width: 6%">총갯수</th>
         <th style="width: 8%">총생산량</th>
-        <th style="width: 17%">비고</th>
+        <th style="width: 28%">비고</th>
       </tr>
     </thead>
     <tbody>
@@ -107,17 +108,17 @@
       	<tr>
 	        <td></td>
 	        <td></td>
-	        <th class="text-right">${ori_250_sum}</th>
-	        <th class="text-right">${ori_500_sum}</th>
-	        <th class="text-right">${ori_1000_sum}</th>
-	        <th class="text-right">${erl_250_sum}</th>
-	        <th class="text-right">${erl_500_sum}</th>
-	        <th class="text-right">${erl_1000_sum}</th>
-	        <th class="text-right">${stc_250_sum}</th>
-	        <th class="text-right">${stc_500_sum}</th>
-	        <th class="text-right">${stc_1000_sum}</th>
-	        <th class="text-right">${totalProduct_sum}</th>
-	        <th>${totalGram_sum}</th>
+	        <th class="text-right"><fmt:formatNumber value="${ori_250_sum}" /></th>
+	        <th class="text-right"><fmt:formatNumber value="${ori_500_sum}" /></th>
+	        <th class="text-right"><fmt:formatNumber value="${ori_1000_sum}" /></th>
+	        <th class="text-right"><fmt:formatNumber value="${erl_250_sum}" /></th>
+	        <th class="text-right"><fmt:formatNumber value="${erl_500_sum}" /></th>
+	        <th class="text-right"><fmt:formatNumber value="${erl_1000_sum}" /></th>
+	        <th class="text-right"><fmt:formatNumber value="${stc_250_sum}" /></th>
+	        <th class="text-right"><fmt:formatNumber value="${stc_500_sum}" /></th>
+	        <th class="text-right"><fmt:formatNumber value="${stc_1000_sum}" /></th>
+	        <th class="text-right"><fmt:formatNumber value="${totalProduct_sum}" /></th>
+	        <th class="text-right"><fmt:formatNumber value="${totalGram_sum}" /></th>
       	</tr>
     </tfoot> 
   </table>
