@@ -39,7 +39,7 @@
 	) VALUES (
 		PURCHSALE_PK.NEXTVAL,
 		#{order_cno},
-		#{saleDate},
+		#{saleDate, jdbcType=DATE},
 		#{ori_250},
 		#{ori_500},
 		#{ori_1000},
@@ -53,10 +53,10 @@
 		#{price},
 		#{paymentPath},
 		#{salePath},
-		TO_DATE(#{deleveryDate},'YYYY-MM-DD'),
+		#{deleveryDate, jdbcType=DATE},
 		#{deleveryPath},
 		#{orderer},
-		TO_DATE(#{orderDate},'YYYY-MM-DD'),
+		#{orderDate, jdbcType=DATE},
 		#{comm},
 		#{manager},
 		#{gubunCode},
@@ -124,7 +124,7 @@
 			SELECT 	 
 				CNO,
 				ORDER_CNO,
-				SALEDATE,
+				SALEDATE,				
 				ORI_250,
 				ORI_500,
 				ORI_1000,
@@ -138,10 +138,10 @@
 				PRICE,
 				PAYMENTPATH,
 				SALEPATH,
-				TO_CHAR(DELEVERYDATE, 'yyyy-MM-dd') DELEVERYDATE,
+				DELEVERYDATE,
 				DELEVERYPATH,
 				ORDERER,
-				TO_CHAR(ORDERDATE, 'yyyy-MM-dd') ORDERDATE,
+				ORDERDATE,
 				COMM,
 				MANAGER,
 				GUBUNCODE,
@@ -413,7 +413,7 @@
 	<!--판매 정보 구하기 By Cno -->
 	<select id="selectSaleInfoByCno" resultType="com.hongsi.purchshop.vo.PurchSaleVO">
 	SELECT
-		CNO,		
+		CNO,
 		SALEDATE,
 		ORI_250,
 		ORI_500,
@@ -428,10 +428,10 @@
 		PRICE,
 		PAYMENTPATH,
 		SALEPATH,
-		TO_CHAR(DELEVERYDATE, 'yyyy-MM-dd') DELEVERYDATE,
+		DELEVERYDATE,
 		DELEVERYPATH,
 		ORDERER,
-		TO_CHAR(ORDERDATE, 'yyyy-MM-dd') ORDERDATE,
+		ORDERDATE,
 		COMM,
 		MANAGER
 	FROM 	PURCH_SALE
@@ -449,7 +449,7 @@
 	<!-- 판매 정보 수정 -->
 	<update id="updateSaleInfoByCno">
 	UPDATE 	PURCH_SALE
-	SET 	SALEDATE = #{saleDate},
+	SET 	SALEDATE = #{saleDate, jdbcType=DATE},
 			ORI_250 = #{ori_250},
 			ORI_500 = #{ori_500},
 			ORI_1000 = #{ori_1000},
@@ -463,10 +463,10 @@
 			PRICE = #{price},
 			PAYMENTPATH = #{paymentPath},
 			SALEPATH = #{salePath},
-			DELEVERYDATE = TO_DATE(#{deleveryDate},'YYYYMMDD'),
+			DELEVERYDATE = #{deleveryDate, jdbcType=DATE},
 			DELEVERYPATH = #{deleveryPath},
 			COMM = #{comm},
-			ORDERDATE = TO_DATE(#{orderDate},'YYYYMMDD'),
+			ORDERDATE = #{orderDate, jdbcType=DATE},
 			ORDERER = #{orderer},
 			MANAGER = #{manager},
 			GUBUNCODE = #{gubunCode},
@@ -474,5 +474,4 @@
 			UDATE = SYSDATE
 	WHERE 	CNO  = #{cno}	
 	</update>
-	
 </mapper>

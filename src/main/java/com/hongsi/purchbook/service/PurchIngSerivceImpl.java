@@ -1,6 +1,5 @@
 package com.hongsi.purchbook.service;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -59,10 +58,10 @@ public class PurchIngSerivceImpl implements PurchIngSerivce {
 			else if(gubun.equals("손실")) vo.setGubunCode("out");
 			else if(gubun.equals("취소")) vo.setGubunCode("out");
 			
-			String inDate = vo.getInDate();
-			vo.setInDate(inDate.replace("/", ""));
-			vo.setInDate(inDate.replace(".", ""));
-			vo.setInDate(inDate.replace("-", ""));
+//			String inDate = vo.getInDate();
+//			vo.setInDate(inDate.replace("/", ""));
+//			vo.setInDate(inDate.replace(".", ""));
+//			vo.setInDate(inDate.replace("-", ""));
 		}
 		
 		if (status.equals("storage")) {
@@ -74,8 +73,7 @@ public class PurchIngSerivceImpl implements PurchIngSerivce {
 			else if(gubun.equals("입고_cafe")) vo.setGubunCode("in");
 			else if(gubun.equals("손실")) vo.setGubunCode("out");
 			else if(gubun.equals("취소")) vo.setGubunCode("out");
-			vo.setPurShop("");
-			vo.setInDate(new SimpleDateFormat("yyyyMMdd").format(vo.getBuyDate()));
+			vo.setPurShop("");			
 		}		
 		log.info("------------------ing impl vo:"+vo);
 		return mapper.insertIng(vo);
@@ -123,10 +121,10 @@ public class PurchIngSerivceImpl implements PurchIngSerivce {
 			else if(gubun.equals("손실")) vo.setGubunCode("out");
 			else if(gubun.equals("취소")) vo.setGubunCode("out");
 			
-			String inDate = vo.getInDate();
-			vo.setInDate(inDate.replace("/", ""));
-			vo.setInDate(inDate.replace(".", ""));
-			vo.setInDate(inDate.replace("-", ""));
+//			String inDate = vo.getInDate();
+//			vo.setInDate(inDate.replace("/", ""));
+//			vo.setInDate(inDate.replace(".", ""));
+//			vo.setInDate(inDate.replace("-", ""));
 		}
 		
 		if (status.equals("storage")) {
@@ -138,8 +136,7 @@ public class PurchIngSerivceImpl implements PurchIngSerivce {
 			else if(gubun.equals("입고_cafe")) vo.setGubunCode("in");
 			else if(gubun.equals("손실")) vo.setGubunCode("out");
 			else if(gubun.equals("취소")) vo.setGubunCode("out");
-			vo.setPurShop("");
-			vo.setInDate(new SimpleDateFormat("yyyyMMdd").format(vo.getBuyDate()));
+			vo.setPurShop("");			
 		}		
 		log.info("------------------ing impl vo:"+vo);
 		return mapper.updateIng(vo);

@@ -158,14 +158,14 @@
 			(
 			SELECT 
 					CNO,
-					TO_CHAR(BUYDATE, 'yyyy-MM-dd') BUYDATE,
+					BUYDATE,
 					ITEM,
 					GUBUN,
 					CONTENT,		
 					QTY,					
 					PRICE,
 					PURSHOP,			
-					TO_CHAR(INDATE, 'yyyy-MM-dd')  INDATE,
+					INDATE,
 					COMM,		
 					RDATE,
 					SUMQTY		
@@ -214,14 +214,14 @@
 	(
 	SELECT 
 			CNO,
-			TO_CHAR(BUYDATE, 'yyyy-MM-dd') BUYDATE,
+			BUYDATE,
 			ITEM,
 			GUBUN,
 			CONTENT,		
 			QTY,		
 			PRICE,
 			PURSHOP,			
-			TO_CHAR(INDATE, 'yyyy-MM-dd')  INDATE,
+			INDATE,
 			COMM,
 			BUYER,
 			SUMQTY		
@@ -261,7 +261,7 @@
 	(
 		SELECT 
 			CNO,
-			TO_CHAR(BUYDATE, 'yyyy-MM-dd') BUYDATE,
+			BUYDATE,
 			ITEM,
 			GUBUN,
 			CONTENT,		
@@ -327,14 +327,14 @@
 			(
 				SELECT 
 					CNO,
-					TO_CHAR(BUYDATE, 'yyyy-MM-dd') BUYDATE,
+					BUYDATE,
 					ITEM,
 					GUBUN,
 					CONTENT,		
 					QTY,		
 					PRICE,
 					PURSHOP,
-					TO_CHAR(INDATE, 'yyyy-MM-dd') INDATE,
+					INDATE,
 					RDATE	
 				FROM PURCH_ING
 				WHERE 	INDATE IS NOT NULL
@@ -381,14 +381,14 @@
 		FLAG
 	) VALUES (
 		PURCH_ING_PK.NEXTVAL,
-		#{buyDate},
+		#{buyDate, jdbcType=DATE},
 		#{item},
 		#{gubun},
 		#{content},
 		#{qty},		
 		#{price},
 		#{purShop},
-		TO_DATE(#{inDate},'YYYYMMDD'),
+		#{inDate, jdbcType=DATE},
 		#{comm},
 		#{buyer},
 		#{content} * #{qty},
@@ -484,7 +484,7 @@
 	<!-- 	재료구매 화면에서 입력일 입력 -->
 	<update id="updateInDate">
 	UPDATE PURCH_ING 
-	SET INDATE = TO_DATE(#{inDate},'YYYY-MM-DD'), FLAG = 2	
+	SET INDATE = #{inDate, jdbcType=DATE}, FLAG = 2	
 	WHERE CNO = #{cno}	
 	</update>	
 
@@ -531,7 +531,7 @@
 			(
 				SELECT 
 					CNO,
-					TO_CHAR(BUYDATE, 'yyyy-MM-dd') BUYDATE,
+					BUYDATE,
 					ITEM,
 					GUBUN,
 					CONTENT,		
@@ -567,14 +567,14 @@
 	<!-- 재료 구매 정보 수정 처리 -->
 	<update id="updateIng">
 	UPDATE 	PURCH_ING
-	SET		BUYDATE = #{buyDate},		
+	SET		BUYDATE = #{buyDate, jdbcType=DATE},		
 			ITEM 	= #{item},		
 			GUBUN 	= #{gubun},
 			CONTENT = #{content},
 			QTY 	= #{qty},
 			PRICE	= #{price},
 			PURSHOP = #{purShop},
-			INDATE 	= TO_DATE(#{inDate},'YYYYMMDD'),
+			INDATE 	= #{inDate, jdbcType=DATE},
 			COMM 	= #{comm},
 			BUYER 	= #{buyer},
 			SUMQTY 	= #{content} * #{qty},
@@ -781,12 +781,12 @@
 			(
 			SELECT 
 					CNO,
-					TO_CHAR(BUYDATE, 'yyyy-MM-dd') BUYDATE,
+					BUYDATE,
 					ITEM,
 					GUBUN,
 					SUMQTY,
 					PURSHOP,			
-					TO_CHAR(INDATE, 'yyyy-MM-dd')  INDATE,
+					INDATE,
 					COMM,		
 					RDATE	
 				FROM PURCH_ING

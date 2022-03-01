@@ -116,7 +116,8 @@ function fn_view(cno, gubun) {
 				<div class="input-group">			
 				    <span class="input-group-addon">입고일</span>			    
 				    <input type="text" name="inDate" id="inDate" class="form-control inputDate flatpickr flatpickr-input" 
-				    		value="${pageObject.inDate}" style="background: #FFFFFF; text-align: center; font-size:10px; padding-left: 0px; padding-right: 0px;" placeholder="일자를 선택해주세요">
+				    		value="${pageObject.inDate}"
+				    		style="background: #FFFFFF; text-align: center; font-size:10px; padding-left: 0px; padding-right: 0px;" placeholder="일자를 선택해주세요">
 				    		<!-- onchange="if(this.value.indexOf('~') > -1) location.href='hotel.php?category=&amp;date=' + this.value;" > -->
 			  	</div>					
 			</div>
@@ -154,12 +155,12 @@ function fn_view(cno, gubun) {
 		 		<c:if test="${vo.gubun ne '출고' && vo.gubun ne '출고_office' && vo.gubun ne '출고_cafe' && vo.gubun ne '손실'}"><c:set var="sumqtySum" value="${sumqtySum + vo.sumQty}"/></c:if>
 		 		<c:if test="${vo.gubun eq '출고' || vo.gubun eq '출고_office' || vo.gubun eq '출고_cafe' || vo.gubun eq '손실'}"><c:set var="sumqtySum" value="${sumqtySum - vo.sumQty}"/></c:if>
 		 		<td class="cno" style="display:none">${vo.cno}</td>
-		        <td>${vo.buyDate}</td>
+		        <td><fmt:formatDate value="${vo.buyDate}" pattern="yyyy-MM-dd" /></td>
 		        <td>${vo.gubun}</td>
 		        <td>${vo.item}</td>
 		        <td class="text-right"><fmt:formatNumber value="${vo.sumQty}" /></td>
 		        <td>${vo.purShop}</td>
-		        <td>${vo.inDate}</td>
+		        <td><fmt:formatDate value="${vo.inDate}" pattern="yyyy-MM-dd" /></td>
 		        <td>${vo.comm}</td>
 		    </tr>
 			</c:forEach>

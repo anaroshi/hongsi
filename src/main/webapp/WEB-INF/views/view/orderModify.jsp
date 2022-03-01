@@ -244,7 +244,8 @@ function fn_update() {
 						<label for="orderDate" class="col-sm-3 control-label">주문일자</label>
 						<div class="col-sm-8">
 							<input class="form-control inputDate flatpickr flatpickr-input" id="orderDate" name="orderDate" 
-									style="background: #FFFFFF;" type="text" value="${orderInfo.orderDate}" required="required" placeholder="일자를 선택해주세요" data-input>
+									style="background: #FFFFFF;" type="text" value='<fmt:formatDate value="${orderInfo.orderDate}" pattern="yyyy-MM-dd" />' 
+									required="required" placeholder="일자를 선택해주세요" data-input>
 						</div>
 					</div>
 					<div class="form-group">

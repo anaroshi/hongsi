@@ -1,6 +1,8 @@
 package com.hongsi.purchshop.vo;
 
-import java.sql.Date;
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 
@@ -8,7 +10,10 @@ import lombok.Data;
 public class PurchProductVO {
 	
 	// 생산 정보
-	private long 	cno;		// cno	
+	private long 	cno;		// cno
+	// 날짜 입력할 때만 해당된다.
+	// 화면의 날짜 형식이 String이므로 날짜형식에 맞지 않아서 형식은 맞춰서 입력을 받아야 오류가 나지 않는다.
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date 	productDate;	// 생산일자 
 	private long 	ori_250;	// ori_250 생산 갯수
 	private long 	ori_500;	// ori_500 생산 갯수

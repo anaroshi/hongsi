@@ -108,7 +108,8 @@ function fn_update() {
 	      <label for="buyDate" class="col-sm-3 control-label">입출고일</label>
 	      <div class="col-sm-8">
 			<input class="form-control inputDate flatpickr flatpickr-input" id="buyDate" name="buyDate" type="text" 
-					style="background: #FFFFFF;" value="${storageInfo.buyDate}" required="required" placeholder="일자를 선택해주세요" data-input>
+					style="background: #FFFFFF;" value='<fmt:formatDate value="${storageInfo.buyDate}" pattern="yyyy-MM-dd" />' 
+					required="required" placeholder="일자를 선택해주세요" data-input>
 	      </div>
 		</div>
 	    <div class="form-group">

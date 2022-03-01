@@ -87,7 +87,7 @@
     		value="${vo.ori_250+vo.ori_500+vo.ori_1000+vo.erl_250+vo.erl_500+vo.erl_1000+vo.stc_250+vo.stc_500+vo.stc_1000}"/>
     	<c:set var="totalProduct_sum" 
     		value="${totalProduct_sum+totalProduct}"/>
-        <td>${vo.productDate}</td>
+        <td><fmt:formatDate value="${vo.productDate}" pattern="yyyy-MM-dd" /></td>
         <td>${vo.gubun}</td>
         <td class="text-right">${vo.ori_250}</td>
         <td class="text-right">${vo.ori_500}</td>

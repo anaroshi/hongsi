@@ -69,12 +69,12 @@ public class PurchSaleServiceImpl implements PurchSaleService {
 
 	@Override
 	public int updateSaleInfoByCno(PurchSaleVO vo) {
-		vo.setOrderDate(vo.getOrderDate().replace("/", ""));
-		vo.setOrderDate(vo.getOrderDate().replace(".", ""));
-		vo.setOrderDate(vo.getOrderDate().replace("-", ""));
-		vo.setDeleveryDate(vo.getDeleveryDate().replace("/", ""));
-		vo.setDeleveryDate(vo.getDeleveryDate().replace(".", ""));
-		vo.setDeleveryDate(vo.getDeleveryDate().replace("-", ""));
+//		vo.setOrderDate(vo.getOrderDate().replace("/", ""));
+//		vo.setOrderDate(vo.getOrderDate().replace(".", ""));
+//		vo.setOrderDate(vo.getOrderDate().replace("-", ""));
+//		vo.setDeleveryDate(vo.getDeleveryDate().replace("/", ""));
+//		vo.setDeleveryDate(vo.getDeleveryDate().replace(".", ""));
+//		vo.setDeleveryDate(vo.getDeleveryDate().replace("-", ""));
 		if(vo.getGubun().equals("판매")) vo.setGubunCode("out");
 		else if(vo.getGubun().equals("교환출고")) vo.setGubunCode("out");
 		else if(vo.getGubun().equals("교환입고")) vo.setGubunCode("in");

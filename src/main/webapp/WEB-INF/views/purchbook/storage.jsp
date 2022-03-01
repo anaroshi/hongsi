@@ -196,7 +196,7 @@ function fn_item(kname) {
 	<c:forEach items="${resultList}" var="vo" varStatus="status">
 	 	<tr class="dataRow" onclick="fn_view(${vo.cno}); return false;">
 	 		<td class="cno" style="display:none">${vo.cno}</td>
-	        <td class="buyDate">${vo.buyDate}</td>
+	        <td class="buyDate"><fmt:formatDate value="${vo.buyDate}" pattern="yyyy-MM-dd" /></td>
 	        <td class="gubun">${vo.gubun}</td>	        
 	        <td class="kname">${vo.kname}</td>
 	        <td class="content text-right"><fmt:formatNumber value="${vo.content}" /> g</td>

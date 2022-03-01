@@ -241,26 +241,28 @@ function fn_item(kname) {
 <table class="table table-striped">
    <thead>    
 	<tr>        
-        <th width="17%">주문일</th>
-        <th width="12%">구분</th>
+        <th width="16%">주문일</th>
+        <th width="7%">구분</th>
         <th width="20%">주문품</th>
         <th width="22%" style="display:none">주문품</th>
         <th width="9%">용량</th>
-        <th width="9%">수량</th>
-        <th width="16%">거래처</th>
+        <th width="7%">수량</th>
+        <th width="15%">거래처</th>
+        <th width="10%">입고일</th>
       </tr>
     </thead>
     <tbody>
 <c:forEach items="${buyList}" var="vo" varStatus="status">
  	<tr class="dataRow orderRow"> 		
  		<td class="cno" style="display:none">${vo.cno}</td>
-        <td class="buyDate">${vo.buyDate}</td>
+        <td class="buyDate"><fmt:formatDate value="${vo.buyDate}" pattern="yyyy-MM-dd" /></td>
         <td class="gubun" style="font-size: 11px;">${vo.gubun}</td>
         <td class="item" style="display:none">${vo.item}</td>
         <td class="kname">${vo.kname}</td>
         <td class="content text-right"><fmt:formatNumber value="${vo.content}" /></td>
         <td class="qty text-right">${vo.qty}</td>
         <td class="purShop">${vo.purShop}</td>
+        <td></td>
     </tr>
 </c:forEach>
     </tbody>
@@ -283,14 +285,14 @@ function fn_item(kname) {
 <c:forEach items="${buyInList}" var="vo" varStatus="status">
 	<tr class="dataRow" onclick="fn_view(${vo.cno}); return false;"> 	
  		<td class="cno" style="display:none">${vo.cno}</td>
-        <td class="buyDate" style="font-size: 11px;">${vo.buyDate}</td>
+        <td class="buyDate" style="font-size: 11px;"><fmt:formatDate value="${vo.buyDate}" pattern="yyyy-MM-dd" /></td>
         <td class="gubun" style="font-size: 11px;">${vo.gubun}</td>
         <td class="item" style="display:none">${vo.item}</td>
         <td class="kname">${vo.kname}</td>
         <td class="content text-right"><fmt:formatNumber value="${vo.content}" /></td>
         <td class="qty text-right">${vo.qty}</td>
         <td class="purShop" style="font-size: 11px;">${vo.purShop}</td>
-        <td class="purShop" style="font-size: 11px;">${vo.inDate}</td>
+        <td class="inDate" style="font-size: 11px;"><fmt:formatDate value="${vo.inDate}" pattern="yyyy-MM-dd" /></td>
     </tr>
 </c:forEach>
     </tbody>

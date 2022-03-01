@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="pageObject" %>
 <!DOCTYPE html>
 <html>
@@ -186,7 +187,8 @@ function fn_view(cno) {
 		<label for="orderDate" class="col-sm-4 control-label">주문일</label>
 	    <div class="col-sm-7">
 			<input class="form-control inputDate flatpickr flatpickr-input" id="orderDate" name="orderDate" 
-					style="background: #FFFFFF;" type="text" value="${vo.orderDate}" data-input>
+					style="background: #FFFFFF;" type="text" value='<fmt:formatDate value="${vo.orderDate}" pattern="yyyy-MM-dd" />' 
+					required="required" placeholder="일자를 선택해주세요" data-input>
       	</div>
 	</div>
 	<div class="form-group">
@@ -301,7 +303,7 @@ function fn_view(cno) {
 	  <table class="table table-striped orderListTable">
 	    <thead>
 	      <tr>
-	        <th  style="width: 15%">일자</th>
+	        <th  style="width: 15%">주문일</th>
 	        <th  style="width: 10%">구분</th>
 	        <th  style="width: 15%">주문경로</th>
 	        <th style="width: 50%">주문내역 ( 판매 대기 )</th>
@@ -312,7 +314,7 @@ function fn_view(cno) {
 	<c:forEach items="${orderList}" var="vo">
 	      <tr class="dataRow" id="dataRow">
 	        <td class="order_cno" style="display:none">${vo.cno}</td>
-	        <td>${vo.orderDate}</td>
+	        <td><fmt:formatDate value="${vo.orderDate}" pattern="yyyy-MM-dd" /></td>
 	        <td>${vo.gubun}</td>
 	        <td>${vo.salePath}</td>
 	        <td>${vo.ori_250_format}${vo.erl_250_format}${vo.stc_250_format}</td>
@@ -348,7 +350,7 @@ function fn_view(cno) {
     <tbody>
 <c:forEach items="${saleList}" var="vo">
       <tr class="dataRow" onclick="fn_view(${vo.cno}); return false;">
-        <td>${vo.saleDate}</td>
+        <td><fmt:formatDate value="${vo.saleDate}" pattern="yyyy-MM-dd" /></td>
         <td>${vo.gubun}</td>
         <td style="font-size: 11px;">${vo.salePath}</td>
         <td>${vo.ori_250}</td>

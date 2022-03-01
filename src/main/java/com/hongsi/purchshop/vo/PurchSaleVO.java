@@ -1,6 +1,8 @@
 package com.hongsi.purchshop.vo;
 
-import java.sql.Date;
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 
@@ -10,6 +12,9 @@ public class PurchSaleVO {
 	// 판매 정보
 	private long 	cno;		// cno
 	private long 	order_cno;	// 주문 cno
+	// 날짜 입력할 때만 해당된다.
+	// 화면의 날짜 형식이 String이므로 날짜형식에 맞지 않아서 형식은 맞춰서 입력을 받아야 오류가 나지 않는다.
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date 	saleDate;	// 판매일자/생산일자 
 	private long 	ori_250;	// ori_250 판매갯수
 	private long 	ori_500;	// ori_500 판매갯수
@@ -24,14 +29,16 @@ public class PurchSaleVO {
 	private long 	price;		// 금액
 	private String 	paymentPath;// 지불방법
 	private String  salePath;	// 판매경로 : 개별구매, Naver쇼핑, 홈페이지, 쎈인생블로거
-	private String 	deleveryDate;	// 배송일 
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date 	deleveryDate;	// 배송일 
 	private String  deleveryPath;	// 배송방법 : 택배, 고객수령, 직접배송
 	private String 	orderer;	// 주문자
 	private String 	comm;		// 비고
 	private String 	manager;	// 담당자	
 	private String 	gubunCode;	// 담당자	
 	private String 	status;		// 담당자	
-	private String 	orderDate;	// 주문일 
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date 	orderDate;	// 주문일 
 	
 	private long 	ori_250_sum;	// ori_250 판매 갯수
 	private long 	ori_500_sum;	// ori_500 판매 갯수

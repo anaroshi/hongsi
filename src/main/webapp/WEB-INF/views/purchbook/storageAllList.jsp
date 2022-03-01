@@ -121,7 +121,7 @@ $( function() {
 	 		<c:if test="${vo.gubun ne '출고' && vo.gubun ne '출고_office' && vo.gubun ne '출고_cafe' && vo.gubun ne '손실'}"><c:set var="sumqtySum" value="${sumqtySum + vo.content}"/></c:if>
 	 		<c:if test="${vo.gubun eq '출고' || vo.gubun eq '출고_office' || vo.gubun eq '출고_cafe' || vo.gubun eq '손실'}"><c:set var="sumqtySum" value="${sumqtySum - vo.content}"/></c:if>
 	 		<td class="cno" style="display:none">${vo.cno}</td>
-	        <td class="buyDate">${vo.buyDate}</td>
+	        <td class="buyDate"><fmt:formatDate value="${vo.buyDate}" pattern="yyyy-MM-dd" /></td>
 	        <td class="gubun">${vo.gubun}</td>
 	        <td class="item" style="display:none">${vo.item}</td>
 	        <td class="kname">${vo.kname}</td>

@@ -237,7 +237,8 @@ function fn_update() {
 						<label for="saleDate" class="col-sm-3 control-label">판매일</label>
 						<div class="col-sm-8">
 							<input class="form-control inputDate flatpickr flatpickr-input" id="saleDate" name="saleDate" type="text" 
-									style="background: #FFFFFF;" value="${saleInfo.saleDate}" required="required" placeholder="일자를 선택해주세요" data-input>
+									style="background: #FFFFFF;" value='<fmt:formatDate value="${saleInfo.saleDate}" pattern="yyyy-MM-dd" />' 
+									required="required" placeholder="일자를 선택해주세요" data-input>
 						</div>
 					</div>
 
@@ -289,7 +290,7 @@ function fn_update() {
 						<label for="deleveryDate" class="col-sm-3 control-label">수령일</label>
 						<div class="col-sm-8">
 							<input class="form-control inputDate flatpickr flatpickr-input" id="deleveryDate" name="deleveryDate" 
-									style="background: #FFFFFF;" type="text" value="${saleInfo.deleveryDate}" placeholder="일자를 선택해주세요" data-input>
+									style="background: #FFFFFF;" type="text" value='<fmt:formatDate value="${saleInfo.deleveryDate}" pattern="yyyy-MM-dd" />' placeholder="일자를 선택해주세요" data-input>
 						</div>
 					</div>
 					<div class="form-group">
@@ -318,7 +319,7 @@ function fn_update() {
 						<label for="orderDate" class="col-sm-3 control-label">주문일</label>
 					    <div class="col-sm-8">
 							<input class="form-control inputDate flatpickr flatpickr-input" id="orderDate" name="orderDate" 
-									style="background: #FFFFFF;" type="text" value="${saleInfo.orderDate}" placeholder="일자를 선택해주세요" data-input>
+									style="background: #FFFFFF;" type="text" value='<fmt:formatDate value="${saleInfo.orderDate}" pattern="yyyy-MM-dd" />' placeholder="일자를 선택해주세요" data-input>
 				      	</div>
 					</div>
 					<div class="form-group">

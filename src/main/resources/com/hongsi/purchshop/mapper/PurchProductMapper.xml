@@ -30,7 +30,7 @@
 		FLAG
 	) VALUES (
 		PURCHPRODUCT_PK.NEXTVAL,
-		#{productDate},
+		#{productDate, jdbcType=DATE},
 		#{ori_250},
 		#{ori_500},
 		#{ori_1000},
@@ -232,7 +232,7 @@
 	<!-- 생산정보 수정하기 by CNO --> 
 	<update id="updateProductInfoByCno">
 	UPDATE	PURCH_PRODUCT
-	SET		PRODUCTDATE = #{productDate},
+	SET		PRODUCTDATE = #{productDate, jdbcType=DATE},
 			ORI_250 = #{ori_250},
 			ORI_500 = #{ori_500},
 			ORI_1000 = #{ori_1000},

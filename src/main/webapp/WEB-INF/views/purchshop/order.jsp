@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="pageObject" %>
 <!DOCTYPE html>
 <html>
@@ -91,8 +92,9 @@ function fn_view(cno) {
 	var w = 1000;
 	var h = 470;
 	// &buyDate=${param.buyDate}
-	//let query = "&page=${param.page}&perPageNum=${param.perPageNum}";	
-	var url = "../view/orderModify.do?cno="+cno+"&locate=1";
+	//let query = "&page=${param.page}&perPageNum=${param.perPageNum}";
+	let query = ${(empty pageObject)?"''":"'&page="+=pageObject.page+="&perPageNum="+=pageObject.perPageNum+="'" };	
+	var url = "../view/orderModify.do?cno="+cno+"&locate=1"+query;;
 	
 	var xPos = (document.body.offsetWidth/2) - (w/2); // 가운데 정렬
 	xPos += window.screenLeft; // 듀얼 모니터일 때
@@ -250,7 +252,7 @@ function fn_view(cno) {
     <tbody>
 <c:forEach items="${orderList}" var="vo">
       <tr class="dataRow" onclick="fn_view(${vo.cno}); return false;">
-        <td>${vo.orderDate}</td>
+        <td><fmt:formatDate value="${vo.orderDate}" pattern="yyyy-MM-dd" /></td>
         <td>${vo.gubun}</td>
         <td>${vo.ori_250_format}${vo.erl_250_format}${vo.stc_250_format}</td>
         <td>${vo.orderer}</td>

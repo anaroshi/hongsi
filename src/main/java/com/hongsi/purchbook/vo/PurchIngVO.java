@@ -1,6 +1,8 @@
 package com.hongsi.purchbook.vo;
 
-import java.sql.Date;
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 
@@ -8,6 +10,9 @@ import lombok.Data;
 public class PurchIngVO {
 
 	private long 	cno;			// unq
+	// 날짜 입력할 때만 해당된다.
+	// 화면의 날짜 형식이 String이므로 날짜형식에 맞지 않아서 형식은 맞춰서 입력을 받아야 오류가 나지 않는다.
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date 	buyDate;		// 구매일자
 	private String 	item;			// 구매품
 	private String 	gubun;			// 입출고구분
@@ -15,10 +20,12 @@ public class PurchIngVO {
 	private long 	qty;			// 구매갯수 / 수량
 	private long 	sumQty;			// 구매갯수 / 수량
 	private long 	price;			// 구매금액
-	private String 	purShop; 		// 구매 / 거래처	
-	private String 	inDate;			// 입고일자
+	private String 	purShop; 		// 구매 / 거래처
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date 	inDate;			// 입고일자
 	private String 	comm;			// 내역 / 비고
 	private String 	buyer;			// 구매자
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date 	rDate;			// 입력일
 	
 	private String  kname;			// 구매품 이름

@@ -153,7 +153,7 @@ function fn_view(cno) {
  		<c:set var="sumqtySum" value="${sumqtySum + vo.sumQty}"/>
  		<c:set var="priceSum" value="${priceSum + vo.price}"/>
  		<td class="cno" style="display:none">${vo.cno}</td>
-        <td>${vo.buyDate}</td>
+        <td><fmt:formatDate value="${vo.buyDate}" pattern="yyyy-MM-dd" /></td>
         <td>${vo.gubun}</td>
         <td>${vo.item}</td>
         <td class="text-right"><fmt:formatNumber value="${vo.content}" /></td>
@@ -161,7 +161,7 @@ function fn_view(cno) {
         <td class="text-right"><fmt:formatNumber value="${vo.sumQty}" /></td>
         <td class="text-right"><fmt:formatNumber value="${vo.price}" /></td>
         <td>${vo.purShop}</td>
-        <td>${vo.inDate}</td>
+        <td><fmt:formatDate value="${vo.inDate}" pattern="yyyy-MM-dd" /></td>
         <td>${vo.comm}</td>
     </tr>
 </c:forEach>

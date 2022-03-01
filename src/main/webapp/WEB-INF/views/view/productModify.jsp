@@ -240,7 +240,8 @@ function fn_update(cno) {
 						<label for="productDate" class="col-sm-3 control-label">생산일</label>
 						<div class="col-sm-8">
 							<input class="form-control inputDate flatpickr flatpickr-input" id="productDate" name="productDate" type="text" 
-									style="background: #FFFFFF;" value="${productInfo.productDate}" required="required" placeholder="일자를 선택해주세요" data-input>
+									style="background: #FFFFFF;" value='<fmt:formatDate value="${productInfo.productDate}" pattern="yyyy-MM-dd" />' 
+									required="required" placeholder="일자를 선택해주세요" data-input>
 						</div>
 					</div>
 					<div class="form-group">
