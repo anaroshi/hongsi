@@ -149,7 +149,7 @@ article {
 					<ul class="nav navbar-nav">
 						<li><a href="${path }/purchbook/buy.do">재료구매</a></li>
 						<li><a href="${path }/purchbook/storage.do">재료입출고</a></li>
-						<li><a href="${path }/purchshop/mPrdt.do">M생산</a></li>
+						<li><a href="${path }/purchshop/output.do">M생산</a></li>
 						<li><a href="${path }/purchshop/product.do">생산</a></li>
 						<li><a href="${path }/purchshop/order.do">주문</a></li>
 						<li><a href="${path }/purchshop/sale.do">판매</a></li>
@@ -160,7 +160,7 @@ article {
 								<li><a href="${path }/purchbook/ingAllList.do">재료</a></li>
 								<li><a href="${path }/purchbook/buyAllList.do">재료구매</a></li>
 								<li><a href="${path }/purchbook/storageAllList.do">재료입출고</a></li>
-								<li><a href="${path }/purchshop/mPrdtAllList.do">M생산</a></li>
+								<li><a href="${path }/purchshop/outputAllList.do">M생산</a></li>
 								<li><a href="${path }/purchshop/productAllList.do">생산</a></li>
 								<li><a href="${path }/purchshop/orderAllList.do">주문</a></li>
 								<li><a href="${path }/purchshop/saleAllList.do">판매</a></li>

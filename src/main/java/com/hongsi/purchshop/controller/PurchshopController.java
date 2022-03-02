@@ -14,10 +14,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.hongsi.purchshop.service.PurchProductService;
 import com.hongsi.purchshop.service.PurchSaleService;
 import com.hongsi.purchshop.service.PurchOrderService;
+import com.hongsi.purchshop.service.PurchOutputService;
 import com.hongsi.purchshop.vo.PurchProductVO;
 import com.hongsi.purchshop.vo.PurchSaleVO;
 import com.hongsi.util.PageObject;
 import com.hongsi.purchshop.vo.PurchOrderVO;
+import com.hongsi.purchshop.vo.PurchOutputVO;
 
 import lombok.extern.log4j.Log4j;
 
@@ -42,6 +44,11 @@ public class PurchshopController {
 	@Autowired
 	@Qualifier("purchProductServiceImpl")
 	private PurchProductService purchProductService;
+
+	// M생산
+	@Autowired
+	@Qualifier("purchOutputServiceImpl")
+	private PurchOutputService purchOutputService;
 	
 	
 // ----------------------------------------------------- 주문 -----------------------------------------------------
@@ -184,33 +191,33 @@ public class PurchshopController {
 	
 	// ---------------------------------------------------- M생산 -----------------------------------------------------	
 	// M생산 정보 입력 화면
-	@GetMapping("mPrdt.do")
-	public String mPrdt(PurchProductVO vo, Model model, @ModelAttribute PageObject pageObject) throws Exception {
-		log.info(".............................mPrdt..vo:"+vo);
+	@GetMapping("output.do")
+	public String output(PurchOutputVO vo, Model model, @ModelAttribute PageObject pageObject) throws Exception {
+		log.info(".............................output..vo:"+vo);
 		// 생산 정보 리스트
-		model.addAttribute("productList", purchProductService.selectProductList(pageObject));
+		model.addAttribute("outputList", purchOutputService.selectOutputList(pageObject));
 				
-		return MODULE + "/mPrdt";
+		return MODULE + "/output";
 	}
 	
 	// M생산 정보 저장
-	@PostMapping("mPrdt.do")
-	public String insertMPrdt(PurchProductVO vo, RedirectAttributes rttr) throws Exception {
+	@PostMapping("output.do")
+	public String insertMPrdt(PurchOutputVO vo, RedirectAttributes rttr) throws Exception {
 		log.info("insertMPrdt vo :" + vo);
-//		vo.setStatus("product");
+//		vo.setStatus("output");
 //		vo.setFlag(1);
-//		int result = purchProductService.insertProduct(vo);
-//		if (result == 1) {
-//			rttr.addFlashAttribute("msg", "생산 완료");
-//		}
-		return "redirect:/purchshop/mPrdt.do";
+		int result = purchOutputService.insertOutput(vo);
+		if (result == 1) {
+			rttr.addFlashAttribute("msg", "M생산 완료");
+		}
+		return "redirect:/purchshop/output.do";
 	}
 
 	// M생산 정보 리스트 화면
-	@GetMapping("mPrdtAllList.do")
-	public String mPrdtAllList(Model model, @ModelAttribute PageObject pageObject) throws Exception {
-		//model.addAttribute("productList", purchProductService.selectProductList(pageObject));
-		return MODULE + "/mPrdtAllList";
+	@GetMapping("outputAllList.do")
+	public String outputAllList(Model model, @ModelAttribute PageObject pageObject) throws Exception {
+		model.addAttribute("outputList", purchOutputService.selectOutputList(pageObject));
+		return MODULE + "/outputAllList";
 	}
 	
 }

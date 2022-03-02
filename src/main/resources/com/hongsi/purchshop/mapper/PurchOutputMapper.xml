@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 1. com.hongsi.purchshop.mapper.PurchOutputMapper 인터페이스 선언 -->
+<!-- 2. root-context.xml <mybatis-spring:scan ~~ /> 태그로 기본 패키지 지정 -->
+<!-- 3. com.hongsi.purchshop.mapper.PurchOutputMapper.xml 실행 작성 - src/main/resources -->
+<!-- <![CDATA[ 이 사이에 있는 것은 mybatis가 처리하지 않고 그대로 넘긴다. DB에서 처리되도록 ]]> -->
+
+<mapper namespace="com.hongsi.purchshop.mapper.PurchOutputMapper">
+
+<!-- M생산 정보 저장 -->
+	<insert id="insertOutput">
+	INSERT INTO PURCH_OUTPUT (
+		CNO,
+		OUTPUTDATE,
+		ORI,		
+		ERL,	
+		STC,
+		GUBUN,
+		COMM,
+		MANAGER,
+		GUBUNCODE,
+		STATUS,
+		FLAG
+	) VALUES (
+		PURCHOUTPUT_PK.NEXTVAL,
+		#{outputDate, jdbcType=DATE},
+		#{ori},
+		#{erl},
+		#{stc},
+		#{gubun},
+		#{comm},
+		#{manager},
+		#{gubunCode},
+		'output',
+		1
+	)
+	</insert>
+
+	<!-- M생산 정보 리스트 -->
+	<select id="selectOutputList" resultType="com.hongsi.purchshop.vo.PurchOutputVO">
+	SELECT RNUM, 
+			CNO, OUTPUTDATE, GUBUN,
+			ORI,
+			ERL,
+			STC,
+			COMM
+	FROM
+	(		
+		SELECT ROWNUM RNUM,	
+				A.CNO, A.OUTPUTDATE, A.GUBUN, 
+				A.ORI, 
+				A.ERL, 
+				A.STC,
+				A.COMM
+		FROM (	
+			SELECT 	CNO, GUBUN,
+					OUTPUTDATE, 
+					ORI,
+					ERL, 
+					STC,
+					COMM, 
+					RDATE
+			FROM 	PURCH_OUTPUT
+			WHERE 	STATUS = 'output'
+			AND 	FLAG != 4
+			ORDER BY OUTPUTDATE DESC, RDATE DESC		
+		) A	
+	)
+	WHERE 1=1
+	AND 	RNUM BETWEEN #{startRow} AND #{endRow}	
+	</select>
+
+	<!-- 총 M생산 건수 -->
+	<select id="getOutputTotalRow" resultType="java.lang.Integer">
+	SELECT 	COUNT(*)
+	FROM 	PURCH_OUTPUT
+	WHERE 	STATUS = 'output'
+	AND 	FLAG != 4
+	</select>
+
+	<!-- 	M생산 정보 가져오기 by CNO -->
+	<select id="selectOutputInfoByCno" resultType="com.hongsi.purchshop.vo.PurchOutputVO">
+	SELECT 
+		CNO,
+		OUTPUTDATE,
+		ORI,
+		ERL,	
+		STC,
+		GUBUN,
+		COMM,
+		MANAGER
+	FROM	PURCH_OUTPUT
+	WHERE	CNO = #{cno}	
+	</select>
+	
+	<!-- 	M생산 정보 삭제 -->
+	<update id="deleteOutputInfoByCno">
+	UPDATE	PURCH_OUTPUT
+	SET		FLAG = 4, UDATE = SYSDATE
+	WHERE 	CNO = #{cno}
+	</update>
+	
+	<!-- M생산정보 수정하기 by CNO --> 
+	<update id="updateOutputInfoByCno">
+	UPDATE	PURCH_OUTPUT
+	SET		OUTPUTDATE = #{outputDate, jdbcType=DATE},
+			ORI = #{ori},
+			ERL = #{erl},	
+			STC = #{stc},
+			GUBUN = #{gubun},
+			COMM = #{comm},
+			MANAGER = #{manager},
+			GUBUNCODE = #{gubunCode},
+			FLAG = 2, 
+			UDATE = SYSDATE
+	WHERE 	CNO = #{cno}
+	</update>
+
+</mapper>

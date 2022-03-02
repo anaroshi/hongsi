@@ -14,9 +14,11 @@ import com.hongsi.ingredient.service.IngredientService;
 import com.hongsi.purchbook.service.PurchIngSerivce;
 import com.hongsi.purchbook.vo.PurchIngVO;
 import com.hongsi.purchshop.service.PurchOrderService;
+import com.hongsi.purchshop.service.PurchOutputService;
 import com.hongsi.purchshop.service.PurchProductService;
 import com.hongsi.purchshop.service.PurchSaleService;
 import com.hongsi.purchshop.vo.PurchOrderVO;
+import com.hongsi.purchshop.vo.PurchOutputVO;
 import com.hongsi.purchshop.vo.PurchProductVO;
 import com.hongsi.purchshop.vo.PurchSaleVO;
 import com.hongsi.util.PageObject;
@@ -46,6 +48,10 @@ public class ViewController {
 	@Autowired
 	@Qualifier("purchProductServiceImpl")	
 	private PurchProductService purchProductService;
+
+	@Autowired
+	@Qualifier("purchOutputServiceImpl")	
+	private PurchOutputService purchOutputService;
 	
 	// --------------------------------------- 재료 구매 -----------------------------------------------
 	
@@ -312,4 +318,51 @@ public class ViewController {
 		 return "fail";
 	}		
 
+	// --------------------------------------- M생산 -----------------------------------------------
+	
+	// M생산 정보
+	@GetMapping("view/outputModify.do")
+	public String outputModify(int cno, int locate, Model model) throws Exception {
+		log.info(".............................outputModify..");
+		model.addAttribute("outputInfo", purchOutputService.selectOutputInfoByCno(cno));
+		model.addAttribute("locate", locate);
+		return "view/outputModify";
+	}
+
+	// M생산 삭제 처리
+	@ResponseBody
+	@PostMapping("view/outputDelete.do")
+	public String outputDelete(PurchOutputVO vo) throws Exception {
+		log.info(".............................outputDelete..");
+		int result = purchOutputService.deleteOutputInfoByCno(vo.getCno());
+		if (result == 1) {
+			if (vo.getLocate()==1) {
+				return "ok1";
+			} else {
+				return "ok2";
+			}			
+		}
+		return "";
+	}
+
+	// M생산 수정 처리
+	@Nullable  // null 허용
+	@ResponseBody
+	@PostMapping("view/outputUpdate.do")
+	public String outputUpdate(PurchOutputVO vo, PageObject object) throws Exception {
+		log.info(".............................outputUpdate..vo:" + vo);
+		vo.setStatus("output");
+		vo.setFlag(2);
+
+		int result = purchOutputService.updateOutputInfoByCno(vo);
+		log.info(".........................outputUpdate...result:"+result); 
+		if (result==1) {
+			 if (vo.getLocate()==1) {
+				 return "ok1";
+			 } else {
+				 return "ok2";
+			 }
+		}
+		return "fail";
+	}
 }

@@ -79,33 +79,33 @@ function fn_update() {
 		
 		// 주문량 입력 유효성 검사
  		let ori_250 = $("#ori_250").val();
-  		if(ori_250 == null || ori_250 =="" || typeof ori_250 == "undefined" || ori_250 >= 10000) ori_250 = 0; 
+  		if(ori_250 == null || ori_250 =="" || typeof ori_250 == "undefined" || ori_250>= 20000) ori_250 = 0; 
   		$("#ori_250").val(ori_250);
   		let ori_500 = $("#ori_500").val();
-		if(ori_500 == null || ori_500 =="" || typeof ori_500 == "undefined" || ori_500 >= 10000) ori_500 = 0; 
+		if(ori_500 == null || ori_500 =="" || typeof ori_500 == "undefined" || ori_500>= 20000) ori_500 = 0; 
 		$("#ori_500").val(ori_500);
 		let ori_1000 = $("#ori_1000").val();
-		if(ori_1000 == null || ori_1000 =="" || typeof ori_1000 == "undefined" || ori_1000 >= 10000) ori_1000 = 0; 
+		if(ori_1000 == null || ori_1000 =="" || typeof ori_1000 == "undefined" || ori_1000>= 20000) ori_1000 = 0; 
 		$("#ori_1000").val(ori_1000);
 		
 		let erl_250 = $("#erl_250").val();
-		if(erl_250 == null || erl_250 =="" || typeof erl_250 == "undefined" || erl_250 >= 2000) erl_250 = 0; 
+		if(erl_250 == null || erl_250 =="" || typeof erl_250 == "undefined" || erl_250 >= 20000) erl_250 = 0; 
 		$("#erl_250").val(erl_250);
 		let erl_500 = $("#erl_500").val();
-		if(erl_500 == null || erl_500 =="" || typeof erl_500 == "undefined" || erl_500 >= 5000) erl_500 = 0; 
+		if(erl_500 == null || erl_500 =="" || typeof erl_500 == "undefined" || erl_500 >= 20000) erl_500 = 0; 
 		$("#erl_500").val(erl_500);
 		let erl_1000 = $("#erl_1000").val();
-		if(erl_1000 == null || erl_1000 =="" || typeof erl_1000 == "undefined" || erl_1000 >= 10000) erl_1000 = 0; 
+		if(erl_1000 == null || erl_1000 =="" || typeof erl_1000 == "undefined" || erl_1000>= 20000) erl_1000 = 0; 
 		$("#erl_1000").val(erl_1000);
 		
 		let stc_250 = $("#stc_250").val();
-		if(stc_250 == null || stc_250 =="" || typeof stc_250 == "undefined" || stc_250 >= 2000) stc_250 = 0; 
+		if(stc_250 == null || stc_250 =="" || typeof stc_250 == "undefined" || stc_250 >= 20000) stc_250 = 0; 
 		$("#stc_250").val(stc_250);
 		let stc_500 = $("#stc_500").val();
-		if(stc_500 == null || stc_500 =="" || typeof stc_500 == "undefined" || stc_500 >= 5000) stc_500 = 0; 
+		if(stc_500 == null || stc_500 =="" || typeof stc_500 == "undefined" || stc_500 >= 20000) stc_500 = 0; 
 		$("#stc_500").val(stc_500);
 		let stc_1000 = $("#stc_1000").val();
-		if(stc_1000 == null || stc_1000 =="" || typeof stc_1000 == "undefined" || stc_1000 >= 10000) stc_1000 = 0; 
+		if(stc_1000 == null || stc_1000 =="" || typeof stc_1000 == "undefined" || stc_1000>= 20000) stc_1000 = 0; 
 		$("#stc_1000").val(stc_1000);
 
 		if((ori_250+ori_500+ori_1000+erl_250+erl_500+erl_1000+stc_250+stc_500+stc_1000)==0) {
