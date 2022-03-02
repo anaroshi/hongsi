@@ -114,17 +114,17 @@ function fn_view(cno) {
 	  <div class="panel-heading">Original</div>
 	  <div class="panel-body">
 	  	<div class="form-group">
-	  	<div class="col-xs-4">
+	  	<div class="col-xs-4 text-center">
 		    <label for="ori_250">250g</label>
-		    <input class="form-control order_item" id="ori_250" name="ori_250" type="number" pattern="[0-9]{4}" >
+		    <input class="form-control order_item text-right" id="ori_250" name="ori_250" type="number" pattern="[0-9]{4}" >
 		</div>
-	    <div class="col-xs-4">
+	    <div class="col-xs-4 text-center">
 		    <label for="ori_500">500g</label>
-		    <input class="form-control order_item" id="ori_500" name="ori_500" type="number" pattern="[0-9]{4}">
+		    <input class="form-control order_item text-right" id="ori_500" name="ori_500" type="number" pattern="[0-9]{4}">
 		</div>
-		<div class="col-xs-4">
+		<div class="col-xs-4 text-center">
 		    <label for="ori_1000">1,000g</label>
-		    <input class="form-control order_item" id="ori_1000" name="ori_1000" type="number" pattern="[0-9]{4}">
+		    <input class="form-control order_item text-right" id="ori_1000" name="ori_1000" type="number" pattern="[0-9]{4}">
 		</div>
   		</div>
   	  </div>
@@ -133,17 +133,17 @@ function fn_view(cno) {
 	  <div class="panel-heading">Earlgrey</div>
 	  <div class="panel-body">
 	  	<div class="form-group">
-	  	<div class="col-xs-4">
+	  	<div class="col-xs-4 text-center">
 		    <label for="erl_250">250g</label>
-		    <input class="form-control order_item" id="erl_250" name="erl_250" type="number" pattern="[0-9]{4}">
+		    <input class="form-control order_item text-right" id="erl_250" name="erl_250" type="number" pattern="[0-9]{4}">
 		</div>
-	    <div class="col-xs-4">
+	    <div class="col-xs-4 text-center">
 		    <label for="erl_500">500g</label>
-		    <input class="form-control order_item" id="erl_500" name="erl_500" type="number" pattern="[0-9]{4}">
+		    <input class="form-control order_item text-right" id="erl_500" name="erl_500" type="number" pattern="[0-9]{4}">
 		</div>
-		<div class="col-xs-4">
+		<div class="col-xs-4 text-center">
 		    <label for="erl_1000">1,000g</label>
-		    <input class="form-control order_item" id="erl_1000" name="erl_1000" type="number" pattern="[0-9]{4}">
+		    <input class="form-control order_item text-right" id="erl_1000" name="erl_1000" type="number" pattern="[0-9]{4}">
 		</div>
   		</div>
   	  </div>
@@ -152,17 +152,17 @@ function fn_view(cno) {
 	  <div class="panel-heading">SaltCaramel</div>
 	  <div class="panel-body">
 	  	<div class="form-group">
-	  	<div class="col-xs-4">
+	  	<div class="col-xs-4 text-center">
 		    <label for="stc_250">250g</label>
-		    <input class="form-control order_item" id="stc_250" name="stc_250" type="number" pattern="[0-9]{4}">
+		    <input class="form-control order_item text-right" id="stc_250" name="stc_250" type="number" pattern="[0-9]{4}">
 		</div>
-	    <div class="col-xs-4">
+	    <div class="col-xs-4 text-center">
 		    <label for="stc_500">500g</label>
-		    <input class="form-control order_item" id="stc_500" name="stc_500" type="number" pattern="[0-9]{4}">
+		    <input class="form-control order_item text-right" id="stc_500" name="stc_500" type="number" pattern="[0-9]{4}">
 		</div>
-		<div class="col-xs-4">
+		<div class="col-xs-4 text-center">
 		    <label for="stc_1000">1,000g</label>
-		    <input class="form-control order_item" id="stc_1000" name="stc_1000" type="number" pattern="[0-9]{4}">
+		    <input class="form-control order_item text-right" id="stc_1000" name="stc_1000" type="number" pattern="[0-9]{4}">
 		</div>
   		</div>
   	  </div>
@@ -208,19 +208,19 @@ function fn_view(cno) {
 <!-- 	</div> 1블럭 End -->
 	
 <!-- 	<div class="col-sm-6">        -->
-     <div class="form-group">
+     <div class="form-group text-center">
       <label for="comm" class="col-sm-3 control-label">내역</label>
       <div class="col-sm-8">
       	<textarea class="form-control" rows="5" id="comm" name="comm"></textarea>
       </div>
     </div>
-    <div class="form-group">
+    <div class="form-group text-center">
       <label for="manager" class="col-sm-3 control-label">담당자</label>
       <div class="col-sm-8">
 		<input class="form-control" type="text" id="" name="manager">
       </div>
  	</div> 
-    <div class="form-group">
+    <div class="form-group text-center">
       <div class="col-sm-1"></div>
       <div class="col-sm-3">
 		<button type="reset" class="btn btn-block">초기화</button>

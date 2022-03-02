@@ -15,12 +15,15 @@ public class PurchProductVO {
 	// 화면의 날짜 형식이 String이므로 날짜형식에 맞지 않아서 형식은 맞춰서 입력을 받아야 오류가 나지 않는다.
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date 	productDate;	// 생산일자 
+	private long 	ori_200;	// ori_200 생산 갯수
 	private long 	ori_250;	// ori_250 생산 갯수
 	private long 	ori_500;	// ori_500 생산 갯수
 	private long 	ori_1000;	// ori_1000 생산 갯수
+	private long 	erl_200;	// erl_200 생산 갯수
 	private long 	erl_250;	// erl_250 생산 갯수
 	private long 	erl_500;	// erl_500 생산 갯수
 	private long 	erl_1000;	// erl_1000 생산 갯수
+	private long 	stc_200;	// stc_200 생산 갯수
 	private long 	stc_250;	// stc_250 생산 갯수
 	private long 	stc_500;	// stc_500 생산 갯수
 	private long 	stc_1000;	// stc_1000 생산 갯수
@@ -30,22 +33,28 @@ public class PurchProductVO {
 	private String 	gubunCode;	// 담당자	
 	private String 	status;		// 담당자	
 	
+	private String 	ori_200_format;		// ori_200 생산 갯수 포맷형   ORI_200 : 999,999,999 개,
 	private String 	ori_250_format;		// ori_250 생산 갯수 포맷형   ORI_250 : 999,999,999 개,
 	private String 	ori_500_format;		// ori_500 생산 갯수 포맷형   ORI_250 : 999,999,999 개,
 	private String 	ori_1000_format;	// ori_1000 생산 갯수 포맷형   ORI_250 : 999,999,999 개,
+	private String 	erl_200_format;		// erl_200 생산 갯수 포맷형   ERL_200 : 999,999,999 개,
 	private String 	erl_250_format;		// erl_250 생산 갯수 포맷형   ERL_250 : 999,999,999 개,
 	private String 	erl_500_format;		// erl_500 생산 갯수 포맷형   ERL_500 : 999,999,999 개,
 	private String 	erl_1000_format;	// erl_1000 생산 갯수 포맷형   ERL_1000 : 999,999,999 개,
+	private String 	stc_200_format;		// stc_200 생산 갯수 포맷형   STC_200 : 999,999,999 개,
 	private String 	stc_250_format;		// stc_250 생산 갯수 포맷형   STC_250 : 999,999,999 개,
 	private String 	stc_500_format;		// stc_500 생산 갯수 포맷형   STC_500 : 999,999,999 개,
 	private String 	stc_1000_format;	// stc_1000 생산 갯수 포맷형   STC_1000 : 999,999,999 개,
 
+	private long 	ori_200_sum;	// ori_200 생산 갯수
 	private long 	ori_250_sum;	// ori_250 생산 갯수
 	private long 	ori_500_sum;	// ori_500 생산 갯수
 	private long 	ori_1000_sum;	// ori_1000 생산 갯수
+	private long 	erl_200_sum;	// erl_200 생산 갯수
 	private long 	erl_250_sum;	// erl_250 생산 갯수
 	private long 	erl_500_sum;	// erl_500 생산 갯수
 	private long 	erl_1000_sum;	// erl_1000 생산 갯수
+	private long 	stc_200_sum;	// stc_200 생산 갯수
 	private long 	stc_250_sum;	// stc_250 생산 갯수
 	private long 	stc_500_sum;	// stc_500 생산 갯수
 	private long 	stc_1000_sum;	// stc_1000 생산 갯수

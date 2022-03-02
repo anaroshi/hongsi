@@ -182,4 +182,35 @@ public class PurchshopController {
 		return MODULE + "/posAllList";
 	}
 	
+	// ---------------------------------------------------- M생산 -----------------------------------------------------	
+	// M생산 정보 입력 화면
+	@GetMapping("mPrdt.do")
+	public String mPrdt(PurchProductVO vo, Model model, @ModelAttribute PageObject pageObject) throws Exception {
+		log.info(".............................mPrdt..vo:"+vo);
+		// 생산 정보 리스트
+		model.addAttribute("productList", purchProductService.selectProductList(pageObject));
+				
+		return MODULE + "/mPrdt";
+	}
+	
+	// M생산 정보 저장
+	@PostMapping("mPrdt.do")
+	public String insertMPrdt(PurchProductVO vo, RedirectAttributes rttr) throws Exception {
+		log.info("insertMPrdt vo :" + vo);
+//		vo.setStatus("product");
+//		vo.setFlag(1);
+//		int result = purchProductService.insertProduct(vo);
+//		if (result == 1) {
+//			rttr.addFlashAttribute("msg", "생산 완료");
+//		}
+		return "redirect:/purchshop/mPrdt.do";
+	}
+
+	// M생산 정보 리스트 화면
+	@GetMapping("mPrdtAllList.do")
+	public String mPrdtAllList(Model model, @ModelAttribute PageObject pageObject) throws Exception {
+		//model.addAttribute("productList", purchProductService.selectProductList(pageObject));
+		return MODULE + "/mPrdtAllList";
+	}
+	
 }

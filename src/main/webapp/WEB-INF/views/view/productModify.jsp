@@ -83,16 +83,21 @@ function fn_update(cno) {
 	if(confirm("수정하시겠습니까")) {
 		
 		// 생산량 입력 유효성 검사
- 		let ori_250 = $("#ori_250").val();
-  		if(ori_250 == null || ori_250 =="" || typeof ori_250 == "undefined" || ori_250 >= 10000) ori_250 = 0; 
-  		$("#ori_250").val(ori_250);
-  		let ori_500 = $("#ori_500").val();
+		let ori_200 = $("#ori_200").val();
+		if(ori_200 == null || ori_200 =="" || typeof ori_200 == "undefined" || ori_200 >= 10000) ori_200 = 0; 
+		$("#ori_200").val(ori_200);
+		let ori_250 = $("#ori_250").val();
+		if(ori_250 == null || ori_250 =="" || typeof ori_250 == "undefined" || ori_250 >= 10000) ori_250 = 0; 
+		$("#ori_250").val(ori_250);
+		let ori_500 = $("#ori_500").val();
 		if(ori_500 == null || ori_500 =="" || typeof ori_500 == "undefined" || ori_500 >= 10000) ori_500 = 0; 
 		$("#ori_500").val(ori_500);
 		let ori_1000 = $("#ori_1000").val();
 		if(ori_1000 == null || ori_1000 =="" || typeof ori_1000 == "undefined" || ori_1000 >= 10000) ori_1000 = 0; 
 		$("#ori_1000").val(ori_1000);
 		
+		let erl_200 = $("#erl_200").val();
+		if(erl_200 == null || erl_200 =="" || typeof erl_200 == "undefined" || erl_200 >= 2000) erl_200 = 0; 
 		let erl_250 = $("#erl_250").val();
 		if(erl_250 == null || erl_250 =="" || typeof erl_250 == "undefined" || erl_250 >= 2000) erl_250 = 0; 
 		$("#erl_250").val(erl_250);
@@ -103,6 +108,8 @@ function fn_update(cno) {
 		if(erl_1000 == null || erl_1000 =="" || typeof erl_1000 == "undefined" || erl_1000 >= 10000) erl_1000 = 0; 
 		$("#erl_1000").val(erl_1000);
 		
+		let stc_200 = $("#stc_200").val();
+		if(stc_200 == null || stc_200 =="" || typeof stc_200 == "undefined" || stc_200 >= 2000) stc_200 = 0; 
 		let stc_250 = $("#stc_250").val();
 		if(stc_250 == null || stc_250 =="" || typeof stc_250 == "undefined" || stc_250 >= 2000) stc_250 = 0; 
 		$("#stc_250").val(stc_250);
@@ -112,10 +119,10 @@ function fn_update(cno) {
 		let stc_1000 = $("#stc_1000").val();
 		if(stc_1000 == null || stc_1000 =="" || typeof stc_1000 == "undefined" || stc_1000 >= 10000) stc_1000 = 0; 
 		$("#stc_1000").val(stc_1000);
-
-		if((ori_250+ori_500+ori_1000+erl_250+erl_500+erl_1000+stc_250+stc_500+stc_1000)==0) {
+	
+		if((ori_200+ori_250+ori_500+ori_1000+erl_200+erl_250+erl_500+erl_1000+stc_200+stc_250+stc_500+stc_1000)==0) {
 		      alert('주문 제품의 수량을 넣어주세요!');
-		      $("#ori_250").select();
+		      $("#ori_200").select();
 		      return false;
 	    }
 		
@@ -177,17 +184,21 @@ function fn_update(cno) {
 						<div class="panel-heading">ORIGINAL</div>
 						<div class="panel-body">
 							<div class="form-group">
-								<div class="col-xs-4">
+								<div class="col-xs-3 text-center">
+									<label for="ori_200">200g</label> 
+									<input class="form-control order_item text-right" id="ori_200" name="ori_200" type="number" pattern="[0-9]{4}" value="${productInfo.ori_200}">
+								</div>
+								<div class="col-xs-3 text-center">
 									<label for="ori_250">250g</label> 
-									<input class="form-control order_item" id="ori_250" name="ori_250" type="number" pattern="[0-9]{4}" value="${productInfo.ori_250}">
+									<input class="form-control order_item text-right" id="ori_250" name="ori_250" type="number" pattern="[0-9]{4}" value="${productInfo.ori_250}">
 								</div>
-								<div class="col-xs-4">
+								<div class="col-xs-3 text-center">
 									<label for="ori_500">500g</label>
-									<input class="form-control order_item" id="ori_500" name="ori_500" type="number" pattern="[0-9]{4}" value="${productInfo.ori_500}">
+									<input class="form-control order_item text-right" id="ori_500" name="ori_500" type="number" pattern="[0-9]{4}" value="${productInfo.ori_500}">
 								</div>
-								<div class="col-xs-4">
+								<div class="col-xs-3 text-center">
 									<label for="ori_1000">1,000g</label>
-									<input class="form-control order_item" id="ori_1000" name="ori_1000" type="number" pattern="[0-9]{4}" value="${productInfo.ori_1000}">
+									<input class="form-control order_item text-right" id="ori_1000" name="ori_1000" type="number" pattern="[0-9]{4}" value="${productInfo.ori_1000}">
 								</div>
 							</div>
 						</div>
@@ -196,17 +207,21 @@ function fn_update(cno) {
 						<div class="panel-heading">EARLGREY</div>
 						<div class="panel-body">
 							<div class="form-group">
-								<div class="col-xs-4">
+								<div class="col-xs-3 text-center">
+									<label for="erl_200">200g</label>
+									<input class="form-control order_item text-right" id="erl_200" name="erl_200" type="number" pattern="[0-9]{4}" value="${productInfo.erl_200}">
+								</div>
+								<div class="col-xs-3 text-center">
 									<label for="erl_250">250g</label>
-									<input class="form-control order_item" id="erl_250" name="erl_250" type="number" pattern="[0-9]{4}" value="${productInfo.erl_250}">
+									<input class="form-control order_item text-right" id="erl_250" name="erl_250" type="number" pattern="[0-9]{4}" value="${productInfo.erl_250}">
 								</div>
-								<div class="col-xs-4">
+								<div class="col-xs-3 text-center">
 									<label for="erl_500">500g</label>
-									<input class="form-control order_item" id="erl_500" name="erl_500" type="number" pattern="[0-9]{4}" value="${productInfo.erl_500}">
+									<input class="form-control order_item text-right" id="erl_500" name="erl_500" type="number" pattern="[0-9]{4}" value="${productInfo.erl_500}">
 								</div>
-								<div class="col-xs-4">
+								<div class="col-xs-3 text-center">
 									<label for="erl_1000">1,000g</label>
-									<input class="form-control order_item" id="erl_1000" name="erl_1000" type="number" pattern="[0-9]{4}" value="${productInfo.erl_1000}">
+									<input class="form-control order_item text-right" id="erl_1000" name="erl_1000" type="number" pattern="[0-9]{4}" value="${productInfo.erl_1000}">
 								</div>
 							</div>
 						</div>
@@ -216,17 +231,21 @@ function fn_update(cno) {
 						<div class="panel-heading">SALTCARAMEL</div>
 						<div class="panel-body">
 							<div class="form-group">
-								<div class="col-xs-4">
+								<div class="col-xs-3 text-center">
+									<label for="stc_200">200g</label>
+									<input class="form-control order_item text-right" id="stc_200" name="stc_200" type="number" pattern="[0-9]{4}" value="${productInfo.stc_200}">
+								</div>
+								<div class="col-xs-3 text-center">
 									<label for="stc_250">250g</label>
-									<input class="form-control order_item" id="stc_250" name="stc_250" type="number" pattern="[0-9]{4}" value="${productInfo.stc_250}">
+									<input class="form-control order_item text-right" id="stc_250" name="stc_250" type="number" pattern="[0-9]{4}" value="${productInfo.stc_250}">
 								</div>
-								<div class="col-xs-4">
+								<div class="col-xs-3 text-center">
 									<label for="stc_500">500g</label>
-									<input class="form-control order_item" id="stc_500" name="stc_500" type="number" pattern="[0-9]{4}" value="${productInfo.stc_500}">
+									<input class="form-control order_item text-right" id="stc_500" name="stc_500" type="number" pattern="[0-9]{4}" value="${productInfo.stc_500}">
 								</div>
-								<div class="col-xs-4">
+								<div class="col-xs-3 text-center">
 									<label for="stc_1000">1,000g</label>
-									<input class="form-control order_item" id="stc_1000" name="stc_1000" type="number" pattern="[0-9]{4}" value="${productInfo.stc_1000}">
+									<input class="form-control order_item text-right" id="stc_1000" name="stc_1000" type="number" pattern="[0-9]{4}" value="${productInfo.stc_1000}">
 								</div>
 							</div>
 						</div>
