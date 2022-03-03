@@ -73,7 +73,9 @@ public class PurchIngSerivceImpl implements PurchIngSerivce {
 			else if(gubun.equals("입고_cafe")) vo.setGubunCode("in");
 			else if(gubun.equals("손실")) vo.setGubunCode("out");
 			else if(gubun.equals("취소")) vo.setGubunCode("out");
-			vo.setPurShop("");			
+			vo.setPurShop("");
+			// 재료 재고 취합시 inDate가 없으면 취합에서 빠짐 꼭 넣어줘야함.
+			vo.setInDate(vo.getBuyDate());
 		}		
 		log.info("------------------ing impl vo:"+vo);
 		return mapper.insertIng(vo);

@@ -214,7 +214,7 @@ function fn_update() {
     <div class="form-group">
       <label for="purShop" class="col-sm-3 control-label">거래처</label>
       <div class="col-sm-8">
-		<select id="purShop" name="purShop" class="form-control select" required="required">
+		<select id="purShop" name="purShop" class="form-control select">
 			<option value=""> </option>
             <option value="넛츠베리" ${(buyInfo.purShop=='넛츠베리')?"selected":""}>넛츠베리</option>
             <option value="네이버쇼핑" ${(buyInfo.purShop=='네이버쇼핑')?"selected":""}>네이버쇼핑</option>

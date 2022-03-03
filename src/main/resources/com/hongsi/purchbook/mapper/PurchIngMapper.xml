@@ -61,7 +61,13 @@
 			<if test="gubun == '입고'">
 				AND GUBUN LIKE '%' || #{gubun} || '%'
 			</if>
-			<if test="gubun != '구매' and gubun != '출고' and gubun != '입고'">
+			<if test="gubun == 'office'">
+				AND GUBUN LIKE '%' || #{gubun} || '%'
+			</if>
+			<if test="gubun == 'cafe'">
+				AND GUBUN LIKE '%' || #{gubun} || '%'
+			</if>
+			<if test="gubun != '구매' and gubun != '출고' and gubun != '입고' and gubun != 'office' and gubun != 'cafe'">
 				AND GUBUN = #{gubun}
 			</if>	
 		</if>
@@ -101,7 +107,13 @@
 			<if test="gubun == '입고'">
 				AND GUBUN LIKE '%' || #{gubun} || '%'
 			</if>
-			<if test="gubun != '출고' and gubun != '입고'">
+			<if test="gubun == 'office'">
+				AND GUBUN LIKE '%' || #{gubun} || '%'
+			</if>
+			<if test="gubun == 'cafe'">
+				AND GUBUN LIKE '%' || #{gubun} || '%'
+			</if>
+			<if test="gubun != '출고' and gubun != '입고' and gubun != 'office' and gubun != 'cafe'">
 				AND GUBUN = #{gubun}
 			</if>	
 		</if>
@@ -457,10 +469,7 @@
 				WHERE  STATUS = 'storage'
 				AND GUBUNCODE = 'out' 
 				AND GUBUN = '출고_cafe'
-				AND FLAG != 4
-				AND GUBUN != '손실'
-				AND GUBUN != '반품'
-				AND GUBUN != '취소'	
+				AND FLAG != 4	
 				GROUP BY ITEM
 			) B
 			ON A.ITEM = B.ITEM
@@ -470,7 +479,7 @@
 			SELECT ITEM, SUM( NVL(SUMQTY,0)) DISCAFETOTAL FROM PURCH_ING
 			WHERE  STATUS = 'storage'
 			AND GUBUNCODE = 'out' 
-			AND GUBUN = '출고_cafe'
+<!-- 			AND GUBUN != '출고_cafe' -->
 			AND FLAG != 4
 			AND GUBUN = '손실'	
 			GROUP BY ITEM

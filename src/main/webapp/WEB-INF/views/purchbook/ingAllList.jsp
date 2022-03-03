@@ -87,6 +87,8 @@ function fn_view(cno, gubun) {
 			            <option value="입고_office" ${(pageObject.gubun=='입고_office')?"selected":""} >입고_office</option>
 			            <option value="입고_cafe" ${(pageObject.gubun=='입고_cafe')?"selected":""} >입고_cafe</option>
 			            <option value="손실" ${(pageObject.gubun=='손실')?"selected":""} >손실</option>
+			            <option value="office" ${(pageObject.gubun=='office')?"selected":""} >office</option>
+			            <option value="cafe" ${(pageObject.gubun=='cafe')?"selected":""} >cafe</option>
 					</select>
 				</div>
 			</div>  	

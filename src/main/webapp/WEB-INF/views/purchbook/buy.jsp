@@ -186,7 +186,7 @@ function fn_item(kname) {
     <div class="form-group">
       <label for="purShop" class="col-sm-3 control-label">거래처</label>
       <div class="col-sm-8">
-		<select id="purShop" name="purShop" class="form-control select" required="required">
+		<select id="purShop" name="purShop" class="form-control select">
 			<option value=""> </option>
             <option value="넛츠베리">넛츠베리</option>
             <option value="네이버쇼핑">네이버쇼핑</option>
