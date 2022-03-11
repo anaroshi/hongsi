@@ -109,7 +109,10 @@ function fn_view(cno, gubun) {
 					<select id="purShop" name="purShop" class="form-control select">
 						<option value=""></option>
 			            <option value="넛츠베리" ${(pageObject.purShop=='넛츠베리')?"selected":""} >넛츠베리</option>
+			            <option value="넛츠피아" ${(pageObject.purShop=='넛츠피아')?"selected":""}>넛츠피아</option>
 			            <option value="네이버쇼핑" ${(pageObject.purShop=='네이버쇼핑')?"selected":""} >네이버쇼핑</option>
+			            <option value="맘쿠킹" ${(pageObject.purShop=='맘쿠킹')?"selected":""}>맘쿠킹</option>
+			            <option value="코스트코구매대행" ${(pageObject.purShop=='코스트코구매대행')?"selected":""}>코스트코구매대행</option>
 			            <option value="쿠팡" ${(pageObject.purShop=='쿠팡')?"selected":""} >쿠팡</option>
 					</select>
 				</div>

@@ -111,12 +111,12 @@ function fn_item(kname) {
 			</thead>
 			<tbody>
 				<c:forEach items="${resultList}" var="vo" varStatus="status">
-						<c:if test="${vo.finalNeed ne '0'}">
+					<c:if test="${vo.finalNeed < 0}">
 					<tr class="dataRow" onclick="fn_item('${vo.kname}'); return false;">
 						<td class="text-center">${vo.kname}</td>
 						<td class="text-right" id="need_${status.count}"><fmt:formatNumber value="${vo.finalNeed}" /></td>
 					</tr>
-						</c:if>
+					</c:if>
 				</c:forEach>
 			</tbody>
 		</table>
@@ -189,7 +189,10 @@ function fn_item(kname) {
 		<select id="purShop" name="purShop" class="form-control select">
 			<option value=""> </option>
             <option value="넛츠베리">넛츠베리</option>
+            <option value="넛츠피아">넛츠피아</option>
             <option value="네이버쇼핑">네이버쇼핑</option>
+            <option value="맘쿠킹">맘쿠킹</option>
+            <option value="코스트코구매대행">코스트코구매대행</option>
             <option value="쿠팡">쿠팡</option>
 		</select>
       </div>

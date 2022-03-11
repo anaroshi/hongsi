@@ -217,7 +217,10 @@ function fn_update() {
 		<select id="purShop" name="purShop" class="form-control select">
 			<option value=""> </option>
             <option value="넛츠베리" ${(buyInfo.purShop=='넛츠베리')?"selected":""}>넛츠베리</option>
+            
             <option value="네이버쇼핑" ${(buyInfo.purShop=='네이버쇼핑')?"selected":""}>네이버쇼핑</option>
+            <option value="맘쿠킹" ${(buyInfo.purShop=='맘쿠킹')?"selected":""}>맘쿠킹</option>
+            <option value="코스트코구매대행" ${(buyInfo.purShop=='코스트코구매대행')?"selected":""}>코스트코구매대행</option>
             <option value="쿠팡" ${(buyInfo.purShop=='쿠팡')?"selected":""}>쿠팡</option>
 		</select>
       </div>
