@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>재료 구매 & 입출고 리스트</title>
+<title>재료 구매 &amp; 입출고 리스트</title>
 
 <style type="text/css">
 </style>
@@ -138,7 +138,7 @@ function fn_view(cno, gubun) {
 	<table class="table table-striped">
 	   <thead>
 		   	<tr>
-				<td colspan="9" class="text-center"><h5>재료 구매 & 입출고 LIST</h5></td>    	
+				<td colspan="9" class="text-center"><h5>재료 구매 &amp; 입출고 LIST</h5></td>    	
 			</tr>
 			<tr>
 		        <th width="10%">일자</th>

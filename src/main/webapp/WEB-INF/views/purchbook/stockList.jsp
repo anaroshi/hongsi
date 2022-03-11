@@ -82,7 +82,10 @@ th {
 						<ul class="list-group">
 							<c:forEach items="${ingreTotalList}" var="vo">
 								<c:if test="${vo.total < 500}">
-									<li class="list-group-item" style="border: none" >${vo.kname} - 재고 ${vo.total} g입니다.</li>
+									<li class="list-group-item" style="border: none; padding-bottom:20px;" >
+ 										<div class="col-md-5">${vo.kname}</div>
+										<div class="col-md-7"> - 재고 ${vo.total} g입니다.</div>
+									</li>
 								</c:if>
 							</c:forEach>
 							<!-- ingreTotalList End -->

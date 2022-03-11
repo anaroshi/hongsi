@@ -241,21 +241,21 @@ function fn_item(kname) {
 <table class="table table-striped">
    <thead>    
 	<tr>        
-        <th width="16%">주문일</th>
-        <th width="7%">구분</th>
-        <th width="20%">주문품</th>
-        <th width="22%" style="display:none">주문품</th>
-        <th width="9%">용량</th>
-        <th width="7%">수량</th>
-        <th width="15%">거래처</th>
-        <th width="10%">입고일</th>
+        <th width="17%">주문일</th>
+        <th width="15%">구분</th>
+        <th width="18%">주문품</th>
+        <th style="display:none">주문품</th>
+        <th width="10%">용량</th>
+        <th width="10%">수량</th>
+        <th width="18%">거래처</th>
+        <th width="12%">미입고</th>
       </tr>
     </thead>
     <tbody>
 <c:forEach items="${buyList}" var="vo" varStatus="status">
  	<tr class="dataRow orderRow"> 		
  		<td class="cno" style="display:none">${vo.cno}</td>
-        <td class="buyDate"><fmt:formatDate value="${vo.buyDate}" pattern="yyyy-MM-dd" /></td>
+        <td class="buyDate" style="font-size: 11px;"><fmt:formatDate value="${vo.buyDate}" pattern="yyyy-MM-dd" /></td>
         <td class="gubun" style="font-size: 11px;">${vo.gubun}</td>
         <td class="item" style="display:none">${vo.item}</td>
         <td class="kname">${vo.kname}</td>

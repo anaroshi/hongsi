@@ -2,7 +2,6 @@ package com.hongsi.purchshop.service;
 
 import java.util.List;
 
-import org.apache.ibatis.io.ResolverUtil.IsA;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 

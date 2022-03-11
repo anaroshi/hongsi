@@ -17,16 +17,21 @@
 <c:forEach items="${itemList}" var="itemVO">
 <div class="col-md-3">
 <div class="panel panel-default">
-	<div class="panel-heading">${itemVO.name}</div>
-	<div class="panel-body">
-
+<%-- 	<div class="panel-heading">${itemVO.name}</div> --%>
+	<div class="panel-heading">
+		<div class="row" style="padding:0 15px;">
+			<div class="pull-left"><strong>${itemVO.name}</strong></div>
+			<div class="pull-right"><strong>100g</strong></div>
+		</div>
+	</div>
+	<div class="panel-body"> 
 <c:forEach items="${itemTypeList}" var="itemTypeVO">
 <c:if test="${itemVO.code eq itemTypeVO.itemcode}">     
   <table class="table table-striped">
     <thead>
-      <tr align="right">
-        <th colspan="2" class="text-right">${itemTypeVO.amount}g</th>
-      </tr>
+<!--       <tr align="right"> -->
+<%--         <th colspan="2" class="text-right">${itemTypeVO.amount}g</th> --%>
+<!--       </tr> -->
       <tr>
         <th>Ingredient</th>
         <th>Quantity (g)</th>

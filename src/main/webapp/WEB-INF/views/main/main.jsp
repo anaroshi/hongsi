@@ -158,10 +158,9 @@ $(function() {
 				<tr>
 					<th rowspan="2" style="vertical-align:middle; text-align:center;">재료 (g)</th>					
 					<th style="display:none">code</th>
-					<th colspan="3">제품명</th>
-					<th rowspan="2" style="vertical-align:middle; text-align:center;">현재재고</th>
+					<th colspan="3">주문된 제품</th>
 					<th rowspan="2" style="vertical-align:middle; text-align:center;">금주필요</th>
-					<th colspan="3">최종 재고</th>
+					<th colspan="3">현재재고</th>
 					<th rowspan="2" style="vertical-align:middle; text-align:center;">주문필요</th>
 					<th colspan="4" style="vertical-align:middle; text-align:center;">2주분</th>
 				</tr>
@@ -188,12 +187,13 @@ $(function() {
 						<td id="ori_${status.count}"><fmt:formatNumber value="${vo.ori_qty_2week}" /></td>
 						<td id="erl_${status.count}"><fmt:formatNumber value="${vo.erl_qty_2week}" /></td>
 						<td id="stc_${status.count}"><fmt:formatNumber value="${vo.stc_qty_2week}" /></td>
-						<td id="tot_${status.count}"><strong><fmt:formatNumber value="${vo.total}" /></strong></td>
 						<td class="text-right warning" id="need_${status.count}"><fmt:formatNumber value="${vo.needSum}" /></td>						
-						<td id="ftt_${status.count}"><fmt:formatNumber value="${vo.finalTotal-vo.sumCafe}" /></td>
+						<td id="ftt_${status.count}"><fmt:formatNumber value="${vo.total-vo.sumCafe}" /></td>
 						<td id="ftt_${status.count}"><fmt:formatNumber value="${vo.sumCafe}" /></td>
-						<td id="ftt_${status.count}"><strong><fmt:formatNumber value="${vo.finalTotal}" /></strong></td>
-						<td class="text-right warning" id="totNeed2week_${status.count}"><fmt:formatNumber value="${vo.finalNeed}" /></td>
+						<td id="tot_${status.count}"><strong><fmt:formatNumber value="${vo.total}" /></strong></td>						
+						<c:if test="${vo.finalNeed >=0}"><td class="text-right warning" id="totNeed2week_${status.count}"></c:if>
+						<c:if test="${vo.finalNeed <0}"><td class="text-right warning" id="totNeed2week_${status.count}" style="background-color:yellowgreen;"></c:if>
+							<fmt:formatNumber value="${vo.finalNeed}" /></td>
 						<td class="text-right" id="need2week_${status.count}"><fmt:formatNumber value="${vo.ori_need2week}" /></td>
 						<td class="text-right" id="need2week_${status.count}"><fmt:formatNumber value="${vo.erl_need2week}" /></td>
 						<td class="text-right" id="need2week_${status.count}"><fmt:formatNumber value="${vo.stc_need2week}" /></td>

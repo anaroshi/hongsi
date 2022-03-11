@@ -149,7 +149,7 @@ function fn_view(cno) {
 	  <div class="panel-body">
 	  	<div class="form-group">
 	  	<div class="col-xs-4 text-center">
-		    <label for="erl_250"">250g</label>
+		    <label for="erl_250">250g</label>
 		    <input class="form-control order_item text-right" id="erl_250" name="erl_250" type="number" pattern="[0-9]{4}" value="${vo.erl_250}">
 		</div>
 	    <div class="col-xs-4 text-center">
