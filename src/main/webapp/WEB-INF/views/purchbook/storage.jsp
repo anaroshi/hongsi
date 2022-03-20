@@ -79,8 +79,9 @@ function fn_item(kname) {
 				<tr>
 					<th>재료</th>
 					<th>재고 (g)</th>
-					<th>금주</th>
+					<th>Office</th>
 					<th>Cafe</th>
+					<th>금주</th>
 					<th>이동</th>
 				</tr>
 			</thead>
@@ -90,8 +91,9 @@ function fn_item(kname) {
 					<tr class="dataRow" onclick="fn_item('${vo.kname}'); return false;">
 						<td class="text-center">${vo.kname}</td>
 						<td class="text-right" id="need_${status.count}"><fmt:formatNumber value="${vo.total}" /></td>
-						<td class="text-right" id="need_${status.count}"><fmt:formatNumber value="${vo.needSum}" /></td>
+						<td class="text-right" id="need_${status.count}"><fmt:formatNumber value="${vo.total-vo.sumCafe}" /></td>
 						<td class="text-right" id="need_${status.count}"><fmt:formatNumber value="${vo.sumCafe}" /></td>
+						<td class="text-right" id="need_${status.count}"><fmt:formatNumber value="${vo.needSum}" /></td>
 						<td class="text-right" id="need_${status.count}"><c:if test="${vo.sumOffice<0}">0</c:if><c:if test="${vo.sumOffice>=0}"><fmt:formatNumber value="${vo.sumOffice}" /></c:if></td>
 					</tr>
 				</c:if>	

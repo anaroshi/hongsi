@@ -316,7 +316,7 @@ function fn_view(cno) {
 	        <td class="order_cno" style="display:none">${vo.cno}</td>
 	        <td><fmt:formatDate value="${vo.orderDate}" pattern="yyyy-MM-dd" /></td>
 	        <td>${vo.gubun}</td>
-	        <td>${vo.salePath}</td>
+	        <td style="font-size: 11px;">${vo.salePath}</td>
 	        <td>${vo.ori_250_format}${vo.erl_250_format}${vo.stc_250_format}</td>
 	        <td>${vo.orderer}</td>
 	      </tr>

@@ -239,7 +239,7 @@
 				) CAFE
 				ON S.ITEM = CAFE.ITEM
 			) A 
-			FULL OUTER JOIN
+			RIGHT OUTER JOIN  /*  MAINVIEW='mv'인 재료만 보기 위함 */
 			(	/* 필요 재료량 구하기 */
 				SELECT N.CODE, N.KNAME,
 				N.ORINEED, N.ERLNEED, N.STCNEED, (NVL(N.ORINEED, 0) + NVL(N.ERLNEED, 0) + NVL(N.STCNEED, 0)) NEEDSUM
@@ -259,7 +259,7 @@
 									NVL(ORI.ORISUM,0) ORISUM, NVL(ORI.ORINEED,0) ORINEED
 							FROM 
 							(	/* 재료 정보 (재료코드, 한글명, 영문명) */
-								SELECT  CODE, KNAME, ENAME FROM INGREDIENT
+								SELECT  CODE, KNAME, ENAME FROM INGREDIENT WHERE MAINVIEW='mv'
 							) ING
 							LEFT OUTER JOIN 
 							(

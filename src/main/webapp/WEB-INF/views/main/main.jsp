@@ -180,7 +180,7 @@ $(function() {
 			</thead>
 			<tbody>
 				<c:forEach items="${resultList}" var="vo" varStatus="status">
-				<c:if test="${vo.total != '0' or vo.finalNeed != '0'}">
+				<c:if test="${vo.total != '0' or vo.finalNeed != '0' or vo.need2week != '0'}">
 					<tr class="dataRow">
 						<td class="text-center"><strong>${vo.kname}</strong></td>						
 						<td style="display:none" id="code">${vo.code}</td>
