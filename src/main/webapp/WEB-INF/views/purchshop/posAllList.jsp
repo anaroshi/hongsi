@@ -8,14 +8,15 @@
 <head>
 <meta charset="UTF-8">
 <title>PurchShop</title>
-
-<style type="text/css"> 
-</style>
   
 <script>
-  $( function() {
-
-  });
+function doExcelDownloadProcess() {
+	let f = $("#frm");
+	$('<input>').attr('type','hidden').attr('name','key').attr('value','${pageObject.key}').appendTo(f);	
+	f.attr("action","downloadExcelFile");
+	f.submit();		
+}
+ 	
 //   function fn_view(cno) {	
 		
 // 		//alert(cno);
@@ -39,8 +40,7 @@
   <table class="table table-striped">
     <thead>
     	<tr>
-			<td colspan="13" class="text-center"><h5>생산 / 주문 / 판매 LIST</h5></td>    	
-			<td colspan="2" class="text-center">
+    		<td colspan="2" class="text-center">
 				<form>
 					<div class="form-group">
 						<input type="hidden" name="page" value="1">
@@ -63,6 +63,12 @@
 					    </div>				 
 				  	</div>
 				</form>			
+			</td>
+			<td colspan="11" class="text-center"><h5> 생산 / 주문 / 판매 LIST</h5></td>    	
+			<td colspan="2" class="text-right" >
+				<form id="frm" name="frm" method="post" enctype="multipart/form-data" class="form-inline" style="margin-top: 20px;">
+					<button type="button" onclick="doExcelDownloadProcess()" class="btn btn-primary">엑셀다운로드</button>
+				</form>		
 			</td>
 		</tr>
        <tr>

@@ -11,12 +11,12 @@
 	<!-- 객체 생성을 하는 bean 태그 -->
 	<!-- HicariCP 설정을 위한 객체 선언 -->
 	<!-- 오라클 서버 정보, 아이디, 비번 -->	
-<!-- 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig"> 		 -->
-<!-- 		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />																			 -->
-<!-- 		<property name="jdbcUrl" value="jdbc:oracle:thin:@hongsistore_high?TNS_ADMIN=/home/sundor/Downloads/Wallet_hongsistore/" /> -->
-<!-- 		<property name="username" value="ADMIN" /> -->
-<!-- 		<property name="password" value="Oanaroshi97_" /> -->
-<!-- 	</bean> -->
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig"> 		
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />																			
+		<property name="jdbcUrl" value="jdbc:oracle:thin:@hongsistore_high?TNS_ADMIN=/home/sundor/Downloads/Wallet_hongsistore/" />
+		<property name="username" value="ADMIN" />
+		<property name="password" value="Oanaroshi97_" />
+	</bean>
 	
 <!-- <property name="jdbcUrl" value="jdbc:oracle:thin:@(description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.ap-chuncheon-1.oraclecloud.com))(connect_data=(service_name=ga624124f2ce005_hongsistore_high.adb.oraclecloud.com)))" /> -->
 <!-- <property name="jdbcUrl" value="jdbc:oracle:thin:@(description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.ap-chuncheon-1.oraclecloud.com))(connect_data=(service_name=ga624124f2ce005_hongsistore_high.adb.oraclecloud.com))(security=(ssl_server_cert_dn='CN=adb.ap-chuncheon-1.oraclecloud.com, OU=Oracle ADB CHUNCHEON, O=Oracle Corporation, L=Redwood City, ST=California, C=US'))) -->
@@ -25,12 +25,12 @@
 <!-- OCI	<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@localhost:1521:xe" /> -->
 <!--  집		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@localhost:9090:xe" /> -->
 		
- 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">																					
-		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
-		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@localhost:9090:xe" />
-		<property name="username" value="hong" />
-		<property name="password" value="hongsi" />
-	</bean>
+<!--  	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">																					 -->
+<!-- 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" /> -->
+<!-- 		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@localhost:9090:xe" /> -->
+<!-- 		<property name="username" value="hong" /> -->
+<!-- 		<property name="password" value="hongsi" /> -->
+<!-- 	</bean> -->
 
 <!-- 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig"> -->
 <!-- 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" /> -->

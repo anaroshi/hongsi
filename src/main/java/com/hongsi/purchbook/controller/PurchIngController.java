@@ -1,5 +1,9 @@
 package com.hongsi.purchbook.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -149,5 +153,60 @@ public class PurchIngController {
 		return MODULE + "/ingAllList";
 	}
 	
+	
+	@PostMapping("downloadExcelFile")
+	public String downloadExcelFile(Model model, @ModelAttribute PageObject pageObject, HttpServletResponse res) throws Exception {
+		log.info(".............................downloadExcelFile:");		
+
+		// 엑셀 생성 
+		//SXSSFWorkbook workbook = new SXSSFWorkbook();
+//		ExcelService service = new ExcelService();
+		//log.info(".............................service:"+service);	
+		//log.info(".............................locale:"+Locale.KOREA);
+		//log.info(".............................getIngAllList:"+purchIngSerivce.getIngAllList(pageObject));
+		
+//		SXSSFWorkbook workbook = service.excelFileDownloadProcess(purchIngSerivce.getIngAllList(pageObject));
+//		log.info(".............................workbook:"+workbook);
+//		model.addAttribute("locale", Locale.KOREA);
+//		model.addAttribute("workbook", workbook);
+//		model.addAttribute("workbookName", "재료구매&입출고");
+//		
+				//ExcelUtil.createExcel(list);
+		
+		// 생산/주문/판매 정보 리스트
+//		model.addAttribute("list", purchOrderService.selectProductOrderSaleAllInfo(pageObject));	
+//			
+
+//		String name = paramMap.get("name").toString();
+//		System.out.println("--------------------excelDownload--name--:"+name);
+//		log.info("--------------------excelDownload--name--:"+name);
+		
+		res.setHeader("Content-disposition", "attachment; filename= purching.xlsx");
+		List<PurchIngVO> list = purchIngSerivce.getExcelIngAllList(pageObject);
+		log.info(".............................list:");
+		log.info(".............................list:"+list);
+		model.addAttribute("excelList", list);
+//		model.addAttribute("name", name);
+		
+		return "purchIngExcelView";
+	}
+
+	@PostMapping("uploadExcelFile.do")
+	public String uploadExcelFile(Model model) throws Exception {
+		log.info(".............................uploadExcelFile:");
+		
+		
+//		// 엑셀 생성 
+//		SXSSFWorkbook workbook = new SXSSFWorkbook();
+//		
+//		SXSSFSheet sheet = workbook.createSheet("재료구매&입출고");
+		//ExcelUtil.createExcel(list);
+		
+		// 생산/주문/판매 정보 리스트
+//		model.addAttribute("list", purchOrderService.selectProductOrderSaleAllInfo(pageObject));	
+//			
+//		return MODULE + "/posAllList";
+		return null;
+	}
 
 }

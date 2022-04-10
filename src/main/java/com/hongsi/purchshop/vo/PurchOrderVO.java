@@ -25,7 +25,7 @@ public class PurchOrderVO {
 	private long 	stc_500;	// stc_500 주문갯수
 	private long 	stc_1000;	// stc_1000 주문갯수
 	private String  gubun;		// 주문 구분 : 판매
-	private String  salePath;		// 주문경로 : 개별구매, Naver쇼핑, 홈페이지
+	private String  salePath;	// 주문경로 : 개별구매, Naver쇼핑, 홈페이지
 	private String 	orderer;	// 주문자
 	private String 	comm;		// 비고
 	private String 	manager;	// 담당자

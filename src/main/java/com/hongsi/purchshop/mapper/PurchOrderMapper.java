@@ -39,5 +39,7 @@ public interface PurchOrderMapper {
 
 	int getProductOrderSaleAllTotalRow(PageObject pageObject);
 
+	List<PurchOrderVO> excelProductOrderSaleAllInfo(PageObject pageObject);
+
 
 }

@@ -33,5 +33,7 @@ public interface PurchOrderService {
 
 	public List<PurchOrderVO> selectProductOrderSaleAllInfo(PageObject pageObject);
 
+	public List<PurchOrderVO> excelProductOrderSaleAllInfo(PageObject pageObject);
+
 	
 }

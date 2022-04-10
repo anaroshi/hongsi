@@ -160,7 +160,13 @@ public class PurchIngSerivceImpl implements PurchIngSerivce {
 	// 재료 구매 & 입출고 리스트
 	@Override
 	public List<PurchIngVO> getIngAllList(PageObject pageObject) {
+		log.info("------------------getIngAllList impl pageObject:"+pageObject);
 		pageObject.setTotalRow(mapper.getIngTotalRow(pageObject));
 		return mapper.getIngAllList(pageObject);
+	}
+
+	@Override
+	public List<PurchIngVO> getExcelIngAllList(PageObject pageObject) {
+		return mapper.getExcelIngAllList(pageObject);
 	}
 }

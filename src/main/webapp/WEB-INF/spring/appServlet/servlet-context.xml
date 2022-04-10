@@ -43,8 +43,9 @@
     
 	
 	<!-- Excel로 출력해달라는 요청이 오면 ExcelView로 출력 -->
-	<beans:bean id="excelView" class="com.hongsi.util.ExcelView" />
-	
+	<beans:bean id="purchIngExcelView" class="com.hongsi.util.PurchIngExcelView" />
+	<beans:bean id="purchshopExcelView" class="com.hongsi.util.PurchshopExcelView" />
+    	
 	<!-- file upload -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" >
 		<!-- upload를 위한 설정 : 한글 엔코딩 -->

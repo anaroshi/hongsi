@@ -38,5 +38,7 @@ public interface PurchIngMapper {
 	List<PurchIngVO> getIngAllList(PageObject pageObject);
 
 	int getIngTotalRow(PageObject pageObject);
+	
+	List<PurchIngVO> getExcelIngAllList(PageObject pageObject);
 
 }

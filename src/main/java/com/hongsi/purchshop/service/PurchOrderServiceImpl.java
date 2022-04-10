@@ -115,5 +115,11 @@ public class PurchOrderServiceImpl implements PurchOrderService {
 		return mapper.selectProductOrderSaleAllInfo(pageObject);
 	}
 
+	@Override
+	public List<PurchOrderVO> excelProductOrderSaleAllInfo(PageObject pageObject) {
+		if(pageObject.getKey()==null) pageObject.setKey("pos");
+		return mapper.excelProductOrderSaleAllInfo(pageObject);
+	}
+
 
 }

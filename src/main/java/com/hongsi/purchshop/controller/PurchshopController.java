@@ -1,5 +1,9 @@
 package com.hongsi.purchshop.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.poi.hmef.Attachment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -9,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.hongsi.purchshop.service.PurchProductService;
@@ -185,8 +190,21 @@ public class PurchshopController {
 		log.info(".............................saleAllList pageObject:"+pageObject);
 		// 생산/주문/판매 정보 리스트
 		model.addAttribute("list", purchOrderService.selectProductOrderSaleAllInfo(pageObject));	
-			
+		
 		return MODULE + "/posAllList";
+	}
+
+	// ------------------------------------------------- 생산/주문/판매 엑셀 출력 -------------------------------------------------	
+	@PostMapping("downloadExcelFile")
+	public String downloadExcelFile(Model model, @ModelAttribute PageObject pageObject, HttpServletResponse res) throws Exception {
+		log.info(".............................downloadExcelFile pageObject:"+pageObject);
+		
+		res.setHeader("Content-disposition", "attachment; filename = purchshop.xlsx");
+		
+		// 생산/주문/판매 정보 리스트
+		model.addAttribute("excelList", purchOrderService.excelProductOrderSaleAllInfo(pageObject));	
+		
+		return "purchshopExcelView";
 	}
 	
 	// ---------------------------------------------------- M생산 -----------------------------------------------------	

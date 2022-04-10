@@ -31,5 +31,5 @@ public interface PurchIngSerivce {
 
 	public List<PurchIngVO> getIngAllList(PageObject pageObject);
 
-
+	public List<PurchIngVO> getExcelIngAllList(PageObject pageObject);
 }

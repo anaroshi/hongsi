@@ -9,9 +9,6 @@
 <meta charset="UTF-8">
 <title>재료 구매 &amp; 입출고 리스트</title>
 
-<style type="text/css">
-</style>
-  
 <script>
 $( function() {
 	$(".flatpickr").flatpickr({	
@@ -51,7 +48,35 @@ function fn_view(cno, gubun) {
 	var yPos = (document.body.offsetHeight/2) - (h/2) - 200;
 
 	window.open(url, "pop_name", "width="+w+", height="+h+", left="+xPos+", top="+yPos+", menubar=no, status=no, titlebar=no, resizable=no");
-};  
+};
+
+function doExcelUploadProcess() {
+	
+	alert("doExcelUploadProcess");
+	let f = new FormData($("#frm"));
+	$.ajax({
+		url: "uploadExcelFile",
+		data: f,
+		processData: false,
+		contentType: false,
+		type:"POST",
+		success: function(data){
+			console.log(data);
+			$("#result").html(JSON.stringify(data));
+		}		
+	})
+}
+
+function doExcelDownloadProcess() {
+	let f = $("#frm");	
+	$('<input>').attr('type','hidden').attr('name','buyDate').attr('value','${pageObject.buyDate}').appendTo(f);
+	$('<input>').attr('type','hidden').attr('name','gubun').attr('value','${pageObject.gubun}').appendTo(f);
+	$('<input>').attr('type','hidden').attr('name','item').attr('value','${pageObject.item}').appendTo(f);
+	$('<input>').attr('type','hidden').attr('name','purShop').attr('value','${pageObject.purShop}').appendTo(f);
+	$('<input>').attr('type','hidden').attr('name','inDate').attr('value','${pageObject.inDate}').appendTo(f);
+	f.attr("action", "downloadExcelFile");
+	f.submit();
+}
 
 </script>
 </head>
@@ -141,7 +166,17 @@ function fn_view(cno, gubun) {
 	<table class="table table-striped">
 	   <thead>
 		   	<tr>
-				<td colspan="9" class="text-center"><h5>재료 구매 &amp; 입출고 LIST</h5></td>    	
+				<td colspan="2"></td>
+				<td colspan="2" class="text-center"><h5>재료 구매 &amp; 입출고 LIST</h5></td>
+				<td colspan="3" class="text-right">
+					<form id="frm" name="frm" method="post" enctype="multipart/form-data" class="form-inline">
+						<div class="form-group">
+							<input type="file" id="fileInput" name="fileInput">
+						</div>	
+							<button type="button" onclick="doExcelUploadProcess()" class="btn btn-primary">엑셀업로드</button>
+							<button type="button" onclick="doExcelDownloadProcess()" class="btn btn-primary">엑셀다운로드</button>
+					</form>
+				</td>				    	
 			</tr>
 			<tr>
 		        <th width="10%">일자</th>
@@ -189,6 +224,7 @@ function fn_view(cno, gubun) {
 		</c:if>
 	</div>
 	</div>
+	<div id="result"></div>
 </div>
 </body>
 </html>

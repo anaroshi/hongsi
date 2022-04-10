@@ -759,10 +759,14 @@
 			BUYDATE, 
 			GUBUN,
 			ITEM,
+			CONTENT,
+			QTY,
 			SUMQTY,
+			PRICE,
 			PURSHOP,
 			INDATE,
-			COMM
+			COMM,
+			BUYER
 	FROM
 	(	
 		SELECT ROWNUM RNUM, 	
@@ -770,10 +774,14 @@
 			BUYDATE, 
 			GUBUN,
 			ITEM,
+			CONTENT,
+			QTY,
 			SUMQTY,
+			PRICE,
 			PURSHOP,
 			INDATE,
-			COMM
+			COMM,
+			BUYER
 		FROM 
 		(
 			SELECT 
@@ -781,10 +789,14 @@
 				P.BUYDATE, 
 				P.GUBUN,
 				I.KNAME ITEM,
+				P.CONTENT,
+				P.QTY,
 				P.SUMQTY,
-				P.PURSHOP,
+				P.PRICE,
+				P.PURSHOP,			
 				P.INDATE,
 				P.COMM,
+				P.BUYER,
 				P.RDATE
 			FROM 
 			(
@@ -793,10 +805,14 @@
 					BUYDATE,
 					ITEM,
 					GUBUN,
+					CONTENT,
+					QTY,
 					SUMQTY,
+					PRICE,
 					PURSHOP,			
 					INDATE,
-					COMM,		
+					COMM,
+					BUYER,
 					RDATE	
 				FROM PURCH_ING
 				WHERE 1=1
@@ -821,5 +837,65 @@
 	WHERE	1=1
 	AND 	FLAG != 4
 	<include refid="ingSelect" />
+	</select>
+	
+	<!-- 	재료 구매 & 입출고 리스트 -->
+	<select id="getExcelIngAllList" resultType="com.hongsi.purchbook.vo.PurchIngVO">
+	SELECT  	
+		CNO,
+		BUYDATE, 
+		GUBUN,
+		ITEM,
+		CONTENT,
+		QTY,
+		SUMQTY,
+		PRICE,
+		PURSHOP,
+		INDATE,
+		COMM,
+		BUYER
+	FROM 
+	(
+		SELECT 
+			P.CNO,
+			P.BUYDATE, 
+			P.GUBUN,
+			I.KNAME ITEM,
+			P.CONTENT,
+			P.QTY,
+			P.SUMQTY,
+			P.PRICE,
+			P.PURSHOP,			
+			P.INDATE,
+			P.COMM,
+			P.BUYER,
+			P.RDATE
+		FROM 
+		(
+		SELECT 
+				CNO,
+				BUYDATE,
+				ITEM,
+				GUBUN,
+				CONTENT,
+				QTY,
+				SUMQTY,
+				PRICE,
+				PURSHOP,			
+				INDATE,
+				COMM,
+				BUYER,
+				RDATE	
+			FROM PURCH_ING
+			WHERE 1=1
+			AND FLAG != 4
+			<include refid="ingSelect" />
+		) P,
+		(
+			SELECT KNAME, CODE FROM INGREDIENT
+		) I
+		WHERE 	P.ITEM = I.CODE
+		ORDER BY P.BUYDATE DESC, P.RDATE DESC
+	)			
 	</select>	
 </mapper>

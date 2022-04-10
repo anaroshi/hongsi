@@ -485,22 +485,40 @@
 	)
 	</select>	
 
+	<!-- 	생산/주문/판매 합한 정보 엑셀출력용 -->
+	<select id="excelProductOrderSaleAllInfo" resultType="com.hongsi.purchshop.vo.PurchOrderVO">
+	SELECT  CNO, GUBUN, PDATE ORDERDATE, 
+		ORI_250,ORI_500,ORI_1000,
+		ERL_250,ERL_500,ERL_1000,
+		STC_250,STC_500,STC_1000,
+		SALEPATH,ORDERER,COMM, GUBUNCODE
+	FROM (
+		<if test="key == null">	
+			<include refid="optionAllGubun" />
+		</if>
+		<if test="key != null">
+			<include refid="optionGubun" />
+		</if>					
+	) 
+	ORDER BY PDATE DESC
+	</select>
+
 	<sql id="optionAllGubun">
-		SELECT CNO, GUBUN, TO_DATE(ORDERDATE, 'yyyy-MM-dd') PDATE, 
+		SELECT CNO, GUBUN, ORDERDATE PDATE, 
 			ORI_250,ORI_500,ORI_1000,ERL_250,ERL_500,ERL_1000,STC_250,STC_500,STC_1000,
 			SALEPATH, ORDERER, COMM, GUBUNCODE
 		FROM PURCH_ORDER
 		WHERE 	1=1
 		AND 	FLAG != 4
 		UNION		
-		SELECT CNO, GUBUN, TO_DATE(PRODUCTDATE, 'yyyy-MM-dd') PDATE, 
+		SELECT CNO, GUBUN, PRODUCTDATE PDATE, 
 			ORI_250,ORI_500,ORI_1000,ERL_250,ERL_500,ERL_1000,STC_250,STC_500,STC_1000,
 			'','', COMM, GUBUNCODE
 		FROM PURCH_PRODUCT
 		WHERE 	1=1
 		AND 	FLAG != 4
 		UNION	
-		SELECT CNO, GUBUN, TO_DATE(SALEDATE, 'yyyy-MM-dd') PDATE, 
+		SELECT CNO, GUBUN, SALEDATE PDATE, 
 			ORI_250,ORI_500,ORI_1000,ERL_250,ERL_500,ERL_1000,STC_250,STC_500,STC_1000,
 			SALEPATH,ORDERER,COMM, GUBUNCODE
 		FROM	PURCH_SALE
