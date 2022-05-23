@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 1. com.hongsi.purchbook.mapper.ItemMapper 인터페이스 선언 -->
+<!-- 2. root-context.xml <mybatis-spring:scan ~~ /> 태그로 기본 패키지 지정 -->
+<!-- 3. com.hongsi.purchbook.mapper.ItemMapper.xml 실행 작성 - src/main/resources -->
+<!-- <![CDATA[ 이 사이에 있는 것은 mybatis가 처리하지 않고 그대로 넘긴다. DB에서 처리되도록 ]]> -->
+
+<mapper namespace="com.hongsi.purchpack.mapper.PurchPackMapper">
+
+	<!-- 	부자재 대분류 	-->
+	<select id="mainList" resultType="com.hongsi.purchpack.vo.PurchPackItemVO">
+		SELECT 
+			CODE, 
+			NAME 
+		FROM PACKAGING 
+		ORDER BY SORTNUM
+	</select>
+
+	<!-- 	부자재 소분류 	-->
+	<select id="subList" resultType="com.hongsi.purchpack.vo.PurchPackItemVO">
+		SELECT 
+			CODE, 
+			NAME 
+		FROM PACKAGING_ITEM
+		WHERE
+			PACK_CODE = #{pack_code}
+		ORDER BY SORTNUM
+	</select>
+	
+	<!-- 	부자재 구입 정보 저장 	-->
+	<insert id="insertPurchpackOrder">
+	INSERT INTO PURCH_PACK (
+		CNO,
+		BUYDATE,
+		BUYER,
+		PACK_CODE,
+		CODE,
+		QTY,
+		PRICE,
+		PURSHOP,
+		INDATE,
+		GUBUN,
+		FLAG,
+		RDATE,
+		UDATE
+	) VALUES (
+		PURCH_PACK_PK.NEXTVAL,
+		#{buyDate, jdbcType=DATE},
+		#{buyer},
+		#{pack_code},
+		#{code},
+		#{qty},
+		#{price},
+		#{purShop},
+		#{inDate, jdbcType=DATE},
+		#{gubun},
+		1,
+		SYSDATE,
+		SYSDATE
+	)
+	</insert>
+	
+	<select id="selectPackList" resultType="com.hongsi.purchpack.vo.PurchPackVO">
+	SELECT 
+		RNUM,
+		CNO,
+		BUYDATE,
+		BUYER,
+		PACK_CODE,
+		PACK_NAME,
+		CODE,
+		NAME,
+		QTY,
+		PRICE,
+		PURSHOP,
+		INDATE,
+		GUBUN,
+		RDATE
+	FROM (
+		SELECT 
+			ROWNUM RNUM,
+			CNO,
+			BUYDATE,
+			BUYER,
+			PACK_CODE,
+			PACK_NAME,
+			CODE,
+			NAME,
+			QTY,
+			PRICE,
+			PURSHOP,
+			INDATE,
+			GUBUN,
+			RDATE
+		FROM (	
+			SELECT 
+				A.CNO,
+				A.BUYDATE,
+				A.BUYER,
+				A.PACK_CODE,
+				B.NAME PACK_NAME,
+				A.CODE,
+				C.NAME,
+				A.QTY,
+				A.PRICE,
+				A.PURSHOP,
+				A.INDATE,
+				A.GUBUN,
+				A.RDATE
+			FROM (
+				SELECT			
+						CNO,
+						BUYDATE,
+						BUYER,
+						PACK_CODE,
+						CODE,
+						QTY,
+						PRICE,
+						PURSHOP,
+						INDATE,
+						GUBUN,
+						RDATE
+				FROM PURCH_PACK
+			) A,
+			(SELECT CODE, NAME FROM PACKAGING) B,
+			(SELECT CODE, NAME FROM PACKAGING_ITEM) C 
+			WHERE A.PACK_CODE = B.CODE
+			AND A.CODE = C.CODE
+			ORDER BY A.BUYDATE DESC, A.RDATE DESC
+		)
+	)
+	WHERE 1=1
+	<!--  	AND RNUM BETWEEN #{startRow} AND #{endRow} -->
+	</select>
+	
+	<!-- 총 부자재 주문 건수 -->
+	<select id="getBuyTotalRow" resultType="java.lang.Integer">
+	SELECT 	COUNT(*)
+	FROM 	PURCH_PACK
+	WHERE	STATUS = 'purch'
+	AND 	FLAG != 4
+	</select>
+	
+	<!-- 	부자재 구매 or 입출고 정보삭제 처리		 -->
+	<update id="deletePack">
+	UPDATE PURCH_PACK
+	SET 	FLAG = 4, UDATE = SYSDATE
+	WHERE 	CNO	= #{cno}
+	AND		STATUS = #{status}
+	</update>	
+	
+	<select id="selectIndatePackList" resultType="com.hongsi.purchpack.vo.PurchPackVO">
+	SELECT 
+		RNUM,
+		CNO,
+		BUYDATE,
+		BUYER,
+		PACK_CODE,
+		PACK_NAME,
+		CODE,
+		NAME,
+		QTY,
+		PRICE,
+		PURSHOP,
+		INDATE,
+		GUBUN,
+		RDATE
+	FROM (
+		SELECT 
+			ROWNUM RNUM,
+			CNO,
+			BUYDATE,
+			BUYER,
+			PACK_CODE,
+			PACK_NAME,
+			CODE,
+			NAME,
+			QTY,
+			PRICE,
+			PURSHOP,
+			INDATE,
+			GUBUN,
+			RDATE
+		FROM (	
+			SELECT 
+				A.CNO,
+				A.BUYDATE,
+				A.BUYER,
+				A.PACK_CODE,
+				B.NAME PACK_NAME,
+				A.CODE,
+				C.NAME,
+				A.QTY,
+				A.PRICE,
+				A.PURSHOP,
+				A.INDATE,
+				A.GUBUN,
+				A.RDATE
+			FROM (
+				SELECT			
+						CNO,
+						BUYDATE,
+						BUYER,
+						PACK_CODE,
+						CODE,
+						QTY,
+						PRICE,
+						PURSHOP,
+						INDATE,
+						GUBUN,
+						RDATE
+				FROM PURCH_PACK
+				WHERE 	TRUNC(RDATE) = TRUNC(SYSDATE)
+			) A,
+			(SELECT CODE, NAME FROM PACKAGING) B,
+			(SELECT CODE, NAME FROM PACKAGING_ITEM) C 
+			WHERE A.PACK_CODE = B.CODE
+			AND A.CODE = C.CODE
+			ORDER BY A.BUYDATE DESC, A.RDATE DESC
+		)
+	)
+	WHERE 1=1
+	<!--  	AND RNUM BETWEEN #{startRow} AND #{endRow} -->
+	</select>
+</mapper>
