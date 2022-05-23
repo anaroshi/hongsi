@@ -167,6 +167,7 @@ public class PurchIngSerivceImpl implements PurchIngSerivce {
 
 	@Override
 	public List<PurchIngVO> getExcelIngAllList(PageObject pageObject) {
+		log.info("------------------ing mapper:"+ mapper.getExcelIngAllList(pageObject));
 		return mapper.getExcelIngAllList(pageObject);
 	}
 }

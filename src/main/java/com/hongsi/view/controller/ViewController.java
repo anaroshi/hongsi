@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.hongsi.ingredient.service.IngredientService;
 import com.hongsi.purchbook.service.PurchIngSerivce;
 import com.hongsi.purchbook.vo.PurchIngVO;
+import com.hongsi.purchpack.service.PurchPackService;
 import com.hongsi.purchshop.service.PurchOrderService;
 import com.hongsi.purchshop.service.PurchOutputService;
 import com.hongsi.purchshop.service.PurchProductService;
@@ -32,6 +33,10 @@ public class ViewController {
 	@Autowired
 	@Qualifier("purchIngSerivceImpl")
 	private PurchIngSerivce purchIngSerivce;
+	
+	@Autowired
+	@Qualifier("purchPackSerivceImpl")
+	private PurchPackService purchpackSerivce;
 
 	@Autowired
 	@Qualifier("ingredientServiceImpl")
@@ -105,6 +110,58 @@ public class ViewController {
 			 } else {
 				 return "ok3";
 			 }
+		}
+		return "fail";
+	}
+	
+	
+	// --------------------------------------- 부자재 구매 -----------------------------------------------
+	
+	// 부자재 구매 정보 보기 (부자재에서)
+	@GetMapping("view/packModify.do")
+	public String packModify(PurchIngVO vo, Model model, @ModelAttribute PageObject object) throws Exception {
+		log.info(".............................packModify..vo:"+vo);
+		log.info(".............................packModify..object:"+object);
+		log.info(".............................packModify..locate:"+vo.getLocate());
+		
+		// 부자재 list
+		//model.addAttribute("ingreList", ingredientService.list());
+		
+		// 부자재 구매한 정보
+		//model.addAttribute("packInfo", purchpackSerivce.selectPackInfoByCno(vo));
+		//model.addAttribute("locate", vo.getLocate()); // 1 : pack.jsp, 2:packAllList.jsp, 3:ingAllList.jsp
+		return "view/packModify";
+	}
+	
+	// 부자재 구매 삭제 처리
+	@ResponseBody
+	@PostMapping("view/packDelete.do")
+	public String packDelete(PurchIngVO vo) throws Exception {
+		log.info(".............................packDelete..");
+		//vo.setStatus("purch");
+		
+//		int result = purchpackSerivce.deletePack(vo);
+		int result = 1;
+		log.info(".............................packDelete..result:"+result);
+		if (result == 1) {
+			return "ok";
+		}
+		return "";
+	}
+	
+	// 부자재 구매 수정 처리
+	@Nullable  // null 허용
+	@ResponseBody
+	@PostMapping("view/packUpdate.do")
+	public String packUpdate(PurchIngVO vo, PageObject object) throws Exception {
+		log.info(".............................packUpdate..vo:" + object);
+//		vo.setFlag(2);
+//		vo.setStatus("purch");
+//		int result = purchpackSerivce.updatePack(vo);
+		int result = 1;
+		log.info("............................result:"+result); 
+		if (result==1) {
+			return "ok1";
 		}
 		return "fail";
 	}

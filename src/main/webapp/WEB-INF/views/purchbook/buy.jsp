@@ -98,7 +98,7 @@ function fn_item(kname) {
 <div class="container">
 <form class="form-horizontal" method="post" onsubmit="return formCheck()">
 <div class="row">
-  <h4>재료구매 입력</h4>  
+  <h4>재료 구매 입력</h4>  
 
 	<!-- 주문 필요량 보이기 Start -->
 	<div class="col-md-2">

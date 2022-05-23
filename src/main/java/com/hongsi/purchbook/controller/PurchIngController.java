@@ -156,7 +156,7 @@ public class PurchIngController {
 	
 	@PostMapping("downloadExcelFile")
 	public String downloadExcelFile(Model model, @ModelAttribute PageObject pageObject, HttpServletResponse res) throws Exception {
-		log.info(".............................downloadExcelFile:");		
+		log.info(".............................downloadExcelFile pageObject:"+pageObject);		
 
 		// 엑셀 생성 
 		//SXSSFWorkbook workbook = new SXSSFWorkbook();
@@ -182,10 +182,11 @@ public class PurchIngController {
 //		log.info("--------------------excelDownload--name--:"+name);
 		
 		res.setHeader("Content-disposition", "attachment; filename= purching.xlsx");
-		List<PurchIngVO> list = purchIngSerivce.getExcelIngAllList(pageObject);
-		log.info(".............................list:");
-		log.info(".............................list:"+list);
-		model.addAttribute("excelList", list);
+//		List<PurchIngVO> list = purchIngSerivce.getExcelIngAllList(pageObject);
+//		log.info(".............................list:");
+//		log.info(".............................list:"+list);
+//		model.addAttribute("excelList", list);
+		model.addAttribute("excelList", purchIngSerivce.getExcelIngAllList(pageObject));
 //		model.addAttribute("name", name);
 		
 		return "purchIngExcelView";

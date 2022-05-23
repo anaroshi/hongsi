@@ -188,7 +188,7 @@ $(function() {
 						<td id="erl_${status.count}"><fmt:formatNumber value="${vo.erl_qty_2week}" /></td>
 						<td id="stc_${status.count}"><fmt:formatNumber value="${vo.stc_qty_2week}" /></td>
 						<td class="text-right warning" id="need_${status.count}"><fmt:formatNumber value="${vo.needSum}" /></td>						
-						<td id="ftt_${status.count}"><fmt:formatNumber value="${vo.total-vo.sumCafe}" /></td>
+						<td id="ftt_${status.count}"><fmt:formatNumber value="${vo.sumOffice}" /></td>
 						<td id="ftt_${status.count}"><fmt:formatNumber value="${vo.sumCafe}" /></td>
 						<td id="tot_${status.count}"><strong><fmt:formatNumber value="${vo.total}" /></strong></td>						
 						<c:if test="${vo.finalNeed >=0}"><td class="text-right warning" id="totNeed2week_${status.count}"></c:if>

@@ -11,12 +11,16 @@
   
 <script>
 $( function() {
+
 	$(".flatpickr").flatpickr({	
 		mode: "range",
-		dateFormat: 'Y-m-d',
-		locale: 'ko',
+		dateFormat: "Y-m-d",
+		locale: "ko",
+// 		minDate: new Date().fp_incr(-30),
+// 		maxDate: new Date().fp_incr(93),		
 		allowInput: false  
-	});
+	}); 
+	
 	
 	$("#reset").click(function(){
 		$("#buyDate").val("");

@@ -34,7 +34,7 @@ request.setAttribute("path", request.getContextPath());
 <script src="https://npmcdn.com/flatpickr/dist/l10n/ko.js"></script>
 
 <!-- flatpickr 날짜 입력 -->
-<script type="text/javascript" src="/resources/js/flatpickr.js"></script>
+<script type="text/javascript" src="/resources/js/flatpickr2.js"></script>
 
 <!-- 재료 용량 등록 -->
 <!-- <script type="text/javascript" src="/resources/js/item.js"></script> -->
@@ -147,7 +147,14 @@ article {
 				</div>
 				<div class="collapse navbar-collapse" id="myNavbar">
 					<ul class="nav navbar-nav">
-						<li><a href="${path }/purchbook/buy.do">재료구매</a></li>
+						<li class="dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#">구매
+							<span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="${path }/purchbook/buy.do">재료구매</a></li>
+								<li><a href="${path }/purchpack/pack.do">부자재구매</a></li>
+							</ul>
+						</li>						
 						<li><a href="${path }/purchbook/storage.do">재료입출고</a></li>
 						<li><a href="${path }/purchshop/output.do">M생산</a></li>
 						<li><a href="${path }/purchshop/product.do">생산</a></li>
@@ -159,6 +166,7 @@ article {
 							<ul class="dropdown-menu">
 								<li><a href="${path }/purchbook/ingAllList.do">재료</a></li>
 								<li><a href="${path }/purchbook/buyAllList.do">재료구매</a></li>
+								<li><a href="${path }/purchpack/packAllList.do">부자재구매</a></li>
 								<li><a href="${path }/purchbook/storageAllList.do">재료입출고</a></li>
 								<li><a href="${path }/purchshop/outputAllList.do">M생산</a></li>
 								<li><a href="${path }/purchshop/productAllList.do">생산</a></li>
@@ -168,7 +176,14 @@ article {
 							</ul>
 						</li>
 						<li><a href="${path }/quantity/list.do">재료함량</a></li>
-						<li><a href="${path }/purchbook/stockList.do">재료재고</a></li>
+						<li class="dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#">재고
+							<span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="${path }/purchbook/stockList.do">재료재고</a></li>
+								<li><a href="${path }/purchpack/packStock.do">부자재재고</a></li>
+							</ul>
+						</li>
 						<li><a href="${path }/quantity/product.do">제품생산</a></li>									
 						<li><a href="${path }/report/report.do">엑셀출력</a></li>									
 						<!-- &amp; - &, &lt; -> <, &gt; -> >, &nbsp; blank -->						
