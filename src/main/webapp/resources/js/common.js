@@ -4,44 +4,47 @@
  * returnFalse
  */
  
-function $validateForm() {
-	console.log("-------------$validateForm");
-	$(".fieldChk").each( function() {
+function $validateForm(form) {
 	
-		let fieldType = $(this).attr("data-type");
-		if(fieldType != "hidden" && fieldType != "password") {
+	let len = $('form').find('.fieldChk').length;
+	console.log("len : "+len);
 		
-			let fieldName = $(this).attr("name");
-			let fieldValue = trimStr($(this).val());
-			let fieldTitle = $(this).attr("data-fieldTitle");
+	for(vi=0;vi<=len;vi++) {
+	
+ 		let $this = $(form.elements[vi]);
+ 		let fieldType = $this.attr("data-type");
+ 		console.log("fieldType : "+fieldType);
+		if(fieldType != "hidden" && fieldType != "password" && fieldType != undefined) {
+
+			let fieldName = $this.attr("name");
+			let fieldValue = trimStr($this.val());
+			let fieldTitle = $this.attr("data-fieldTitle");
 			
-			if(fieldTitle=='주문품 대분류' && fieldValue=='') return false;
+//			if(fieldTitle=='주문품 대분류' && fieldValue=='') return false;
 
 			console.log("type : "+fieldType+", name : "+fieldName);
 			console.log("value : "+fieldValue+", title : "+fieldTitle);
 			console.log("-----------------------------------------------");
-			
+						
 			if($(".fieldChk").attr("required") != null && $(".fieldChk").attr("required") != false && fieldType == "radio") {
 				fieldValue = $('input:radio:checked').val();
 			}
 			
 //			if($(".fieldChk").attr("required") != null && $(".fieldChk").attr("required") != false && fieldValue == "") {
 			if(fieldTitle !='입고일자' && fieldValue == "") {
-				alert(fieldTitle+"은(는) 필수 입력 항목입니다.");
-				console.log("returnFalse => "+returnFalse($formField));
-				return returnFalse($(this));
+				alert(fieldTitle+"은(는) 필수 입력 항목입니다.");				
+				return returnFalse($this);  
 			}			
 			
 			if($(".fieldChk").attr("required") != null && checkSpecialChar2(fieldValue, $(".fieldChk").attr("filter"))) {
 				alert(fieldTitle+"에 다음과 같은 문자는 입력할 수 없습니다.");
-				return returnFalse($(this));
+				return returnFalse($this);  
 			}
 		}
-		return true;	
-	});
-
-
+	}
+	return true;
 }
+
 
 function validateForm(form) {
 	console.log("------------------validateForm");
@@ -106,7 +109,7 @@ function trimStr(str) {
 	return ((st<len) && (len<count))?str.substring(st,len):str;		
 }
 	
-function returnFalse(formField) {
+function returnFalse(formField) {	
 	formField.focus();
 	return false;
 }
@@ -123,12 +126,6 @@ function checkSpecialChar2(fieldValue, str) {
 	}
 	return false;
 }
-
-$( function() {
-
-
-	
-});	
 
 /**
 * 입력값이 NULL인지 체크

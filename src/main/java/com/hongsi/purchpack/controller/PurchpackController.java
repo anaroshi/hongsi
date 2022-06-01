@@ -33,11 +33,12 @@ public class PurchpackController {
 	private PurchPackService purchpackSerivce;
 	
 	@GetMapping("pack.do")
-	public String pack(Model model, PurchPackItemVO vo) throws Exception {
-		log.info(".............................PurchpackController..pack");
+	public String pack(Model model, PurchPackItemVO vo, @ModelAttribute PageObject pageObject) throws Exception {
+		pageObject.setPerPageNum(8);
+		log.info("........get.....................PurchpackController..pack : "+pageObject);
 		model.addAttribute("PurchPackItemVO", vo);
 		model.addAttribute("pack_code", purchpackSerivce.mainList());
-		model.addAttribute("packList", purchpackSerivce.selectIndatePackList());
+		model.addAttribute("packList", purchpackSerivce.selectIndatePackList(pageObject));
 		return MODULE + "/pack";
 	}
 
@@ -50,9 +51,11 @@ public class PurchpackController {
 
 	// 부자재 주문 정보 저장
 	@PostMapping("pack.do")	
-	public String pack(PurchPackVO vo, Model model, RedirectAttributes rttr) throws Exception {
-		log.info(".............................PurchpackController..pack 구매 저장");
+	public String pack(PurchPackVO vo, Model model, RedirectAttributes rttr, @ModelAttribute PageObject pageObject) throws Exception {
+		pageObject.setPerPageNum(8); // page당 갯수
+		log.info(".............post................PurchpackController..pack 구매 저장");
 		log.info(".............................vo : "+vo);
+		log.info(".............................pageObject : "+pageObject);
 
 		try {
 			System.out.println("write--------------------try--");
@@ -62,7 +65,7 @@ public class PurchpackController {
 				throw new Exception("write error");
 			// insert 성공시 rttr로 메세지를 보내고
 			rttr.addFlashAttribute("msg", "입력되었습니다");
-			model.addAttribute("packList", purchpackSerivce.selectIndatePackList());
+			model.addAttribute("packList", purchpackSerivce.selectIndatePackList(pageObject));
 			
 		} catch (Exception e) {
 			System.out.println("write--------------------catch--");
@@ -71,7 +74,7 @@ public class PurchpackController {
 			// insert 실패시 model로 메세지를 보낸다.
 			rttr.addFlashAttribute("msg", "WRT_ERR");
 		}		
-		return  MODULE + "/pack";
+		return "redirect:pack.do";
 	}
 	
 	// 부자재 주문 정보 리스트
@@ -79,6 +82,7 @@ public class PurchpackController {
 	public String orderAllList(Model model, @ModelAttribute PageObject pageObject) throws Exception {
 		log.info(".............................packAllList..");
 		model.addAttribute("packList", purchpackSerivce.selectPackList(pageObject));
+		model.addAttribute("pageObject", pageObject);
 		return MODULE + "/packAllList";
 	}
 	

@@ -10,8 +10,11 @@ public interface PurchPackService {
 	
 	public List<PurchPackItemVO> mainList() throws Exception;
 	public List<PurchPackItemVO> subList(String pack_code) throws Exception;
-	public int insertPurchpackOrder(PurchPackVO vo);
-	public List<PurchPackVO> selectPackList(PageObject pageObject);
-	public List<PurchPackVO> selectIndatePackList();
+	public int insertPurchpackOrder(PurchPackVO vo) throws Exception;
+	public List<PurchPackVO> selectPackList(PageObject pageObject) throws Exception;
+	public List<PurchPackVO> selectIndatePackList(PageObject pageObject) throws Exception;
+	public PurchPackVO selectPackInfoByCno(PurchPackVO vo) throws Exception;
+	public int deletePack(PurchPackVO vo) throws Exception;
+	public int updatePack(PurchPackVO vo) throws Exception;
 
 }

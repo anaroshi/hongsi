@@ -191,9 +191,9 @@ $(function() {
 						<td id="ftt_${status.count}"><fmt:formatNumber value="${vo.sumOffice}" /></td>
 						<td id="ftt_${status.count}"><fmt:formatNumber value="${vo.sumCafe}" /></td>
 						<td id="tot_${status.count}"><strong><fmt:formatNumber value="${vo.total}" /></strong></td>						
-						<c:if test="${vo.finalNeed >=0}"><td class="text-right warning" id="totNeed2week_${status.count}"></c:if>
-						<c:if test="${vo.finalNeed <0}"><td class="text-right warning" id="totNeed2week_${status.count}" style="background-color:yellowgreen;"></c:if>
-							<fmt:formatNumber value="${vo.finalNeed}" /></td>
+						<c:if test="${vo.finalNeed >=0}"><td class="text-right warning" id="totNeed2week_${status.count}"><fmt:formatNumber value="${vo.finalNeed}" /></td></c:if>
+						<c:if test="${vo.finalNeed <0}"><td class="text-right warning" id="totNeed2week_${status.count}" style="background-color:yellowgreen;">
+							<fmt:formatNumber value="${vo.finalNeed}" /></td></c:if>
 						<td class="text-right" id="need2week_${status.count}"><fmt:formatNumber value="${vo.ori_need2week}" /></td>
 						<td class="text-right" id="need2week_${status.count}"><fmt:formatNumber value="${vo.erl_need2week}" /></td>
 						<td class="text-right" id="need2week_${status.count}"><fmt:formatNumber value="${vo.stc_need2week}" /></td>

@@ -31,6 +31,7 @@ let options = `
        <option value="맘쿠킹">맘쿠킹</option>
        <option value="코스트코구매대행">코스트코구매대행</option>
        <option value="쿠팡">쿠팡</option>
+       <option value="우체국">우체국</option>
 `;
 
 let getPackCode = function(that) {	
@@ -40,10 +41,12 @@ let getPackCode = function(that) {
 $( function() {
 	
 	// 입력 메세지 처리	
-	${(empty msg)? "":"alert('"+=msg+="');"};	
-// 	<c:if test="${!empty msg}">
-// 		alert("${msg}");
-// 	</c:if>
+// 	${(empty msg)? "":"alert('"+=msg+="');"};
+// 	msg = "";
+	<c:if test="${!empty msg}">
+		alert("${msg}");
+		${msg = ""};
+	</c:if>
 
 	//startWith(); // 화면 로드시 주문일일 열림 
 	function startWith() {
@@ -56,7 +59,6 @@ $( function() {
 	
 	// 거래처
 	$("#purShop").append(options);
-
 
 //		$('#frm').submit(function() {
 //		     // inside event callbacks 'this' is the DOM element so we first
@@ -95,7 +97,8 @@ $( function() {
 
 // 	$('#frm').submit(function() { //submit이 발생하면	
 // 		console.log("submit");
-// 		if($validateForm() != false) {
+// 		let form = document.forms.frm;
+// 		if($validateForm(form) != false) {			
 // 			let f = $("#frm").serialize();
 // 			console.log("data : "+f);
 // 			let option = {
@@ -115,11 +118,11 @@ $( function() {
 	
 // 			// alert("validateForm");
 // 			$("#frm").ajaxSubmit(option); //옵션값대로 ajax비동기 동작을 시키고
-//  		    return false; //기본 동작인 submit의 동작을 막아 페이지 reload를 막는다.	
+//  		   // return false; //기본 동작인 submit의 동작을 막아 페이지 reload를 막는다.	
 // 		} else {
 //  			console.log("---- validateForm failed");
-// 		}
-// 		return false;
+//  			return false;
+// 		}		
 // 	});
 });
 
@@ -195,8 +198,8 @@ function addRow() {
 	        </td>
 	        <td>
 	        	<div class="col-sm-8">
-				<input class="form-control inputDate flatpickr flatpickr-input fieldChk" id="inDate" name="inDates" type="text" data-type="text" 
-					 data-fieldTitle="입고일자" data-fieldTitle="주문일" style="background: #FFFFFF;" placeholder="일자를 선택해주세요" data-input>
+	    			<input class="form-control inputDate flatpickr flatpickr-input fieldChk" id="inDate" name="inDates" type="text" data-type="text" 
+	    	 			data-fieldTitle="입고일자" style="background: #FFFFFF;" placeholder="일자를 선택해주세요" data-input>
 				</div>	 
 				<div class="col-sm-4">
 				 	<button type="button" onclick="delRow(this)" class="btn btn-block">삭제</button>	
@@ -206,19 +209,33 @@ function addRow() {
 	`;
 	
 	$(".buyPack").append(row).find('.flatpickr').flatpickr();
-
 }
 
 let delRow = function(that) {
 	$(that).closest('tr').remove();
 }
 
+function fn_view(cno) {	
+	
+	//alert(cno);
+	var w = 1000;
+	var h = 470;
+	let query = "&page="+${pageObject.page}+"&perPageNum="+${pageObject.perPageNum};
+	var url = "../view/packModify.do?cno="+cno+"&locate=1"+query;
+	
+	var xPos = (document.body.offsetWidth/2) - (w/2); // 가운데 정렬
+	xPos += window.screenLeft; // 듀얼 모니터일 때
+	var yPos = (document.body.offsetHeight/2) - (h/2) - 200;
+
+	window.open(url, "pop_name", "width="+w+", height="+h+", left="+xPos+", top="+yPos+", menubar=no, status=no, titlebar=no, resizable=no");
+}
 </script>
 </head>
 <body>
 <div class="container">
-<form id="frm" class="form-horizontal" method="post" onsubmit='return $validateForm()'>
-<input type="hidden" name="gubun" value="in">
+<form id="frm" name="frm" class="form-horizontal" method="post" onsubmit='return $validateForm(this)'>
+<%-- <form id="frm" name="frm" class="form-horizontal" method="post"> --%>
+<input type="hidden" name="gubun" value="in" data-type="hidden">
   	<h4>부자재 구매 입력</h4>
 	<div class="col-lg-12">
 		<div class="row">
@@ -229,7 +246,7 @@ let delRow = function(that) {
 				      <label for="buyDate" class="col-sm-4 control-label">주문일</label>
 				      <div class="col-sm-8">
 						<input class="form-control inputDate flatpickr flatpickr-input fieldChk" id="buyDate" name="buyDate" type="text" data-type="text" 
-								 data-fieldTitle="주문일" data-fieldTitle="주문일" style="background: #FFFFFF;" placeholder="일자를 선택해주세요" data-input>
+								 data-fieldTitle="주문일" style="background: #FFFFFF;" placeholder="일자를 선택해주세요" data-input>
 				      </div>
 				    </div>
 				</div>
@@ -251,17 +268,18 @@ let delRow = function(that) {
 				
 			    <div class="col-md-4"></div>
 			    <div class="col-md-1">
-					<button type="reset" class="btn btn-block">초기화</button>
+<!-- 					<button type="reset" class="btn btn-block">초기화</button> -->
+					<button type="button" onclick="location.href='pack.do'" class="btn btn-block fieldChk">초기화</button>
 			    </div>
 			    <div class="col-md-1">
-			    	<button type="button" onclick="addRow()" class="btn btn-block">추가</button>
+			    	<button type="button" onclick="addRow()" class="btn btn-block fieldChk">추가</button>
 			    </div>  
 			    <div class="col-md-1">
 <!-- 			    	<button type="button" onclick="saveBtn()" class="btn btn-block">저장</button> -->
-		    	<button type="submit" class="btn btn-block">저장</button>
+		    	<button type="submit" class="btn btn-block fieldChk">저장</button>
 			    </div>	
 			    <div class="col-md-1">
-			    	<button type="button" onclick="location.href='buyAllList.do'" class="btn btn-block">리스트</button>
+			    	<button type="button" onclick="location.href='packAllList.do'" class="btn btn-block fieldChk">리스트</button>
 			    </div>
 		    </div>
 	    </div>
@@ -322,7 +340,7 @@ let delRow = function(that) {
 		        <td>
 		        <div class="col-sm-8">
 					<input class="form-control inputDate flatpickr flatpickr-input fieldChk" id="inDate" name="inDates" type="text" data-type="text" 
-						 data-fieldTitle="입고일자" data-fieldTitle="주문일" style="background: #FFFFFF;" placeholder="일자를 선택해주세요" data-input>
+						 data-fieldTitle="입고일자" style="background: #FFFFFF;" placeholder="일자를 선택해주세요" data-input>
 				</div>
 				<div class="col-sm-4">
 				</div>		         	
@@ -365,61 +383,11 @@ let delRow = function(that) {
 			</c:forEach>
  		</tbody>     
 	</table>
+	<div class="text-center">
+		<c:if test="${pageObject.totalPage>1}" >		
+			<pageObject:pageNav listURI="pack.do" pageObject="${pageObject}" />
+		</c:if>	
+	</div>	
 </div>
-<script>
-//let f = new FormData($("#frm"));
-// let f = $("#frm").serialize();
-// console.log("data : "+f);
-// let option = {
-// 		url: "/pack",
-// 		data: f,		
-// 		type:"POST",
-// 		success: function(data){
-// 			console.log(data);
-// 			$("#result").html(JSON.stringify(data));
-// 		},
-// 		error : function(res){ 
-// 			alert("error");
-// 		}
-// }
-
-// //	$('#frm').submit(function() {
-// //	     // inside event callbacks 'this' is the DOM element so we first
-// //	     // wrap it in a jQuery object and then invoke ajaxSubmit
-// //	     $(this).ajaxSubmit(options);
-
-// //	     // !!! Important !!!
-// //	     // always return false to prevent standard browser submit and page navigation
-// //	     return false;
-// //	});
-
-
-// function saveBtn() {
-// //$('#frm').submit(function() { //submit이 발생하면	
-	
-// if($validateForm() != false) {
-// 	let f = $("#frm").serialize();
-// 	console.log("data : "+f);
-// 	let option = {
-// 			url: "/pack",
-// 			data: f,		
-// 			type:"POST",
-// 			success: function(data){
-// 				console.log(data);
-// 				$("#result").html(JSON.stringify(data));
-// 			},
-// 			error : function(res){ 
-// 				alert("error");
-// 			}
-// 	}
-
-// 	// alert("validateForm");
-// 	$("#frm").ajaxSubmit(option); //옵션값대로 ajax비동기 동작을 시키고
-//     return false; //기본 동작인 submit의 동작을 막아 페이지 reload를 막는다.	
-// });
-
-//}
-
-</script>
 </body>
 </html>

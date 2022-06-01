@@ -1,6 +1,5 @@
 package com.hongsi.purchpack.service;
 
-
 import java.util.Date;
 import java.util.List;
 
@@ -38,36 +37,48 @@ public class PurchPackServiceImpl implements PurchPackService {
 	}
 
 	@Override
-	public int insertPurchpackOrder(PurchPackVO vo) {
+	public int insertPurchpackOrder(PurchPackVO vo) throws Exception {
 		log.info("---------------PurchPackServiceImpl:부자재 주문");
 		
-		Date 		buyDate = vo.getBuyDate();		// 구매일자
-		String 		buyer = vo.getBuyer();			// 구매자
+		Date 		buyDate = vo.getBuyDate();			// 구매일자
+		String 		buyer = vo.getBuyer();				// 구매자
 		String[] 	pack_codes = vo.getPack_codes();	// 구매품 대분류 코드
-		String[] 	codes = vo.getCodes();			// 구매품 소분류 코드
+		String[] 	codes = vo.getCodes();				// 구매품 소분류 코드
 		long[] 		qtys = vo.getQtys();				// 구매갯수 / 수량
 		long[] 		prices = vo.getPrices();			// 구매금액	        
 		String[] 	purShops = vo.getPurShops(); 		// 구매 / 거래처
-		Date[] 		inDates = vo.getInDates();		// 입고일자
-		int 		cntSuccess = 0;
+		Date[] 		inDates = vo.getInDates();			// 입고일자
 		
-		for(int i=0;i<pack_codes.length;i++) {
+		int 		cntSuccess = 0;
+		int 		cnt = (pack_codes.length);
+		log.info("---------------cnt :"+cnt);
+		int 		inDatesCnt = (inDates.length);
+		log.info("---------------inDatesCnt :"+inDatesCnt);
+		for(int i=0;i<cnt;i++) {
+			log.info("---------------i :"+i);
 			vo.setBuyDate(buyDate);
-			vo.setBuyer(buyer);			
-			vo.setPack_code(pack_codes[i]);
-			vo.setCode(codes[i]);
-			vo.setQty(qtys[i]);
-			vo.setPrice(prices[i]);
-			vo.setPurShop(purShops[i]);
-			vo.setInDate(inDates[i]);
 			log.info("buyDate: "+buyDate);
+			vo.setBuyer(buyer);			
 			log.info("buyer: "+buyer);
+			vo.setPack_code(pack_codes[i]);
 			log.info("pack_code: "+pack_codes[i]);
+			vo.setCode(codes[i]);
 			log.info("code: "+codes[i]);
+			vo.setQty(qtys[i]);
 			log.info("qty: "+qtys[i]);
+			vo.setPrice(prices[i]);
 			log.info("price: "+prices[i]);
+			vo.setPurShop(purShops[i]);
 			log.info("purShop: "+purShops[i]);
-			log.info("inDate: "+inDates[i]);
+
+//			log.info("inDate: "+ inDates);
+			if (inDatesCnt==0) {
+				vo.setInDate(null);
+			} else {
+				log.info("inDate: "+ (inDates[i]==null?null:inDates[i]));
+				//vo.setInDate(inDates[i]==null?null:inDates[i]);
+				vo.setInDate(inDates[i]);
+			}
 			log.info(i+" -------------------------------------");
 			cntSuccess += mapper.insertPurchpackOrder(vo);
 		}
@@ -76,14 +87,35 @@ public class PurchPackServiceImpl implements PurchPackService {
 	}
 
 	@Override
-	public List<PurchPackVO> selectPackList(PageObject pageObject) {
+	public List<PurchPackVO> selectPackList(PageObject pageObject) throws Exception {
 		log.info("---------------PurchPackServiceImpl:부자재 리스트");
-		return mapper.selectPackList();
+		pageObject.setTotalRow(mapper.getPackTotalRow(pageObject));
+		return mapper.selectPackList(pageObject);
 	}
 
 	@Override
-	public List<PurchPackVO> selectIndatePackList() {
+	public List<PurchPackVO> selectIndatePackList(PageObject pageObject) throws Exception {
 		log.info("---------------PurchPackServiceImpl:입력일자 기준 리스트");
-		return mapper.selectIndatePackList();
+		pageObject.setTotalRow(mapper.getIndatePackTotalRow(pageObject));
+		return mapper.selectIndatePackList(pageObject);
+	}
+
+	// 부자재 입출고 수정을 위한 cno에 해당하는 정보 가져오기
+	@Override
+	public PurchPackVO selectPackInfoByCno(PurchPackVO vo) throws Exception {
+		return mapper.selectPackInfoByCno(vo);
+	}
+
+	// 부자재 구매 & 입출고 정보 삭제
+	@Override
+	public int deletePack(PurchPackVO vo) throws Exception {
+		return mapper.deletePack(vo);
+	}
+
+	// 부자재 구입 / 입출고 수정
+	@Override
+	public int updatePack(PurchPackVO vo) throws Exception {
+		log.info("부자재 구입 / 입출고 수정 updatePack vo : "+vo);
+		return mapper.updatePack(vo);
 	}
 }

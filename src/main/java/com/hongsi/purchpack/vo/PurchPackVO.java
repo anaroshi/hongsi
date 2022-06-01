@@ -1,7 +1,6 @@
 package com.hongsi.purchpack.vo;
 
 import java.util.Date;
-
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
@@ -38,6 +37,7 @@ public class PurchPackVO {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date[] 		inDates;			// 입고일자
 
+	private long 	locate;			// Modify 수정 or 삭제 처리 후 콜한 곳으로 가기 위한 값(1 :pack.jsp / 2:packAllList.jsp)
 }
 
 /*

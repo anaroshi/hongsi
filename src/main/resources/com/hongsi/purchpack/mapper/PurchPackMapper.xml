@@ -46,7 +46,7 @@
 		UDATE
 	) VALUES (
 		PURCH_PACK_PK.NEXTVAL,
-		#{buyDate, jdbcType=DATE},
+		#{buyDate},
 		#{buyer},
 		#{pack_code},
 		#{code},
@@ -76,6 +76,7 @@
 		PURSHOP,
 		INDATE,
 		GUBUN,
+		COMM,
 		RDATE
 	FROM (
 		SELECT 
@@ -92,6 +93,7 @@
 			PURSHOP,
 			INDATE,
 			GUBUN,
+			COMM,
 			RDATE
 		FROM (	
 			SELECT 
@@ -107,6 +109,7 @@
 				A.PURSHOP,
 				A.INDATE,
 				A.GUBUN,
+				A.COMM,
 				A.RDATE
 			FROM (
 				SELECT			
@@ -120,8 +123,10 @@
 						PURSHOP,
 						INDATE,
 						GUBUN,
+						COMM,
 						RDATE
-				FROM PURCH_PACK
+				FROM 	PURCH_PACK
+				WHERE 	FLAG != 4
 			) A,
 			(SELECT CODE, NAME FROM PACKAGING) B,
 			(SELECT CODE, NAME FROM PACKAGING_ITEM) C 
@@ -130,16 +135,15 @@
 			ORDER BY A.BUYDATE DESC, A.RDATE DESC
 		)
 	)
-	WHERE 1=1
-	<!--  	AND RNUM BETWEEN #{startRow} AND #{endRow} -->
+	WHERE 	1=1
+	AND 	RNUM BETWEEN #{startRow} AND #{endRow}
 	</select>
 	
 	<!-- 총 부자재 주문 건수 -->
-	<select id="getBuyTotalRow" resultType="java.lang.Integer">
+	<select id="getPackTotalRow" resultType="java.lang.Integer">
 	SELECT 	COUNT(*)
 	FROM 	PURCH_PACK
-	WHERE	STATUS = 'purch'
-	AND 	FLAG != 4
+	WHERE	FLAG != 4
 	</select>
 	
 	<!-- 	부자재 구매 or 입출고 정보삭제 처리		 -->
@@ -147,9 +151,9 @@
 	UPDATE PURCH_PACK
 	SET 	FLAG = 4, UDATE = SYSDATE
 	WHERE 	CNO	= #{cno}
-	AND		STATUS = #{status}
 	</update>	
 	
+	<!-- 등록일자 당일 기준 부자재 주문 리스트 -->
 	<select id="selectIndatePackList" resultType="com.hongsi.purchpack.vo.PurchPackVO">
 	SELECT 
 		RNUM,
@@ -165,6 +169,7 @@
 		PURSHOP,
 		INDATE,
 		GUBUN,
+		COMM,
 		RDATE
 	FROM (
 		SELECT 
@@ -181,6 +186,7 @@
 			PURSHOP,
 			INDATE,
 			GUBUN,
+			COMM,
 			RDATE
 		FROM (	
 			SELECT 
@@ -196,6 +202,7 @@
 				A.PURSHOP,
 				A.INDATE,
 				A.GUBUN,
+				A.COMM,
 				A.RDATE
 			FROM (
 				SELECT			
@@ -209,9 +216,11 @@
 						PURSHOP,
 						INDATE,
 						GUBUN,
+						COMM,
 						RDATE
 				FROM PURCH_PACK
 				WHERE 	TRUNC(RDATE) = TRUNC(SYSDATE)
+				AND 	FLAG != 4
 			) A,
 			(SELECT CODE, NAME FROM PACKAGING) B,
 			(SELECT CODE, NAME FROM PACKAGING_ITEM) C 
@@ -220,7 +229,54 @@
 			ORDER BY A.BUYDATE DESC, A.RDATE DESC
 		)
 	)
-	WHERE 1=1
-	<!--  	AND RNUM BETWEEN #{startRow} AND #{endRow} -->
+	WHERE 	1=1
+	AND 	RNUM BETWEEN #{startRow} AND #{endRow}
 	</select>
+
+	<!-- 등록일자 기준 총 부자재 주문 건수 -->
+	<select id="getIndatePackTotalRow" resultType="java.lang.Integer">
+	SELECT 	COUNT(*)
+	FROM 	PURCH_PACK
+	WHERE	FLAG != 4
+	AND		TRUNC(RDATE) = TRUNC(SYSDATE)
+	</select>
+	
+	<!-- 	주문번호에 의한 부자재 구매 or 입출고 정보 가져오기 -->
+	<select id="selectPackInfoByCno" resultType="com.hongsi.purchpack.vo.PurchPackVO">
+	SELECT			
+			CNO,
+			BUYDATE,
+			BUYER,
+			PACK_CODE,
+			CODE,
+			QTY,
+			PRICE,
+			PURSHOP,
+			INDATE,
+			GUBUN,
+			COMM,
+			RDATE
+	FROM PURCH_PACK
+	WHERE 	FLAG != 4
+	AND		CNO = #{cno}	
+	</select>	
+
+	<!-- 부자재 구매 or 입출고 정보 수정 처리 -->
+	<update id="updatePack">
+	UPDATE 	PURCH_PACK
+	SET		BUYDATE = #{buyDate},		
+			BUYER 	= #{buyer},
+			PACK_CODE = #{pack_code},
+			CODE 	= #{code},
+			QTY 	= #{qty},
+			PRICE	= #{price},
+			PURSHOP = #{purShop},
+			INDATE 	= #{inDate, jdbcType=DATE},					
+			GUBUN 	= #{gubun},
+			COMM 	= #{comm},
+			FLAG 	= 2,
+			UDATE 	= SYSDATE
+	WHERE 	CNO 	= #{cno}
+	AND		FLAG 	!= 4
+	</update>	
 </mapper>

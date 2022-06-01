@@ -20,7 +20,7 @@
 		
 		//alert(cno);
 		var w = 1000;
-		var h = 600;
+		var h = 470;
 		let query = "&page="+${pageObject.page}+"&perPageNum="+${pageObject.perPageNum};
 		var url = "../view/packModify.do?cno="+cno+"&locate=2"+query;
 		
@@ -36,6 +36,8 @@
 <body>
 <div class="container">
 <div class="col-md-12">
+	<input type="hidden" name="page" id="page" value="1">
+	<input type="hidden" name="perPageNum" id="perPageNum" value="${pageObject.perPageNum}">
   <table class="table table-striped">
     <thead>
     	<tr>
